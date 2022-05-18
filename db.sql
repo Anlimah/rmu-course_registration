@@ -3,7 +3,7 @@ CREATE TABLE `applicant_details` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
     `first_name` VARCHAR(50) NOT NULL,
     `last_name` VARCHAR(50) NOT NULL,
-    `email_address` VARCHAR(50) NOT NULL,
+    `email_address` VARCHAR(50) UNIQUE NOT NULL,
     `phone_number` VARCHAR(10) NOT NULL,
     `submitted_at` DATETIME DEFAULT CURRENT_TIMESTAMP
 );
