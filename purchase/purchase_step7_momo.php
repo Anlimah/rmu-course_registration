@@ -1,8 +1,8 @@
 <?php
 session_start();
-if (!isset($_SESSION["_step1Token"])) {
+if (!isset($_SESSION["_step7MomoToken"])) {
     $rstrong = true;
-    $_SESSION["_step1Token"] = hash('sha256', bin2hex(openssl_random_pseudo_bytes(64, $rstrong)));
+    $_SESSION["_step7MomoToken"] = hash('sha256', bin2hex(openssl_random_pseudo_bytes(64, $rstrong)));
 }
 ?>
 <!DOCTYPE html>
@@ -19,11 +19,19 @@ if (!isset($_SESSION["_step1Token"])) {
 <body>
     <img src="../images/RMU-LOG.png" alt="RMU LOG">
     <h1>Step 7</h1>
-    <p>
-        Please check your phone and confirm your purchase of Degree/Diploma forms.
-        After confirmation, your application number and PIN code will be sent to your email address.
-        <a href="../apply/">Click here</a> to continue.
-    </p>
+    <form action="#" id="step1Form" method="post" enctype="multipart/form-data">
+        <div>
+            <label for="momo_agent">MoMo Number</label>
+            <select name="momo_agent" id="momo_agent">
+                <option value="AIRTELTIGO">AIRTELTIGO</option>
+                <option value="MTN" selected>MTN</option>
+                <option value="VODAFONE">VODAFONE</option>
+            </select>
+            <input type="tel" name="momo_number" id="momo_number" placeholder="0244123123">
+        </div>
+        <button type="submit">Pay</button>
+        <input type="hidden" name="_v7MomoToken" value="<?php echo $_SESSION["_step7MomoToken"]; ?>">
+    </form>
 
 
     <script src="../js/jquery-3.6.0.min.js"></script>
@@ -31,25 +39,27 @@ if (!isset($_SESSION["_step1Token"])) {
         $(document).ready(function() {
             $("#step1Form").on("submit", function(e) {
                 e.preventDefault();
-                //window.location.href = "purchase_step2.php";
-                /*$.ajax({
+                $.ajax({
                     type: "POST",
-                    url: "api/verifyApplicant",
+                    url: "../api/verifyStep7Momo",
                     data: new FormData(this),
                     contentType: false,
                     cache: false,
                     processData: false,
                     success: function(result) {
-                        result = JSON.parse(result);
-                        if (result["response"] == "success") {
-                            console.log(result['msg']);
+                        console.log(result);
+                        if (result) {
+                            window.location.href = 'purchase_confirm.php';
+                        }
+                        /*if (res["response"] == "success") {
+                            console.log(res['msg']);
                             window.location.href = 'verify-code.php'
                         } else {
-                            console.log(result['msg']);
-                        }
+                            console.log(res['msg']);
+                        }*/
                     },
                     error: function(error) {}
-                });*/
+                });
             });
         });
     </script>

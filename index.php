@@ -11,8 +11,8 @@
 
 <body>
     <ul>
-        <li><a href="purchases.php">Purchase PIN CODE</a></li>
-        <li><a href="apply.php">Application Form</a></li>
+        <li><a href="purchase/purchase_step1.php">Purchase PIN CODE</a></li>
+        <li><a href="apply/">Application Form</a></li>
     </ul>
 </body>
 

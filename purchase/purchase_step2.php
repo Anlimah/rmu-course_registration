@@ -1,8 +1,8 @@
 <?php
 session_start();
-if (!isset($_SESSION["_step1Token"])) {
+if (!isset($_SESSION["_step2Token"])) {
     $rstrong = true;
-    $_SESSION["_step1Token"] = hash('sha256', bin2hex(openssl_random_pseudo_bytes(64, $rstrong)));
+    $_SESSION["_step2Token"] = hash('sha256', bin2hex(openssl_random_pseudo_bytes(64, $rstrong)));
 }
 ?>
 <!DOCTYPE html>
@@ -13,19 +13,19 @@ if (!isset($_SESSION["_step1Token"])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Purchases</title>
-    
+
 </head>
 
 <body>
     <img src="../images/RMU-LOG.png" alt="RMU LOG">
-    <h1>step 6</h1>
+    <h1>step 2</h1>
     <form action="#" id="step1Form" method="post" enctype="multipart/form-data">
         <div>
             <label for="email_addr">Email Address</label>
-            <input type="email" name="email_addr" id="email_addr" placeholder="surname@gmail.com">
+            <input type="email" name="email_address" id="email_address" placeholder="surname@gmail.com">
         </div>
-        <button type="continue">Continue</button>
-        <input type="hidden" name="_vToken" value="<?php echo $_SESSION["_step1Token"]; ?>">
+        <button type="submit">Continue</button>
+        <input type="hidden" name="_v2Token" value="<?php echo $_SESSION["_step2Token"]; ?>">
     </form>
 
     <script src="../js/jquery-3.6.0.min.js"></script>
@@ -33,25 +33,27 @@ if (!isset($_SESSION["_step1Token"])) {
         $(document).ready(function() {
             $("#step1Form").on("submit", function(e) {
                 e.preventDefault();
-                window.location.href = "purchase_step3.php";
-                /*$.ajax({
+                $.ajax({
                     type: "POST",
-                    url: "api/verifyApplicant",
+                    url: "../api/verifyStep2",
                     data: new FormData(this),
                     contentType: false,
                     cache: false,
                     processData: false,
                     success: function(result) {
-                        result = JSON.parse(result);
-                        if (result["response"] == "success") {
-                            console.log(result['msg']);
+                        console.log(result);
+                        if (result) {
+                            window.location.href = 'purchase_step3.php';
+                        }
+                        /*if (res["response"] == "success") {
+                            console.log(res['msg']);
                             window.location.href = 'verify-code.php'
                         } else {
-                            console.log(result['msg']);
-                        }
+                            console.log(res['msg']);
+                        }*/
                     },
                     error: function(error) {}
-                });*/
+                });
             });
         });
     </script>

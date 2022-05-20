@@ -1,8 +1,8 @@
 <?php
 session_start();
-if (!isset($_SESSION["_step1Token"])) {
+if (!isset($_SESSION["_step6Token"])) {
     $rstrong = true;
-    $_SESSION["_step1Token"] = hash('sha256', bin2hex(openssl_random_pseudo_bytes(64, $rstrong)));
+    $_SESSION["_step6Token"] = hash('sha256', bin2hex(openssl_random_pseudo_bytes(64, $rstrong)));
 }
 ?>
 <!DOCTYPE html>
@@ -35,8 +35,8 @@ if (!isset($_SESSION["_step1Token"])) {
                 <option value="Bank">Bank</option>
             </select>
         </div>
-        <button type="continue">Continue</button>
-        <input type="hidden" name="_vToken" value="<?php echo $_SESSION["_step1Token"]; ?>">
+        <button type="submit">Continue</button>
+        <input type="hidden" name="_v6Token" value="<?php echo $_SESSION["_step6Token"]; ?>">
     </form>
 
     <script src="../js/jquery-3.6.0.min.js"></script>
@@ -44,31 +44,25 @@ if (!isset($_SESSION["_step1Token"])) {
         $(document).ready(function() {
             $("#step1Form").on("submit", function(e) {
                 e.preventDefault();
-
-                if ($("#app_method").val() == "Bank") {
-                    window.location.href = "purchase_step7_bank.php";
-                } else if ($("#app_method").val() == "Momo") {
-                    window.location.href = "purchase_step7_momo.php";
-                }
-                //window.location.href = "purchase_step2.php";
-                /*$.ajax({
+                $.ajax({
                     type: "POST",
-                    url: "api/verifyApplicant",
+                    url: "../api/verifyStep6",
                     data: new FormData(this),
                     contentType: false,
                     cache: false,
                     processData: false,
                     success: function(result) {
-                        result = JSON.parse(result);
-                        if (result["response"] == "success") {
-                            console.log(result['msg']);
-                            window.location.href = 'verify-code.php'
-                        } else {
-                            console.log(result['msg']);
+                        console.log(result);
+                        if (result) {
+                            if ($("#app_method").val() == "Bank") {
+                                window.location.href = "purchase_step7_bank.php";
+                            } else if ($("#app_method").val() == "Momo") {
+                                window.location.href = "purchase_step7_momo.php";
+                            }
                         }
                     },
                     error: function(error) {}
-                });*/
+                });
             });
         });
     </script>

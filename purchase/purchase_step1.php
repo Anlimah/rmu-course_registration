@@ -29,7 +29,7 @@ if (!isset($_SESSION["_step1Token"])) {
             <label for="gender">Gender</label>
             <select name="gender" id="gender">
                 <option value="Male" selected>Male</option>
-                <option value="Female">Male</option>
+                <option value="Female">Female</option>
             </select>
         </div>
         <div>
@@ -47,8 +47,8 @@ if (!isset($_SESSION["_step1Token"])) {
                 <option value="Other">Other</option>
             </select>
         </div>
-        <button type="continue">Continue</button>
-        <input type="hidden" name="_vToken" value="<?php echo $_SESSION["_step1Token"]; ?>">
+        <button type="submit">Continue</button>
+        <input type="hidden" name="_v1Token" value="<?php echo $_SESSION["_step1Token"]; ?>">
     </form>
 
     <script src="../js/jquery-3.6.0.min.js"></script>
@@ -65,14 +65,16 @@ if (!isset($_SESSION["_step1Token"])) {
                     cache: false,
                     processData: false,
                     success: function(result) {
-                        res = JSON.parse(result);
-                        console.log(res);
-                        if (res["response"] == "success") {
+                        console.log(result);
+                        if (result) {
+                            window.location.href = 'purchase_step2.php';
+                        }
+                        /*if (res["response"] == "success") {
                             console.log(res['msg']);
                             window.location.href = 'verify-code.php'
                         } else {
                             console.log(res['msg']);
-                        }
+                        }*/
                     },
                     error: function(error) {}
                 });

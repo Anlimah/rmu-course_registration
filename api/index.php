@@ -11,14 +11,21 @@ use Src\Controller\RegistrationController;
 
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: OPTIONS,GET,POST,PUT,DELETE");
+header("Access-Control-Allow-Methods: GET,POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
 $user = new RegistrationController();
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
-
+	if ($_GET["url"] == "verifyStepFinal") {
+		$arr = array();
+		array_push($arr, $_SESSION["step1"], $_SESSION["step2"], $_SESSION["step4"], $_SESSION["step6"], $_SESSION["step7"]);
+		echo json_encode($arr);
+		//verify all sessions
+		//save all user data
+		//echo success message
+	}
 	// All POST request will be sent here
 } elseif ($_SERVER['REQUEST_METHOD'] == "POST") {
 
@@ -27,8 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		$message = array("response" => "error", "msg" => "Invalid request!");
 
 		if (isset($_SESSION["_step1Token"]) && !empty($_SESSION["_step1Token"])) {
-			if (isset($_POST["_vToken"]) && !empty($_POST["_vToken"])) {
-				if ($_POST["_vToken"] != $_SESSION["_step1Token"]) {
+			if (isset($_POST["_v1Token"]) && !empty($_POST["_v1Token"])) {
+				if ($_POST["_v1Token"] != $_SESSION["_step1Token"]) {
 					die(json_encode($message));
 				} else {
 					$full_name = $user->validateInput($_POST["full_name"]);
@@ -36,32 +43,8 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 					$dob = $user->validateInput($_POST["dob"]);
 					$country = $user->validateInput($_POST["country"]);
 
-					$_SESSION["register"] = array();
-					array_push($_SESSION["register"], $full_name, $gender, $dob, $country);
-					echo json_encode($_SESSION["register"]);
-
-					/*$user_id = $user->saveApplicantDetails($first_name, $last_name, $phone_num, $email_addr);
-					if ($user_id) {
-						if ($_POST["h_verify"] == "email") {
-							// send email and prompt user
-							if ($user->sendEmail($email_addr, $user_id)) {
-								die(json_encode(array('response' => 'success', 'msg' => 'A 6 digit code has been sent to ' . $email_addr . '.')));
-							} else {
-								die(json_encode(array('response' => 'error', 'msg' => 'Failed to send mail!')));
-							}
-						} elseif ($_POST["h_verify"] == "phone") {
-							// send SMS and prompt
-							if ($user->sendSMS($phone_num, $user_id)) {
-								die(json_encode(array('response' => 'success', 'msg' => 'A 6 digit code has been sent to ' . $phone_num . '.')));
-							} else {
-								die(json_encode(array('response' => 'error', 'msg' => 'Failed to send SMS!')));
-							}
-						} else {
-							die(json_encode($message));
-						}
-					} else {
-						die(json_encode(array('response' => 'error', 'msg' => 'Internal server error!')));
-					}*/
+					$_SESSION["step1"] = array("full_name" => $full_name, "gender" => $gender, "dob" => $dob, "country" => $country);
+					echo json_encode($_SESSION["step1"]);
 				}
 			} else {
 				die(json_encode($message));
@@ -69,21 +52,136 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		} else {
 			die(json_encode($message));
 		}
-	}
-
-	// verify code or email sent to SMS or email
-	if ($_GET["url"] == "verifyApplicantCode") {
+	} elseif ($_GET["url"] == "verifyStep2") {
 		$message = array("response" => "error", "msg" => "Invalid request!");
 
-		if (isset($_SESSION["_codeVToken"]) && !empty($_SESSION["_codeVToken"])) {
-			if (isset($_POST["_cToken"]) && !empty($_POST["_cToken"])) {
-				if ($_POST["_cToken"] == $_SESSION["_codeVToken"]) {
-					$code = $_POST["num1"] . $_POST["num2"] . $_POST["num3"] . $_POST["num4"] . $_POST["num5"] . $_POST["num6"];
-					//verify code
-					//if it match 
-					die(json_encode(array("response" => "success", "msg" => $code)));
-				} else {
+		if (isset($_SESSION["_step2Token"]) && !empty($_SESSION["_step2Token"])) {
+			if (isset($_POST["_v2Token"]) && !empty($_POST["_v2Token"])) {
+				if ($_POST["_v2Token"] != $_SESSION["_step2Token"]) {
 					die(json_encode($message));
+				} else {
+					$_SESSION["step2"] = array("email_address" => $user->validateInput($_POST["email_address"]));
+					echo json_encode($_SESSION["step2"]);
+				}
+			} else {
+				die(json_encode($message));
+			}
+		} else {
+			die(json_encode($message));
+		}
+	} elseif ($_GET["url"] == "verifyStep3") {
+		$message = array("response" => "error", "msg" => "Invalid request!");
+
+		if (isset($_SESSION["_step3Token"]) && !empty($_SESSION["_step3Token"])) {
+			if (isset($_POST["_v3Token"]) && !empty($_POST["_v3Token"])) {
+				if ($_POST["_v3Token"] != $_SESSION["_step3Token"]) {
+					die(json_encode($message));
+				} else {
+					if ($_POST["num"]) {
+						$otp = "";
+						foreach ($_POST["num"] as $num) {
+							$otp .= $num;
+						}
+						echo json_encode(array("otp" => $otp));
+					}
+				}
+			} else {
+				die(json_encode($message));
+			}
+		} else {
+			die(json_encode($message));
+		}
+	} elseif ($_GET["url"] == "verifyStep4") {
+		$message = array("response" => "error", "msg" => "Invalid request!");
+
+		if (isset($_SESSION["_step4Token"]) && !empty($_SESSION["_step4Token"])) {
+			if (isset($_POST["_v4Token"]) && !empty($_POST["_v4Token"])) {
+				if ($_POST["_v4Token"] != $_SESSION["_step4Token"]) {
+					die(json_encode($message));
+				} else {
+					$_SESSION["step4"] = array("phone_number" => $user->validateInput($_POST["phone_number"]));
+					echo json_encode($_SESSION["step4"]);
+				}
+			} else {
+				die(json_encode($message));
+			}
+		} else {
+			die(json_encode($message));
+		}
+	} elseif ($_GET["url"] == "verifyStep5") {
+		$message = array("response" => "error", "msg" => "Invalid request!");
+
+		if (isset($_SESSION["_step5Token"]) && !empty($_SESSION["_step5Token"])) {
+			if (isset($_POST["_v5Token"]) && !empty($_POST["_v5Token"])) {
+				if ($_POST["_v5Token"] != $_SESSION["_step5Token"]) {
+					die(json_encode($message));
+				} else {
+					if ($_POST["code"]) {
+						$otp = "";
+						foreach ($_POST["code"] as $code) {
+							$otp .= $code;
+						}
+						echo json_encode(array("otp" => $otp));
+					}
+				}
+			} else {
+				die(json_encode($message));
+			}
+		} else {
+			die(json_encode($message));
+		}
+	} elseif ($_GET["url"] == "verifyStep6") {
+		$message = array("response" => "error", "msg" => "Invalid request!");
+
+		if (isset($_SESSION["_step6Token"]) && !empty($_SESSION["_step6Token"])) {
+			if (isset($_POST["_v6Token"]) && !empty($_POST["_v6Token"])) {
+				if ($_POST["_v6Token"] != $_SESSION["_step6Token"]) {
+					die(json_encode($message));
+				} else {
+					$app_type = $user->validateInput($_POST["app_type"]);
+					$app_method = $user->validateInput($_POST["app_method"]);
+					$_SESSION["step6"] = array("app_type" => $app_type, "app_method" => $app_method);
+					echo json_encode($_SESSION["step6"]);
+				}
+			} else {
+				die(json_encode($message));
+			}
+		} else {
+			die(json_encode($message));
+		}
+	} elseif ($_GET["url"] == "verifyStep7Momo") {
+		$message = array("response" => "error", "msg" => "Invalid request!");
+
+		if (isset($_SESSION["_step7MomoToken"]) && !empty($_SESSION["_step7MomoToken"])) {
+			if (isset($_POST["_v7MomoToken"]) && !empty($_POST["_v7MomoToken"])) {
+				if ($_POST["_v7MomoToken"] != $_SESSION["_step7MomoToken"]) {
+					die(json_encode($message));
+				} else {
+					$momo_agent = $user->validateInput($_POST["momo_agent"]);
+					$momo_number = $user->validateInput($_POST["momo_number"]);
+					$_SESSION["step7"] = array("momo_agent" => $momo_agent, "momo_number" => $momo_number);
+					echo json_encode($_SESSION["step7"]);
+				}
+			} else {
+				die(json_encode($message));
+			}
+		} else {
+			die(json_encode($message));
+		}
+	} elseif ($_GET["url"] == "verifyStep7Bank") {
+		$message = array("response" => "error", "msg" => "Invalid request!");
+
+		if (isset($_SESSION["_step7BankToken"]) && !empty($_SESSION["_step7BankToken"])) {
+			if (isset($_POST["_v7BankToken"]) && !empty($_POST["_v7BankToken"])) {
+				if ($_POST["_v7BankToken"] != $_SESSION["_step7BankToken"]) {
+					die(json_encode($message));
+				} else {
+					$country = $user->validateInput($_POST["country"]);
+					$bank = $user->validateInput($_POST["bank"]);
+					$account_number = $user->validateInput($_POST["account_number"]);
+					$amount = $user->validateInput($_POST["amount"]);
+					$_SESSION["step7"] = array("country" => $country, "bank" => $bank, "account_number" => $account_number, "amount" => $amount);
+					echo json_encode($_SESSION["step7"]);
 				}
 			} else {
 				die(json_encode($message));
@@ -92,8 +190,6 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			die(json_encode($message));
 		}
 	}
-} elseif ($_SERVER['REQUEST_METHOD'] == "PUT") {
-} elseif ($_SERVER['REQUEST_METHOD'] == "DELETE") {
 } else {
 	http_response_code(405);
 }
