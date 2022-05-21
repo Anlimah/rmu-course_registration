@@ -12,6 +12,7 @@
     <ul>
         <li><a href="purchase/purchase_step1.php">Purchase PIN CODE</a></li>
         <li><a href="apply/">Application Form</a></li>
+        <li>List 3</li>
     </ul>
 </body>
 
