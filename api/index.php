@@ -19,6 +19,7 @@ $user = new RegistrationController();
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	if ($_GET["url"] == "verifyStepFinal") {
+		//echo json_encode($user->getAllProInfo());
 		$arr = array();
 		array_push($arr, $_SESSION["step1"], $_SESSION["step2"], $_SESSION["step4"], $_SESSION["step6"], $_SESSION["step7"]);
 		echo json_encode($arr);

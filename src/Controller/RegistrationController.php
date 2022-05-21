@@ -85,6 +85,13 @@ class RegistrationController extends DatabaseMethods
         return $this->getData($sql, $params);
     }
 
+    //get one student data(uses student db id)
+    public function getAllProInfo()
+    {
+        $sql = "SELECT * FROM `applicant_details`";
+        return $this->getData($sql);
+    }
+
     public function generateCode($user_id)
     {
         $rslt = 1;
