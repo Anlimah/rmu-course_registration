@@ -1,5 +1,7 @@
 <?php
 
+require_once('../../vendor/flutterwavedev/flutterwave-v3/library/raveEventHandlerInterface.php');
+
 use Flutterwave\EventHandlerInterface;
 
 // This is where you set how you want to handle the transaction at different stages

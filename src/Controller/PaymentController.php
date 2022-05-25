@@ -2,8 +2,10 @@
 // Prevent direct access to this class
 define("BASEPATH", 1);
 
-include('library/rave.php');
-include('library/raveEventHandlerInterface.php');
+require_once("../../bootstrap.php");
+
+include('../../vendor/flutterwavedev/flutterwave-v3/library/rave.php');
+include('../../vendor/flutterwavedev/flutterwave-v3/library/raveEventHandlerInterface.php');
 
 use Flutterwave\Rave;
 
@@ -26,7 +28,7 @@ if ($postData['amount']) {
     $_SESSION['amount'] = $postData['amount'];
 }
 
-$prefix = 'RV'; // Change this to the name of your business or app
+$prefix = 'RMU'; // Change this to the name of your business or app
 $overrideRef = false;
 
 // Uncomment here to enforce the useage of your own ref else a ref will be generated for you automatically
@@ -37,14 +39,7 @@ if ($postData['ref']) {
 
 $payment = new Rave($_SESSION['secretKey'], $prefix, $overrideRef);
 
-function getURL($url, $data = array())
-{
-    $urlArr = explode('?', $url);
-    $params = array_merge($_GET, $data);
-    $new_query_string = http_build_query($params) . '&' . $urlArr[1];
-    $newUrl = $urlArr[0] . '?' . $new_query_string;
-    return $newUrl;
-};
+// get url function
 
 if ($postData['amount']) {
     // Make payment
@@ -81,7 +76,7 @@ if ($postData['amount']) {
             ->eventHandler(new myEventHandler)
             ->requeryTransaction($getData['tx_ref']);
     } else {
-        $payment->logger->warn('Stop!!! Please pass the txref parameter!');
+        $payment->logger->warning('Stop!!! Please pass the txref parameter!');
         echo 'Stop!!! Please pass the txref parameter!';
     }
 }

@@ -1,13 +1,12 @@
 <?php
-ini_set('session.use_strict_mode', 1);
 session_start();
-require_once("../src/System/SessionSettings.php");
+/*require_once("../src/System/SessionSettings.php");
 
 $session = new SessionSettings();
 $session->my_session_start();
 $session->my_session_regenerate_id();
 
-echo $_SESSION['new_session_id'];
+echo $_SESSION['new_session_id'];*/
 
 if (!isset($_SESSION["_step1Token"])) {
     $rstrong = true;

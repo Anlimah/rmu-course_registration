@@ -190,6 +190,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		} else {
 			die(json_encode($message));
 		}
+	} elseif ($_GET[''] == '') {
 	}
 } else {
 	http_response_code(405);
