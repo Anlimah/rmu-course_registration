@@ -1,9 +1,14 @@
 <?php
 session_start();
-if (!isset($_SESSION["_step2Token"])) {
-    $rstrong = true;
-    $_SESSION["_step2Token"] = hash('sha256', bin2hex(openssl_random_pseudo_bytes(64, $rstrong)));
+if (isset($_SESSION['step1Done']) && $_SESSION['step1Done'] == true) {
+    if (!isset($_SESSION["_step2Token"])) {
+        $rstrong = true;
+        $_SESSION["_step2Token"] = hash('sha256', bin2hex(openssl_random_pseudo_bytes(64, $rstrong)));
+    }
+} else {
+    header('Location: purchase_step1.php');
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

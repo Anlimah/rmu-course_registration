@@ -22,8 +22,8 @@ class PaymentSubController
 
 
     /**
-     * @param string
-     * @param int
+     * @param mixed $code
+     * @param int $fetchByCode
      * @return array
      */
     public function getBanks($code, $fetchByCode = 0)
@@ -54,7 +54,7 @@ class PaymentSubController
         $response = curl_exec($curl);
 
         curl_close($curl);
-        echo json_encode($response);
+        return json_decode($response);
     }
 
     /**

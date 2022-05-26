@@ -1,9 +1,14 @@
 <?php
 session_start();
-if (!isset($_SESSION["_step7MomoToken"])) {
-    $rstrong = true;
-    $_SESSION["_step7MomoToken"] = hash('sha256', bin2hex(openssl_random_pseudo_bytes(64, $rstrong)));
+if (isset($_SESSION['step6Done']) && $_SESSION['step6Done'] == true) {
+    if (!isset($_SESSION["_step7MomoToken"])) {
+        $rstrong = true;
+        $_SESSION["_step7MomoToken"] = hash('sha256', bin2hex(openssl_random_pseudo_bytes(64, $rstrong)));
+    }
+} else {
+    header('Location: purchase_step6.php');
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,7 +24,13 @@ if (!isset($_SESSION["_step7MomoToken"])) {
 <body>
     <img src="../images/RMU-LOG.png" alt="RMU LOG">
     <h1>Step 7</h1>
-    <form action="#" id="step1Form" method="post" enctype="multipart/form-data">
+    <form action="../endpoints/PaymentEndPoint.php" id="step1Form" method="post" enctype="multipart/form-data">
+        <p>
+            Paying <b>
+                <span><?= $_SESSION["step6"]["amount"] ?></span>
+            </b> for
+            <b><span><?= $_SESSION["step6"]["form_type"] ?></span></b> application forms.
+        </p>
         <div>
             <label for="momo_agent">MoMo Number</label>
             <select name="momo_agent" id="momo_agent">
@@ -31,12 +42,13 @@ if (!isset($_SESSION["_step7MomoToken"])) {
         </div>
         <button type="submit">Pay</button>
         <input type="hidden" name="_v7MomoToken" value="<?php echo $_SESSION["_step7MomoToken"]; ?>">
+        <input type="hidden" name="country" value="GH">
     </form>
 
 
     <script src="../js/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function() {
+        /*$(document).ready(function() {
             $("#step1Form").on("submit", function(e) {
                 e.preventDefault();
                 $.ajax({
@@ -51,17 +63,17 @@ if (!isset($_SESSION["_step7MomoToken"])) {
                         if (result) {
                             window.location.href = 'purchase_confirm.php';
                         }
-                        /*if (res["response"] == "success") {
+                        if (res["response"] == "success") {
                             console.log(res['msg']);
                             window.location.href = 'verify-code.php'
                         } else {
                             console.log(res['msg']);
-                        }*/
+                        }
                     },
                     error: function(error) {}
                 });
             });
-        });
+        });*/
     </script>
 </body>
 

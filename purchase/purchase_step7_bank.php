@@ -1,9 +1,14 @@
 <?php
 session_start();
-if (!isset($_SESSION["_step7BankToken"])) {
-    $rstrong = true;
-    $_SESSION["_step7BankToken"] = hash('sha256', bin2hex(openssl_random_pseudo_bytes(64, $rstrong)));
+if (isset($_SESSION['step6Done']) && $_SESSION['step6Done'] == true) {
+    if (!isset($_SESSION["_step7BankToken"])) {
+        $rstrong = true;
+        $_SESSION["_step7BankToken"] = hash('sha256', bin2hex(openssl_random_pseudo_bytes(64, $rstrong)));
+    }
+} else {
+    header('Location: purchase_step6.php');
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,15 +25,21 @@ if (!isset($_SESSION["_step7BankToken"])) {
     <img src="../images/RMU-LOG.png" alt="RMU LOG">
     <h1>Step 7</h1>
 
-    <form action="#" id="step1Form" method="post" enctype="multipart/form-data">
+    <form action="../endpoints/PaymentEndPoint.php" id="step1Form" method="post" enctype="multipart/form-data">
+        <p>
+            Paying <b>
+                <span><?= $_SESSION["step6"]["amount"] ?></span>
+            </b> for
+            <b><span><?= $_SESSION["step6"]["form_type"] ?></span></b> application forms.
+        </p>
         <div>
             <label for="country">Country</label>
             <select name="country" id="country">
-                <option value="Cameroun">Cameroun</option>
-                <option value="Gambia">Gambia</option>
-                <option value="Ghana" selected>Ghana</option>
-                <option value="Serria Leone">Serria Leone</option>
-                <option value="Liberia">Liberia</option>
+                <option value="CA">Cameroun</option>
+                <option value="GA">Gambia</option>
+                <option value="GH" selected>Ghana</option>
+                <option value="SL">Serria Leone</option>
+                <option value="LI">Liberia</option>
                 <option value="Other">Other</option>
             </select>
         </div>
@@ -47,18 +58,13 @@ if (!isset($_SESSION["_step7BankToken"])) {
             <label for="account_number">Account number</label>
             <input type="password" maxlength="14" name="account_number" id="account_number" placeholder="XXXXXXXXXXXXXX">
         </div>
-        <div>
-            <label for="amount">Amount</label>
-            <input type="text" name="amount" id="amount" placeholder="0">
-        </div>
         <button type="submit">Pay</button>
         <input type="hidden" name="_v7BankToken" value="<?php echo $_SESSION["_step7BankToken"]; ?>">
     </form>
 
-
     <script src="../js/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function() {
+        /*$(document).ready(function() {
             $("#step1Form").on("submit", function(e) {
                 e.preventDefault();
                 $.ajax({
@@ -70,20 +76,20 @@ if (!isset($_SESSION["_step7BankToken"])) {
                     processData: false,
                     success: function(result) {
                         console.log(result);
-                        if (result) {
+                        /*if (result) {
                             window.location.href = 'purchase_confirm.php';
                         }
-                        /*if (res["response"] == "success") {
+                        if (res["response"] == "success") {
                             console.log(res['msg']);
                             window.location.href = 'verify-code.php'
                         } else {
                             console.log(res['msg']);
-                        }*/
-                    },
-                    error: function(error) {}
-                });
-            });
+                        }
+        },
+        error: function(error) {}
         });
+        });
+        });*/
     </script>
 </body>
 

@@ -30,8 +30,10 @@ if (!isset($_SESSION["_step1Token"])) {
     <h1>Step 1</h1>
     <form action="#" id="step1Form" method="post" enctype="multipart/form-data">
         <div>
-            <label for="full_name">Full Name</label>
-            <input type="text" name="full_name" id="full_name" placeholder="Type your first name">
+            <label for="first_name">First Name</label>
+            <input type="text" name="first_name" id="first_name" placeholder="Type your first name">
+            <label for="last_name">Last Name</label>
+            <input type="text" name="last_name" id="last_name" placeholder="Type your first name">
         </div>
         <div>
             <label for="gender">Gender</label>

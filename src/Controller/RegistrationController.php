@@ -30,6 +30,13 @@ class RegistrationController extends DatabaseMethods
         //send SMS
     }
 
+    public function getFormPrice(string $form_type)
+    {
+        if (!empty($form_type)) {
+            return $this->getData("SELECT amount FROM application_type WHERE title LIKE '%$form_type%'");
+        }
+    }
+
     public function saveApplicantDetails($fn, $ln, $pn, $ea)
     {
         $sql = "INSERT INTO `applicant_details` (`first_name`, `last_name`, `phone_number`, `email_address`)  

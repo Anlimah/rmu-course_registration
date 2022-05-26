@@ -1,9 +1,14 @@
 <?php
 session_start();
-if (!isset($_SESSION["_step6Token"])) {
-    $rstrong = true;
-    $_SESSION["_step6Token"] = hash('sha256', bin2hex(openssl_random_pseudo_bytes(64, $rstrong)));
+if (isset($_SESSION['step5Done']) && $_SESSION['step5Done'] == true) {
+    if (!isset($_SESSION["_step6Token"])) {
+        $rstrong = true;
+        $_SESSION["_step6Token"] = hash('sha256', bin2hex(openssl_random_pseudo_bytes(64, $rstrong)));
+    }
+} else {
+    header('Location: purchase_step5.php');
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,16 +26,16 @@ if (!isset($_SESSION["_step6Token"])) {
     <h1>Step 6</h1>
     <form action="#" id="step1Form" method="post" enctype="multipart/form-data">
         <div>
-            <label for="gender">Application type</label>
-            <select name="app_type" id="app_type">
-                <option value="Degree" selected>Degree/diploma</option>
+            <label for="gender">Form type</label>
+            <select name="form_type" id="form_type">
+                <option value="Degree/diploma" selected>Degree/diploma</option>
                 <option value="Masters">Masters</option>
                 <option value="Short">Short courses</option>
             </select>
         </div>
         <div>
             <label for="gender">Payment Method</label>
-            <select name="app_method" id="app_method">
+            <select name="pay_method" id="pay_method">
                 <option value="Momo" selected>Mobile Money</option>
                 <option value="Bank">Bank</option>
             </select>
@@ -54,9 +59,9 @@ if (!isset($_SESSION["_step6Token"])) {
                     success: function(result) {
                         console.log(result);
                         if (result) {
-                            if ($("#app_method").val() == "Bank") {
+                            if ($("#pay_method").val() == "Bank") {
                                 window.location.href = "purchase_step7_bank.php";
-                            } else if ($("#app_method").val() == "Momo") {
+                            } else if ($("#pay_method").val() == "Momo") {
                                 window.location.href = "purchase_step7_momo.php";
                             }
                         }

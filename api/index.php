@@ -39,13 +39,21 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 				if ($_POST["_v1Token"] != $_SESSION["_step1Token"]) {
 					die(json_encode($message));
 				} else {
-					$full_name = $user->validateInput($_POST["full_name"]);
+					$first_name = $user->validateInput($_POST["first_name"]);
+					$last_name = $user->validateInput($_POST["last_name"]);
 					$gender = $user->validateInput($_POST["gender"]);
 					$dob = $user->validateInput($_POST["dob"]);
 					$country = $user->validateInput($_POST["country"]);
 
-					$_SESSION["step1"] = array("full_name" => $full_name, "gender" => $gender, "dob" => $dob, "country" => $country);
+					$_SESSION["step1"] = array(
+						"first_name" => $first_name,
+						"last_name" => $last_name,
+						"gender" => $gender,
+						"dob" => $dob,
+						"country" => $country
+					);
 					echo json_encode($_SESSION["step1"]);
+					$_SESSION['step1Done'] = true;
 				}
 			} else {
 				die(json_encode($message));
@@ -63,6 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 				} else {
 					$_SESSION["step2"] = array("email_address" => $user->validateInput($_POST["email_address"]));
 					echo json_encode($_SESSION["step2"]);
+					$_SESSION['step2Done'] = true;
 				}
 			} else {
 				die(json_encode($message));
@@ -84,6 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 							$otp .= $num;
 						}
 						echo json_encode(array("otp" => $otp));
+						$_SESSION['step3Done'] = true;
 					}
 				}
 			} else {
@@ -102,6 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 				} else {
 					$_SESSION["step4"] = array("phone_number" => $user->validateInput($_POST["phone_number"]));
 					echo json_encode($_SESSION["step4"]);
+					$_SESSION['step4Done'] = true;
 				}
 			} else {
 				die(json_encode($message));
@@ -123,6 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 							$otp .= $code;
 						}
 						echo json_encode(array("otp" => $otp));
+						$_SESSION['step5Done'] = true;
 					}
 				}
 			} else {
@@ -139,10 +151,20 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 				if ($_POST["_v6Token"] != $_SESSION["_step6Token"]) {
 					die(json_encode($message));
 				} else {
-					$app_type = $user->validateInput($_POST["app_type"]);
-					$app_method = $user->validateInput($_POST["app_method"]);
-					$_SESSION["step6"] = array("app_type" => $app_type, "app_method" => $app_method);
-					echo json_encode($_SESSION["step6"]);
+					$form_type = $user->validateInput($_POST["form_type"]);
+					$pay_method = $user->validateInput($_POST["pay_method"]);
+
+					$amount = $user->getFormPrice($form_type)[0]["amount"];
+
+					if ($amount) {
+						$_SESSION["step6"] = array(
+							"form_type" => $form_type,
+							"pay_method" => $pay_method,
+							"amount" => $amount
+						);
+						echo json_encode($_SESSION["step6"]);
+						$_SESSION['step6Done'] = true;
+					}
 				}
 			} else {
 				die(json_encode($message));
@@ -162,6 +184,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 					$momo_number = $user->validateInput($_POST["momo_number"]);
 					$_SESSION["step7"] = array("momo_agent" => $momo_agent, "momo_number" => $momo_number);
 					echo json_encode($_SESSION["step7"]);
+					$_SESSION['step7Done'] = true;
+					//if ($_SESSION['step7Done']) header('Location: ../src/Controller/PaymentController.php');
+					//$user->payViaMomo();
 				}
 			} else {
 				die(json_encode($message));
@@ -177,12 +202,14 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 				if ($_POST["_v7BankToken"] != $_SESSION["_step7BankToken"]) {
 					die(json_encode($message));
 				} else {
-					$country = $user->validateInput($_POST["country"]);
+					$currency = $user->validateInput($_POST["currency"]);
 					$bank = $user->validateInput($_POST["bank"]);
 					$account_number = $user->validateInput($_POST["account_number"]);
-					$amount = $user->validateInput($_POST["amount"]);
-					$_SESSION["step7"] = array("country" => $country, "bank" => $bank, "account_number" => $account_number, "amount" => $amount);
+					$_SESSION["step7"] = array("currency" => $currency, "bank" => $bank, "account_number" => $account_number);
 					echo json_encode($_SESSION["step7"]);
+					$_SESSION['step7Done'] = true;
+					//if ($_SESSION['step7Done']) header('Location: ../src/Controller/PaymentController.php');
+					//$user->payViaBank();
 				}
 			} else {
 				die(json_encode($message));
