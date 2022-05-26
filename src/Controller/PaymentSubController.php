@@ -2,7 +2,7 @@
 
 namespace Src\Controller;
 
-require_once("../../bootstrap.php");
+require_once("../bootstrap.php");
 
 
 class PaymentSubController
@@ -54,7 +54,7 @@ class PaymentSubController
         $response = curl_exec($curl);
 
         curl_close($curl);
-        echo $response;
+        echo json_encode($response);
     }
 
     /**

@@ -1,6 +1,10 @@
 <?php
 session_start();
-require_once("../bootstrap.php");
+require_once("../src/Controller/PaymentSubController.php");
+
+use Src\Controller\PaymentSubController;
+
+$pc = new PaymentSubController();
 ?>
 <!DOCTYPE html>
 <html lang="en">
