@@ -1,34 +1,35 @@
 <?php
 session_start();
-// Prevent direct access to this class
-define("BASEPATH", 1);
+
 require_once('../bootstrap.php');
 
-$payment_opts = '';
+/*$payment_opts = '';
 
 if ($_SESSION["step6"]['pay_method'] == 'Momo') {
     $payment_opts = 'mobilemoneyghana';
 } else {
-    $payment_opts = 'card, account, mobilemoneyghana, banktransfer';
-}
+    $payment_opts = 'account, mobilemoneyghana, banktransfer';
+}*/
 
 $payload = array(
-    'amount' => $_SESSION["step6"]['amount'],
-    'customer' => array(
-        'first_name' => $_SESSION["step1"]['first_name'],
-        'last_name' => $_SESSION["step1"]['last_name'],
-        'email' => $_SESSION["step2"]['email_address'],
-    ),
-    'country' => 'GH',
-    'phone_number' => $_SESSION["step4"]['phone_number'],
-    'payment_options' => $payment_opts,
-    'currency' => 'GHS',
     'tx_ref' => time(),
+    'amount' => $_SESSION["step6"]['amount'],
+    'country' => 'GH',
+    'currency' => 'GHS',
+    'payment_options' => 'card,barter,mobilemoneyghana,banktransfer,account',
+    'redirect_url' => 'https://localhost/rmu_admissions/purchase/purchase_confirm.php',
+    'customer' => array(
+        'name' => $_SESSION["step1"]['first_name'] . " " . $_SESSION["step1"]['last_name'],
+        'email' => $_SESSION["step2"]['email_address'],
+        'phone_number' => $_SESSION["step4"]['phone_number'],
+    ),
     'customizations' => array(
-        'title' => 'Payment sample',
+        'title' => 'RMU admission form',
+        'logo' => 'https://i0.wp.com/galexgh.com/wp-content/uploads/2020/05/download-3.jpeg?fit=225%2C225&ssl=1',
+        'pay_button_text' => 'Pay for forms',
         'description' => 'Paying ' . $_SESSION["step6"]["amount"] . ' for ' . $_SESSION["step6"]["form_type"] . ' application forms.',
     ),
-    'redirect_url' => 'https://localhost/rmu_admissions/purchase/purchase_confirm.php',
+
 );
 
 $curl = curl_init();

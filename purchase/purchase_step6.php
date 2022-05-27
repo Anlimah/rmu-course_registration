@@ -36,8 +36,8 @@ if (isset($_SESSION['step5Done']) && $_SESSION['step5Done'] == true) {
         <div>
             <label for="gender">Payment Method</label>
             <select name="pay_method" id="pay_method">
-                <option value="Momo" selected>Mobile Money</option>
-                <option value="Bank">Bank</option>
+                <option value="Momo" selected>MoMo/Card</option>
+                <option value="Bank">Account deposit</option>
             </select>
         </div>
         <button type="submit">Continue</button>

@@ -1,7 +1,6 @@
 {
     "require": {
-        "vlucas/phpdotenv": "^2.4",
-        "flutterwavedev/flutterwave-v3": "^1.0"
+        "vlucas/phpdotenv": "^2.4"
     },
     "autoload": {
         "psr-4": {
