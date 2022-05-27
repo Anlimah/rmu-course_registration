@@ -60,9 +60,9 @@ if (isset($_SESSION['step5Done']) && $_SESSION['step5Done'] == true) {
                         console.log(result);
                         if (result) {
                             if ($("#pay_method").val() == "Bank") {
-                                window.location.href = "purchase_step7_bank.php";
+                                window.location.href = "../src/Controller/PaymentController.php";
                             } else if ($("#pay_method").val() == "Momo") {
-                                window.location.href = "purchase_step7_momo.php";
+                                window.location.href = "../src/Controller/PaymentController.php";
                             }
                         }
                     },

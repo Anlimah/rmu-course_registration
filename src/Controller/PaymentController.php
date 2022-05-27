@@ -1,18 +1,17 @@
 <?php
-
-use Src\Controller\PaymentGateway;
-
 session_start();
 
 require_once('../../bootstrap.php');
 require_once('../Gateway/PaymentGateway.php');
+
+use Src\Controller\PaymentGateway;
 
 $payload = array(
     'tx_ref' => time(),
     'amount' => $_SESSION["step6"]['amount'],
     'country' => 'GH',
     'currency' => 'GHS',
-    'payment_options' => 'card,barter,mobilemoneyghana,banktransfer,account',
+    'payment_options' => '',
     'redirect_url' => 'https://localhost/rmu_admissions/purchase/purchase_confirm.php',
     'customer' => array(
         'name' => $_SESSION["step1"]['first_name'] . " " . $_SESSION["step1"]['last_name'],
@@ -25,40 +24,17 @@ $payload = array(
         'pay_button_text' => 'Pay for forms',
         'description' => 'Paying ' . $_SESSION["step6"]["amount"] . ' for ' . $_SESSION["step6"]["form_type"] . ' application forms.',
     ),
-
 );
 
 $secretKey = getenv('SECRET_KEY');
 $payUrl = 'https://api.flutterwave.com/v3/payments';
 $request = 'POST';
 
-
 $pay = new PaymentGateway($secretKey, $payUrl, $request, $payload);
-echo $pay->initiatePayment('main');
-
-/*$curl = curl_init();
-
-curl_setopt_array($curl, array(
-    CURLOPT_URL => 'https://api.flutterwave.com/v3/payments',
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_ENCODING => "",
-    CURLOPT_MAXREDIRS => 10,
-    CURLOPT_TIMEOUT => 0,
-    CURLOPT_FOLLOWLOCATION => true,
-    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-    CURLOPT_CUSTOMREQUEST => "POST",
-    CURLOPT_POSTFIELDS => json_encode($payload),
-    CURLOPT_HTTPHEADER => array(
-        "Authorization: Bearer " . getenv('SECRET_KEY') . "",
-        "Content-Type: application/json"
-    ),
-));
-
-$response = json_decode(curl_exec($curl));
-curl_close($curl);
+$response = json_decode($pay->initiatePayment('main'));
 
 if ($response->status == 'success') {
     header("Location: " . $response->data->link);
 } else {
     echo 'Payment processing failed!';
-}*/
+}

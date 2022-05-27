@@ -24,7 +24,7 @@ if (isset($_SESSION['step6Done']) && $_SESSION['step6Done'] == true) {
 <body>
     <img src="../images/RMU-LOG.png" alt="RMU LOG">
     <h1>Step 7</h1>
-    <form action="../endpoints/PaymentEndPoint.php" id="step1Form" method="post" enctype="multipart/form-data">
+    <form action="../src/Controller/PaymentController.php" id="step1Form" method="post" enctype="multipart/form-data">
         <p>
             Paying <b>
                 <span><?= $_SESSION["step6"]["amount"] ?></span>
