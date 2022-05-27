@@ -7,9 +7,45 @@ require_once("../bootstrap.php");
 
 class PaymentGateway
 {
-    
-    public function __construct($transData)
+    private $url = null;
+    private $request = null;
+    private $headers = null;
+    private $payload = null;
+    private $secret_key = null;
+
+    private $curl_array = array();
+
+
+    public function __construct($secret, $url, $request, $headers, $payload = array())
     {
-        
+        $this->url = $url;
+        $this->request = $request;
+        $this->headers = $headers;
+        $this->payload = $payload;
+        $this->secret_key = $secret;
+    }
+
+    private function setCURL_Array($state)
+    {
+        array_merge($this->curl_array, array(
+            CURLOPT_URL => $this->url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => $this->request,
+            CURLOPT_HTTPHEADER => array(
+                "Authorization: Bearer " . $this->secret_key . "",
+                "Content-Type: application/json"
+            ),
+        ));
+
+        if ($state == 'verify') {
+            array_merge($this->curl_array, array(
+                CURLOPT_POSTFIELDS => json_encode($this->payload),
+            ));
+        }
     }
 }
