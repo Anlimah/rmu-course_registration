@@ -29,7 +29,7 @@ $country = 'GH';
 $currency = 'GHS';
 $ref = time();
 $description = 'Paying ' . $_SESSION["step6"]["amount"] . ' for ' . $_SESSION["step6"]["form_type"] . ' application forms.';
-
+$payment_opts = '';
 if ($_SESSION["step6"]['pay_method'] == 'Momo') {
     $payment_opts = 'mobilemoneyghana';
 } else {

@@ -13,10 +13,12 @@ if ($_SESSION["step6"]['pay_method'] == 'Momo') {
 }
 
 $payload = array(
-    'first_name' => $_SESSION["step1"]['first_name'],
-    'last_name' => $_SESSION["step1"]['last_name'],
-    'email' => $_SESSION["step2"]['email_address'],
     'amount' => $_SESSION["step6"]['amount'],
+    'customer' => array(
+        'first_name' => $_SESSION["step1"]['first_name'],
+        'last_name' => $_SESSION["step1"]['last_name'],
+        'email' => $_SESSION["step2"]['email_address'],
+    ),
     'country' => 'GH',
     'phone_number' => $_SESSION["step4"]['phone_number'],
     'payment_options' => $payment_opts,
@@ -47,7 +49,11 @@ curl_setopt_array($curl, array(
     ),
 ));
 
-$response = curl_exec($curl);
-
+$response = json_decode(curl_exec($curl));
 curl_close($curl);
-echo '<pre>' . $response . '</pre>';
+
+if ($response->status == 'success') {
+    header("Location: " . $response->data->link);
+} else {
+    echo 'Payment processing failed!';
+}
