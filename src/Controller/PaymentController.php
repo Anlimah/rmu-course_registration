@@ -18,6 +18,9 @@ $payload = array(
         'email' => $_SESSION["step2"]['email_address'],
         'phone_number' => $_SESSION["step4"]['phone_number'],
     ),
+    'meta' => array(
+        'price' => $_SESSION["step6"]['amount'],
+    ),
     'customizations' => array(
         'title' => 'RMU admission form',
         'logo' => 'https://i0.wp.com/galexgh.com/wp-content/uploads/2020/05/download-3.jpeg?fit=225%2C225&ssl=1',

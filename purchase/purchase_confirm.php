@@ -1,15 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+session_start();
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confirmation</title>
-</head>
+require_once('../bootstrap.php');
+require_once('../src/Gateway/PaymentGateway.php');
 
-<body>
-    <p>Processing...</p>
-</body>
+use Src\Controller\PaymentGateway;
 
-</html>
+
+/*if ($response->status == 'success') {
+    header("Location: " . $response->data->link);
+} else {
+    echo 'Payment processing failed!';
+}*/
+
+if (isset($_GET['status']) && !empty($_GET['status']) && $_GET['status'] == 'cancelled') {
+    /*session_unset();
+    session_destroy();
+    session_write_close();*/
+    echo 'Payment process was cancelled';
+} elseif (isset($_GET['status']) && !empty($_GET['status']) && $_GET['status'] == 'successful') {
+    $transRef = $_GET['tx_ref'];
+    $transID = $_GET['transaction_id'];
+
+    $secretKey = getenv('SECRET_KEY');
+    $payUrl = "https://api.flutterwave.com/v3/transactions/{$transID}/verify";
+    $request = 'GET';
+
+    $pay = new PaymentGateway($secretKey, $payUrl, $request, array());
+    $response = $pay->initiatePayment('verify');
+    echo '<pre>' . $response . '</pre>';
+}
