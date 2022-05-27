@@ -2,25 +2,20 @@
 
 namespace Src\Controller;
 
-require_once("../bootstrap.php");
-
-
 class PaymentGateway
 {
     private $url = null;
     private $request = null;
-    private $headers = null;
     private $payload = null;
     private $secret_key = null;
 
     private $curl_array = array();
 
 
-    public function __construct($secret, $url, $request, $headers, $payload = array())
+    public function __construct($secret, $url, $request, $payload = array())
     {
         $this->url = $url;
         $this->request = $request;
-        $this->headers = $headers;
         $this->payload = $payload;
         $this->secret_key = $secret;
     }
@@ -47,5 +42,15 @@ class PaymentGateway
                 CURLOPT_POSTFIELDS => json_encode($this->payload),
             ));
         }
+    }
+
+    public function initiatePayment($state)
+    {
+        $this->setCURL_Array($state);
+        /*$curl = curl_init();
+        curl_setopt_array($curl, $this->curl_array);
+        $response = json_decode(curl_exec($curl));
+        curl_close($curl);*/
+        return $this->curl_array;
     }
 }

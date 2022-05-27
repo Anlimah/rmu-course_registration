@@ -1,15 +1,11 @@
 <?php
+
+use Src\Controller\PaymentGateway;
+
 session_start();
 
-require_once('../bootstrap.php');
-
-/*$payment_opts = '';
-
-if ($_SESSION["step6"]['pay_method'] == 'Momo') {
-    $payment_opts = 'mobilemoneyghana';
-} else {
-    $payment_opts = 'account, mobilemoneyghana, banktransfer';
-}*/
+require_once('../../bootstrap.php');
+require_once('../Gateway/PaymentGateway.php');
 
 $payload = array(
     'tx_ref' => time(),
@@ -32,7 +28,15 @@ $payload = array(
 
 );
 
-$curl = curl_init();
+$secretKey = getenv('SECRET_KEY');
+$payUrl = 'https://api.flutterwave.com/v3/payments';
+$request = 'POST';
+
+
+$pay = new PaymentGateway($secretKey, $payUrl, $request, $payload);
+echo $pay->initiatePayment('main');
+
+/*$curl = curl_init();
 
 curl_setopt_array($curl, array(
     CURLOPT_URL => 'https://api.flutterwave.com/v3/payments',
@@ -57,6 +61,4 @@ if ($response->status == 'success') {
     header("Location: " . $response->data->link);
 } else {
     echo 'Payment processing failed!';
-}
-
-
+}*/
