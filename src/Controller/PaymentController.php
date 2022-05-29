@@ -44,6 +44,12 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
             header("Location: " . $response->data->link);
         } else {
             echo 'Payment processing failed!';
+            //5531886652142950  09/32   564     3310    12345
+            //5399838383838381	470	3310	10/31	12345
+            //4187427415564246	828	3310	09/32	12345
+
+            // Insufficient funds: 5258585922666506	883	3310	09/31	12345
+            // Incorrect PIN	5399834697894723	883	3310	09/31	12345
         }
     }
 }

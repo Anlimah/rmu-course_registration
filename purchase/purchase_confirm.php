@@ -9,8 +9,7 @@ use Src\Controller\PaymentGateway;
 if (isset($_GET['status']) && !empty($_GET['status']) && $_GET['status'] == 'cancelled') {
     echo 'Payment processing was cancelled';
     PaymentGateway::destroyAllSessions();
-    //header('Location: purchase_step1.php');
-
+    header('Location: purchase_step1.php?status=cancelled');
 } elseif (isset($_GET['status']) && !empty($_GET['status']) && $_GET['status'] == 'successful') {
     $transRef = $_GET['tx_ref'];
     $transID = $_GET['transaction_id'];
@@ -25,6 +24,7 @@ if (isset($_GET['status']) && !empty($_GET['status']) && $_GET['status'] == 'can
     if ($response->status == 'success') {
         if ($response->data->meta->price >= $response->data->charged_amount) {
             echo 'Payment was successful!';
+            header('Location: purchase_step1.php?status=success');
         }
     } else {
         //code
