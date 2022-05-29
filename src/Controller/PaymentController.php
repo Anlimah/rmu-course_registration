@@ -39,8 +39,7 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
         $response = json_decode($pay->initiatePayment());
 
         if ($response->status == 'success') {
-            $pay->destroyAllSessions();
-            $_SESSION['processing'] = true;
+            //$_SESSION['processing'] = true;
             header("Location: " . $response->data->link);
         } else {
             echo 'Payment processing failed!';
