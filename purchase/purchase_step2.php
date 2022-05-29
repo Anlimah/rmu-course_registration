@@ -30,7 +30,7 @@ if (isset($_SESSION['step1Done']) && $_SESSION['step1Done'] == true) {
             <input type="email" name="email_address" id="email_address" placeholder="surname@gmail.com">
         </div>
         <button type="submit">Continue</button>
-        <input type="hidden" name="_v2Token" value="<?php echo $_SESSION["_step2Token"]; ?>">
+        <input type="hidden" name="_v2Token" value="<?= $_SESSION["_step2Token"]; ?>">
     </form>
 
     <script src="../js/jquery-3.6.0.min.js"></script>

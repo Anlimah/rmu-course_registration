@@ -1,10 +1,10 @@
 <?php
 session_start();
 if (isset($_SESSION['step3Done']) && $_SESSION['step3Done'] == true) {
-if (!isset($_SESSION["_step4Token"])) {
-    $rstrong = true;
-    $_SESSION["_step4Token"] = hash('sha256', bin2hex(openssl_random_pseudo_bytes(64, $rstrong)));
-}
+    if (!isset($_SESSION["_step4Token"])) {
+        $rstrong = true;
+        $_SESSION["_step4Token"] = hash('sha256', bin2hex(openssl_random_pseudo_bytes(64, $rstrong)));
+    }
 } else {
     header('Location: purchase_step3.php');
 }
@@ -26,11 +26,26 @@ if (!isset($_SESSION["_step4Token"])) {
     <h1>step 4</h1>
     <form action="#" id="step1Form" method="post" enctype="multipart/form-data">
         <div>
-            <label for="email_addr">Phone Number</label>
+            <p>
+                For your security, Cloudways wants to make sure it's really you. Please
+                enter your phone number below. We'll send you a text message with a
+                code that you'll need to enter on the next screen.
+
+                <b>Note:</b> We don't accept VoIP or Skype numbers.
+            </p>
+            <label for="phone_number">Phone Number</label>
+            <select name="country" id="country">
+                <option value="CA">Cameroun</option>
+                <option value="GA">Gambia</option>
+                <option value="GH" selected>Ghana</option>
+                <option value="SL">Serria Leone</option>
+                <option value="LI">Liberia</option>
+                <option value="Other">Other</option>
+            </select>
             <input type="tel" name="phone_number" id="phone_number" placeholder="0244123123">
         </div>
         <button type="submit">Verify</button>
-        <input type="hidden" name="_v4Token" value="<?php echo $_SESSION["_step4Token"]; ?>">
+        <input type="hidden" name="_v4Token" value="<?= $_SESSION["_step4Token"]; ?>">
     </form>
 
     <script src="../js/jquery-3.6.0.min.js"></script>

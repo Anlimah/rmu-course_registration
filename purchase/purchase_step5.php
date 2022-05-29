@@ -1,10 +1,10 @@
 <?php
 session_start();
 if (isset($_SESSION['step4Done']) && $_SESSION['step4Done'] == true) {
-if (!isset($_SESSION["_step5Token"])) {
-    $rstrong = true;
-    $_SESSION["_step5Token"] = hash('sha256', bin2hex(openssl_random_pseudo_bytes(64, $rstrong)));
-}
+    if (!isset($_SESSION["_step5Token"])) {
+        $rstrong = true;
+        $_SESSION["_step5Token"] = hash('sha256', bin2hex(openssl_random_pseudo_bytes(64, $rstrong)));
+    }
 } else {
     header('Location: purchase_step4.php');
 }
@@ -37,7 +37,7 @@ if (!isset($_SESSION["_step5Token"])) {
             <input type="text" maxlength="1" style="width:15px; text-align:center" name="code[]" id="num4" class="num" placeholder="0">
         </div>
         <button type="submit">Verify</button>
-        <input type="hidden" name="_v5Token" value="<?php echo $_SESSION["_step5Token"]; ?>">
+        <input type="hidden" name="_v5Token" value="<?= $_SESSION["_step5Token"]; ?>">
     </form>
 
     <script src="../js/jquery-3.6.0.min.js"></script>

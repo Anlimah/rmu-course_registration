@@ -41,7 +41,7 @@ if (isset($_SESSION['step5Done']) && $_SESSION['step5Done'] == true) {
             </select>
         </div>
         <button type="submit">Continue</button>
-        <input type="hidden" name="_v6Token" value="<?php echo $_SESSION["_step6Token"]; ?>">
+        <input type="hidden" name="_v6Token" value="<?= $_SESSION["_step6Token"]; ?>">
     </form>
 
     <script src="../js/jquery-3.6.0.min.js"></script>

@@ -32,6 +32,8 @@ if (!isset($_SESSION["_step1Token"])) {
         <div>
             <label for="first_name">First Name</label>
             <input type="text" name="first_name" id="first_name" placeholder="Type your first name">
+        </div>
+        <div>
             <label for="last_name">Last Name</label>
             <input type="text" name="last_name" id="last_name" placeholder="Type your first name">
         </div>
@@ -58,7 +60,7 @@ if (!isset($_SESSION["_step1Token"])) {
             </select>
         </div>
         <button type="submit">Continue</button>
-        <input type="hidden" name="_v1Token" value="<?php echo $_SESSION["_step1Token"]; ?>">
+        <input type="hidden" name="_v1Token" value="<?= $_SESSION["_step1Token"]; ?>">
     </form>
 
     <script src="../js/jquery-3.6.0.min.js"></script>

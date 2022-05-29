@@ -39,7 +39,7 @@ if (!isset($_SESSION["_step3Token"])) {
             <input type="text" maxlength="1" style="width:15px; text-align:center" name="num[]" id="num6" class="num" placeholder="0">
         </div>
         <button type="submit">Continue</button>
-        <input type="hidden" name="_v3Token" value="<?php echo $_SESSION["_step3Token"]; ?>">
+        <input type="hidden" name="_v3Token" value="<?= $_SESSION["_step3Token"]; ?>">
     </form>
 
     <script src="../js/jquery-3.6.0.min.js"></script>
