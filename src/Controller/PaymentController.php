@@ -13,7 +13,7 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
             'amount' => $_SESSION["step6"]['amount'],
             'country' => 'GH',
             'currency' => 'GHS',
-            'payment_options' => 'card, mobilemoney, barter',
+            'payment_options' => 'mobilemoney, card, barter',
             'redirect_url' => 'http://phpstack-780474-2658717.cloudwaysapps.com/purchase/purchase_confirm.php',
             'customer' => array(
                 'name' => $_SESSION["step1"]['first_name'] . " " . $_SESSION["step1"]['last_name'],
