@@ -20,11 +20,10 @@ class PaymentGateway
         $this->secret_key = $secret;
     }
 
-    private function setCURL_Array($state)
+    private function setCURL_Array()
     {
-        if ($state == 'verify') {
-            $this->payload = array();
-        }
+        if ($this->request == 'GET') $this->payload = array();
+
         $this->curl_array = array(
             CURLOPT_URL => $this->url,
             CURLOPT_RETURNTRANSFER => true,
@@ -42,14 +41,34 @@ class PaymentGateway
         );
     }
 
-    public function initiatePayment($state)
+    public function initiatePayment()
     {
-        $this->setCURL_Array($state);
+        $this->setCURL_Array();
         $curl = curl_init();
         curl_setopt_array($curl, $this->curl_array);
         $response = curl_exec($curl);
         curl_close($curl);
         return $response;
-        return $this->curl_array;
+    }
+
+    public static function destroyAllSessions()
+    {
+
+        unset($_SESSION['step1']);
+        unset($_SESSION['step2']);
+        unset($_SESSION['step3']);
+        unset($_SESSION['step4']);
+        unset($_SESSION['step5']);
+        unset($_SESSION['step6']);
+        unset($_SESSION['step1Done']);
+        unset($_SESSION['step2Done']);
+        unset($_SESSION['step3Done']);
+        unset($_SESSION['step4Done']);
+        unset($_SESSION['step5Done']);
+        unset($_SESSION['step6Done']);
+
+        session_unset();
+        session_destroy();
+        session_write_close();
     }
 }

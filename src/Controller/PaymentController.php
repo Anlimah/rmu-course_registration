@@ -6,38 +6,44 @@ require_once('../Gateway/PaymentGateway.php');
 
 use Src\Controller\PaymentGateway;
 
-$payload = array(
-    'tx_ref' => time(),
-    'amount' => $_SESSION["step6"]['amount'],
-    'country' => 'GH',
-    'currency' => 'GHS',
-    'payment_options' => '',
-    'redirect_url' => 'https://localhost/rmu_admissions/purchase/purchase_confirm.php',
-    'customer' => array(
-        'name' => $_SESSION["step1"]['first_name'] . " " . $_SESSION["step1"]['last_name'],
-        'email' => $_SESSION["step2"]['email_address'],
-        'phone_number' => $_SESSION["step4"]['phone_number'],
-    ),
-    'meta' => array(
-        'price' => $_SESSION["step6"]['amount'],
-    ),
-    'customizations' => array(
-        'title' => 'RMU admission form',
-        'logo' => 'https://i0.wp.com/galexgh.com/wp-content/uploads/2020/05/download-3.jpeg?fit=225%2C225&ssl=1',
-        'pay_button_text' => 'Pay for forms',
-        'description' => 'Paying ' . $_SESSION["step6"]["amount"] . ' for ' . $_SESSION["step6"]["form_type"] . ' application forms.',
-    ),
-);
+if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SESSION['step3Done']) && isset($_SESSION['step4Done']) && isset($_SESSION['step5Done']) && isset($_SESSION['step6Done'])) {
+    if ($_SESSION['step1Done'] == true && $_SESSION['step2Done'] == true && $_SESSION['step3Done'] == true && $_SESSION['step4Done'] == true && $_SESSION['step5Done'] == true && $_SESSION['step6Done'] == true) {
+        $payload = array(
+            'tx_ref' => time(),
+            'amount' => $_SESSION["step6"]['amount'],
+            'country' => 'GH',
+            'currency' => 'GHS',
+            'payment_options' => 'card, mobilemoney, barter',
+            'redirect_url' => 'https://localhost/rmu_admissions/purchase/purchase_confirm.php',
+            'customer' => array(
+                'name' => $_SESSION["step1"]['first_name'] . " " . $_SESSION["step1"]['last_name'],
+                'email' => $_SESSION["step2"]['email_address'],
+                'phone_number' => $_SESSION["step4"]['phone_number'],
+            ),
+            'meta' => array(
+                'price' => $_SESSION["step6"]['amount'],
+            ),
+            'customizations' => array(
+                'title' => 'RMU admission form',
+                'logo' => 'https://i0.wp.com/galexgh.com/wp-content/uploads/2020/05/download-3.jpeg?fit=225%2C225&ssl=1',
+                'pay_button_text' => 'Pay for forms',
+                'description' => 'Paying ' . $_SESSION["step6"]["amount"] . ' for ' . $_SESSION["step6"]["form_type"] . ' application forms.',
+            ),
+        );
 
-$secretKey = getenv('SECRET_KEY');
-$payUrl = 'https://api.flutterwave.com/v3/payments';
-$request = 'POST';
+        $secretKey = getenv('SECRET_KEY');
+        $payUrl = 'https://api.flutterwave.com/v3/payments';
+        $request = 'POST';
 
-$pay = new PaymentGateway($secretKey, $payUrl, $request, $payload);
-$response = json_decode($pay->initiatePayment('main'));
+        $pay = new PaymentGateway($secretKey, $payUrl, $request, $payload);
+        $response = json_decode($pay->initiatePayment());
 
-if ($response->status == 'success') {
-    header("Location: " . $response->data->link);
-} else {
-    echo 'Payment processing failed!';
+        if ($response->status == 'success') {
+            $pay->destroyAllSessions();
+            $_SESSION['processing'] = true;
+            header("Location: " . $response->data->link);
+        } else {
+            echo 'Payment processing failed!';
+        }
+    }
 }

@@ -15,7 +15,7 @@ CREATE TABLE `application_type` (
     `amount` DECIMAL(6,2) NOT NULL
 );
 INSERT INTO `application_type`(`title`, `amount`) VALUES
-('Degree', 150), ('Diploma', 120), ('Masters', 280);
+('Masters', 250), ('Degree/diploma', 180), ('Short courses', 150), ;
 
 DROP TABLE IF EXISTS `applicant_application_type`;
 CREATE TABLE `applicant_application_type` (
