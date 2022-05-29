@@ -24,7 +24,7 @@ if (isset($_GET['status']) && !empty($_GET['status']) && $_GET['status'] == 'can
     if ($response->status == 'success') {
         if ($response->data->meta->price >= $response->data->charged_amount) {
             echo 'Payment was successful!';
-            header('Location: purchase_step1.php?status=success');
+            //header('Location: purchase_step1.php?status=success');
         }
     } else {
         //code
