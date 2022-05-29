@@ -8,7 +8,7 @@ use Src\Controller\PaymentGateway;
 
 if (isset($_GET['status']) && !empty($_GET['status']) && $_GET['status'] == 'cancelled') {
     echo 'Payment processing was cancelled';
-    PaymentGateway::destroyAllSessions();
+    //PaymentGateway::destroyAllSessions();
     header('Location: purchase_step1.php?status=cancelled');
 } elseif (isset($_GET['status']) && !empty($_GET['status']) && $_GET['status'] == 'successful') {
     $transRef = $_GET['tx_ref'];
