@@ -110,8 +110,10 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 				if ($_POST["_v4Token"] != $_SESSION["_step4Token"]) {
 					die(json_encode($message));
 				} else {
-					$_SESSION["step4"] = array("phone_number" => $user->validateInput($_POST["phone_number"]));
-					echo json_encode($_SESSION["step4"]);
+					$phone_number = $user->validateInput($_POST["phone_number"]);
+					$_SESSION["step4"] = array("phone_number" => $phone_number);
+					//echo json_encode($_SESSION["step4"]);
+					echo $user->sendSMS($phone_number);
 					$_SESSION['step4Done'] = true;
 				}
 			} else {
@@ -133,8 +135,12 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 						foreach ($_POST["code"] as $code) {
 							$otp .= $code;
 						}
-						echo json_encode(array("otp" => $otp));
-						$_SESSION['step5Done'] = true;
+						if ($otp == $_SESSION['sms_code']) {
+							echo json_encode(array("status" => "success"));
+							$_SESSION['step5Done'] = true;
+						} else {
+							echo json_encode(array("status" => "error"));
+						}
 					}
 				}
 			} else {

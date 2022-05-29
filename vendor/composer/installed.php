@@ -5,7 +5,7 @@
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'c91159303755372e5714cf45b127301ccbba2bc1',
+        'reference' => '2a0f0a0d4ba2e4b15029e013cd9eef5825f0e9ed',
         'name' => '__root__',
         'dev' => true,
     ),
@@ -16,7 +16,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'c91159303755372e5714cf45b127301ccbba2bc1',
+            'reference' => '2a0f0a0d4ba2e4b15029e013cd9eef5825f0e9ed',
             'dev_requirement' => false,
         ),
         'symfony/polyfill-ctype' => array(
@@ -26,6 +26,15 @@
             'install_path' => __DIR__ . '/../symfony/polyfill-ctype',
             'aliases' => array(),
             'reference' => '30885182c981ab175d4d034db0f6f469898070ab',
+            'dev_requirement' => false,
+        ),
+        'twilio/sdk' => array(
+            'pretty_version' => '6.37.1',
+            'version' => '6.37.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../twilio/sdk',
+            'aliases' => array(),
+            'reference' => '366d62aac5a8adb456adff299223b74c4cd06442',
             'dev_requirement' => false,
         ),
         'vlucas/phpdotenv' => array(

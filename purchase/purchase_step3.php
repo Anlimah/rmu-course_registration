@@ -1,10 +1,10 @@
 <?php
 session_start();
 if (isset($_SESSION['step2Done']) && $_SESSION['step2Done'] == true) {
-if (!isset($_SESSION["_step3Token"])) {
-    $rstrong = true;
-    $_SESSION["_step3Token"] = hash('sha256', bin2hex(openssl_random_pseudo_bytes(64, $rstrong)));
-}
+    if (!isset($_SESSION["_step3Token"])) {
+        $rstrong = true;
+        $_SESSION["_step3Token"] = hash('sha256', bin2hex(openssl_random_pseudo_bytes(64, $rstrong)));
+    }
 } else {
     header('Location: purchase_step2.php');
 }
@@ -69,6 +69,8 @@ if (!isset($_SESSION["_step3Token"])) {
                     error: function(error) {}
                 });
             });
+
+            $("#num1").focus();
 
             $(".num").on("keyup", function() {
                 if (this.value) {

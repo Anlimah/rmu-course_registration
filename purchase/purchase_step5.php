@@ -54,8 +54,10 @@ if (isset($_SESSION['step4Done']) && $_SESSION['step4Done'] == true) {
                     processData: false,
                     success: function(result) {
                         console.log(result);
-                        if (result) {
+                        if (result['status'] == 'success') {
                             window.location.href = 'purchase_step6.php';
+                        } else {
+                            console.log('Code is incorrect!');
                         }
                         /*if (res["response"] == "success") {
                             console.log(res['msg']);
@@ -68,9 +70,11 @@ if (isset($_SESSION['step4Done']) && $_SESSION['step4Done'] == true) {
                 });
             });
 
+            $("#num1").focus();
+
             $(".num").on("keyup", function() {
                 if (this.value) {
-                    $(this).next(":input").focus();
+                    $(this).next(":input").focus(); //.val(''); and as well clesr
                 }
             });
         });

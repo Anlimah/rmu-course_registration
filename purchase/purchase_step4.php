@@ -27,9 +27,9 @@ if (isset($_SESSION['step3Done']) && $_SESSION['step3Done'] == true) {
     <form action="#" id="step1Form" method="post" enctype="multipart/form-data">
         <div>
             <p>
-                For your security, Cloudways wants to make sure it's really you. Please
-                enter your phone number below. We'll send you a text message with a
-                code that you'll need to enter on the next screen.
+                For your security, Cloudways wants to make sure it's really you. Please <br>
+                enter your phone number below. We'll send you a text message with a <br>
+                code that you'll need to enter on the next screen. <br><br>
 
                 <b>Note:</b> We don't accept VoIP or Skype numbers.
             </p>
@@ -37,7 +37,7 @@ if (isset($_SESSION['step3Done']) && $_SESSION['step3Done'] == true) {
             <select name="country" id="country">
                 <option value="CA">Cameroun</option>
                 <option value="GA">Gambia</option>
-                <option value="GH" selected>Ghana</option>
+                <option value="GH" selected>Ghana (+233)</option>
                 <option value="SL">Serria Leone</option>
                 <option value="LI">Liberia</option>
                 <option value="Other">Other</option>
@@ -75,6 +75,8 @@ if (isset($_SESSION['step3Done']) && $_SESSION['step3Done'] == true) {
                     error: function(error) {}
                 });
             });
+
+            $("#phone_number").focus();
         });
     </script>
 </body>

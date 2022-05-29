@@ -2,6 +2,10 @@
 
 namespace Src\Controller;
 
+require_once('../bootstrap.php');
+
+use Twilio\Rest\Client;
+
 use Src\System\DatabaseMethods;
 
 class RegistrationController extends DatabaseMethods
@@ -23,11 +27,28 @@ class RegistrationController extends DatabaseMethods
         return 0;
     }
 
-    public function sendSMS($recipient_number, $user_id)
+    public function sendSMS($recipient_number, $ISD = '+233')
     {
-        $v_code = $this->genCode();
-        //prepare SMS information
+        $v_code = $this->genCode(4);
+
+        $sid = getenv('TWILIO_SID');
+        $token = getenv('TWILIO_TKN');
+        $client = new Client($sid, $token);
+
+        //prepare SMS message
+        $to = $ISD . $recipient_number;
+        $account_phone = '19785232220';
+        $from = array('from' => $account_phone, 'body' => 'Your RMU code is ' . $v_code);
+
         //send SMS
+        $response = $client->messages->create($to, $from);
+        if ($response->sid) {
+            $_SESSION['sms_code'] = $v_code;
+            $_SESSION['sms_sid'] = $response->sid;
+            if (isset($_SESSION['sms_code']) && !empty($_SESSION['sms_code']) && isset($_SESSION['sms_sid']) && !empty($_SESSION['sms_sid'])) return 1;
+        } else {
+            return 0;
+        }
     }
 
     public function getFormPrice(string $form_type)
