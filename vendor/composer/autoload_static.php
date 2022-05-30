@@ -20,6 +20,18 @@ class ComposerStaticInitd4f715b7f00456b6dc0b693b6af00d4c
             'Symfony\\Polyfill\\Ctype\\' => 23,
             'Src\\' => 4,
         ),
+        'P' => 
+        array (
+            'Psr\\Log\\' => 8,
+        ),
+        'M' => 
+        array (
+            'Monolog\\' => 8,
+        ),
+        'F' => 
+        array (
+            'Flutterwave\\' => 12,
+        ),
         'D' => 
         array (
             'Dotenv\\' => 7,
@@ -39,9 +51,31 @@ class ComposerStaticInitd4f715b7f00456b6dc0b693b6af00d4c
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/src',
+        ),
+        'Monolog\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
+        ),
+        'Flutterwave\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/flutterwavedev/flutterwave-v3/library/Rave',
+        ),
         'Dotenv\\' => 
         array (
             0 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
+        ),
+    );
+
+    public static $prefixesPsr0 = array (
+        'U' => 
+        array (
+            'Unirest\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/mashape/unirest-php/src',
+            ),
         ),
     );
 
@@ -54,6 +88,7 @@ class ComposerStaticInitd4f715b7f00456b6dc0b693b6af00d4c
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInitd4f715b7f00456b6dc0b693b6af00d4c::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInitd4f715b7f00456b6dc0b693b6af00d4c::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitd4f715b7f00456b6dc0b693b6af00d4c::$prefixesPsr0;
             $loader->classMap = ComposerStaticInitd4f715b7f00456b6dc0b693b6af00d4c::$classMap;
 
         }, null, ClassLoader::class);

@@ -9,5 +9,8 @@ return array(
     'Twilio\\' => array($vendorDir . '/twilio/sdk/src/Twilio'),
     'Symfony\\Polyfill\\Ctype\\' => array($vendorDir . '/symfony/polyfill-ctype'),
     'Src\\' => array($baseDir . '/src'),
+    'Psr\\Log\\' => array($vendorDir . '/psr/log/src'),
+    'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
+    'Flutterwave\\' => array($vendorDir . '/flutterwavedev/flutterwave-v3/library/Rave'),
     'Dotenv\\' => array($vendorDir . '/vlucas/phpdotenv/src'),
 );
