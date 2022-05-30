@@ -36,7 +36,7 @@ if (isset($_SESSION['step4Done']) && $_SESSION['step4Done'] == true) {
             <input type="text" maxlength="1" style="width:15px; text-align:center" name="code[]" id="num3" class="num" placeholder="0">
             <input type="text" maxlength="1" style="width:15px; text-align:center" name="code[]" id="num4" class="num" placeholder="0">
         </div>
-        <button type="submit">Verify</button>
+        <button type="submit" style="padding: 5px 10px">Verify</button>
         <input type="hidden" name="_v5Token" value="<?= $_SESSION["_step5Token"]; ?>">
     </form>
 

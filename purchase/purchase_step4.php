@@ -44,7 +44,7 @@ if (isset($_SESSION['step3Done']) && $_SESSION['step3Done'] == true) {
             </select>
             <input type="tel" name="phone_number" id="phone_number" placeholder="0244123123">
         </div>
-        <button type="submit">Verify</button>
+        <button type="submit" style="padding: 5px 10px">Verify</button>
         <input type="hidden" name="_v4Token" value="<?= $_SESSION["_step4Token"]; ?>">
     </form>
 

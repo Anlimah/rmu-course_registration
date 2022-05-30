@@ -59,7 +59,7 @@ if (!isset($_SESSION["_step1Token"])) {
                 <option value="Other">Other</option>
             </select>
         </div>
-        <button type="submit">Continue</button>
+        <button type="submit" style="padding: 5px 10px">Continue</button>
         <input type="hidden" name="_v1Token" value="<?= $_SESSION["_step1Token"]; ?>">
     </form>
 
