@@ -26,7 +26,7 @@ if (isset($_SESSION['step4Done']) && $_SESSION['step4Done'] == true) {
     <h1>Register</h1>
     <form action="#" id="step1Form" method="post" enctype="multipart/form-data">
         <p>
-            Enter the one-time passcode sent to your 0244123123.
+            Enter the one-time passcode sent to your <?= $_SESSION['step4']['phone_number'] ?>.
         </p>
         <a href="purchase_step4.php">Change number</a>
         <div>
