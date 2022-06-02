@@ -7,7 +7,7 @@ session_start();
 
 require "../bootstrap.php";
 
-use Src\Controller\RegistrationController;
+use Src\Controller\UsersController;
 
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
@@ -15,7 +15,7 @@ header("Access-Control-Allow-Methods: GET,POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-$user = new RegistrationController();
+$user = new UsersController();
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	if ($_GET["url"] == "verifyStepFinal") {
@@ -223,7 +223,22 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		} else {
 			die(json_encode($message));
 		}
-	} elseif ($_GET[''] == '') {
+	} elseif ($_GET["url"] == "appLogin") {
+		$message = array("response" => "error", "msg" => "Invalid request!");
+
+		if (isset($_SESSION["_start"]) && !empty($_SESSION["_start"])) {
+			if ($_POST["_logToken"] != $_SESSION["_start"]) {
+				die(json_encode($message));
+			} else {
+				$app_number = $user->validateInput($_POST["app_number"]);
+				$pin_code = $user->validateInput($_POST["pin_code"]);
+				echo json_encode(array('app' => $app_number, 'pin' => $pin_code));
+				$_SESSION['ghApplicant'] = 1;
+				$_SESSION['ghAppLogin'] = true;
+			}
+		} else {
+			echo 'NO';
+		}
 	}
 } else {
 	http_response_code(405);

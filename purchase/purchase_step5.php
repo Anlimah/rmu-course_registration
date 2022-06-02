@@ -22,7 +22,7 @@ if (isset($_SESSION['step4Done']) && $_SESSION['step4Done'] == true) {
 </head>
 
 <body>
-    <img src="../images/RMU-LOG.png" alt="RMU LOG">
+    <img src="../assets/images/RMU-LOG.png" alt="RMU LOG">
     <h1>Register</h1>
     <form action="#" id="step1Form" method="post" enctype="multipart/form-data">
         <p>
