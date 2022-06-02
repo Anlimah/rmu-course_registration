@@ -22,14 +22,14 @@ if (isset($_SESSION['step1Done']) && $_SESSION['step1Done'] == true) {
 </head>
 
 <body>
-    <img src="../images/RMU-LOG.png" alt="RMU LOG">
+    <img src="../assets/images/RMU-LOG.png" alt="RMU LOG">
     <h1>step 2</h1>
     <form action="#" id="step1Form" method="post" enctype="multipart/form-data">
         <div>
             <label for="email_addr">Email Address</label>
             <input type="email" name="email_address" id="email_address" placeholder="surname@gmail.com">
         </div>
-        <button type="submit">Continue</button>
+        <button type="submit" style="padding: 5px 10px">Continue</button>
         <input type="hidden" name="_v2Token" value="<?= $_SESSION["_step2Token"]; ?>">
     </form>
 

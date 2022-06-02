@@ -22,7 +22,7 @@ if (isset($_SESSION['step2Done']) && $_SESSION['step2Done'] == true) {
 </head>
 
 <body>
-    <img src="../images/RMU-LOG.png" alt="RMU LOG">
+    <img src="../assets/images/RMU-LOG.png" alt="RMU LOG">
     <h1>step 3: Verify your email address</h1>
     <form action="#" id="step1Form" method="post" enctype="multipart/form-data">
         <p>
@@ -38,7 +38,7 @@ if (isset($_SESSION['step2Done']) && $_SESSION['step2Done'] == true) {
             <input type="text" maxlength="1" style="width:15px; text-align:center" name="num[]" id="num5" class="num" placeholder="0">
             <input type="text" maxlength="1" style="width:15px; text-align:center" name="num[]" id="num6" class="num" placeholder="0">
         </div>
-        <button type="submit">Continue</button>
+        <button type="submit" style="padding: 5px 10px">Continue</button>
         <input type="hidden" name="_v3Token" value="<?= $_SESSION["_step3Token"]; ?>">
     </form>
 

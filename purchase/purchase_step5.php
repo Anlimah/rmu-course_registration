@@ -22,11 +22,11 @@ if (isset($_SESSION['step4Done']) && $_SESSION['step4Done'] == true) {
 </head>
 
 <body>
-    <img src="../images/RMU-LOG.png" alt="RMU LOG">
+    <img src="../assets/images/RMU-LOG.png" alt="RMU LOG">
     <h1>Register</h1>
     <form action="#" id="step1Form" method="post" enctype="multipart/form-data">
         <p>
-            Enter the one-time passcode sent to your 0244123123.
+            Enter the one-time passcode sent to your <?= $_SESSION['step4']['phone_number'] ?>.
         </p>
         <a href="purchase_step4.php">Change number</a>
         <div>
@@ -36,7 +36,7 @@ if (isset($_SESSION['step4Done']) && $_SESSION['step4Done'] == true) {
             <input type="text" maxlength="1" style="width:15px; text-align:center" name="code[]" id="num3" class="num" placeholder="0">
             <input type="text" maxlength="1" style="width:15px; text-align:center" name="code[]" id="num4" class="num" placeholder="0">
         </div>
-        <button type="submit">Verify</button>
+        <button type="submit" style="padding: 5px 10px">Verify</button>
         <input type="hidden" name="_v5Token" value="<?= $_SESSION["_step5Token"]; ?>">
     </form>
 

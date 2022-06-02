@@ -22,7 +22,7 @@ if (isset($_SESSION['step5Done']) && $_SESSION['step5Done'] == true) {
 </head>
 
 <body>
-    <img src="../images/RMU-LOG.png" alt="RMU LOG">
+    <img src="../assets/images/RMU-LOG.png" alt="RMU LOG">
     <h1>Step 6</h1>
     <form action="#" id="step1Form" method="post" enctype="multipart/form-data">
         <div>
@@ -40,7 +40,7 @@ if (isset($_SESSION['step5Done']) && $_SESSION['step5Done'] == true) {
                 <option value="Bank">Account deposit</option>
             </select>
         </div>
-        <button type="submit">Continue</button>
+        <button type="submit" style="padding: 5px 10px">Continue</button>
         <input type="hidden" name="_v6Token" value="<?= $_SESSION["_step6Token"]; ?>">
     </form>
 

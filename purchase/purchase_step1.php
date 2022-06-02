@@ -22,11 +22,10 @@ if (!isset($_SESSION["_step1Token"])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Purchases</title>
-
 </head>
 
 <body>
-    <img src="../images/RMU-LOG.png" alt="RMU LOG">
+    <img src="../assets/images/RMU-LOG.png" alt="RMU LOG">
     <h1>Step 1</h1>
     <form action="#" id="step1Form" method="post" enctype="multipart/form-data">
         <div>
@@ -59,7 +58,7 @@ if (!isset($_SESSION["_step1Token"])) {
                 <option value="Other">Other</option>
             </select>
         </div>
-        <button type="submit">Continue</button>
+        <button type="submit" style="padding: 5px 10px">Continue</button>
         <input type="hidden" name="_v1Token" value="<?= $_SESSION["_step1Token"]; ?>">
     </form>
 

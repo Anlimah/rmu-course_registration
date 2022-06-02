@@ -1,0 +1,86 @@
+main {
+    margin: 0px 200px;
+}
+
+fieldset {
+    margin-bottom: 30px;
+}
+
+fieldset legend {
+    width: 100%;
+    padding: 0 15px;
+    border: 1px dashed #ccc;
+    margin-bottom: 20px;
+}
+
+.field-content, .mb-3 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items:center;
+}
+
+.form-fields {
+    flex-grow: 7;
+}
+.photo-upload-area {
+    flex-grow: 3;
+}
+fieldset .field-content {
+    padding: 0 15px;
+}
+
+form,
+fieldset, .form-fields {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+fieldset {
+    border: 1px solid #ccc;
+    padding: 20px;
+}
+
+fieldset,
+legend {
+    border-radius: 10px;
+}
+
+.mb-3 label {
+    width: 220px;
+}
+
+input,
+select {
+    width: 320px;
+    height: 30px;
+}
+
+#applicant-photo {
+    display: none;
+}
+
+#upload-photo-label {
+    width: 200px;
+    text-align: center;
+    background-color: #325ed1;
+}
+
+.photo-display {
+    width: 200px;
+    height: 200px;
+    background-color: #ccc;
+    border: 5px solid #325ed1;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.photo-upload-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    padding: 50px;
+}
