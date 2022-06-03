@@ -35,6 +35,7 @@ if (isset($_SESSION['step3Done']) && $_SESSION['step3Done'] == true) {
             </p>
             <label for="phone_number">Phone Number</label>
             <select name="country" id="country">
+                <option value="select" hidden>Select</option>
                 <option value="CA">Cameroun</option>
                 <option value="GA">Gambia</option>
                 <option value="GH" selected>Ghana (+233)</option>
@@ -42,7 +43,7 @@ if (isset($_SESSION['step3Done']) && $_SESSION['step3Done'] == true) {
                 <option value="LI">Liberia</option>
                 <option value="Other">Other</option>
             </select>
-            <input type="tel" name="phone_number" id="phone_number" placeholder="0244123123">
+            <input type="tel" name="phone_number" id="phone_number" placeholder="0244123123" required>
         </div>
         <button type="submit" style="padding: 5px 10px">Verify</button>
         <input type="hidden" name="_v4Token" value="<?= $_SESSION["_step4Token"]; ?>">

@@ -21,8 +21,8 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
 </head>
 
 <body>
-    <div style="width: 100%; height: 40px; background-color:red;margin-bottom:10px">
-
+    <div class="top-bar card">
+        <div class=""></div>
     </div>
     <main>
         <form id="appForm">
@@ -33,7 +33,7 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                         <div class="mb-3">
                             <label for="title">TITLE</label>
                             <select name="title" id="title">
-                                <option value="" selected>Select</option>
+                                <option value="" hidden>Select</option>
                                 <option value="Mr">Mr.</option>
                                 <option value="Mr">Mrs.</option>
                                 <option value="Mr">Ms.</option>
@@ -63,7 +63,7 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                         <div class="mb-3">
                             <label for="gender">GENDER</label>
                             <select name="gender" id="gender">
-                                <option value="" selected>Select</option>
+                                <option value="" hidden>Select</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
                             </select>
@@ -71,7 +71,7 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                         <div class="mb-3">
                             <label for="marital-status">MARITAL STATUS</label>
                             <select name="marital-status" id="marital-status">
-                                <option value="" selected>Select</option>
+                                <option value="" hidden>Select</option>
                                 <option value="Single">Single</option>
                                 <option value="Married">Married</option>
                                 <option value="Divorced">Divorced</option>
@@ -82,7 +82,7 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                         <div class="mb-3">
                             <label for="nationality">NATIONALITY</label>
                             <select name="nationality" id="nationality">
-                                <option value="" selected>Select</option>
+                                <option value="" hidden>Select</option>
                                 <option value="Single">Single</option>
                                 <option value="Married">Married</option>
                                 <option value="Divorced">Divorced</option>
@@ -93,7 +93,7 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                         <div class="mb-3">
                             <label for="country">COUNTRY OF RESIDENCE</label>
                             <select name="country" id="country">
-                                <option value="" selected>Select</option>
+                                <option value="" hidden>Select</option>
                                 <option value="Single">Single</option>
                                 <option value="Married">Married</option>
                                 <option value="Divorced">Divorced</option>
@@ -104,7 +104,7 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                         <div class="mb-3">
                             <label for="region">HOME REGION</label>
                             <select name="region" id="region">
-                                <option value="" selected>Select</option>
+                                <option value="" hidden>Select</option>
                                 <option value="Single">Single</option>
                                 <option value="Married">Married</option>
                                 <option value="Divorced">Divorced</option>
@@ -119,16 +119,18 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                         <div class="mb-3">
                             <label for="disability">ANY DISABILITY?</label>
                             <select name="disability" id="disability">
-                                <option value="" selected>Select</option>
+                                <option value="" hidden>Select</option>
                                 <option value="Yes">Yes</option>
                                 <option value="No">No</option>
                             </select>
                         </div>
                     </div>
-                    <div class="photo-upload-area" style="flex-grow: 8;">
-                        <p>gsdfjkhsd sd fjsdafkj safahs dfsdjka fkjasdjkfh sdfjkh sdjkafkjahkjfha skfasd kjfska</p>
+                    <div class="photo-upload-area">
+                        <p style="font-size: 14px; color: brown">Please upload a passport size photo of yourself. The size of the image should not be more than 100KB.</p>
+                        <p style="font-size: 14px; color: brown">The background color of your image should be white.</p>
+                        <p style="font-size: 14px; color: red"><b>NB: The image you use will not be changed. So use a most recent passport sized picture of yourself.</b></p>
                         <div class="photo-display"></div>
-                        <label for="applicant-photo" id="upload-photo-label" class="btn btn-primary">Upload photo</label>
+                        <label for="applicant-photo" class="upload-photo-label btn btn-default">Upload photo</label>
                         <input type="file" name="" id="applicant-photo">
                     </div>
                 </div>
@@ -139,6 +141,11 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
 
             </fieldset>
 
+            <div class="page-control">
+                <button type="submit" class="control-button btn">Previous Step</button>
+                <button type="submit" class="control-button btn">Save and Exit</button>
+                <button type="submit" class="control-button btn">Save and Continue</button>
+            </div>
         </form>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>

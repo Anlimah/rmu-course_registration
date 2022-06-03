@@ -27,7 +27,7 @@ if (isset($_SESSION['step1Done']) && $_SESSION['step1Done'] == true) {
     <form action="#" id="step1Form" method="post" enctype="multipart/form-data">
         <div>
             <label for="email_addr">Email Address</label>
-            <input type="email" name="email_address" id="email_address" placeholder="surname@gmail.com">
+            <input type="email" name="email_address" id="email_address" placeholder="surname@gmail.com" required>
         </div>
         <button type="submit" style="padding: 5px 10px">Continue</button>
         <input type="hidden" name="_v2Token" value="<?= $_SESSION["_step2Token"]; ?>">

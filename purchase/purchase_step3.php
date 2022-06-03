@@ -31,12 +31,12 @@ if (isset($_SESSION['step2Done']) && $_SESSION['step2Done'] == true) {
         <a href="purchase_step2.php">Change email address</a>
         <div>
             <label for="email_addr">RMU - </label>
-            <input type="text" maxlength="1" style="width:15px; text-align:center" name="num[]" id="num1" class="num" placeholder="0">
-            <input type="text" maxlength="1" style="width:15px; text-align:center" name="num[]" id="num2" class="num" placeholder="0">
-            <input type="text" maxlength="1" style="width:15px; text-align:center" name="num[]" id="num3" class="num" placeholder="0">
-            <input type="text" maxlength="1" style="width:15px; text-align:center" name="num[]" id="num4" class="num" placeholder="0">
-            <input type="text" maxlength="1" style="width:15px; text-align:center" name="num[]" id="num5" class="num" placeholder="0">
-            <input type="text" maxlength="1" style="width:15px; text-align:center" name="num[]" id="num6" class="num" placeholder="0">
+            <input type="text" maxlength="1" style="width:15px; text-align:center" name="num[]" id="num1" class="num" placeholder="0" required>
+            <input type="text" maxlength="1" style="width:15px; text-align:center" name="num[]" id="num2" class="num" placeholder="0" required>
+            <input type="text" maxlength="1" style="width:15px; text-align:center" name="num[]" id="num3" class="num" placeholder="0" required>
+            <input type="text" maxlength="1" style="width:15px; text-align:center" name="num[]" id="num4" class="num" placeholder="0" required>
+            <input type="text" maxlength="1" style="width:15px; text-align:center" name="num[]" id="num5" class="num" placeholder="0" required>
+            <input type="text" maxlength="1" style="width:15px; text-align:center" name="num[]" id="num6" class="num" placeholder="0" required>
         </div>
         <button type="submit" style="padding: 5px 10px">Continue</button>
         <input type="hidden" name="_v3Token" value="<?= $_SESSION["_step3Token"]; ?>">

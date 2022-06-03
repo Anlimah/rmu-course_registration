@@ -28,7 +28,8 @@ if (isset($_SESSION['step5Done']) && $_SESSION['step5Done'] == true) {
         <div>
             <label for="gender">Form type</label>
             <select name="form_type" id="form_type">
-                <option value="Degree/diploma" selected>Degree/diploma</option>
+                <option value="select" hidden>Select</option>
+                <option value="Degree/diploma">Degree/diploma</option>
                 <option value="Masters">Masters</option>
                 <option value="Short">Short courses</option>
             </select>
@@ -36,7 +37,8 @@ if (isset($_SESSION['step5Done']) && $_SESSION['step5Done'] == true) {
         <div>
             <label for="gender">Payment Method</label>
             <select name="pay_method" id="pay_method">
-                <option value="Momo" selected>MoMo/Card</option>
+                <option value="select" hidden>Select</option>
+                <option value="Momo">MoMo/Card</option>
                 <option value="Bank">Account deposit</option>
             </select>
         </div>

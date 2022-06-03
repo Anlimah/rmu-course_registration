@@ -30,26 +30,28 @@ if (!isset($_SESSION["_step1Token"])) {
     <form action="#" id="step1Form" method="post" enctype="multipart/form-data">
         <div>
             <label for="first_name">First Name</label>
-            <input type="text" name="first_name" id="first_name" placeholder="Type your first name">
+            <input type="text" name="first_name" id="first_name" placeholder="Type your first name" required>
         </div>
         <div>
             <label for="last_name">Last Name</label>
-            <input type="text" name="last_name" id="last_name" placeholder="Type your first name">
+            <input type="text" name="last_name" id="last_name" placeholder="Type your first name" required>
         </div>
         <div>
             <label for="gender">Gender</label>
-            <select name="gender" id="gender">
-                <option value="Male" selected>Male</option>
+            <select name="gender" id="gender" required>
+                <option value="select" hidden>Select</option>
+                <option value="Male">Male</option>
                 <option value="Female">Female</option>
             </select>
         </div>
         <div>
             <label for="dob">Date of Birth</label>
-            <input type="date" name="dob" id="dob">
+            <input type="date" name="dob" id="dob" required>
         </div>
         <div>
             <label for="phone_num">Country</label>
-            <select name="country" id="country">
+            <select name="country" id="country" required>
+                <option value="select" hidden>Select</option>
                 <option value="Cameroun">Cameroun</option>
                 <option value="Gambia">Gambia</option>
                 <option value="Ghana" selected>Ghana</option>
