@@ -32,7 +32,7 @@ if (!isset($_SESSION["_start"])) {
     </section>
     <header>
         <!--RMU logo and page title-->
-        <img src="../images/RMU-LOG.png" alt="RMU LOG">
+        <img src="../assets/images/RMU-LOG.png" alt="RMU LOG">
         <span>APPLICATION PORTAL</span>
     </header>
 
