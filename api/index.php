@@ -239,6 +239,18 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		} else {
 			echo 'NO';
 		}
+	} elseif ($_GET["url"] == "save/1") {
+		$message = array("response" => "success");
+		echo $message;
+	} elseif ($_GET["url"] == "save/2") {
+		$message = array("response" => "success");
+		echo $message;
+	} elseif ($_GET["url"] == "save/3") {
+		$message = array("response" => "success");
+		echo $message;
+	} elseif ($_GET["url"] == "save/4") {
+		$message = array("response" => "success");
+		echo $message;
 	}
 } else {
 	http_response_code(405);

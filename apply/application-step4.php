@@ -27,7 +27,7 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
     <main>
         <form id="appForm" method="POST">
             <fieldset>
-                <legend style="padding: 5px; color:#fff; background-color: #000">Applicant Information</legend>
+                <legend>Applicant Information</legend>
                 <fieldset>
                     <legend>Personal</legend>
                     <div class="field-content">

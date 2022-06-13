@@ -7,11 +7,6 @@
 	margin: 0;
 }
 
-body {
-	margin: 0;
-	padding: 0;
-}
-
 .card {
 	box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.1), 0 4px 20px 0 rgba(0, 0, 0, 0.1);
 }
@@ -22,7 +17,7 @@ body {
 
 .top-bar {
 	width: 100vw;
-	height: 100px;
+	height: 80px;
 	background-color: #fff;
 	border: none;
 	position: fixed;
@@ -45,22 +40,11 @@ body {
 	background-color: #fff;
 }
 
-@media only screen and (max-width: 768px) {
-	/* For mobile phones: */
-	.top-bar {
-		height: 80px;
-	}
-}
-
 main {
 	position: relative;
 	top: 120px;
-}
-
-main form {
-	padding-left: 200px;
-	padding-right: 200px;
-	width: 100%;
+	padding-left: 15%;
+	padding-right: 15%;
 }
 
 @media only screen and (max-width: 768px) {
@@ -68,7 +52,6 @@ main form {
 	main {
 		padding-left: 15px;
 		padding-right: 15px;
-		position: relative;
 		top: 100px;
 	}
 }
@@ -80,99 +63,7 @@ fieldset {
 }
 
 fieldset legend {
-	width: 100%;
 	padding: 0 15px;
 	border: 1px dashed #ccc;
 	margin-bottom: 20px;
-}
-
-.field-content,
-.mb-3 {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
-}
-
-.form-fields {
-	flex-grow: 7;
-}
-fieldset .field-content {
-	padding: 0 15px;
-}
-
-fieldset,
-legend {
-	border-radius: 10px !important;
-}
-
-@media only screen and (max-width: 768px) {
-	/* For mobile phones: */
-	fieldset {
-		margin-bottom: 30px;
-		border: 1px solid #ccc;
-		padding: 15px;
-	}
-}
-
-.photo-upload-area {
-	flex-grow: 3;
-}
-
-.mb-3 label {
-	width: 220px !important;
-}
-
-input,
-select {
-	width: 300px !important;
-	height: 30px !important;
-}
-
-#applicant-photo {
-	display: none;
-}
-
-.upload-photo-label {
-	width: 200px;
-	text-align: center;
-	background-color: #325ed1;
-	color: #fff;
-}
-
-.upload-photo-label:hover {
-	background-color: #fff;
-	color: #325ed1;
-	border: 2px solid #325ed1;
-}
-
-.photo-display {
-	width: 200px;
-	height: 200px;
-	background-color: #ddd;
-	border: 2px solid #325ed1;
-	border-radius: 7px;
-	margin-bottom: 7px;
-}
-
-.photo-upload-area {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	align-items: center;
-	text-align: justify;
-	margin-left: 50px;
-}
-
-form .page-control {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-around;
-	align-items: center;
-	position: relative;
-	bottom: 0;
-	width: 100%;
-	height: 50px;
-	z-index: 9999;
-	background-color: #325ed1;
 }
