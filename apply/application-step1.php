@@ -246,9 +246,9 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
             </fieldset>
 
             <div class="page-control">
-                <!--<button type="submit" id="previousStep" class="control-button btn">Previous Step</button>
-                <button type="submit" id="saveAndExit" class="control-button btn">Save and Exit</button>-->
-                <button type="submit" onclick="" id="saveAndContinue" class="control-button btn">Save and Continue</button>
+                <button type="submit" id="previousStep" onclick="saveWhatNext(1)" class="control-button btn">Previous Step</button>
+                <button type="submit" id="saveAndExit" onclick="saveWhatNext(2)" class="control-button btn">Save and Exit</button>
+                <button type="submit" onclick="saveWhatNext(3)" id="saveAndContinue" class="control-button btn">Save and Continue</button>
             </div>
         </form>
     </main>
@@ -257,8 +257,27 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
         $(document).ready(function() {
             $("#step1Form").on("submit", function(e) {
                 e.preventDefault();
-                console.log($(this).data('clicked', $(event.target)));
+                $.ajax({
+                    type: "POST",
+                    url: "../api/save/1",
+                    data: new FormData(this),
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    success: function(result) {
+                        let res = JSON.parse(result);
+                        console.log(res);
+                        if (res["response"] == "success") {
+                            if (whatNext > 0)
+                                window.location.href = 'application-step' + (whatNext += 1) + '.php';
+                            else
+                                window.location.href = '?logout=true';
+                        }
+                    },
+                    error: function(error) {}
+                });
             });
+
         });
     </script>
 </body>

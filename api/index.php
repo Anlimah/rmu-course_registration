@@ -239,18 +239,24 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		} else {
 			echo 'NO';
 		}
-	} elseif ($_GET["url"] == "save/1") {
-		$message = array("response" => "success");
-		echo $message;
-	} elseif ($_GET["url"] == "save/2") {
-		$message = array("response" => "success");
-		echo $message;
-	} elseif ($_GET["url"] == "save/3") {
-		$message = array("response" => "success");
-		echo $message;
-	} elseif ($_GET["url"] == "save/4") {
-		$message = array("response" => "success");
-		echo $message;
+	} elseif ($_GET["url"] == "save") {
+		$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+		$uri = explode('/', $uri);
+		$message = array("response" => "success", "msg" => "OK");
+
+		if ($uri[4] == 1) {
+			$message = array("response" => "success");
+			die(json_encode($message));
+		} elseif ($uri[4] == 2) {
+			$message = array("response" => "success");
+			die(json_encode($message));
+		} elseif ($uri[4] == 3) {
+			$message = array("response" => "success");
+			die(json_encode($message));
+		} elseif ($uri[4] == 4) {
+			$message = array("response" => "success");
+			die(json_encode($message));
+		}
 	}
 } else {
 	http_response_code(405);
