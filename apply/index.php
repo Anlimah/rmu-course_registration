@@ -72,7 +72,7 @@ if (!isset($_SESSION["_start"])) {
                     success: function(result) {
                         console.log(result);
                         if (result) {
-                            window.location.href = 'application.php';
+                            window.location.href = 'application-step1.php';
                         }
                         /*if (res["response"] == "success") {
                             console.log(res['msg']);

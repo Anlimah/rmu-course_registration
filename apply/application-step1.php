@@ -25,7 +25,7 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
         <div class="logo-board"></div>
     </div>
     <main>
-        <form id="appForm" method="POST">
+        <form id="step1Form" method="POST">
             <fieldset>
                 <legend style="padding: 5px; color:#fff; background-color: #000">Applicant Information</legend>
                 <fieldset>
@@ -244,16 +244,23 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
 
                 </fieldset>
             </fieldset>
-            </fieldset>
-
 
             <div class="page-control">
-                <!--<button type="submit" class="control-button btn">Previous Step</button>-->
-                <button type="submit" class="control-button btn">Save and Exit</button>
-                <button type="submit" class="control-button btn">Save and Continue</button>
+                <!--<button type="submit" id="previousStep" class="control-button btn">Previous Step</button>
+                <button type="submit" id="saveAndExit" class="control-button btn">Save and Exit</button>-->
+                <button type="submit" onclick="" id="saveAndContinue" class="control-button btn">Save and Continue</button>
             </div>
         </form>
     </main>
+    <?php include_once("../inc/scripts.php"); ?>
+    <script>
+        $(document).ready(function() {
+            $("#step1Form").on("submit", function(e) {
+                e.preventDefault();
+                console.log($(this).data('clicked', $(event.target)));
+            });
+        });
+    </script>
 </body>
 
 </html>
