@@ -245,17 +245,18 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		$message = array("response" => "success", "msg" => "OK");
 
 		if ($uri[4] == 1) {
+			//echo $_POST['title'] . " " . $_POST['surname']);
 			$message = array("response" => "success");
-			die(json_encode($message));
+			echo json_encode(array("response" => "success", "msg" => "OK"));
 		} elseif ($uri[4] == 2) {
 			$message = array("response" => "success");
-			die(json_encode($message));
+			echo json_encode($message);
 		} elseif ($uri[4] == 3) {
 			$message = array("response" => "success");
-			die(json_encode($message));
+			echo json_encode($message);
 		} elseif ($uri[4] == 4) {
 			$message = array("response" => "success");
-			die(json_encode($message));
+			echo json_encode($message);
 		}
 	}
 } else {

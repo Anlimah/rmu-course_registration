@@ -25,7 +25,7 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
         <div class="logo-board"></div>
     </div>
     <main>
-        <form id="step1Form" method="POST">
+        <form id="appForm" method="POST">
             <fieldset>
                 <legend style="padding: 5px; color:#fff; background-color: #000">Applicant Information</legend>
                 <fieldset>
@@ -36,14 +36,14 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                                 <label for="title">Title</label>
                                 <select name="title" id="title">
                                     <option value="" hidden>Select</option>
-                                    <option value="Mr">Mr.</option>
-                                    <option value="Mr">Mrs.</option>
-                                    <option value="Mr">Ms.</option>
-                                    <option value="Mr">Prof. Dr.</option>
-                                    <option value="Mr">Prof.</option>
-                                    <option value="Mr">Rev.</option>
-                                    <option value="Mr">Rev. Dr.</option>
-                                    <option value="Mr">Rev. Sis.</option>
+                                    <option value="Mr.">Mr.</option>
+                                    <option value="Mrs.">Mrs.</option>
+                                    <option value="Ms.">Ms.</option>
+                                    <option value="Prof. Dr.">Prof. Dr.</option>
+                                    <option value="Prof.">Prof.</option>
+                                    <option value="Rev.">Rev.</option>
+                                    <option value="Rev. Dr.">Rev. Dr.</option>
+                                    <option value="Rev. Sis.">Rev. Sis.</option>
                                 </select>
                             </div>
                             <div>
@@ -216,15 +216,7 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                     </div>
                 </fieldset>
                 <fieldset>
-                    <legend>Contact</legend>
-                    <div>
-                        <label for="gd-postal-address">Postal Address</label>
-                        <input type="text" name="gd-postal-address" id="gd-postal-address">
-                    </div>
-                    <div>
-                        <label for="gd-postal-town">Postal Town</label>
-                        <input type="text" name="gd-postal-town" id="gd-postal-town">
-                    </div>
+                    <legend>Contact</legend> 
                     <div>
                         <label for="gd-postal-region">Postal Region</label>
                         <input type="text" name="gd-postal-region" id="gd-postal-region">
@@ -246,36 +238,21 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
             </fieldset>
 
             <div class="page-control">
-                <button type="submit" id="previousStep" onclick="saveWhatNext(1)" class="control-button btn">Previous Step</button>
-                <button type="submit" id="saveAndExit" onclick="saveWhatNext(2)" class="control-button btn">Save and Exit</button>
-                <button type="submit" onclick="saveWhatNext(3)" id="saveAndContinue" class="control-button btn">Save and Continue</button>
+                <button type="submit" id="prevStep" onclick="whatNext(0)" class="control-button btn">Previous Step</button>
+                <button type="submit" id="saveAndExit" onclick="whatNext(1)" class="control-button btn">Save and Exit</button>
+                <button type="submit" id="saveAndCont" onclick="whatNext(2)" class="control-button btn">Save and Continue</button>
             </div>
+
         </form>
     </main>
-    <?php include_once("../inc/scripts.php"); ?>
+    <?php include("../inc/scripts.php") ?>
     <script>
         $(document).ready(function() {
-            $("#step1Form").on("submit", function(e) {
+
+            $("#appForm").on("submit", function(e) {
                 e.preventDefault();
-                $.ajax({
-                    type: "POST",
-                    url: "../api/save/1",
-                    data: new FormData(this),
-                    contentType: false,
-                    cache: false,
-                    processData: false,
-                    success: function(result) {
-                        let res = JSON.parse(result);
-                        console.log(res);
-                        if (res["response"] == "success") {
-                            if (whatNext > 0)
-                                window.location.href = 'application-step' + (whatNext += 1) + '.php';
-                            else
-                                window.location.href = '?logout=true';
-                        }
-                    },
-                    error: function(error) {}
-                });
+                var data = new FormData(this);
+                save(data);
             });
 
         });

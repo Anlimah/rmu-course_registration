@@ -60,6 +60,7 @@ fieldset {
 	margin-bottom: 30px;
 	border: 1px solid #ccc;
 	padding: 20px;
+	border-radius: 10px;
 }
 
 fieldset legend {
