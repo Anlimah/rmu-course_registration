@@ -25,7 +25,9 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
         <div class="logo-board"></div>
     </div>
     <main>
-        
+        <fieldset style="background-color: #feffdf">
+
+        </fieldset>
     </main>
     <?php include("../inc/scripts.php") ?>
     <script>
