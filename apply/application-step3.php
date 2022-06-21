@@ -27,23 +27,23 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
     <main>
         <form id="appForm" method="POST">
             <fieldset>
-                <legend style="padding: 5px; color:#fff; background-color: #000">Program/Hall Choice</legend>
+                <legend style="padding: 5px; color:#fff; background-color: #000">Programme/Hall Choice</legend>
                 <fieldset>
-                    <legend>First Choice</legend>
+                    <legend>Programme</legend>
                     <div>
-                        <label for="gd-phone-number">Phone Number</label>
+                        <label for="gd-phone-number">First (1<sup>st</sup>) Choice</label>
                         <select name="country" id="country">
-                            <option value="" hidden>Select</option>
+                            <option value="" hidden>Select a programme</option>
                             <option value="Single" selected>+233</option>
                             <option value="Married">+234</option>
                             <option value="Divorced">+235</option>
                             <option value="Widowed">+236</option>
                             <option value="Separarted">+237</option>
                         </select>
-
-                        <label for="gd-phone-number">Phone Number</label>
+                        <br>
+                        <label for="gd-phone-number">Second (2<sup>nd</sup>) Choice</label>
                         <select name="country" id="country">
-                            <option value="" hidden>Select</option>
+                            <option value="" hidden>Select a programme</option>
                             <option value="Single" selected>+233</option>
                             <option value="Married">+234</option>
                             <option value="Divorced">+235</option>
@@ -54,21 +54,31 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                 </fieldset>
 
                 <fieldset>
-                    <legend>Second Choice</legend>
+                    <legend>Halls</legend>
                     <div>
-                        <label for="gd-phone-number">Phone Number</label>
+                        <label for="gd-phone-number">First (1<sup>st</sup>) Choice</label>
                         <select name="country" id="country">
-                            <option value="" hidden>Select</option>
+                            <option value="" hidden>Select a programme</option>
                             <option value="Single" selected>+233</option>
                             <option value="Married">+234</option>
                             <option value="Divorced">+235</option>
                             <option value="Widowed">+236</option>
                             <option value="Separarted">+237</option>
                         </select>
-
-                        <label for="gd-phone-number">Phone Number</label>
+                        <br>
+                        <label for="gd-phone-number">Second (2<sup>nd</sup>) Choice</label>
                         <select name="country" id="country">
-                            <option value="" hidden>Select</option>
+                            <option value="" hidden>Select a programme</option>
+                            <option value="Single" selected>+233</option>
+                            <option value="Married">+234</option>
+                            <option value="Divorced">+235</option>
+                            <option value="Widowed">+236</option>
+                            <option value="Separarted">+237</option>
+                        </select>
+                        <br>
+                        <label for="gd-phone-number">Third (3<sup>rd</sup>) Choice</label>
+                        <select name="country" id="country">
+                            <option value="" hidden>Select a programme</option>
                             <option value="Single" selected>+233</option>
                             <option value="Married">+234</option>
                             <option value="Divorced">+235</option>
@@ -141,7 +151,6 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                     </div>
 
                     <div>
-
                         <label for="gd-postal-town">If you did not complete, select reason(s)</label>
                         <select name="country" id="country">
                             <option value="" hidden>Reasons</option>
@@ -160,7 +169,7 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
             <div class="page-control">
                 <button type="submit" id="prevStep" onclick="whatNext(0)" class="control-button btn">Previous Step</button>
                 <button type="submit" id="saveAndExit" onclick="whatNext(1)" class="control-button btn">Save and Exit</button>
-                <button type="submit" id="saveAndCont" onclick="whatNext(4)" class="control-button btn">Save and Continue</button>
+                <button type="submit" id="saveAndCont" onclick="whatNext(4)" class="control-button btn">Submit and Print</button>
             </div>
 
         </form>
@@ -168,7 +177,6 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
     <?php include("../inc/scripts.php") ?>
     <script>
         $(document).ready(function() {
-
             $("#appForm").on("submit", function(e) {
                 e.preventDefault();
                 var data = new FormData(this);
