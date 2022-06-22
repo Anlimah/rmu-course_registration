@@ -33,9 +33,11 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                     <div class="field-content">
                         <div class="form-fields" style="flex-grow: 8;">
                             <div>
+                                <label for="gd-title"><span>*</span> Index Number</label>
                                 <input type="text" name="home-town" id="home-town" placeholder="Index Number">
                             </div>
                             <div>
+                                <label for="gd-title"><span>*</span> Examination Type</label>
                                 <select name="nationality" id="nationality">
                                     <option value="" hidden>Examination Type</option>
                                     <option value="2022">2022</option>
@@ -46,6 +48,7 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                                 </select>
                             </div>
                             <div>
+                                <label for="gd-title"><span>*</span> Year</label>
                                 <select name="marital-status" id="marital-status">
                                     <option value="" hidden>Select Year</option>
                                     <option value="Single">Single</option>
@@ -62,7 +65,7 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
             </fieldset>
 
             <div class="page-control">
-                <button type="submit" id="prevStep" onclick="whatNext(0)" class="control-button btn">Previous Step</button>
+                <button type="submit" id="prevStep" onclick="whatNext(0, 2)" class="control-button btn">Previous Step</button>
                 <button type="submit" id="saveAndExit" onclick="whatNext(1)" class="control-button btn">Save and Exit</button>
                 <button type="submit" id="saveAndCont" onclick="whatNext(3)" class="control-button btn">Save and Continue</button>
             </div>

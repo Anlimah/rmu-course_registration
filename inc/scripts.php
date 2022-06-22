@@ -5,7 +5,7 @@
     function whatNext(x, y = 1) {
         if (x == 0) {
             if (y > 1)
-                window.location.href = 'application-step' + (x - 1) + ".php";
+                window.location.href = 'application-step' + (y - 1) + ".php";
         } else {
             whichButClicked = x;
         }

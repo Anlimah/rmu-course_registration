@@ -33,7 +33,7 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                     <div class="field-content">
                         <div class="form-fields" style="flex-grow: 8;">
                             <div>
-                                <label for="title">Title</label>
+                                <label for="title"><span>*</span> Title</label>
                                 <select name="title" id="title">
                                     <option value="" hidden>Select</option>
                                     <option value="Mr.">Mr.</option>
@@ -47,23 +47,23 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                                 </select>
                             </div>
                             <div>
-                                <label for="surname">Surname</label>
+                                <label for="surname"><span>*</span> Surname</label>
                                 <input type="text" name="surname" id="surname">
                             </div>
-                            <div>
-                                <label for="first-name">First Name</label>
+                            <!--<div>
+                                <label for="first-name"><span>*</span> First Name</label>
                                 <input type="text" name="first-name" id="first-name">
-                            </div>
+                            </div>-->
                             <div>
                                 <label for="other-names">Other Names</label>
                                 <input type="text" name="other-names" id="other-names">
                             </div>
                             <div>
-                                <label for="dob">Date of Birth</label>
+                                <label for="dob"><span>*</span> Date of Birth</label>
                                 <input type="date" name="dob" id="dob">
                             </div>
                             <div>
-                                <label for="gender">Gender</label>
+                                <label for="gender"><span>*</span> Gender</label>
                                 <select name="gender" id="gender">
                                     <option value="" hidden>Select</option>
                                     <option value="Male">Male</option>
@@ -71,7 +71,7 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                                 </select>
                             </div>
                             <div>
-                                <label for="marital-status">Marital Status</label>
+                                <label for="marital-status"><span>*</span> Marital Status</label>
                                 <select name="marital-status" id="marital-status">
                                     <option value="" hidden>Select</option>
                                     <option value="Single">Single</option>
@@ -82,7 +82,7 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                                 </select>
                             </div>
                             <div>
-                                <label for="nationality">Nationality</label>
+                                <label for="nationality"><span>*</span> Nationality</label>
                                 <select name="nationality" id="nationality">
                                     <option value="" hidden>Select</option>
                                     <option value="Single">Single</option>
@@ -93,7 +93,7 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                                 </select>
                             </div>
                             <div>
-                                <label for="country">Country of Residence</label>
+                                <label for="country"><span>*</span> Country of Residence</label>
                                 <select name="country" id="country">
                                     <option value="" hidden>Select</option>
                                     <option value="Single">Single</option>
@@ -104,7 +104,7 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                                 </select>
                             </div>
                             <div>
-                                <label for="region">Home Region</label>
+                                <label for="region"><span>*</span> Home Region</label>
                                 <select name="region" id="region">
                                     <option value="" hidden>Select</option>
                                     <option value="Single">Single</option>
@@ -115,11 +115,11 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                                 </select>
                             </div>
                             <div>
-                                <label for="home-town">Home Town</label>
+                                <label for="home-town"><span>*</span> Home Town</label>
                                 <input type="text" name="home-town" id="home-town">
                             </div>
                             <div>
-                                <label for="disability">Any Disability</label>
+                                <label for="disability"><span>*</span> Any Disability</label>
                                 <select name="disability" id="disability">
                                     <option value="" hidden>Select</option>
                                     <option value="Yes">Yes</option>
@@ -141,15 +141,15 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                 <fieldset>
                     <legend>Contact</legend>
                     <div>
-                        <label for="app-postal-address">Postal Address</label>
+                        <label for="app-postal-address"><span>*</span> Postal Address</label>
                         <input type="text" name="app-postal-address" id="app-postal-address">
                     </div>
                     <div>
-                        <label for="app-postal-town">Postal Town</label>
+                        <label for="app-postal-town"><span>*</span> Postal Town</label>
                         <input type="text" name="app-postal-town" id="app-postal-town">
                     </div>
                     <div>
-                        <label for="app-postal-region">Postal Region</label>
+                        <label for="app-postal-region"><span>*</span> Postal Region</label>
                         <input type="text" name="app-postal-region" id="app-postal-region">
                     </div>
                     <div>
@@ -157,14 +157,13 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                         <input type="text" name="app-residence" id="app-residence">
                     </div>
                     <div>
-                        <label for="app-phone-number">Mobile Phone Number</label>
+                        <label for="app-phone-number"><span>*</span> Mobile Phone Number</label>
                         <input type="text" name="app-phone-number" id="app-phone-number">
                     </div>
                     <div>
-                        <label for="app-email-address">Email Address</label>
+                        <label for="app-email-address"><span>*</span> Email Address</label>
                         <input type="email" name="app-email-address" id="app-email-address">
                     </div>
-
                 </fieldset>
             </fieldset>
 
@@ -173,7 +172,7 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                 <fieldset>
                     <legend>Personal</legend>
                     <div>
-                        <label for="gd-title">Title</label>
+                        <label for="gd-title"><span>*</span> Title</label>
                         <select name="gd-title" id="gd-title">
                             <option value="" hidden>Select</option>
                             <option value="Mr">Mr.</option>
@@ -187,15 +186,15 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                         </select>
                     </div>
                     <div>
-                        <label for="gd-surname">Surname</label>
+                        <label for="gd-surname"><span>*</span> Surname</label>
                         <input type="text" name="gd-surname" id="gd-surname">
                     </div>
                     <div>
-                        <label for="gd-first-name">First Name</label>
+                        <label for="gd-first-name"><span>*</span> First Name</label>
                         <input type="text" name="gd-first-name" id="gd-first-name">
                     </div>
                     <div>
-                        <label for="gd-phone-number">Phone Number</label>
+                        <label for="gd-phone-number"><span>*</span> Phone Number</label>
                         <select name="country" id="country">
                             <option value="" hidden>Select</option>
                             <option value="Single" selected>+233</option>
@@ -207,26 +206,22 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                         <input type="tel" name="gd-phone-number" id="phone-number">
                     </div>
                     <div>
-                        <label for="gd-occupation">Occupation</label>
+                        <label for="gd-occupation"><span>*</span> Occupation</label>
                         <input type="text" name="gd-occupation" id="gd-occupation">
-                    </div>
-                    <div>
-                        <label for="gd-email-address">Email Address</label>
-                        <input type="email" name="gd-email-address" id="gd-email-addres">
                     </div>
                 </fieldset>
                 <fieldset>
-                    <legend>Contact</legend> 
+                    <legend>Contact</legend>
                     <div>
-                        <label for="gd-postal-region">Postal Region</label>
+                        <label for="gd-postal-region"><span>*</span> Postal Region</label>
                         <input type="text" name="gd-postal-region" id="gd-postal-region">
                     </div>
                     <div>
-                        <label for="gd-residence">Residential Address</label>
+                        <label for="gd-residence"><span>*</span> Residential Address</label>
                         <input type="text" name="gd-residence" id="gd-residence">
                     </div>
                     <div>
-                        <label for="gd-phone-number">Mobile Phone Number</label>
+                        <label for="gd-phone-number"><span>*</span> Mobile Phone Number</label>
                         <input type="text" name="gd-phone-number" id="gd-phone-number">
                     </div>
                     <div>

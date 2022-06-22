@@ -31,24 +31,14 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                 <fieldset>
                     <legend>Programme</legend>
                     <div>
-                        <label for="gd-phone-number">First (1<sup>st</sup>) Choice</label>
+                        <label for="gd-phone-number"><span>*</span> First (1<sup>st</sup>) Choice</label>
                         <select name="country" id="country">
-                            <option value="" hidden>Select a programme</option>
-                            <option value="Single" selected>+233</option>
-                            <option value="Married">+234</option>
-                            <option value="Divorced">+235</option>
-                            <option value="Widowed">+236</option>
-                            <option value="Separarted">+237</option>
+                            <option value="" hidden>Choose </option>
                         </select>
                         <br>
-                        <label for="gd-phone-number">Second (2<sup>nd</sup>) Choice</label>
+                        <label for="gd-phone-number"><span>*</span> Second (2<sup>nd</sup>) Choice</label>
                         <select name="country" id="country">
-                            <option value="" hidden>Select a programme</option>
-                            <option value="Single" selected>+233</option>
-                            <option value="Married">+234</option>
-                            <option value="Divorced">+235</option>
-                            <option value="Widowed">+236</option>
-                            <option value="Separarted">+237</option>
+                            <option value="" hidden>Choose </option>
                         </select>
                     </div>
                 </fieldset>
@@ -56,34 +46,19 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                 <fieldset>
                     <legend>Halls</legend>
                     <div>
-                        <label for="gd-phone-number">First (1<sup>st</sup>) Choice</label>
+                        <label for="gd-phone-number"><span>*</span> First (1<sup>st</sup>) Choice</label>
                         <select name="country" id="country">
-                            <option value="" hidden>Select a programme</option>
-                            <option value="Single" selected>+233</option>
-                            <option value="Married">+234</option>
-                            <option value="Divorced">+235</option>
-                            <option value="Widowed">+236</option>
-                            <option value="Separarted">+237</option>
+                            <option value="" hidden>Choose</option>
                         </select>
                         <br>
-                        <label for="gd-phone-number">Second (2<sup>nd</sup>) Choice</label>
-                        <select name="country" id="country">
-                            <option value="" hidden>Select a programme</option>
-                            <option value="Single" selected>+233</option>
-                            <option value="Married">+234</option>
-                            <option value="Divorced">+235</option>
-                            <option value="Widowed">+236</option>
-                            <option value="Separarted">+237</option>
+                        <label for="gd-phone-number"><span>*</span> Second (2<sup>nd</sup>) Choice</label>
+                        <select name="residence-choice-2" id="residence-choice-2">
+                            <option value="" hidden>Choose</option>
                         </select>
                         <br>
-                        <label for="gd-phone-number">Third (3<sup>rd</sup>) Choice</label>
-                        <select name="country" id="country">
-                            <option value="" hidden>Select a programme</option>
-                            <option value="Single" selected>+233</option>
-                            <option value="Married">+234</option>
-                            <option value="Divorced">+235</option>
-                            <option value="Widowed">+236</option>
-                            <option value="Separarted">+237</option>
+                        <label for="gd-phone-number"><span>*</span> Third (3<sup>rd</sup>) Choice</label>
+                        <select name="residence-choice-3" id="residence-choice-3">
+                            <option value="" hidden>Choose</option>
                         </select>
                     </div>
                 </fieldset>
@@ -106,67 +81,56 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                     </div>
                     <div>
                         <label for="gd-postal-town">Date enrolled</label>
-                        <select name="country" id="country">
+                        <select name="month" id="month">
                             <option value="" hidden>Month</option>
-                            <option value="Single">January</option>
-                            <option value="Single">February</option>
-                            <option value="Single">March</option>
-                            <option value="Single">April</option>
-                            <option value="Single">May</option>
-                            <option value="Single">June</option>
-                            <option value="Single">July</option>
-                            <option value="Single">August</option>
-                            <option value="Single">September</option>
-                            <option value="Single">October</option>
-                            <option value="Single">November</option>
-                            <option value="Single">December</option>
+                            <option value="January">January</option>
+                            <option value="February">February</option>
+                            <option value="March">March</option>
+                            <option value="April">April</option>
+                            <option value="May">May</option>
+                            <option value="June">June</option>
+                            <option value="July">July</option>
+                            <option value="August">August</option>
+                            <option value="September">September</option>
+                            <option value="October">October</option>
+                            <option value="November">November</option>
+                            <option value="December">December</option>
                         </select>
-                        <select name="country" id="country">
+                        <select name="year" id="year">
                             <option value="" hidden>Year</option>
-                            <option value="Single">2022</option>
-                            <option value="Single">2021</option>
-                            <option value="Single">2020</option>
-                            <option value="Single">2019</option>
-                            <option value="Single">2018</option>
-                            <option value="Single">2017</option>
-                            <option value="Single">2016</option>
-                            <option value="Single">2015</option>
-                            <option value="Single">2014</option>
-                            <option value="Single">2013</option>
-                            <option value="Single">2012</option>
-                            <option value="Single">2011</option>
-                            <option value="Single">2010</option>
-                            <option value="Single">2009</option>
-                            <option value="Single">2008</option>
-                            <option value="Single">2007</option>
-                            <option value="Single">2006</option>
-                            <option value="Single">2005</option>
-                            <option value="Single">2004</option>
-                            <option value="Single">2003</option>
-                            <option value="Single">2002</option>
-                            <option value="Single">2001</option>
-                            <option value="Single">2000</option>
-                            <option value="Single">1999</option>
-                            <option value="Single">1998</option>
-                            <option value="Single">1997</option>
-                            <option value="Single">1996</option>
-                            <option value="Single">1995</option>
-                            <option value="Single">1994</option>
-                            <option value="Single">1993</option>
-                            <option value="Single">1992</option>
-                            <option value="Single">1991</option>
-                            <option value="Single">1990</option>
-                            <option value="Single">1989</option>
-                            <option value="Single">1988</option>
-                            <option value="Single">1987</option>
-                            <option value="Single">1986</option>
-                            <option value="Single">1985</option>
-                            <option value="Single">1984</option>
-                            <option value="Single">1983</option>
-                            <option value="Single">1982</option>
-                            <option value="Single">1981</option>
-                            <option value="Single">1980</option>
-                            <option value="Single">1979</option>
+                            <option value="2022">2022</option>
+                            <option value="2021">2021</option>
+                            <option value="2020">2020</option>
+                            <option value="2019">2019</option>
+                            <option value="2018">2018</option>
+                            <option value="2017">2017</option>
+                            <option value="2016">2016</option>
+                            <option value="2015">2015</option>
+                            <option value="2014">2014</option>
+                            <option value="2013">2013</option>
+                            <option value="2012">2012</option>
+                            <option value="2011">2011</option>
+                            <option value="2010">2010</option>
+                            <option value="2009">2009</option>
+                            <option value="2008">2008</option>
+                            <option value="2007">2007</option>
+                            <option value="2006">2006</option>
+                            <option value="2005">2005</option>
+                            <option value="2004">2004</option>
+                            <option value="2003">2003</option>
+                            <option value="2002">2002</option>
+                            <option value="2001">2001</option>
+                            <option value="2000">2000</option>
+                            <option value="1999">1999</option>
+                            <option value="1998">1998</option>
+                            <option value="1997">1997</option>
+                            <option value="1996">1996</option>
+                            <option value="1995">1995</option>
+                            <option value="1994">1994</option>
+                            <option value="1993">1993</option>
+                            <option value="1992">1992</option>
+                            <option value="1991">1991</option>
+                            <option value="1990">1990</option>
                         </select>
                     </div>
 
@@ -178,67 +142,56 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
 
                     <div>
                         <label for="gd-postal-town">Date of Completion</label>
-                        <select name="country" id="country">
+                        <select name="month" id="month">
                             <option value="" hidden>Month</option>
-                            <option value="Single">January</option>
-                            <option value="Single">February</option>
-                            <option value="Single">March</option>
-                            <option value="Single">April</option>
-                            <option value="Single">May</option>
-                            <option value="Single">June</option>
-                            <option value="Single">July</option>
-                            <option value="Single">August</option>
-                            <option value="Single">September</option>
-                            <option value="Single">October</option>
-                            <option value="Single">November</option>
-                            <option value="Single">December</option>
+                            <option value="January">January</option>
+                            <option value="February">February</option>
+                            <option value="March">March</option>
+                            <option value="April">April</option>
+                            <option value="May">May</option>
+                            <option value="June">June</option>
+                            <option value="July">July</option>
+                            <option value="August">August</option>
+                            <option value="September">September</option>
+                            <option value="October">October</option>
+                            <option value="November">November</option>
+                            <option value="December">December</option>
                         </select>
-                        <select name="country" id="country">
+                        <select name="year" id="year">
                             <option value="" hidden>Year</option>
-                            <option value="Single">2022</option>
-                            <option value="Single">2021</option>
-                            <option value="Single">2020</option>
-                            <option value="Single">2019</option>
-                            <option value="Single">2018</option>
-                            <option value="Single">2017</option>
-                            <option value="Single">2016</option>
-                            <option value="Single">2015</option>
-                            <option value="Single">2014</option>
-                            <option value="Single">2013</option>
-                            <option value="Single">2012</option>
-                            <option value="Single">2011</option>
-                            <option value="Single">2010</option>
-                            <option value="Single">2009</option>
-                            <option value="Single">2008</option>
-                            <option value="Single">2007</option>
-                            <option value="Single">2006</option>
-                            <option value="Single">2005</option>
-                            <option value="Single">2004</option>
-                            <option value="Single">2003</option>
-                            <option value="Single">2002</option>
-                            <option value="Single">2001</option>
-                            <option value="Single">2000</option>
-                            <option value="Single">1999</option>
-                            <option value="Single">1998</option>
-                            <option value="Single">1997</option>
-                            <option value="Single">1996</option>
-                            <option value="Single">1995</option>
-                            <option value="Single">1994</option>
-                            <option value="Single">1993</option>
-                            <option value="Single">1992</option>
-                            <option value="Single">1991</option>
-                            <option value="Single">1990</option>
-                            <option value="Single">1989</option>
-                            <option value="Single">1988</option>
-                            <option value="Single">1987</option>
-                            <option value="Single">1986</option>
-                            <option value="Single">1985</option>
-                            <option value="Single">1984</option>
-                            <option value="Single">1983</option>
-                            <option value="Single">1982</option>
-                            <option value="Single">1981</option>
-                            <option value="Single">1980</option>
-                            <option value="Single">1979</option>
+                            <option value="2022">2022</option>
+                            <option value="2021">2021</option>
+                            <option value="2020">2020</option>
+                            <option value="2019">2019</option>
+                            <option value="2018">2018</option>
+                            <option value="2017">2017</option>
+                            <option value="2016">2016</option>
+                            <option value="2015">2015</option>
+                            <option value="2014">2014</option>
+                            <option value="2013">2013</option>
+                            <option value="2012">2012</option>
+                            <option value="2011">2011</option>
+                            <option value="2010">2010</option>
+                            <option value="2009">2009</option>
+                            <option value="2008">2008</option>
+                            <option value="2007">2007</option>
+                            <option value="2006">2006</option>
+                            <option value="2005">2005</option>
+                            <option value="2004">2004</option>
+                            <option value="2003">2003</option>
+                            <option value="2002">2002</option>
+                            <option value="2001">2001</option>
+                            <option value="2000">2000</option>
+                            <option value="1999">1999</option>
+                            <option value="1998">1998</option>
+                            <option value="1997">1997</option>
+                            <option value="1996">1996</option>
+                            <option value="1995">1995</option>
+                            <option value="1994">1994</option>
+                            <option value="1993">1993</option>
+                            <option value="1992">1992</option>
+                            <option value="1991">1991</option>
+                            <option value="1990">1990</option>
                         </select>
                     </div>
 
@@ -259,7 +212,7 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
             </fieldset>
 
             <div class="page-control">
-                <button type="submit" id="prevStep" onclick="whatNext(0)" class="control-button btn">Previous Step</button>
+                <button type="submit" id="prevStep" onclick="whatNext(0, 3)" class="control-button btn">Previous Step</button>
                 <button type="submit" id="saveAndExit" onclick="whatNext(1)" class="control-button btn">Save and Exit</button>
                 <button type="submit" id="saveAndCont" onclick="whatNext(4)" class="control-button btn">Submit and Print</button>
             </div>
@@ -274,7 +227,6 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                 var data = new FormData(this);
                 save(data);
             });
-
         });
     </script>
 </body>
