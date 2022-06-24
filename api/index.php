@@ -245,7 +245,84 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		$message = array("response" => "success", "msg" => "OK");
 
 		if ($uri[4] == 1) {
-			//echo $_POST['title'] . " " . $_POST['surname']);
+
+			if (isset($_POST["title"]) && !empty($_POST["title"])) {
+				if (isset($_POST["surname"]) && !empty($_POST["surname"])) {
+					if (isset($_POST["other-names"]) && !empty($_POST["other-names"])) {
+						if (isset($_POST["title"]) && !empty($_POST["title"])) {
+							if (isset($_POST["title"]) && !empty($_POST["title"])) {
+								if (isset($_POST["title"]) && !empty($_POST["title"])) {
+									if (isset($_POST["title"]) && !empty($_POST["title"])) {
+										if (isset($_POST["title"]) && !empty($_POST["title"])) {
+											if (isset($_POST["title"]) && !empty($_POST["title"])) {
+												if (isset($_POST["title"]) && !empty($_POST["title"])) {
+													if (isset($_POST["title"]) && !empty($_POST["title"])) {
+														if (isset($_POST["title"]) && !empty($_POST["title"])) {
+															if (isset($_POST["title"]) && !empty($_POST["title"])) {
+																if (isset($_POST["title"]) && !empty($_POST["title"])) {
+																	if (isset($_POST["title"]) && !empty($_POST["title"])) {
+																		if (isset($_POST["title"]) && !empty($_POST["title"])) {
+																			if (isset($_POST["title"]) && !empty($_POST["title"])) {
+																				if (isset($_POST["title"]) && !empty($_POST["title"])) {
+																					if (isset($_POST["title"]) && !empty($_POST["title"])) {
+																						if (isset($_POST["title"]) && !empty($_POST["title"])) {
+																						}
+																					}
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+
+			// Personal Details
+			$app_title = $user->validateInput($_POST["surname"]);
+			$app_surname = $user->validateInput($_POST["surname"]);
+			$app_first_name = $user->validateInput($_POST["surname"]);
+			$app_phone_number = $user->validateInput($_POST["surname"]);
+			$app_dob = $user->validateInput($_POST["surname"]);
+			$app_gender = $user->validateInput($_POST["surname"]);
+			$app_mar_status = $user->validateInput($_POST["surname"]);
+			$app_nationality = $user->validateInput($_POST["surname"]);
+			$app_country_res = $user->validateInput($_POST["surname"]);
+			$app_home_reg = $user->validateInput($_POST["surname"]);
+			$app_home_town = $user->validateInput($_POST["surname"]);
+			$app_disability = $user->validateInput($_POST["surname"]);
+
+			// Personal contact
+			$app_post_addr = $user->validateInput($_POST["surname"]);
+			$app_post_town = $user->validateInput($_POST["surname"]);
+			$app_post_reg = $user->validateInput($_POST["surname"]);
+			$app_res_addr = $user->validateInput($_POST["surname"]);
+			$app_mobile = $user->validateInput($_POST["surname"]);
+			$app_email_addr = $user->validateEmail($_POST["surname"]);
+
+			//Parent personal details
+			$par_title = $user->validateInput($_POST["surname"]);
+			$par_surname = $user->validateInput($_POST["surname"]);
+			$par_first_name = $user->validateInput($_POST["surname"]);
+			$par_occupation = $user->validateInput($_POST["surname"]);
+
+			//Parents contact
+			$par_post_reg = $user->validateInput($_POST["surname"]);
+			$par_res_address = $user->validateInput($_POST["surname"]);
+			$par_mobile = $user->validateInput($_POST["surname"]);
+			$par_email = $user->validateInput($_POST["surname"]);
+
+			$app_photo = $user->validateInput($_POST["surname"]);
+
 			$message = array("response" => "success");
 			echo json_encode(array("response" => "success", "msg" => "OK"));
 		} elseif ($uri[4] == 2) {
