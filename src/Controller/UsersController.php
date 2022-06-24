@@ -54,7 +54,7 @@ class UsersController extends DatabaseMethods
     public function getFormPrice(string $form_type)
     {
         if (!empty($form_type)) {
-            return $this->getData("SELECT amount FROM application_type WHERE title LIKE '%$form_type%'");
+            return $this->getData("SELECT amount FROM form_type WHERE `name` LIKE '%$form_type%'");
         }
     }
 

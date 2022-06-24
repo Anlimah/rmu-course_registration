@@ -14,7 +14,7 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
             'country' => 'GH',
             'currency' => 'GHS',
             'payment_options' => 'mobilemoney, card, barter',
-            'redirect_url' => 'https://localhost/purchase/purchase_confirm.php',
+            'redirect_url' => 'https://localhost/rmu_admissions/purchase/purchase_confirm.php',
             'customer' => array(
                 'name' => $_SESSION["step1"]['first_name'] . " " . $_SESSION["step1"]['last_name'],
                 'email' => $_SESSION["step2"]['email_address'],
