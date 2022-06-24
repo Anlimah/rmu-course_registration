@@ -86,6 +86,13 @@ class UsersController extends DatabaseMethods
         return $this->getID($sql, $params);
     }
 
+    public function genApplicantLogin()
+    {
+        $appNumber = $this->genCode(8);
+        $pin = ucwords($this->genCode(4));
+        return array('appNum' => 'RMU' . $appNumber, 'pinNum' => $pin);
+    }
+
     public function addUserData($fn, $ln, $ea, $pn, $pp, $bn)
     {
         if ($this->checkUser($pp, $bn)) {
