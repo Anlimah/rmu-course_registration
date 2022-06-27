@@ -1,3 +1,6 @@
+/*
+Tables for form purchase
+*/
 DROP TABLE IF EXISTS `form_type`;
 CREATE TABLE `form_type` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
@@ -42,8 +45,8 @@ CREATE TABLE `purchase_detail` (
     `form_type` INT NOT NULL,
     `payment_method` INT NOT NULL,
     `submitted_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT `fk_form_type` FOREIGN KEY (`form_type`) REFERENCES `form_type`(`id`) ON UPDATE CASCADE ON DELETE CASCADE,
-    CONSTRAINT `fk_payment_method` FOREIGN KEY (`payment_method`) REFERENCES `payment_method`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
+    CONSTRAINT `fk_form_type` FOREIGN KEY (`form_type`) REFERENCES `form_type`(`id`) ON UPDATE CASCADE,
+    CONSTRAINT `fk_payment_method` FOREIGN KEY (`payment_method`) REFERENCES `payment_method`(`id`) ON UPDATE CASCADE
 );
 
 DROP TABLE IF EXISTS `applicants_login`;
@@ -56,28 +59,32 @@ CREATE TABLE `applicants_login` (
     CONSTRAINT `fk_purchase_detail` FOREIGN KEY (`purchase_detail`) REFERENCES `purchase_detail`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-/*DROP TABLE IF EXISTS `program_types`;
-CREATE TABLE `program_types` (
-    `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
-    `type` VARCHAR(255) NOT NULL,
-    `name` VARCHAR(255) NOT NULL,
-    `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
-    `added_at` DATETIME DEFAULT CURRENT_TIMESTAMP
-);
-INSERT INTO `program_types`(`type`, `name`) 
-VALUES ('BSc.', 'Computer Science'), ('Diploma', 'Computer Science')
-
+/*
+Tables for applicants form registration
+*/
 DROP TABLE IF EXISTS `programs`;
 CREATE TABLE `programs` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
     `name` VARCHAR(255) NOT NULL,
+    `type` INT NOT NULL,
+    `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `added_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT `fk_prog_form_type` FOREIGN KEY (`type`) REFERENCES `form_type`(`id`) ON UPDATE CASCADE
+);
+INSERT INTO `programs`(`type`, `name`) 
+VALUES (2, 'BSc. Computer Science'), (2, 'BSc. Electrical Engineering'), (2, 'BSc. Marine Engineering'),
+(2, 'Diploma Computer Engineering'), (2, 'Diploma Electrical Engineering'), (2, 'Diploma Marine Engineering'),
+(1, 'MSc. Environmental Engineering'), (1, 'MA. Ports and Shipping Administration'), 
+(3, 'Marine Engine Mechanic'), (3, 'Marine Refrigeration Mechanic');
+
+DROP TABLE IF EXISTS `halls`;
+CREATE TABLE `halls` (
+    `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
+    `name` VARCHAR(255) NOT NULL,
     `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
     `added_at` DATETIME DEFAULT CURRENT_TIMESTAMP
-    `prog_type` INT NOT NULL,
-    CONSTRAINT `fk_prog_type` FOREIGN KEY (`prog_type`) REFERENCES `program_types`(`id`) ON UPDATE CASCADE ON DELETE CASCADE,
 );
-INSERT INTO `program_types`(`type`, `name`) 
-VALUES ('BSc.', 'Computer Science'), ('Diploma', 'Computer Science')*/
+INSERT INTO `halls`(`name`) VALUES ('Cadet Hostel'), ('Non-cadet Hostel');
 
 
 

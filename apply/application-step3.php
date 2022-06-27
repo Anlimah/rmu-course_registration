@@ -1,4 +1,7 @@
 <?php
+
+use Src\Controller\ExposeDataController;
+
 session_start();
 if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
     if (!(isset($_SESSION["ghApplicant"]) && !empty($_SESSION['ghAppLogin']))) {
@@ -7,6 +10,10 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
 } else {
     header('Location: index.php?status=error&message=Invalid access!');
 }
+
+require_once("../src/Controller/ExposeDataController.php");
+$data = new ExposeDataController();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,11 +41,23 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                         <label for="gd-phone-number"><span>*</span> First (1<sup>st</sup>) Choice</label>
                         <select name="country" id="country">
                             <option value="" hidden>Choose </option>
+                            <?php
+                            $programs = $data->getPrograms();
+                            foreach ($programs as $program) {
+                                echo '<option value="' . $program['id'] . '">' . $program['name'] . '</option>';
+                            }
+                            ?>
                         </select>
                         <br>
                         <label for="gd-phone-number"><span>*</span> Second (2<sup>nd</sup>) Choice</label>
                         <select name="country" id="country">
                             <option value="" hidden>Choose </option>
+                            <?php
+                            $programs = $data->getPrograms();
+                            foreach ($programs as $program) {
+                                echo '<option value="' . $program['id'] . '">' . $program['name'] . '</option>';
+                            }
+                            ?>
                         </select>
                     </div>
                 </fieldset>
@@ -49,16 +68,28 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                         <label for="gd-phone-number"><span>*</span> First (1<sup>st</sup>) Choice</label>
                         <select name="country" id="country">
                             <option value="" hidden>Choose</option>
+                            <?php
+                            $halls = $data->getHalls();
+                            foreach ($halls as $hall) echo '<option value="' . $hall['id'] . '">' . $hall['name'] . '</option>';
+                            ?>
                         </select>
                         <br>
                         <label for="gd-phone-number"><span>*</span> Second (2<sup>nd</sup>) Choice</label>
                         <select name="residence-choice-2" id="residence-choice-2">
                             <option value="" hidden>Choose</option>
+                            <?php
+                            $halls = $data->getHalls();
+                            foreach ($halls as $hall) echo '<option value="' . $hall['id'] . '">' . $hall['name'] . '</option>';
+                            ?>
                         </select>
                         <br>
                         <label for="gd-phone-number"><span>*</span> Third (3<sup>rd</sup>) Choice</label>
                         <select name="residence-choice-3" id="residence-choice-3">
                             <option value="" hidden>Choose</option>
+                            <?php
+                            $halls = $data->getHalls();
+                            foreach ($halls as $hall) echo '<option value="' . $hall['id'] . '">' . $hall['name'] . '</option>';
+                            ?>
                         </select>
                     </div>
                 </fieldset>
@@ -199,8 +230,8 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                         <label for="gd-postal-town">If you did not complete, select reason(s)</label>
                         <select name="country" id="country">
                             <option value="" hidden>Reasons</option>
-                            <option value="Single">Deffered</option>
-                            <option value="Married">Withdrawn</option>
+                            <option value="Deffered">Deffered</option>
+                            <option value="Withdrawn">Withdrawn</option>
                         </select>
                     </div>
 

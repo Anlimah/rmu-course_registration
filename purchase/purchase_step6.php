@@ -1,4 +1,7 @@
 <?php
+
+use Src\Controller\ExposeDataController;
+
 session_start();
 if (isset($_SESSION['step5Done']) && $_SESSION['step5Done'] == true) {
     if (!isset($_SESSION["_step6Token"])) {
@@ -8,6 +11,9 @@ if (isset($_SESSION['step5Done']) && $_SESSION['step5Done'] == true) {
 } else {
     header('Location: purchase_step5.php');
 }
+
+require_once("../src/Controller/ExposeDataController.php");
+$data = new ExposeDataController();
 
 ?>
 <!DOCTYPE html>
@@ -38,6 +44,7 @@ if (isset($_SESSION['step5Done']) && $_SESSION['step5Done'] == true) {
             <label for="gender">Payment Method</label>
             <select name="pay_method" id="pay_method">
                 <option value="select" hidden>Select</option>
+                <?php $data->getFormTypes(); ?>
                 <option value="Momo">MoMo/Card</option>
                 <option value="Bank">Account deposit</option>
             </select>
