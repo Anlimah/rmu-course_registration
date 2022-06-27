@@ -78,7 +78,7 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                                     <option value="Married">Married</option>
                                     <option value="Divorced">Divorced</option>
                                     <option value="Widowed">Widowed</option>
-                                    <option value="Separarted">Separarted</option>
+                                    <option value="Separarted">Separated</option>
                                 </select>
                             </div>
                             <div>
@@ -107,7 +107,7 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                                 <label for="region"><span>*</span> Home Region</label>
                                 <select name="region" id="region">
                                     <option value="" hidden>Select</option>
-                                    <option value="Single">Single</option>
+                                    <option value="Western">Single</option>
                                     <option value="Married">Married</option>
                                     <option value="Divorced">Divorced</option>
                                     <option value="Widowed">Widowed</option>
@@ -133,7 +133,7 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                             <p style="font-size: 14px; color: red"><b>NB: The image you use will not be changed. So use a most recent passport sized picture of yourself.</b></p>
                             <div class="photo-display"></div>
                             <label for="applicant-photo" class="upload-photo-label btn btn-default">Upload photo</label>
-                            <input type="file" name="" id="applicant-photo">
+                            <input type="file" name="applicant-photo" id="applicant-photo">
                         </div>
                     </div>
                 </fieldset>
@@ -194,18 +194,6 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                         <input type="text" name="gd-first-name" id="gd-first-name">
                     </div>
                     <div>
-                        <label for="gd-phone-number"><span>*</span> Phone Number</label>
-                        <select name="country" id="country">
-                            <option value="" hidden>Select</option>
-                            <option value="Single" selected>+233</option>
-                            <option value="Married">+234</option>
-                            <option value="Divorced">+235</option>
-                            <option value="Widowed">+236</option>
-                            <option value="Separarted">+237</option>
-                        </select>
-                        <input type="tel" name="gd-phone-number" id="phone-number">
-                    </div>
-                    <div>
                         <label for="gd-occupation"><span>*</span> Occupation</label>
                         <input type="text" name="gd-occupation" id="gd-occupation">
                     </div>
@@ -221,8 +209,20 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                         <input type="text" name="gd-residence" id="gd-residence">
                     </div>
                     <div>
-                        <label for="gd-phone-number"><span>*</span> Mobile Phone Number</label>
-                        <input type="text" name="gd-phone-number" id="gd-phone-number">
+                        <label for="gd-postal-town"><span>*</span> Postal Town</label>
+                        <input type="text" name="gd-postal-town" id="gd-postal-town">
+                    </div>
+                    <div>
+                        <label for="gd-phone-number"><span>*</span> Phone Number</label>
+                        <select name="gd-country" id="gd-country">
+                            <option value="" hidden>Select</option>
+                            <option value="Single" selected>+233</option>
+                            <option value="Married">+234</option>
+                            <option value="Divorced">+235</option>
+                            <option value="Widowed">+236</option>
+                            <option value="Separarted">+237</option>
+                        </select>
+                        <input type="tel" name="gd-phone-number" id="phone-number">
                     </div>
                     <div>
                         <label for="gd-email-address">Email Address</label>

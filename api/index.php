@@ -242,99 +242,161 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	} elseif ($_GET["url"] == "save") {
 		$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 		$uri = explode('/', $uri);
-		$message = array("response" => "success", "msg" => "OK");
-
+		$message = array("response" => "success");
 		if ($uri[4] == 1) {
 
 			if (isset($_POST["title"]) && !empty($_POST["title"])) {
 				if (isset($_POST["surname"]) && !empty($_POST["surname"])) {
 					if (isset($_POST["other-names"]) && !empty($_POST["other-names"])) {
-						if (isset($_POST["title"]) && !empty($_POST["title"])) {
-							if (isset($_POST["title"]) && !empty($_POST["title"])) {
-								if (isset($_POST["title"]) && !empty($_POST["title"])) {
-									if (isset($_POST["title"]) && !empty($_POST["title"])) {
-										if (isset($_POST["title"]) && !empty($_POST["title"])) {
-											if (isset($_POST["title"]) && !empty($_POST["title"])) {
-												if (isset($_POST["title"]) && !empty($_POST["title"])) {
-													if (isset($_POST["title"]) && !empty($_POST["title"])) {
-														if (isset($_POST["title"]) && !empty($_POST["title"])) {
-															if (isset($_POST["title"]) && !empty($_POST["title"])) {
-																if (isset($_POST["title"]) && !empty($_POST["title"])) {
-																	if (isset($_POST["title"]) && !empty($_POST["title"])) {
-																		if (isset($_POST["title"]) && !empty($_POST["title"])) {
-																			if (isset($_POST["title"]) && !empty($_POST["title"])) {
-																				if (isset($_POST["title"]) && !empty($_POST["title"])) {
-																					if (isset($_POST["title"]) && !empty($_POST["title"])) {
-																						if (isset($_POST["title"]) && !empty($_POST["title"])) {
+						if (isset($_POST["dob"]) && !empty($_POST["dob"])) {
+							if (isset($_POST["gender"]) && !empty($_POST["gender"])) {
+								if (isset($_POST["marital-status"]) && !empty($_POST["marital-status"])) {
+									if (isset($_POST["nationality"]) && !empty($_POST["nationality"])) {
+										if (isset($_POST["country"]) && !empty($_POST["country"])) {
+											if (isset($_POST["region"]) && !empty($_POST["region"])) {
+												if (isset($_POST["home-town"]) && !empty($_POST["home-town"])) {
+													if (isset($_POST["disability"]) && !empty($_POST["disability"])) {
+														if (isset($_POST["app-postal-address"]) && !empty($_POST["app-postal-address"])) {
+															if (isset($_POST["app-postal-town"]) && !empty($_POST["app-postal-town"])) {
+																if (isset($_POST["app-postal-region"]) && !empty($_POST["app-postal-region"])) {
+																	if (isset($_POST["app-phone-number"]) && !empty($_POST["app-phone-number"])) {
+																		if (isset($_POST["app-email-address"]) && !empty($_POST["app-email-address"])) {
+
+																			if (isset($_POST["gd-title"]) && !empty($_POST["gd-title"])) {
+																				if (isset($_POST["gd-surname"]) && !empty($_POST["gd-surname"])) {
+																					if (isset($_POST["gd-first-name"]) && !empty($_POST["gd-first-name"])) {
+																						if (isset($_POST["gd-occupation"]) && !empty($_POST["gd-occupation"])) {
+																							if (isset($_POST["gd-postal-region"]) && !empty($_POST["gd-postal-region"])) {
+																								if (isset($_POST["gd-residence"]) && !empty($_POST["gd-residence"])) {
+																									if (isset($_POST["gd-postal-town"]) && !empty($_POST["gd-postal-town"])) {
+																										if (isset($_POST["gd-phone-number"]) && !empty($_POST["gd-phone-number"])) {
+																											if (isset($_POST["gd-email-address"]) && !empty($_POST["gd-email-address"])) {
+
+
+																												//if (isset($_FILE["applicant-photo"]) && !empty($_FILE["applicant-photo"])) {
+																												// Personal Details
+																												/*$app_title = $user->validateInput($_POST["title"]);
+																													$app_surname = $user->validateInput($_POST["surname"]);
+																													$app_first_name = $user->validateInput($_POST["other-names"]);
+																													$app_dob = $user->validateInput($_POST["dob"]);
+																													$app_gender = $user->validateInput($_POST["gender"]);
+																													$app_mar_status = $user->validateInput($_POST["marital-status"]);
+																													$app_nationality = $user->validateInput($_POST["nationality"]);
+																													$app_country_res = $user->validateInput($_POST["country"]);
+																													$app_home_reg = $user->validateInput($_POST["region"]);
+																													$app_home_town = $user->validateInput($_POST["home-town"]);
+																													$app_disability = $user->validateInput($_POST["disability"]);
+
+																													$app_photo = $user->validateInput($_POST["applicant-photo"]);
+
+																													// Personal contact
+																													$app_post_addr = $user->validateInput($_POST["app-postal-address"]);
+																													$app_post_town = $user->validateInput($_POST["app-postal-town"]);
+																													$app_post_reg = $user->validateInput($_POST["app-postal-region"]);
+																													$app_res_addr = $user->validateInput($_POST["app-residence"]);
+																													$app_mobile = $user->validateInput($_POST["app-phone-number"]);
+																													$app_email_addr = $user->validateEmail($_POST["app-email-address"]);
+
+																													//Parent personal details
+																													$par_title = $user->validateInput($_POST["gd-title"]);
+																													$par_surname = $user->validateInput($_POST["gd-surname"]);
+																													$par_first_name = $user->validateInput($_POST["gd-first-name"]);
+																													$par_occupation = $user->validateInput($_POST["gd-occupation"]);
+
+																													//Parents contact
+																													$par_post_reg = $user->validateInput($_POST["gd-postal-region"]);
+																													$par_res_address = $user->validateInput($_POST["gd-residence"]);
+																													$par_post_town = $user->validateInput($_POST["gd-postal-town"]);
+																													$par_mobile = $user->validateInput($_POST["gd-phone-number"]);
+																													$par_email = $user->validateInput($_POST["gd-email-address"]);*/
+																												echo json_encode(array("response" => "success", "msg" => "Okay"));
+																											} else {
+																												echo json_encode(array("response" => "error", "msg" => "Invalid input25"));
+																											}
+																										} else {
+																											echo json_encode(array("response" => "error", "msg" => "Invalid input24"));
+																										}
+																									} else {
+																										echo json_encode(array("response" => "error", "msg" => "Invalid input23"));
+																									}
+																								} else {
+																									echo json_encode(array("response" => "error", "msg" => "Invalid input22"));
+																								}
+																							} else {
+																								echo json_encode(array("response" => "error", "msg" => "Invalid input21"));
+																							}
+																						} else {
+																							echo json_encode(array("response" => "error", "msg" => "Invalid input20"));
 																						}
+																					} else {
+																						echo json_encode(array("response" => "error", "msg" => "Invalid input19"));
 																					}
+																				} else {
+																					echo json_encode(array("response" => "error", "msg" => "Invalid input"));
 																				}
+																			} else {
+																				echo json_encode(array("response" => "error", "msg" => "Invalid input18"));
 																			}
+																		} else {
+																			echo json_encode(array("response" => "error", "msg" => "Invalid input17"));
 																		}
+																	} else {
+																		echo json_encode(array("response" => "error", "msg" => "Invalid input16"));
 																	}
+																} else {
+																	echo json_encode(array("response" => "error", "msg" => "Invalid input15"));
 																}
+															} else {
+																echo json_encode(array("response" => "error", "msg" => "Invalid input14"));
 															}
+														} else {
+															echo json_encode(array("response" => "error", "msg" => "Invalid input13"));
 														}
+													} else {
+														echo json_encode(array("response" => "error", "msg" => "Invalid input12"));
 													}
+												} else {
+													echo json_encode(array("response" => "error", "msg" => "Invalid input11"));
 												}
+											} else {
+												echo json_encode(array("response" => "error", "msg" => "Invalid input10"));
 											}
+										} else {
+											echo json_encode(array("response" => "error", "msg" => "Invalid input9"));
 										}
+									} else {
+										echo json_encode(array("response" => "error", "msg" => "Invalid inpu8t"));
 									}
+								} else {
+									echo json_encode(array("response" => "error", "msg" => "Invalid input7"));
 								}
+							} else {
+								echo json_encode(array("response" => "error", "msg" => "Invalid input6"));
 							}
+						} else {
+							echo json_encode(array("response" => "error", "msg" => "Invalid input5"));
 						}
+					} else {
+						echo json_encode(array("response" => "error", "msg" => "Invalid input4"));
 					}
+				} else {
+					echo json_encode(array("response" => "error", "msg" => "Invalid input3"));
 				}
+			} else {
+				echo json_encode(array("response" => "error", "msg" => "Invalid input2"));
 			}
-
-			// Personal Details
-			$app_title = $user->validateInput($_POST["surname"]);
-			$app_surname = $user->validateInput($_POST["surname"]);
-			$app_first_name = $user->validateInput($_POST["surname"]);
-			$app_phone_number = $user->validateInput($_POST["surname"]);
-			$app_dob = $user->validateInput($_POST["surname"]);
-			$app_gender = $user->validateInput($_POST["surname"]);
-			$app_mar_status = $user->validateInput($_POST["surname"]);
-			$app_nationality = $user->validateInput($_POST["surname"]);
-			$app_country_res = $user->validateInput($_POST["surname"]);
-			$app_home_reg = $user->validateInput($_POST["surname"]);
-			$app_home_town = $user->validateInput($_POST["surname"]);
-			$app_disability = $user->validateInput($_POST["surname"]);
-
-			// Personal contact
-			$app_post_addr = $user->validateInput($_POST["surname"]);
-			$app_post_town = $user->validateInput($_POST["surname"]);
-			$app_post_reg = $user->validateInput($_POST["surname"]);
-			$app_res_addr = $user->validateInput($_POST["surname"]);
-			$app_mobile = $user->validateInput($_POST["surname"]);
-			$app_email_addr = $user->validateEmail($_POST["surname"]);
-
-			//Parent personal details
-			$par_title = $user->validateInput($_POST["surname"]);
-			$par_surname = $user->validateInput($_POST["surname"]);
-			$par_first_name = $user->validateInput($_POST["surname"]);
-			$par_occupation = $user->validateInput($_POST["surname"]);
-
-			//Parents contact
-			$par_post_reg = $user->validateInput($_POST["surname"]);
-			$par_res_address = $user->validateInput($_POST["surname"]);
-			$par_mobile = $user->validateInput($_POST["surname"]);
-			$par_email = $user->validateInput($_POST["surname"]);
-
-			$app_photo = $user->validateInput($_POST["surname"]);
-
-			$message = array("response" => "success");
-			echo json_encode(array("response" => "success", "msg" => "OK"));
-		} elseif ($uri[4] == 2) {
-			$message = array("response" => "success");
-			echo json_encode($message);
-		} elseif ($uri[4] == 3) {
-			$message = array("response" => "success");
-			echo json_encode($message);
-		} elseif ($uri[4] == 4) {
-			$message = array("response" => "success");
-			echo json_encode($message);
+		} else {
+			echo json_encode(array("response" => "error", "msg" => "Invalid input1"));
 		}
+	} elseif ($uri[4] == 2) {
+		$message = array("response" => "success");
+		echo json_encode($message);
+	} elseif ($uri[4] == 3) {
+		$message = array("response" => "success");
+		echo json_encode($message);
+	} elseif ($uri[4] == 4) {
+		$message = array("response" => "success");
+		echo json_encode($message);
 	}
 } else {
 	http_response_code(405);
