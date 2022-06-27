@@ -247,7 +247,7 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
             $("#appForm").on("submit", function(e) {
                 e.preventDefault();
                 var data = new FormData(this);
-                save(data);
+                save(data, 1);
             });
 
         });

@@ -11,11 +11,11 @@
         }
     }
 
-    function save(data) {
+    function save(d, k) {
         $.ajax({
             type: "POST",
-            url: "../api/save/1",
-            data: data,
+            url: "../api/save/" + k,
+            data: d,
             contentType: false,
             cache: false,
             processData: false,

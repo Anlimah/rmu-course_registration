@@ -242,9 +242,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	} elseif ($_GET["url"] == "save") {
 		$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 		$uri = explode('/', $uri);
-		$message = array("response" => "success");
 		if ($uri[4] == 1) {
-
 			if (isset($_POST["title"]) && !empty($_POST["title"])) {
 				if (isset($_POST["surname"]) && !empty($_POST["surname"])) {
 					if (isset($_POST["other-names"]) && !empty($_POST["other-names"])) {
@@ -385,18 +383,27 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			} else {
 				echo json_encode(array("response" => "error", "msg" => "Invalid input2"));
 			}
-		} else {
-			echo json_encode(array("response" => "error", "msg" => "Invalid input1"));
+		} elseif ($uri[4] == 2) {
+			if (isset($_POST["app-exam-index"]) && !empty($_POST["app-exam-index"])) {
+				if (isset($_POST["app-exam-type"]) && !empty($_POST["app-exam-type"])) {
+					if (isset($_POST["app-exam-year"]) && !empty($_POST["app-exam-year"])) {
+						echo json_encode(array("response" => "success", "msg" => "Okay"));
+					} else {
+						echo json_encode(array("response" => "error", "msg" => "Invalid input3"));
+					}
+				} else {
+					echo json_encode(array("response" => "error", "msg" => "Invalid input2"));
+				}
+			} else {
+				echo json_encode(array("response" => "error", "msg" => "Invalid input 1"));
+			}
+		} elseif ($uri[4] == 3) {
+			$message = array("response" => "success");
+			echo json_encode($message);
+		} elseif ($uri[4] == 4) {
+			$message = array("response" => "success");
+			echo json_encode($message);
 		}
-	} elseif ($uri[4] == 2) {
-		$message = array("response" => "success");
-		echo json_encode($message);
-	} elseif ($uri[4] == 3) {
-		$message = array("response" => "success");
-		echo json_encode($message);
-	} elseif ($uri[4] == 4) {
-		$message = array("response" => "success");
-		echo json_encode($message);
 	}
 } else {
 	http_response_code(405);

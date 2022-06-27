@@ -33,12 +33,12 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                     <div class="field-content">
                         <div class="form-fields" style="flex-grow: 8;">
                             <div>
-                                <label for="gd-title"><span>*</span> Index Number</label>
-                                <input type="text" name="home-town" id="home-town" placeholder="Index Number">
+                                <label for="app-exam-index"><span>*</span> Index Number</label>
+                                <input type="text" name="app-exam-index" id="app-exam-index" placeholder="Index Number">
                             </div>
                             <div>
-                                <label for="gd-title"><span>*</span> Examination Type</label>
-                                <select name="nationality" id="nationality">
+                                <label for="app-exam-type"><span>*</span> Examination Type</label>
+                                <select name="app-exam-type" id="app-exam-type">
                                     <option value="" hidden>Examination Type</option>
                                     <option value="2022">2022</option>
                                     <option value="2021">2021</option>
@@ -48,14 +48,57 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                                 </select>
                             </div>
                             <div>
-                                <label for="gd-title"><span>*</span> Year</label>
-                                <select name="marital-status" id="marital-status">
-                                    <option value="" hidden>Select Year</option>
-                                    <option value="Single">Single</option>
-                                    <option value="Married">Married</option>
-                                    <option value="Divorced">Divorced</option>
-                                    <option value="Widowed">Widowed</option>
-                                    <option value="Separarted">Separarted</option>
+                                <label for="app-exam-date"><span>*</span> Date</label>
+                                <select name="app-exam-month" id="app-exam-month">
+                                    <option value="" hidden>Month</option>
+                                    <option value="Jan">Jan</option>
+                                    <option value="Feb">Feb</option>
+                                    <option value="Mar">Mar</option>
+                                    <option value="Apr">Apr</option>
+                                    <option value="May">May</option>
+                                    <option value="Jun">Jun</option>
+                                    <option value="Jul">Jul</option>
+                                    <option value="Aug">Aug</option>
+                                    <option value="Sep">Sep</option>
+                                    <option value="Oct">Oct</option>
+                                    <option value="Nov">Nov</option>
+                                    <option value="Dec">Dec</option>
+                                </select>
+                                <select name="app-exam-year" id="app-exam-year">
+                                    <option value="" hidden>Year</option>
+                                    <option value="2022">2022</option>
+                                    <option value="2021">2021</option>
+                                    <option value="2020">2020</option>
+                                    <option value="2019">2019</option>
+                                    <option value="2018">2018</option>
+                                    <option value="2017">2017</option>
+                                    <option value="2016">2016</option>
+                                    <option value="2015">2015</option>
+                                    <option value="2014">2014</option>
+                                    <option value="2013">2013</option>
+                                    <option value="2012">2012</option>
+                                    <option value="2011">2011</option>
+                                    <option value="2010">2010</option>
+                                    <option value="2009">2009</option>
+                                    <option value="2008">2008</option>
+                                    <option value="2007">2007</option>
+                                    <option value="2006">2006</option>
+                                    <option value="2005">2005</option>
+                                    <option value="2004">2004</option>
+                                    <option value="2003">2003</option>
+                                    <option value="2002">2002</option>
+                                    <option value="2001">2001</option>
+                                    <option value="2000">2000</option>
+                                    <option value="1999">1999</option>
+                                    <option value="1998">1998</option>
+                                    <option value="1997">1997</option>
+                                    <option value="1996">1996</option>
+                                    <option value="1995">1995</option>
+                                    <option value="1994">1994</option>
+                                    <option value="1993">1993</option>
+                                    <option value="1992">1992</option>
+                                    <option value="1991">1991</option>
+                                    <option value="1990">1990</option>
                                 </select>
                             </div>
                         </div>
@@ -79,7 +122,7 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
             $("#appForm").on("submit", function(e) {
                 e.preventDefault();
                 var data = new FormData(this);
-                save(data);
+                save(data, 2);
             });
 
         });
