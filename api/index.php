@@ -398,8 +398,36 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 				echo json_encode(array("response" => "error", "msg" => "Invalid input 1"));
 			}
 		} elseif ($uri[4] == 3) {
-			$message = array("response" => "success");
-			echo json_encode($message);
+			if (isset($_POST["title"]) && !empty($_POST["title"])) {
+				if (isset($_POST["surname"]) && !empty($_POST["surname"])) {
+					if (isset($_POST["other-names"]) && !empty($_POST["other-names"])) {
+						if (isset($_POST["dob"]) && !empty($_POST["dob"])) {
+							if (isset($_POST["gender"]) && !empty($_POST["gender"])) {
+								if (isset($_POST["marital-status"]) && !empty($_POST["marital-status"])) {
+									if (isset($_POST["nationality"]) && !empty($_POST["nationality"])) {
+										if (isset($_POST["country"]) && !empty($_POST["country"])) {
+											if (isset($_POST["region"]) && !empty($_POST["region"])) {
+												if (isset($_POST["home-town"]) && !empty($_POST["home-town"])) {
+													if (isset($_POST["disability"]) && !empty($_POST["disability"])) {
+														if (isset($_POST["app-postal-address"]) && !empty($_POST["app-postal-address"])) {
+															if (isset($_POST["app-postal-town"]) && !empty($_POST["app-postal-town"])) {
+																if (isset($_POST["app-postal-region"]) && !empty($_POST["app-postal-region"])) {
+																	if (isset($_POST["app-phone-number"]) && !empty($_POST["app-phone-number"])) {
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
 		} elseif ($uri[4] == 4) {
 			$message = array("response" => "success");
 			echo json_encode($message);

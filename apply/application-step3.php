@@ -38,9 +38,9 @@ $data = new ExposeDataController();
                 <fieldset>
                     <legend>Programme</legend>
                     <div>
-                        <label for="gd-phone-number"><span>*</span> First (1<sup>st</sup>) Choice</label>
-                        <select name="country" id="country">
-                            <option value="" hidden>Choose </option>
+                        <label for="app-prog-first"><span>*</span> First (1<sup>st</sup>) Choice</label>
+                        <select name="app-prog-first" id="app-prog-first">
+                            <option hidden>Choose </option>
                             <?php
                             $programs = $data->getPrograms();
                             foreach ($programs as $program) {
@@ -49,9 +49,9 @@ $data = new ExposeDataController();
                             ?>
                         </select>
                         <br>
-                        <label for="gd-phone-number"><span>*</span> Second (2<sup>nd</sup>) Choice</label>
-                        <select name="country" id="country">
-                            <option value="" hidden>Choose </option>
+                        <label for="app-prog-second"><span>*</span> Second (2<sup>nd</sup>) Choice</label>
+                        <select name="app-prog-second" id="app-prog-second">
+                            <option hidden>Choose </option>
                             <?php
                             $programs = $data->getPrograms();
                             foreach ($programs as $program) {
@@ -65,27 +65,27 @@ $data = new ExposeDataController();
                 <fieldset>
                     <legend>Halls</legend>
                     <div>
-                        <label for="gd-phone-number"><span>*</span> First (1<sup>st</sup>) Choice</label>
-                        <select name="country" id="country">
-                            <option value="" hidden>Choose</option>
+                        <label for="app-hall-first"><span>*</span> First (1<sup>st</sup>) Choice</label>
+                        <select name="app-hall-first" id="app-hall-first">
+                            <option hidden>Choose</option>
                             <?php
                             $halls = $data->getHalls();
                             foreach ($halls as $hall) echo '<option value="' . $hall['id'] . '">' . $hall['name'] . '</option>';
                             ?>
                         </select>
                         <br>
-                        <label for="gd-phone-number"><span>*</span> Second (2<sup>nd</sup>) Choice</label>
-                        <select name="residence-choice-2" id="residence-choice-2">
-                            <option value="" hidden>Choose</option>
+                        <label for="app-hall-second"><span>*</span> Second (2<sup>nd</sup>) Choice</label>
+                        <select name="app-hall-second" id="app-hall-second">
+                            <option hidden>Choose</option>
                             <?php
                             $halls = $data->getHalls();
                             foreach ($halls as $hall) echo '<option value="' . $hall['id'] . '">' . $hall['name'] . '</option>';
                             ?>
                         </select>
                         <br>
-                        <label for="gd-phone-number"><span>*</span> Third (3<sup>rd</sup>) Choice</label>
-                        <select name="residence-choice-3" id="residence-choice-3">
-                            <option value="" hidden>Choose</option>
+                        <label for="app-hall-third"><span>*</span> Third (3<sup>rd</sup>) Choice</label>
+                        <select name="app-hall-third" id="app-hall-third">
+                            <option hidden>Choose</option>
                             <?php
                             $halls = $data->getHalls();
                             foreach ($halls as $hall) echo '<option value="' . $hall['id'] . '">' . $hall['name'] . '</option>';
@@ -103,17 +103,17 @@ $data = new ExposeDataController();
                 <fieldset style="margin-bottom: 0px">
                     <legend>Previous University Enrollment Information</legend>
                     <div>
-                        <label for="gd-postal-address">Name of University</label>
-                        <input type="text" name="gd-postal-address" id="gd-postal-address">
+                        <label for="app-prev-uni-name">Name of University</label>
+                        <input type="text" name="app-prev-uni-name" id="app-prev-uni-name">
                     </div>
                     <div>
-                        <label for="gd-postal-town">Program Pursued</label>
-                        <input type="text" name="gd-postal-town" id="gd-postal-town">
+                        <label for="app-prev-uni-prog">Program Pursued</label>
+                        <input type="text" name="app-prev-uni-prog" id="app-prev-uni-prog">
                     </div>
                     <div>
-                        <label for="gd-postal-town">Date enrolled</label>
-                        <select name="month" id="month">
-                            <option value="" hidden>Month</option>
+                        <label for="app-prev-uni-enrolled">Date enrolled</label>
+                        <select name="app-prev-uni-enrolled-month" id="month">
+                            <option hidden>Month</option>
                             <option value="January">January</option>
                             <option value="February">February</option>
                             <option value="March">March</option>
@@ -127,8 +127,8 @@ $data = new ExposeDataController();
                             <option value="November">November</option>
                             <option value="December">December</option>
                         </select>
-                        <select name="year" id="year">
-                            <option value="" hidden>Year</option>
+                        <select name="app-prev-uni-enrolled-year" id="year">
+                            <option hidden>Year</option>
                             <option value="2022">2022</option>
                             <option value="2021">2021</option>
                             <option value="2020">2020</option>
@@ -166,15 +166,15 @@ $data = new ExposeDataController();
                     </div>
 
                     <div style="margin-bottom: 20px">
-                        <label for="">* Did you complete?</label>
-                        <input type="radio" name="prev-uni-rec" id="prev-uni-rec-yes" style="margin-left: 20px;"> YES
-                        <input type="radio" name="prev-uni-rec" id="prev-uni-rec-no" style="margin-left: 20px;"> NO
+                        <label for="prev-uni-completed">* Did you complete?</label>
+                        <input type="radio" name="prev-uni-completed" id="prev-uni-completed-yes" style="margin-left: 20px;"> YES
+                        <input type="radio" name="prev-uni-completed" id="prev-uni-completed-no" style="margin-left: 20px;"> NO
                     </div>
 
                     <div>
-                        <label for="gd-postal-town">Date of Completion</label>
-                        <select name="month" id="month">
-                            <option value="" hidden>Month</option>
+                        <label for="prev-uni-completed-date">Date of Completion</label>
+                        <select name="prev-uni-completed-date-month" id="prev-uni-completed-date-month">
+                            <option hidden>Month</option>
                             <option value="January">January</option>
                             <option value="February">February</option>
                             <option value="March">March</option>
@@ -188,8 +188,8 @@ $data = new ExposeDataController();
                             <option value="November">November</option>
                             <option value="December">December</option>
                         </select>
-                        <select name="year" id="year">
-                            <option value="" hidden>Year</option>
+                        <select name="prev-uni-completed-date-year" id="prev-uni-completed-date-year">
+                            <option hidden>Year</option>
                             <option value="2022">2022</option>
                             <option value="2021">2021</option>
                             <option value="2020">2020</option>
@@ -227,17 +227,17 @@ $data = new ExposeDataController();
                     </div>
 
                     <div>
-                        <label for="gd-postal-town">If you did not complete, select reason(s)</label>
-                        <select name="country" id="country">
-                            <option value="" hidden>Reasons</option>
+                        <label for="prev-uni-reasons">If you did not complete, select reason(s)</label>
+                        <select name="prev-uni-reasons" id="prev-uni-reasons">
+                            <option hidden>Reasons</option>
                             <option value="Deffered">Deffered</option>
                             <option value="Withdrawn">Withdrawn</option>
                         </select>
                     </div>
 
                     <div>
-                        <label for="">Reasons...</label>
-                        <textarea name="" id="" cols="30" rows="5"></textarea>
+                        <label for="prev-uni-reasons-stmt">Reasons...</label>
+                        <textarea name="prev-uni-reasons-stmt" id="" cols="30" rows="5"></textarea>
                     </div>
                 </fieldset>
             </fieldset>
