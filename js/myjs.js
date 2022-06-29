@@ -2,6 +2,9 @@ const countries = ['Afghanistan', 'Albania', 'Algeria', 'Andorra', 'Angola', 'An
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const years = [2022, 2021, 2020];
 
+const coreSubjects = [];
+const grades = [];
+
 function getYears(selectObj, array) {
     var hidText = '';
     
