@@ -387,7 +387,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			if (isset($_POST["app-exam-index"]) && !empty($_POST["app-exam-index"])) {
 				if (isset($_POST["app-exam-type"]) && !empty($_POST["app-exam-type"])) {
 					if (isset($_POST["app-exam-year"]) && !empty($_POST["app-exam-year"])) {
-						echo json_encode(array("response" => "success", "msg" => "Okay"));
+						echo json_encode(array("response" => "success", "msg" => "Okay " . $_POST["app-exam-year"] . ""));
 					} else {
 						echo json_encode(array("response" => "error", "msg" => "Invalid input3"));
 					}
@@ -398,35 +398,65 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 				echo json_encode(array("response" => "error", "msg" => "Invalid input 1"));
 			}
 		} elseif ($uri[4] == 3) {
-			if (isset($_POST["title"]) && !empty($_POST["title"])) {
-				if (isset($_POST["surname"]) && !empty($_POST["surname"])) {
-					if (isset($_POST["other-names"]) && !empty($_POST["other-names"])) {
-						if (isset($_POST["dob"]) && !empty($_POST["dob"])) {
-							if (isset($_POST["gender"]) && !empty($_POST["gender"])) {
-								if (isset($_POST["marital-status"]) && !empty($_POST["marital-status"])) {
-									if (isset($_POST["nationality"]) && !empty($_POST["nationality"])) {
-										if (isset($_POST["country"]) && !empty($_POST["country"])) {
-											if (isset($_POST["region"]) && !empty($_POST["region"])) {
-												if (isset($_POST["home-town"]) && !empty($_POST["home-town"])) {
-													if (isset($_POST["disability"]) && !empty($_POST["disability"])) {
-														if (isset($_POST["app-postal-address"]) && !empty($_POST["app-postal-address"])) {
-															if (isset($_POST["app-postal-town"]) && !empty($_POST["app-postal-town"])) {
-																if (isset($_POST["app-postal-region"]) && !empty($_POST["app-postal-region"])) {
-																	if (isset($_POST["app-phone-number"]) && !empty($_POST["app-phone-number"])) {
+			if (isset($_POST["app-prog-first"]) && !empty($_POST["app-prog-first"])) {
+				if (isset($_POST["app-prog-second"]) && !empty($_POST["app-prog-second"])) {
+					if (isset($_POST["app-hall-first"]) && !empty($_POST["app-hall-first"])) {
+						if (isset($_POST["app-hall-second"]) && !empty($_POST["app-hall-second"])) {
+							if (isset($_POST["app-hall-third"]) && !empty($_POST["app-hall-third"])) {
+								if (isset($_POST["prev-uni-rec"]) && !empty($_POST["prev-uni-rec"])) {
+									if (isset($_POST["app-prev-uni-name"]) && !empty($_POST["app-prev-uni-name"])) {
+										if (isset($_POST["app-prev-uni-prog"]) && !empty($_POST["app-prev-uni-prog"])) {
+											if (isset($_POST["app-prev-uni-enrolled-month"]) && !empty($_POST["app-prev-uni-enrolled-month"])) {
+												if (isset($_POST["app-prev-uni-enrolled-year"]) && !empty($_POST["app-prev-uni-enrolled-year"])) {
+													if (isset($_POST["prev-uni-completed"]) && !empty($_POST["prev-uni-completed"])) {
+														if (isset($_POST["prev-uni-completed-date-month"]) && !empty($_POST["prev-uni-completed-date-month"])) {
+															if (isset($_POST["prev-uni-completed-date-year"]) && !empty($_POST["prev-uni-completed-date-year"])) {
+																if (isset($_POST["prev-uni-reasons"]) && !empty($_POST["prev-uni-reasons"])) {
+																	if (isset($_POST["prev-uni-reasons-stmt"]) && !empty($_POST["prev-uni-reasons-stmt"])) {
+																	} else {
+																		echo json_encode(array("response" => "error", "msg" => "Invalid input16"));
 																	}
+																} else {
+																	echo json_encode(array("response" => "error", "msg" => "Invalid input15"));
 																}
+															} else {
+																echo json_encode(array("response" => "error", "msg" => "Invalid input14"));
 															}
+														} else {
+															echo json_encode(array("response" => "error", "msg" => "Invalid input13"));
 														}
+													} else {
+														echo json_encode(array("response" => "error", "msg" => "Invalid input12"));
 													}
+												} else {
+													echo json_encode(array("response" => "error", "msg" => "Invalid input11"));
 												}
+											} else {
+												echo json_encode(array("response" => "error", "msg" => "Invalid input10"));
 											}
+										} else {
+											echo json_encode(array("response" => "error", "msg" => "Invalid input9"));
 										}
+									} else {
+										echo json_encode(array("response" => "error", "msg" => "Invalid inpu8t"));
 									}
+								} else {
+									echo json_encode(array("response" => "error", "msg" => "Invalid input7"));
 								}
+							} else {
+								echo json_encode(array("response" => "error", "msg" => "Invalid input6"));
 							}
+						} else {
+							echo json_encode(array("response" => "error", "msg" => "Invalid input5"));
 						}
+					} else {
+						echo json_encode(array("response" => "error", "msg" => "Invalid input4"));
 					}
+				} else {
+					echo json_encode(array("response" => "error", "msg" => "Invalid input3"));
 				}
+			} else {
+				echo json_encode(array("response" => "error", "msg" => "Invalid input2"));
 			}
 		} elseif ($uri[4] == 4) {
 			$message = array("response" => "success");

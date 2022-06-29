@@ -50,10 +50,6 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                                 <label for="surname"><span>*</span> Surname</label>
                                 <input type="text" name="surname" id="surname">
                             </div>
-                            <!--<div>
-                                <label for="first-name"><span>*</span> First Name</label>
-                                <input type="text" name="first-name" id="first-name">
-                            </div>-->
                             <div>
                                 <label for="other-names">Other Names</label>
                                 <input type="text" name="other-names" id="other-names">
@@ -83,24 +79,14 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                             </div>
                             <div>
                                 <label for="nationality"><span>*</span> Nationality</label>
-                                <select name="nationality" id="nationality">
+                                <select name="nationality" id="nationality" class="countryList">>
                                     <option value="" hidden>Select</option>
-                                    <option value="Single">Single</option>
-                                    <option value="Married">Married</option>
-                                    <option value="Divorced">Divorced</option>
-                                    <option value="Widowed">Widowed</option>
-                                    <option value="Separarted">Separarted</option>
                                 </select>
                             </div>
                             <div>
                                 <label for="country"><span>*</span> Country of Residence</label>
-                                <select name="country" id="country">
+                                <select name="country" id="country" class="countryList">
                                     <option value="" hidden>Select</option>
-                                    <option value="Single">Single</option>
-                                    <option value="Married">Married</option>
-                                    <option value="Divorced">Divorced</option>
-                                    <option value="Widowed">Widowed</option>
-                                    <option value="Separarted">Separarted</option>
                                 </select>
                             </div>
                             <div>
@@ -240,9 +226,12 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
 
         </form>
     </main>
-    <?php include("../inc/scripts.php") ?>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script src="../js/myjs.js"></script>
     <script>
         $(document).ready(function() {
+            getYears(document.getElementById("nationality"), 'c');
+            getYears(document.getElementById("country"), 'c');
 
             $("#appForm").on("submit", function(e) {
                 e.preventDefault();
