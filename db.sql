@@ -37,8 +37,8 @@ CREATE TABLE `purchase_detail` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
     `first_name` VARCHAR(50) NOT NULL,
     `last_name` VARCHAR(50) NOT NULL,
-    `gender` CHAR(1) NOT NULL,
-    `dob` DATE NOT NULL,
+    -- `gender` CHAR(1) NOT NULL,
+    -- `dob` DATE NOT NULL,
     `country` VARCHAR(50) NOT NULL,
     `email_address` VARCHAR(255) NOT NULL,
     `phone_number` VARCHAR(10) NOT NULL,
@@ -71,10 +71,10 @@ CREATE TABLE `programs` (
     `added_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT `fk_prog_form_type` FOREIGN KEY (`type`) REFERENCES `form_type`(`id`) ON UPDATE CASCADE
 );
-INSERT INTO `programs`(`type`, `name`) 
-VALUES (2, 'BSc. Computer Science'), (2, 'BSc. Electrical Engineering'), (2, 'BSc. Marine Engineering'),
-(2, 'Diploma Computer Engineering'), (2, 'Diploma Electrical Engineering'), (2, 'Diploma Marine Engineering'),
+INSERT INTO `programs`(`type`, `name`) VALUES 
 (1, 'MSc. Environmental Engineering'), (1, 'MA. Ports and Shipping Administration'), 
+(2, 'BSc. Computer Science'), (2, 'BSc. Electrical Engineering'), (2, 'BSc. Marine Engineering'),
+(2, 'Diploma Computer Engineering'), (2, 'Diploma Electrical Engineering'), (2, 'Diploma Marine Engineering'),
 (3, 'Marine Engine Mechanic'), (3, 'Marine Refrigeration Mechanic');
 
 DROP TABLE IF EXISTS `halls`;

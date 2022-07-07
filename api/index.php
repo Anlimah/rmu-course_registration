@@ -41,15 +41,15 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 				} else {
 					$first_name = $user->validateInput($_POST["first_name"]);
 					$last_name = $user->validateInput($_POST["last_name"]);
-					$gender = $user->validateInput($_POST["gender"]);
-					$dob = $user->validateInput($_POST["dob"]);
+					/*$gender = $user->validateInput($_POST["gender"]);
+					$dob = $user->validateInput($_POST["dob"]);*/
 					$country = $user->validateInput($_POST["country"]);
 
 					$_SESSION["step1"] = array(
 						"first_name" => $first_name,
 						"last_name" => $last_name,
-						"gender" => $gender,
-						"dob" => $dob,
+						//"gender" => $gender,
+						//"dob" => $dob,
 						"country" => $country
 					);
 					echo json_encode($_SESSION["step1"]);

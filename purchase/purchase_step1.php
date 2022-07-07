@@ -36,7 +36,7 @@ if (!isset($_SESSION["_step1Token"])) {
             <label for="last_name">Last Name</label>
             <input type="text" name="last_name" id="last_name" placeholder="Type your first name" required>
         </div>
-        <div>
+        <!--<div>
             <label for="gender">Gender</label>
             <select name="gender" id="gender" required>
                 <option value="select" hidden>Select</option>
@@ -47,7 +47,7 @@ if (!isset($_SESSION["_step1Token"])) {
         <div>
             <label for="dob">Date of Birth</label>
             <input type="date" name="dob" id="dob" required>
-        </div>
+        </div>-->
         <div>
             <label for="phone_num">Country</label>
             <select name="country" id="country" required>
