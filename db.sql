@@ -20,7 +20,7 @@ DROP TABLE IF EXISTS `verify_phone_number`;
 CREATE TABLE `verify_phone_number` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
     `phone_number` VARCHAR(16) NOT NULL,
-    `code` VARCHAR(6) NOT NULL,
+    `code` VARCHAR(255) NOT NULL,
     `submitted_at` DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -28,7 +28,7 @@ DROP TABLE IF EXISTS `verify_email_address`;
 CREATE TABLE `verify_email_address` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
     `email_address` VARCHAR(255) NOT NULL,
-    `code` VARCHAR(6) NOT NULL,
+    `code` VARCHAR(255) NOT NULL,
     `submitted_at` DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
