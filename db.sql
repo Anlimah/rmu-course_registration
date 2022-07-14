@@ -37,8 +37,6 @@ CREATE TABLE `purchase_detail` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
     `first_name` VARCHAR(50) NOT NULL,
     `last_name` VARCHAR(50) NOT NULL,
-    -- `gender` CHAR(1) NOT NULL,
-    -- `dob` DATE NOT NULL,
     `country` VARCHAR(50) NOT NULL,
     `email_address` VARCHAR(255) NOT NULL,
     `phone_number` VARCHAR(10) NOT NULL,
@@ -48,6 +46,13 @@ CREATE TABLE `purchase_detail` (
     CONSTRAINT `fk_form_type` FOREIGN KEY (`form_type`) REFERENCES `form_type`(`id`) ON UPDATE CASCADE,
     CONSTRAINT `fk_payment_method` FOREIGN KEY (`payment_method`) REFERENCES `payment_method`(`id`) ON UPDATE CASCADE
 );
+
+/*DROP TABLE IF EXISTS `payment_log`;
+CREATE TABLE `payment_log` (
+    `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
+    `purchase_detail` INT NOT NULL,
+    CONSTRAINT `fk_purchase_detail_log` FOREIGN KEY (`purchase_detail`) REFERENCES `purchase_detail`(`id`) ON UPDATE CASCADE
+)*/
 
 DROP TABLE IF EXISTS `applicants_login`;
 CREATE TABLE `applicants_login` (
@@ -85,6 +90,7 @@ CREATE TABLE `halls` (
     `added_at` DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 INSERT INTO `halls`(`name`) VALUES ('Cadet Hostel'), ('Non-cadet Hostel');
+
 
 
 
