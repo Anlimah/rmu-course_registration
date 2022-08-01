@@ -37,15 +37,9 @@ if (!isset($_SESSION["_step1Token"])) {
             <input type="text" name="last_name" id="last_name" placeholder="Type your first name" required>
         </div>
         <div>
-            <label for="phone_num">Country</label>
+            <label for="country">Country</label>
             <select name="country" id="country" required>
                 <option value="select" hidden>Select</option>
-                <option value="Cameroun">Cameroun</option>
-                <option value="Gambia">Gambia</option>
-                <option value="Ghana" selected>Ghana</option>
-                <option value="Serria Leone">Serria Leone</option>
-                <option value="Liberia">Liberia</option>
-                <option value="Other">Other</option>
             </select>
         </div>
         <button type="submit" style="padding: 5px 10px">Continue</button>
@@ -53,8 +47,11 @@ if (!isset($_SESSION["_step1Token"])) {
     </form>
 
     <script src="../js/jquery-3.6.0.min.js"></script>
+    <script src="../js/myjs.js"></script>
     <script>
         $(document).ready(function() {
+            getData(document.getElementById("country"), 'c');
+
             $("#step1Form").on("submit", function(e) {
                 e.preventDefault();
                 //window.location.href = "purchase_step2.php";

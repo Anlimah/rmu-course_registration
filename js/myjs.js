@@ -5,7 +5,7 @@ const years = [2022, 2021, 2020];
 const coreSubjects = [];
 const grades = [];
 
-function getYears(selectObj, array) {
+function getData(selectObj, array) {
     var hidText = '';
     
     switch (array) {
