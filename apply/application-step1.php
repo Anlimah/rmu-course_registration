@@ -16,6 +16,7 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
     <link rel="stylesheet" href="../assets/css/application-form.css">
 </head>
 
@@ -25,137 +26,137 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
         <div class="logo-board"></div>
     </div>
     <main>
+        <div class="page_info">
+            <h1 style="font-size: 40px;">Personal Information</h1>
+        </div>
         <form id="appForm" method="POST">
-            <fieldset>
-                <legend style="padding: 5px; color:#fff; background-color: #000">Applicant Information</legend>
-                <fieldset>
-                    <legend>Personal</legend>
-                    <div class="field-content">
-                        <div class="form-fields" style="flex-grow: 8;">
-                            <div>
-                                <label for="title"><span>*</span> Title</label>
-                                <select name="title" id="title">
-                                    <option value="" hidden>Select</option>
-                                    <option value="Mr.">Mr.</option>
-                                    <option value="Mrs.">Mrs.</option>
-                                    <option value="Ms.">Ms.</option>
-                                    <option value="Prof. Dr.">Prof. Dr.</option>
-                                    <option value="Prof.">Prof.</option>
-                                    <option value="Rev.">Rev.</option>
-                                    <option value="Rev. Dr.">Rev. Dr.</option>
-                                    <option value="Rev. Sis.">Rev. Sis.</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label for="surname"><span>*</span> Surname</label>
-                                <input type="text" name="surname" id="surname">
-                            </div>
-                            <div>
-                                <label for="other-names">Other Names</label>
-                                <input type="text" name="other-names" id="other-names">
-                            </div>
-                            <div>
-                                <label for="dob"><span>*</span> Date of Birth</label>
-                                <input type="date" name="dob" id="dob">
-                            </div>
-                            <div>
-                                <label for="gender"><span>*</span> Gender</label>
-                                <select name="gender" id="gender">
-                                    <option value="" hidden>Select</option>
-                                    <option value="Male">Male</option>
-                                    <option value="Female">Female</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label for="marital-status"><span>*</span> Marital Status</label>
-                                <select name="marital-status" id="marital-status">
-                                    <option value="" hidden>Select</option>
-                                    <option value="Single">Single</option>
-                                    <option value="Married">Married</option>
-                                    <option value="Divorced">Divorced</option>
-                                    <option value="Widowed">Widowed</option>
-                                    <option value="Separarted">Separated</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label for="nationality"><span>*</span> Nationality</label>
-                                <select name="nationality" id="nationality" class="countryList">>
-                                    <option value="" hidden>Select</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label for="country"><span>*</span> Country of Residence</label>
-                                <select name="country" id="country" class="countryList">
-                                    <option value="" hidden>Select</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label for="region"><span>*</span> Home Region</label>
-                                <select name="region" id="region">
-                                    <option value="" hidden>Select</option>
-                                    <option value="Western">Single</option>
-                                    <option value="Married">Married</option>
-                                    <option value="Divorced">Divorced</option>
-                                    <option value="Widowed">Widowed</option>
-                                    <option value="Separarted">Separarted</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label for="home-town"><span>*</span> Home Town</label>
-                                <input type="text" name="home-town" id="home-town">
-                            </div>
-                            <div>
-                                <label for="disability"><span>*</span> Any Disability</label>
-                                <select name="disability" id="disability">
-                                    <option value="" hidden>Select</option>
-                                    <option value="Yes">Yes</option>
-                                    <option value="No">No</option>
-                                </select>
-                            </div>
+            <fieldset class="fieldset">
+                <legend>Personal</legend>
+                <div class="field-content">
+                    <div class="form-fields" style="flex-grow: 8;">
+                        <div>
+                            <label for="title"><span>*</span> Title</label>
+                            <select name="title" id="title">
+                                <option value="" hidden>Select</option>
+                                <option value="Mr.">Mr.</option>
+                                <option value="Mrs.">Mrs.</option>
+                                <option value="Ms.">Ms.</option>
+                                <option value="Prof. Dr.">Prof. Dr.</option>
+                                <option value="Prof.">Prof.</option>
+                                <option value="Rev.">Rev.</option>
+                                <option value="Rev. Dr.">Rev. Dr.</option>
+                                <option value="Rev. Sis.">Rev. Sis.</option>
+                            </select>
                         </div>
-                        <div class="photo-upload-area">
-                            <p style="font-size: 14px; color: brown">Please upload a passport size photo of yourself. The size of the image should not be more than 100KB.</p>
-                            <p style="font-size: 14px; color: brown">The background color of your image should be white.</p>
-                            <p style="font-size: 14px; color: red"><b>NB: The image you use will not be changed. So use a most recent passport sized picture of yourself.</b></p>
-                            <div class="photo-display"></div>
-                            <label for="applicant-photo" class="upload-photo-label btn btn-default">Upload photo</label>
-                            <input type="file" name="applicant-photo" id="applicant-photo">
+                        <div>
+                            <label for="surname"><span>*</span> Surname</label>
+                            <input type="text" name="surname" id="surname">
+                        </div>
+                        <div>
+                            <label for="other-names">Other Names</label>
+                            <input type="text" name="other-names" id="other-names">
+                        </div>
+                        <div>
+                            <label for="dob"><span>*</span> Date of Birth</label>
+                            <input type="date" name="dob" id="dob">
+                        </div>
+                        <div>
+                            <label for="gender"><span>*</span> Gender</label>
+                            <select name="gender" id="gender">
+                                <option value="" hidden>Select</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="marital-status"><span>*</span> Marital Status</label>
+                            <select name="marital-status" id="marital-status">
+                                <option value="" hidden>Select</option>
+                                <option value="Single">Single</option>
+                                <option value="Married">Married</option>
+                                <option value="Divorced">Divorced</option>
+                                <option value="Widowed">Widowed</option>
+                                <option value="Separarted">Separated</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="nationality"><span>*</span> Nationality</label>
+                            <select name="nationality" id="nationality" class="countryList">>
+                                <option value="" hidden>Select</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="country"><span>*</span> Country of Residence</label>
+                            <select name="country" id="country" class="countryList">
+                                <option value="" hidden>Select</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="region"><span>*</span> Home Region</label>
+                            <select name="region" id="region">
+                                <option value="" hidden>Select</option>
+                                <option value="Western">Single</option>
+                                <option value="Married">Married</option>
+                                <option value="Divorced">Divorced</option>
+                                <option value="Widowed">Widowed</option>
+                                <option value="Separarted">Separarted</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="home-town"><span>*</span> Home Town</label>
+                            <input type="text" name="home-town" id="home-town">
+                        </div>
+                        <div>
+                            <label for="disability"><span>*</span> Any Disability</label>
+                            <select name="disability" id="disability">
+                                <option value="" hidden>Select</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
                         </div>
                     </div>
-                </fieldset>
+                    <div class="photo-upload-area">
+                        <p style="font-size: 14px; color: brown">Please upload a passport size photo of yourself. The size of the image should not be more than 100KB.</p>
+                        <p style="font-size: 14px; color: brown">The background color of your image should be white.</p>
+                        <p style="font-size: 14px; color: red"><b>NB: The image you use will not be changed. So use a most recent passport sized picture of yourself.</b></p>
+                        <div class="photo-display"></div>
+                        <label for="applicant-photo" class="upload-photo-label btn btn-default">Upload photo</label>
+                        <input type="file" name="applicant-photo" id="applicant-photo">
+                    </div>
+                </div>
+            </fieldset>
 
-                <fieldset>
-                    <legend>Contact</legend>
-                    <div>
-                        <label for="app-postal-address"><span>*</span> Postal Address</label>
-                        <input type="text" name="app-postal-address" id="app-postal-address">
-                    </div>
-                    <div>
-                        <label for="app-postal-town"><span>*</span> Postal Town</label>
-                        <input type="text" name="app-postal-town" id="app-postal-town">
-                    </div>
-                    <div>
-                        <label for="app-postal-region"><span>*</span> Postal Region</label>
-                        <input type="text" name="app-postal-region" id="app-postal-region">
-                    </div>
-                    <div>
-                        <label for="app-residence">Residential Address</label>
-                        <input type="text" name="app-residence" id="app-residence">
-                    </div>
-                    <div>
-                        <label for="app-phone-number"><span>*</span> Mobile Phone Number</label>
-                        <input type="text" name="app-phone-number" id="app-phone-number">
-                    </div>
-                    <div>
-                        <label for="app-email-address"><span>*</span> Email Address</label>
-                        <input type="email" name="app-email-address" id="app-email-address">
-                    </div>
-                </fieldset>
+            <fieldset class="fieldset">
+                <legend>Contact</legend>
+                <div>
+                    <label for="app-postal-address"><span>*</span> Postal Address</label>
+                    <input type="text" name="app-postal-address" id="app-postal-address">
+                </div>
+                <div>
+                    <label for="app-postal-town"><span>*</span> Postal Town</label>
+                    <input type="text" name="app-postal-town" id="app-postal-town">
+                </div>
+                <div>
+                    <label for="app-postal-region"><span>*</span> Postal Region</label>
+                    <input type="text" name="app-postal-region" id="app-postal-region">
+                </div>
+                <div>
+                    <label for="app-residence">Residential Address</label>
+                    <input type="text" name="app-residence" id="app-residence">
+                </div>
+                <div>
+                    <label for="app-phone-number"><span>*</span> Mobile Phone Number</label>
+                    <input type="text" name="app-phone-number" id="app-phone-number">
+                </div>
+                <div>
+                    <label for="app-email-address"><span>*</span> Email Address</label>
+                    <input type="email" name="app-email-address" id="app-email-address">
+                </div>
             </fieldset>
 
             <fieldset>
                 <legend>Parent/Guardian Information</legend>
-                <fieldset>
+                <fieldset class="fieldset">
                     <legend>Personal</legend>
                     <div>
                         <label for="gd-title"><span>*</span> Title</label>
@@ -184,7 +185,7 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                         <input type="text" name="gd-occupation" id="gd-occupation">
                     </div>
                 </fieldset>
-                <fieldset>
+                <fieldset class="fieldset">
                     <legend>Contact</legend>
                     <div>
                         <label for="gd-postal-region"><span>*</span> Postal Region</label>
@@ -230,8 +231,8 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
     <script src="../js/myjs.js"></script>
     <script>
         $(document).ready(function() {
-            getYears(document.getElementById("nationality"), 'c');
-            getYears(document.getElementById("country"), 'c');
+            //getYears(document.getElementById("nationality"), 'c');
+            //getYears(document.getElementById("country"), 'c');
 
             $("#appForm").on("submit", function(e) {
                 e.preventDefault();

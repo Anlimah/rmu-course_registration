@@ -58,6 +58,12 @@ main {
 
 fieldset {
 	margin-bottom: 30px;
+	border: none;
+	padding: 20px;
+}
+
+.fieldset {
+	margin-bottom: 30px;
 	border: 1px solid #ccc;
 	padding: 20px;
 	border-radius: 5px;
