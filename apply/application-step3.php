@@ -25,10 +25,12 @@ $data = new ExposeDataController();
     <title>Document</title>
     <link rel="stylesheet" href="../assets/css/main.css">
     <link rel="stylesheet" href="../assets/css/application-form.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 </head>
 
 <body>
-    <header class="top-bar card">
+    <header class="top-nav-bar card">
         <div class="logo-board"></div>
         <div class="info-card"></div>
     </header>
@@ -45,9 +47,9 @@ $data = new ExposeDataController();
             <form id="appForm" method="POST">
                 <fieldset class="fieldset">
                     <legend>Programmes</legend>
-                    <div>
-                        <label for="app-prog-first"><span>*</span> First (1<sup>st</sup>) Choice</label>
-                        <select name="app-prog-first" id="app-prog-first">
+                    <div class="mb-4">
+                        <label class="form-label" for="app-prog-first">First (1<sup>st</sup>) Choice <span class="input-required">*</span></label>
+                        <select class="form-select form-select-sm mb-3" name="app-prog-first" id="app-prog-first">
                             <option hidden>Choose </option>
                             <?php
                             $programs = $data->getPrograms();
@@ -57,8 +59,8 @@ $data = new ExposeDataController();
                             ?>
                         </select>
                         <br>
-                        <label for="app-prog-second"><span>*</span> Second (2<sup>nd</sup>) Choice</label>
-                        <select name="app-prog-second" id="app-prog-second">
+                        <label class="form-label" for="app-prog-second"> Second (2<sup>nd</sup>) Choice <span class="input-required">*</span></label>
+                        <select class="form-select form-select-sm mb-3" name="app-prog-second" id="app-prog-second">
                             <option hidden>Choose </option>
                             <?php
                             $programs = $data->getPrograms();
@@ -72,9 +74,9 @@ $data = new ExposeDataController();
 
                 <!--<fieldset class="fieldset">
                 <legend>Halls</legend>
-                <div>
-                    <label for="app-hall-first"><span>*</span> First (1<sup>st</sup>) Choice</label>
-                    <select name="app-hall-first" id="app-hall-first">
+                <div class="mb-4">
+                    <label class="form-label" for="app-hall-first">First (1<sup>st</sup>) Choice <span class="input-required">*</span> </label>
+                    <select class="form-select form-select-sm mb-3" name="app-hall-first" id="app-hall-first">
                         <option hidden>Choose</option>
                         <?php
                         $halls = $data->getHalls();
@@ -82,8 +84,8 @@ $data = new ExposeDataController();
                         ?>
                     </select>
                     <br>
-                    <label for="app-hall-second"><span>*</span> Second (2<sup>nd</sup>) Choice</label>
-                    <select name="app-hall-second" id="app-hall-second">
+                    <label class="form-label" for="app-hall-second">Second (2<sup>nd</sup>) Choice <span class="input-required">*</span> </label>
+                    <select class="form-select form-select-sm mb-3" name="app-hall-second" id="app-hall-second">
                         <option hidden>Choose</option>
                         <?php
                         $halls = $data->getHalls();
@@ -91,8 +93,8 @@ $data = new ExposeDataController();
                         ?>
                     </select>
                     <br>
-                    <label for="app-hall-third"><span>*</span> Third (3<sup>rd</sup>) Choice</label>
-                    <select name="app-hall-third" id="app-hall-third">
+                    <label class="form-label" for="app-hall-third">Third (3<sup>rd</sup>) Choice <span class="input-required">*</span></label>
+                    <select class="form-select form-select-sm mb-3" name="app-hall-third" id="app-hall-third">
                         <option hidden>Choose</option>
                         <?php
                         $halls = $data->getHalls();
@@ -103,11 +105,11 @@ $data = new ExposeDataController();
             </fieldset>-->
 
                 <div style="margin-bottom: 20px">
-                    <label for="">* Do you have any previous University records?</label>
-                    <label for="prev-uni-rec-yes">
+                    <label class="form-label" for="">Do you have any previous University records? <span class="input-required">*</span></label>
+                    <label class="form-label" for="prev-uni-rec-yes">
                         <input type="radio" name="prev-uni-rec" id="prev-uni-rec-yes" class="prev-uni-rec" style="margin-left: 20px;"> YES
                     </label>
-                    <label for="prev-uni-rec-no">
+                    <label class="form-label" for="prev-uni-rec-no">
                         <input type="radio" name="prev-uni-rec" id="prev-uni-rec-no" class="prev-uni-rec" style="margin-left: 20px;"> NO
                     </label>
 
@@ -115,17 +117,17 @@ $data = new ExposeDataController();
 
                 <fieldset class="fieldset">
                     <legend>Previous University Enrollment Information</legend>
-                    <div>
-                        <label for="app-prev-uni-name">Name of University</label>
-                        <input type="text" name="app-prev-uni-name" id="app-prev-uni-name">
+                    <div class="mb-4">
+                        <label class="form-label" for="app-prev-uni-name">Name of University</label>
+                        <input class="form-control" type="text" name="app-prev-uni-name" id="app-prev-uni-name">
                     </div>
-                    <div>
-                        <label for="app-prev-uni-prog">Program Pursued</label>
-                        <input type="text" name="app-prev-uni-prog" id="app-prev-uni-prog">
+                    <div class="mb-4">
+                        <label class="form-label" for="app-prev-uni-prog">Program Pursued</label>
+                        <input class="form-control" type="text" name="app-prev-uni-prog" id="app-prev-uni-prog">
                     </div>
-                    <div>
-                        <label for="app-prev-uni-enrolled">Date enrolled</label>
-                        <select name="app-prev-uni-enrolled-month" id="month">
+                    <div class="mb-4">
+                        <label class="form-label" for="app-prev-uni-enrolled">Date enrolled</label>
+                        <select class="form-select form-select-sm mb-3" name="app-prev-uni-enrolled-month" id="month">
                             <option hidden>Month</option>
                             <option value="Jan">Jan</option>
                             <option value="Feb">Feb</option>
@@ -140,7 +142,7 @@ $data = new ExposeDataController();
                             <option value="Nov">Nov</option>
                             <option value="Dec">Dec</option>
                         </select>
-                        <select name="app-prev-uni-enrolled-year" id="year">
+                        <select class="form-select form-select-sm mb-3" name="app-prev-uni-enrolled-year" id="year">
                             <option hidden>Year</option>
                             <option value="2022">2022</option>
                             <option value="2021">2021</option>
@@ -178,33 +180,38 @@ $data = new ExposeDataController();
                         </select>
                     </div>
 
-                    <div style="margin-bottom: 20px">
-                        <label for="prev-uni-completed">* Did you complete?</label>
-                        <input type="radio" name="prev-uni-completed" id="prev-uni-completed-yes" style="margin-left: 20px;"> YES
-                        <input type="radio" name="prev-uni-completed" id="prev-uni-completed-no" style="margin-left: 20px;"> NO
+                    <div class="mb-4">
+                        <label class="form-label" for="prev-uni-completed">* Did you complete?</label>
+                        <label for="prev-uni-completed-yes">
+                            <input type="radio" name="prev-uni-completed" id="prev-uni-completed-yes" style="margin-left: 20px;"> Yes
+                        </label>
+                        <label for="prev-uni-completed-no">
+                            <input type="radio" name="prev-uni-completed" id="prev-uni-completed-no" style="margin-left: 20px;"> No
+                        </label>
+
                     </div>
 
-                    <div>
-                        <label for="prev-uni-completed-date">Date of Completion</label>
-                        <select name="prev-uni-completed-date-month" id="prev-uni-completed-date-month">
+                    <div class="mb-4">
+                        <label class="form-label" for="prev-uni-completed-date">Date of Completion</label>
+                        <select class="form-select form-select-sm mb-3" name="prev-uni-completed-date-month" id="prev-uni-completed-date-month">
                             <option hidden>Month</option>
                         </select>
-                        <select name="prev-uni-completed-date-year" id="prev-uni-completed-date-year">
+                        <select class="form-select form-select-sm mb-3" name="prev-uni-completed-date-year" id="prev-uni-completed-date-year">
                             <option hidden>Year</option>
                         </select>
                     </div>
 
-                    <div>
-                        <label for="prev-uni-reasons">If you did not complete, select reason(s)</label>
-                        <select name="prev-uni-reasons" id="prev-uni-reasons">
+                    <div class="mb-4">
+                        <label class="form-label" for="prev-uni-reasons">If you did not complete, select reason(s)</label>
+                        <select class="form-select form-select-sm mb-3" name="prev-uni-reasons" id="prev-uni-reasons">
                             <option hidden>Reasons</option>
                             <option value="Deffered">Deffered</option>
                             <option value="Withdrawn">Withdrawn</option>
                         </select>
                     </div>
 
-                    <div>
-                        <label for="prev-uni-reasons-stmt">Reasons...</label>
+                    <div class="mb-4">
+                        <label class="form-label" for="prev-uni-reasons-stmt">Reasons...</label>
                         <textarea name="prev-uni-reasons-stmt" id="" cols="30" rows="5"></textarea>
                     </div>
                 </fieldset>
@@ -213,9 +220,9 @@ $data = new ExposeDataController();
 
             <center>
                 <div class="page-control">
-                    <button type="submit" id="prevStep" onclick="whatNext(0, 3)" class="control-button btn">Previous Step</button>
-                    <button type="submit" id="saveAndExit" onclick="whatNext(1)" class="control-button btn">Save and Exit</button>
-                    <button type="submit" id="saveAndCont" onclick="whatNext(4)" class="control-button btn">Submit and Print</button>
+                    <button type="submit" id="prevStep" onclick="whatNext(0, 3)" class="m-5 control-button btn">Previous Step</button>
+                    <button type="submit" id="saveAndExit" onclick="whatNext(1)" class="m-5 control-button btn">Save and Exit</button>
+                    <button type="submit" id="saveAndCont" onclick="whatNext(4)" class="m-5 control-button btn">Submit and Print</button>
                 </div>
             </center>
 

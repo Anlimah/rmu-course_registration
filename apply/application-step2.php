@@ -18,10 +18,13 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
     <title>Document</title>
     <link rel="stylesheet" href="../assets/css/main.css">
     <link rel="stylesheet" href="../assets/css/application-form.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+
 </head>
 
 <body>
-    <header class="top-bar card">
+    <header class="top-nav-bar card">
         <div class="logo-board"></div>
         <div class="info-card"></div>
     </header>
@@ -29,7 +32,6 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
     <nav>
 
     </nav>
-
 
     <div class="main-content">
         <main>
@@ -43,13 +45,13 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                     <legend>Examination Sittings > 1</legend>
                     <div class="field-content">
                         <div class="form-fields" style="flex-grow: 8;">
-                            <div>
-                                <label for="app-exam-index">School Name <span>*</span></label>
-                                <input type="text" name="app-exam-index" id="app-exam-index" placeholder="School Name">
+                            <div class="mb-4">
+                                <label class="form-label" for="app-exam-index">School Name <span class="input-required">*</span></label>
+                                <input class="form-control" type="text" name="app-exam-index" id="app-exam-index" placeholder="School Name">
                             </div>
-                            <div>
-                                <label for="app-exam-index"> Certificate/Degree <span>*</span></label>
-                                <select name="app-exam-type" id="app-exam-type">
+                            <div class="mb-4">
+                                <label class="form-label" for="app-exam-index"> Certificate/Degree <span class="input-required">*</span></label>
+                                <select class="form-select form-select-sm mb-3" name="app-exam-type" id="app-exam-type">
                                     <option value="" hidden>Examination Type</option>
                                     <option value="2022">2022</option>
                                     <option value="2021">2021</option>
@@ -58,23 +60,23 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                                     <option value="2018">2018</option>
                                 </select>
                             </div>
-                            <div>
-                                <label for="app-exam-index"><span>*</span> Index Number</label>
-                                <input type="text" name="app-exam-index" id="app-exam-index" placeholder="Index Number">
+                            <div class="mb-4">
+                                <label class="form-label" for="app-exam-index"><span>*</span> Index Number</label>
+                                <input class="form-control" type="text" name="app-exam-index" id="app-exam-index" placeholder="Index Number">
                             </div>
-                            <div>
-                                <label for="app-exam-date"><span>*</span> Date</label>
-                                <select name="app-exam-month" id="app-exam-month" class="monthList">
+                            <div class="mb-4">
+                                <label class="form-label" for="app-exam-date"><span>*</span> Date</label>
+                                <select class="form-select form-select-sm mb-3" name="app-exam-month" id="app-exam-month" class="monthList">
                                     <option value="" hidden>Month</option>
                                 </select>
-                                <select name="app-exam-year" id="app-exam-year" class="yearList">
+                                <select class="form-select form-select-sm mb-3" name="app-exam-year" id="app-exam-year" class="yearList">
                                     <option value="" hidden>Year</option>
                                 </select>
                             </div>
                             <div class="photo-upload-area">
                                 <p style="font-size: 14px; color: brown">Upload a scanned PDF copy of your certificate and transcipts.</p>
-                                <label for="applicant-photo" class="upload-photo-label btn btn-default">Upload certificate</label>
-                                <input type="file" name="applicant-photo" id="applicant-photo">
+                                <label class="form-label" for="applicant-photo" class="upload-photo-label btn btn-default">Upload certificate</label>
+                                <input class="form-control" type="file" name="applicant-photo" id="applicant-photo">
                             </div>
                         </div>
                     </div>
@@ -85,13 +87,13 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                     <legend>Examination Sittings</legend>
                     <div class="field-content">
                         <div class="form-fields" style="flex-grow: 8;">
-                            <div>
-                                <label for="app-exam-index">School Name <span>*</span></label>
-                                <input type="text" name="app-exam-index" id="app-exam-index" placeholder="School Name">
+                            <div class="mb-4">
+                                <label class="form-label" for="app-exam-index">School Name <span class="input-required">*</span></label>
+                                <input class="form-control" type="text" name="app-exam-index" id="app-exam-index" placeholder="School Name">
                             </div>
-                            <div>
-                                <label for="app-exam-index"> Certificate/Degree <span>*</span></label>
-                                <select name="app-exam-type" id="app-exam-type">
+                            <div class="mb-4">
+                                <label class="form-label" for="app-exam-index"> Certificate/Degree <span class="input-required">*</span></label>
+                                <select class="form-select form-select-sm mb-3" name="app-exam-type" id="app-exam-type">
                                     <option value="" hidden>Examination Type</option>
                                     <option value="2022">2022</option>
                                     <option value="2021">2021</option>
@@ -100,27 +102,27 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                                     <option value="2018">2018</option>
                                 </select>
                             </div>
-                            <div>
-                                <label for="app-exam-index"><span>*</span> Index Number</label>
-                                <input type="text" name="app-exam-index" id="app-exam-index" placeholder="Index Number">
+                            <div class="mb-4">
+                                <label class="form-label" for="app-exam-index"><span>*</span> Index Number</label>
+                                <input class="form-control" type="text" name="app-exam-index" id="app-exam-index" placeholder="Index Number">
                             </div>
-                            <div>
-                                <label for="app-exam-date"><span>*</span> Date</label>
-                                <select name="app-exam-month" id="app-exam-month" class="monthList">
+                            <div class="mb-4">
+                                <label class="form-label" for="app-exam-date"><span>*</span> Date</label>
+                                <select class="form-select form-select-sm mb-3" name="app-exam-month" id="app-exam-month" class="form-select form-select-lg mb-3">
                                     <option value="" hidden>Month</option>
                                 </select>
-                                <select name="app-exam-year" id="app-exam-year" class="yearList">
+                                <select class="form-select form-select-sm mb-3" name="app-exam-year" id="app-exam-year" class="yearList">
                                     <option value="" hidden>Year</option>
                                 </select>
                             </div>
 
-                            <div>
+                            <div class="mb-4">
                                 <button style="padding: 2px 50px;" type="button" id="verify-wassce-result">Verify Result</button>
                             </div>
 
                             <div id="display-wassce-result" style="display: flex; flex-direction: row;">
                                 <div id="core-subjects">
-                                    <label for="">Core Subjects</label>
+                                    <label class="form-label" for="">Core Subjects</label>
                                     <ul>
                                         <li>English Language: <span>A</span></li>
                                         <li>Integrated Science: <span>A</span></li>
@@ -129,7 +131,7 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                                     </ul>
                                 </div>
                                 <div id="elective-subjects" style="margin-left: 50px;">
-                                    <label for="">ELective Subjects</label>
+                                    <label class="form-label" for="">ELective Subjects</label>
                                     <ul>
                                         <li>English Language: <span>A</span></li>
                                         <li>Integrated Science: <span>A</span></li>
@@ -141,8 +143,8 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
 
                             <div class="photo-upload-area">
                                 <p style="font-size: 14px; color: brown">Upload a scanned PDF copy of your certificate and transcipts.</p>
-                                <label for="applicant-photo" class="upload-photo-label btn btn-default">Upload certificate</label>
-                                <input type="file" name="applicant-photo" id="applicant-photo">
+                                <label class="form-label" for="certificate-file" class="upload-photo-label btn btn-default">Upload certificate</label>
+                                <input class="form-control" type="file" name="applicant-photo" id="certificate-file" style="display: none;">
                             </div>
                         </div>
                     </div>
@@ -152,15 +154,15 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
 
             </form>
 
-            <div>
+            <div class="mb-4">
                 <button style="padding: 10px; float:right;">Add Education</button>
             </div>
 
             <center style="margin-top: 120px;">
                 <div class="page-control">
-                    <button type="submit" id="prevStep" onclick="whatNext(0, 2)" class="control-button btn">Previous Step</button>
-                    <button type="submit" id="saveAndExit" onclick="whatNext(1)" class="control-button btn">Save and Exit</button>
-                    <button type="submit" id="saveAndCont" onclick="whatNext(3)" class="control-button btn">Save and Continue</button>
+                    <button type="submit" id="prevStep" onclick="whatNext(0, 2)" class="m-5 control-button btn">Previous Step</button>
+                    <button type="submit" id="saveAndExit" onclick="whatNext(1)" class="m-5 control-button btn">Save and Exit</button>
+                    <button type="submit" id="saveAndCont" onclick="whatNext(3)" class="m-5 control-button btn">Save and Continue</button>
                 </div>
             </center>
         </main>

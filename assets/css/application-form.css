@@ -7,32 +7,33 @@
 }
 
 /*
-    Top-bar Layout
+    top-nav-bar Layout
 */
 
-.top-bar {
-	width: 100vw;
-	height: 100px;
-	background-color: #fff;
-	border: none;
-	position: fixed;
-	z-index: 9999;
+.top-nav-bar {
+	width: 100vw !important;
+	height: 100px !important;
+	background-color: #fff !important;
+	border: none !important;
+	position: fixed !important;
+	z-index: 9999 !important;
 }
 
-.top-bar .info-card {
-	height: 35%;
-	background-color: #325ed1;
+.top-nav-bar .info-card {
+	height: 35% !important;
+	background-color: #003262 !important;
+	/*background: linear-gradient(180deg, #003262 0, #002549);*/
 }
 
-.top-bar .info-card,
-.top-bar .logo-board {
-	width: 100%;
-	border: none;
+.top-nav-bar .info-card,
+.top-nav-bar .logo-board {
+	width: 100% !important;
+	border: none !important;
 }
 
-.top-bar .logo-board {
-	height: 65%;
-	background-color: #fff;
+.top-nav-bar .logo-board {
+	height: 65% !important;
+	background-color: #fff !important;
 }
 
 main {
@@ -40,6 +41,7 @@ main {
 	padding-right: 15%;
 	color: #303030;
 	margin-bottom: 50px;
+	width: 100%;
 }
 
 .main-content {
@@ -102,13 +104,6 @@ label {
 		font-size: 16px;
 	}
 }
-
-fieldset {
-	margin-bottom: 30px;
-	border: none;
-	padding: 20px;
-}
-
 .fieldset {
 	margin-bottom: 30px;
 	border: 1px solid #ccc;
@@ -117,7 +112,15 @@ fieldset {
 }
 
 fieldset legend {
+	margin-bottom: 25px;
 	padding: 5px 0px;
 	color: #202020;
 	font-weight: bolder;
 }
+
+/*fieldset > div {
+	margin-bottom: 25px;
+	padding: 5px 0px;
+	color: #202020;
+	font-weight: bolder;
+}*/
