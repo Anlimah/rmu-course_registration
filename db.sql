@@ -49,21 +49,14 @@ CREATE TABLE `purchase_detail` (
     CONSTRAINT `fk_payment_method` FOREIGN KEY (`payment_method`) REFERENCES `payment_method`(`id`) ON UPDATE CASCADE
 );
 
-/*DROP TABLE IF EXISTS `payment_log`;
-CREATE TABLE `payment_log` (
-    `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
-    `purchase_detail` INT NOT NULL,
-    CONSTRAINT `fk_purchase_detail_log` FOREIGN KEY (`purchase_detail`) REFERENCES `purchase_detail`(`id`) ON UPDATE CASCADE
-)*/
-
 DROP TABLE IF EXISTS `applicants_login`;
 CREATE TABLE `applicants_login` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
-    `app_number` VARCHAR(50) UNIQUE NOT NULL,
-    `pin` VARCHAR(6) NOT NULL,
+    `app_number` VARCHAR(255) UNIQUE NOT NULL,
+    `pin` VARCHAR(255) NOT NULL,
     `added_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
-    `purchase_detail` INT NOT NULL,
-    CONSTRAINT `fk_purchase_detail` FOREIGN KEY (`purchase_detail`) REFERENCES `purchase_detail`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
+    `purchased_by` INT NOT NULL,
+    CONSTRAINT `fk_purchased_by` FOREIGN KEY (`purchased_by`) REFERENCES `purchase_detail`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 /*

@@ -35,19 +35,38 @@ class VoucherPurchase extends DatabaseMethods
         return $app_number;
     }
 
-    public function genLoginDetails($app_number, int $type, int $year)
+    private function doesCodeExists($code)
     {
-        while (true) {
-            $app_num = $this->genAppNumber($type, $year);
-            $sql = "SELECT `id` FROM `applicants_login` WHERE `app_number`=:p";
-            if (empty($this->getID($sql, array(':p' => $app_number)))) {
-                break;
-            }
+        $sql = "SELECT `id` FROM `applicants_login` WHERE `app_number`=:p";
+        if ($this->getID($sql, array(':p' => sha1($code)))) {
+            return 1;
         }
+        return 0;
+    }
 
-        return array(
-            'app_number' => $app_num,
-            'pin_number' => $this->genPin()
-        );
+    private function saveLoginDetails($app_number, $pin)
+    {
+        $hashed_pin = password_hash($pin, PASSWORD_DEFAULT);
+
+        $sql = "INSERT INTO `applicants_login` (`app_number`, `pin`) VALUES(:a, :p)";
+        $params = array(':a' => sha1($app_number), ':p' => $hashed_pin);
+        if ($this->inputData($sql, $params)) {
+            return 1;
+        }
+        return 0;
+    }
+
+    public function genLoginDetails(int $who, int $type, int $year)
+    {
+        $rslt = 1;
+        while ($rslt) {
+            $app_num = $this->genAppNumber($type, $year);
+            $rslt = $this->doesCodeExists($app_num);
+        }
+        $pin = $this->genPin();
+        if ($this->saveLoginDetails($who, $app_num, $pin)) {
+            return array('app_number' => $app_num, 'pin_number' => $pin);
+        }
+        return 0;
     }
 }

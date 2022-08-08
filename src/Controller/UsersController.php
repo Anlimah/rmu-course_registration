@@ -13,13 +13,12 @@ class UsersController extends DatabaseMethods
     public function sendEmail($recipient_email, $user_id)
     {
         //generate code and store hash version of code
-        $v_code = $this->generateCode($user_id);
+        $v_code = $this->genCode($user_id);
         if ($v_code) {
             //prepare mail info
-            $first_name = $this->getApplicantsName($user_id)[0]["first_name"];
             $headers = 'From: ' . 'y.m.ratty7@gmail.com';
             $subject = 'RMU Admmisions Form Purchase: Code Verification';
-            $message = 'Hi ' . $first_name . ', <br> Your verification code is <b>' . $v_code . '</b>';
+            $message = 'Hi, <br> your verification code is <b>' . $v_code . '</b>';
 
             //send mail
             return mail($recipient_email, $subject, $message, $headers);
@@ -38,7 +37,7 @@ class UsersController extends DatabaseMethods
         //prepare SMS message
         $to = $ISD . $recipient_number;
         $account_phone = '19785232220';
-        $from = array('from' => $account_phone, 'body' => 'Your RMU code is ' . $v_code);
+        $from = array('from' => $account_phone, 'body' => 'Your OTP verification code is ' . $v_code);
 
         //send SMS
         $response = $client->messages->create($to, $from);
@@ -58,118 +57,31 @@ class UsersController extends DatabaseMethods
         }
     }
 
-    public function saveApplicantDetails($fn, $ln, $pn, $ea)
-    {
-        $sql = "INSERT INTO `applicant_details` (`first_name`, `last_name`, `phone_number`, `email_address`)  
-				VALUES(:f, :l, :n, :e)";
-        $params = array(':f' => $fn, ':l' => $ln, ':n' => $pn, ':e' => $ea);
-        if ($this->inputData($sql, $params)) {
-            $user = $this->checkUser($pn, $ea);
-            if ($user) {
-                return $user; //return user ID
-            } else {
-                return 0; // error occured
-            }
-        }
-    }
-
-    private function getApplicantsName($user_id)
-    {
-        $sql = "SELECT `first_name`, `last_name` FROM `applicant_details` WHERE `id`=:i";
-        return $this->getData($sql, array(':i' => $user_id));
-    }
-
-    public function checkUser($pn, $ea)
-    {
-        $sql = "SELECT `id` FROM `applicant_details` WHERE `phone_number`=:p AND `email_address`=:e";
-        $params = array(':p' => $pn, ':e' => $ea);
-        return $this->getID($sql, $params);
-    }
-
-    public function genApplicantLogin()
-    {
-        $appNumber = $this->genCode(8);
-        $pin = ucwords($this->genCode(4));
-        return array('appNum' => 'RMU' . $appNumber, 'pinNum' => $pin);
-    }
-
-    public function addUserData($fn, $ln, $ea, $pn, $pp, $bn)
-    {
-        if ($this->checkUser($pp, $bn)) {
-            return -1; // user already exist
-        } else {
-            $sql = "INSERT INTO `users`(`firstName`, `lastName`, `emailAddress`, `phoneNumber`, `passportNumber`, `bookNumber`)  
-						VALUES(:f, :l, :e, :n, :p, :b)";
-            $params = array(':f' => $fn, ':l' => $ln, ':e' => $ea, ':n' => $pn, ':p' => $pp, ':b' => $bn);
-            if ($this->inputData($sql, $params)) {
-                $user = $this->checkUser($pp, $bn);
-                if ($user) {
-                    return 1; //return user ID
-                } else {
-                    return 0; // error occured
-                }
-            }
-        }
-    }
-
-    //get one student data(uses student db id)
-    public function getProfileInfo($user)
-    {
-        $sql = "SELECT * FROM `users` WHERE `id` = :u";
-        $params = array(':u' => $user);
-        return $this->getData($sql, $params);
-    }
-
-    //get one student data(uses student db id)
-    public function getAllProInfo()
-    {
-        $sql = "SELECT * FROM `applicant_details`";
-        return $this->getData($sql);
-    }
-
-    public function generateCode($user_id)
-    {
-        $rslt = 1;
-        while ($rslt) {
-            $code = $this->genCode();
-            $rslt = $this->isCodeExists($user_id, $code);
-        }
-        $sql = "INSERT INTO `applicant_verification` (`applicant_id`, `code`) VALUES(:u, :c)";
-        $params = array(':u' => $user_id, ':c' => sha1($code));
-        if ($this->inputData($sql, $params)) {
-            if ($this->isCodeExists($user_id, $code)) {
-                return $code;
-            }
-            return 0;
-        }
-        return 0;
-    }
-
-    public function isCodeExists($user_id, $code)
-    {
-        $sql = "SELECT `id` FROM `applicant_verification` WHERE applicant_id = :u AND code = :c";
-        $params = array(':u' => $user_id, ':c' => sha1($code));
-        if ($this->getID($sql, $params)) {
-            return 1;
-        }
-        return 0;
-    }
-
-    private function doesCodeExists($sql, $params)
-    {
-        return $this->getID($sql, $params);
-    }
-
     /**
      * Application Login
      * 
      * 
      */
 
-    public function verifyAppDetails(mixed $appNumber, int $pinCode)
+    public function appLogin($app_number, $pin)
     {
-        $sql = "SELECT `id` FROM `applicant_details` WHERE `phone_number`=:a AND `email_address`=:p";
-        $params = array(':a' => $appNumber, ':p' => $pinCode);
-        return $this->getID($sql, $params);
+        $sql = "SELECT `pin` FROM `applicants_login` WHERE `app_number` = :a";
+        $hashed_pin = $this->getData($sql, array(':a' => sha1($app_number)))[0]["pin"];
+        if ($hashed_pin && password_verify($pin, $hashed_pin)) {
+            return true;
+        }
+        return false;
+    }
+
+    public function savePersonalInfo()
+    {
+    }
+
+    public function saveEducationInfo()
+    {
+    }
+
+    public function programmesInfo()
+    {
     }
 }

@@ -107,6 +107,14 @@ section {
 body {
 	line-height: 1;
 }
+*,
+::after,
+::before {
+	box-sizing: border-box;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
 ol,
 ul {
 	list-style: none;
@@ -274,30 +282,58 @@ table {
 	--z-index-second: 3;
 	--z-index-third: 4;
 }
+
 html {
 	font-size: 14px;
-	font-size: var(--default-font-size);
 }
 b,
 strong {
 	font-weight: 700;
-	font-weight: var(--font-bold-weight);
 }
 .hide {
 	display: none;
 }
 body,
 html {
-	height: 100%;
+	height: auto;
+	min-height: 100vh;
 }
 body {
-	background: #000;
-	background: var(--page-background-color);
+	background: #fff; /*was 000*/
 	font-family: ulp-font, -apple-system, BlinkMacSystemFont, Roboto, Helvetica,
 		sans-serif;
-	font-family: var(--font-family);
 	font-weight: 400;
-	font-weight: var(--font-default-weight);
 	-webkit-overflow-scrolling: touch;
 	overflow: auto;
+}
+
+a {
+	font-size: 14px;
+	color: #007bad;
+	text-decoration: none;
+	line-height: 1.5;
+}
+
+footer {
+	background-color: #000;
+	display: block;
+	position: relative;
+	padding: 0.5rem 0;
+	width: 100%;
+	color: #fff;
+	z-index: 10;
+}
+.footer ul {
+	text-align: center;
+}
+.footer ul li {
+	display: inline-block;
+	margin: 0 4px;
+}
+.footer ul li::after {
+	margin-left: 4px;
+	content: "|";
+}
+.footer a {
+	color: #fff;
 }
