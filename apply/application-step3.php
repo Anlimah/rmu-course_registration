@@ -32,16 +32,18 @@ $data = new ExposeDataController();
         <div class="logo-board"></div>
         <div class="info-card"></div>
     </header>
+
     <nav>
 
     </nav>
+
     <main>
         <div class="page_info" style="margin-bottom: 50px; border-bottom: 1px solid #909090">
-            <h1>Programme / Hall Information</h1>
+            <h1 style="font-size: 40px; padding-bottom: 15px">Programmes Information</h1>
         </div>
         <form id="appForm" method="POST">
             <fieldset class="fieldset">
-                <legend>Programme</legend>
+                <legend>Programmes</legend>
                 <div>
                     <label for="app-prog-first"><span>*</span> First (1<sup>st</sup>) Choice</label>
                     <select name="app-prog-first" id="app-prog-first">
@@ -67,7 +69,7 @@ $data = new ExposeDataController();
                 </div>
             </fieldset>
 
-            <fieldset class="fieldset">
+            <!--<fieldset class="fieldset">
                 <legend>Halls</legend>
                 <div>
                     <label for="app-hall-first"><span>*</span> First (1<sup>st</sup>) Choice</label>
@@ -97,7 +99,7 @@ $data = new ExposeDataController();
                         ?>
                     </select>
                 </div>
-            </fieldset>
+            </fieldset>-->
 
             <div style="margin-bottom: 20px">
                 <label for="">* Do you have any previous University records?</label>

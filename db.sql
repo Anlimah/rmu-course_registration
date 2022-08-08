@@ -69,6 +69,7 @@ CREATE TABLE `applicants_login` (
 /*
 Tables for applicants form registration
 */
+
 DROP TABLE IF EXISTS `programs`;
 CREATE TABLE `programs` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
@@ -147,25 +148,43 @@ CREATE TABLE `personal_information` (
     `p_phone_no` VARCHAR(13) NOT NULL,
     `p_email_addr` VARCHAR(50) NOT NULL,
 
-    `app_login` INT NOT NULL,
-
     `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT `fk_app_login` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
+
+    `app_login` INT NOT NULL,
+    CONSTRAINT `fk_app_pf` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+DROP TABLE IF EXISTS `awaiting_certs`;
+CREATE TABLE `awaiting_certs` (
+    `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
+
+    `awaiting` TINYINT DEFAULT 0;
+    `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    
+    `app_login` INT NOT NULL,
+    CONSTRAINT `fk_app_a_certs` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
+
 );
 
 DROP TABLE IF EXISTS `academic_background`;
 CREATE TABLE `academic_background` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
+
+    -- Certificate info
     `school` VARCHAR(100) NOT NULL,
     `cert_type` VARCHAR(50) NOT NULL,
     `month_completed` VARCHAR(2) NOT NULL,
     `year_completed` VARCHAR(4) NOT NULL,
-    `index_number` VARCHAR(50),
-    `certificate` VARCHAR(50) NOT NULL,
+    `index_number` VARCHAR(50) NOT NULL,
+
+    -- Transcripts and cerfiticate files
+    `certificate` VARCHAR(50),
     `transcript` VARCHAR(50),
-    `app_id` INT NOT NULL,
+
     `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT `fk_app_id_acadBack` FOREIGN KEY (`app_id`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
+
+    `app_login` INT NOT NULL,
+    CONSTRAINT `fk_app_aca_bac` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 DROP TABLE IF EXISTS `wassce`;
@@ -176,17 +195,40 @@ CREATE TABLE `wassce` (
     `acad_back_id` INT NOT NULL -- Referencing academic background
 );
 
-DROP TABLE IF EXISTS `secondary_school`;
-CREATE TABLE `secondary_school` (
+DROP TABLE IF EXISTS `program_info`;
+CREATE TABLE `program_info` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
-    `school` VARCHAR(100) NOT NULL,
-    `completed` DATE NOT NULL,
-    `cert_type` VARCHAR(50) NOT NULL,
-    `app_id` INT NOT NULL,
+
+    -- programs
+    `first_prog` INT NOT NULL,
+    `second_prog` INT NOT NULL,
+
     `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT `fk_app_id_acadBack` FOREIGN KEY (`app_id`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
+
+    `app_login` INT NOT NULL,   
+    CONSTRAINT `fk_app_prog_info` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
+DROP TABLE IF EXISTS `previous_uni_records`;
+CREATE TABLE `previous_uni_records` (
+    `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
+    `name_of_uni` VARCHAR(150) NOT NULL,   
+    `program` VARCHAR(150) NOT NULL,  
+
+    `month_enrolled` VARCHAR(2) NOT NULL,
+    `year_enrolled` VARCHAR(4) NOT NULL,
+    `completed` TINYINT DEFAULT 0,
+    `month_enrolled` VARCHAR(2),
+    `year_enrolled` VARCHAR(4),
+
+    `state` VARCHAR('25'),
+    `reasons` TEXT,
+
+    `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+    `app_login` INT NOT NULL,   
+    CONSTRAINT `fk_app_prev_uni` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
+);
 
 
 

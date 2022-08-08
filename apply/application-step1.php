@@ -32,8 +32,9 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
 
     <main>
         <div class="page_info" style="margin-bottom: 50px; border-bottom: 1px solid #909090">
-            <h1>Personal Information</h1>
+            <h1 style="font-size: 40px; padding-bottom: 15px">Personal Information</h1>
         </div>
+
         <form id="appForm" method="POST">
             <fieldset class="fieldset">
                 <legend>Legal Name</legend>

@@ -25,13 +25,16 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
         <div class="logo-board"></div>
         <div class="info-card"></div>
     </header>
+
     <nav>
 
     </nav>
+
     <main>
         <div class="page_info" style="margin-bottom: 50px; border-bottom: 1px solid #909090">
             <h1 style="font-size: 40px; padding-bottom: 15px">Education Background</h1>
         </div>
+
         <form id="appForm" method="POST">
             <!--Exam sitting for people applying with masters, degree, diploma, and other certificate-->
             <fieldset class="fieldset">

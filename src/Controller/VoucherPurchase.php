@@ -37,16 +37,16 @@ class VoucherPurchase extends DatabaseMethods
 
     public function genLoginDetails($app_number, int $type, int $year)
     {
-        $app_num = '';
         while (true) {
-            $this->genAppNumber($type, $year);
+            $app_num = $this->genAppNumber($type, $year);
             $sql = "SELECT `id` FROM `applicants_login` WHERE `app_number`=:p";
-            if (!$this->getID($sql, array(':p' => $app_number))) {
+            if (empty($this->getID($sql, array(':p' => $app_number)))) {
                 break;
             }
         }
+
         return array(
-            'app_number' => $this->genAppNumber($type, $year),
+            'app_number' => $app_num,
             'pin_number' => $this->genPin()
         );
     }
