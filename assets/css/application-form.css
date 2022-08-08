@@ -17,7 +17,7 @@
 
 .top-bar {
 	width: 100vw;
-	height: 80px;
+	height: 100px;
 	background-color: #fff;
 	border: none;
 	position: fixed;
@@ -42,17 +42,67 @@
 
 main {
 	position: relative;
-	top: 120px;
+	top: 150px;
 	padding-left: 15%;
 	padding-right: 15%;
+	color: #303030;
+	margin-bottom: 50px;
+}
+
+label {
+	font-size: 16px;
+	font-weight: 700;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+label {
+	color: #353535;
 }
 
 @media only screen and (max-width: 768px) {
+
 	/* For mobile phones: */
 	main {
 		padding-left: 15px;
 		padding-right: 15px;
-		top: 100px;
+	}
+
+	label {
+		font-size: 13px;
+		font-weight: bolder;
+	}
+
+	fieldset legend {
+		font-size: 16px;
+	}
+
+	h1 {
+		font-size: 30px;
+		padding-bottom: 15px;
+		font-weight: 700;
+	}
+}
+
+@media only screen and (min-width: 768px) {
+
+	h1 {
+		font-size: 40px;
+		padding-bottom: 15px;
+		font-weight: 700;
+	}
+
+	label {
+		font-size: 14px;
+		font-weight: bolder;
+	}
+
+	fieldset legend {
+		font-size: 16px;
 	}
 }
 
@@ -70,7 +120,7 @@ fieldset {
 }
 
 fieldset legend {
-	padding: 0 15px;
-	border: 1px dashed #ccc;
-	margin-bottom: 5px;
+	padding: 5px 0px;
+	color: #202020;
+	font-weight: bolder;
 }

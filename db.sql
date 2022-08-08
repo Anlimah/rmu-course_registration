@@ -1,3 +1,5 @@
+USE `rmu_admissions`;
+
 /*
 Tables for form purchase
 */
@@ -107,12 +109,16 @@ CREATE TABLE `personal_information` (
     -- Personal Details
     `gender` VARCHAR(7) NOT NULL,
     `dob` DATE NOT NULL,
-    `marital_state` VARCHAR(25) NOT NULL,
+    `marital_status` VARCHAR(25) NOT NULL,
+    `nationality` VARCHAR(25) NOT NULL,
     `country_res` VARCHAR(25) NOT NULL,
-    `nationality` VARCHAR(50) NOT NULL,
-    `sprob` VARCHAR(50) NOT NULL,
-    `city` VARCHAR(50) NOT NULL,
     `disability` VARCHAR(25) NOT NULL,
+    `photo` VARCHAR(25) NOT NULL,
+
+    -- Place of birth
+    `country_birth` VARCHAR(25) NOT NULL,
+    `spr_birth` VARCHAR(25) NOT NULL,
+    `city_birth` VARCHAR(25) NOT NULL,
 
     -- Languages Spoken
     `english_native` TINYINT NOT NULL,
