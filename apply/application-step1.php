@@ -102,6 +102,23 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                                     </div>
                                 </div>
                             </fieldset>
+
+                            <fieldset class="fieldset">
+                                <legend>Passport Picture</legend>
+
+                                <div class="field-content">
+                                    <div class="form-fields" style="flex-grow: 8;">
+                                        <div class="photo-upload-area">
+                                            <p style="font-size: 14px; color: brown">Please upload a passport size photo of yourself. The size of the image should not be more than 100KB. The background color of your image should be white.</p>
+                                            <p style="font-size: 14px; color: red"><b>NB: The image you use will not be changed. So use a most recent passport sized picture of yourself.</b></p>
+                                            <div class="photo-display"></div>
+                                            <label class="form-label" for="applicant-photo" class="upload-photo-label btn btn-primary">Upload photo</label>
+                                            <input class="form-control" type="file" style="display: none;" name="applicant-photo" id="applicant-photo">
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+
                             <fieldset class="fieldset">
                                 <legend>Personal Details</legend>
                                 <div class="field-content">
@@ -143,37 +160,18 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                                         </div>
                                         <div class="mb-4">
                                             <label class="form-label" for="disability">Any Disability <span class="input-required">*</span></label>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="disability" id="disability-yes" value="yes">
-                                                <label class="form-check-label" for="disability-yes"> Yes </label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="disability" id="disability-no" value="no">
-                                                <label class="form-check-label" for="disability-no"> No </label>
-                                            </div>
+                                            <label class="form-check-label" for="disability-yes">
+                                                <input style="margin-left: 20px;" type="radio" name="disability" id="disability-yes" value="yes"> Yes
+                                            </label>
+                                            <label class="form-check-label" for="disability-no">
+                                                <input style="margin-left: 20px;" type="radio" name="disability" id="disability-no" value="no"> No
+                                            </label>
                                         </div>
                                         <div class="mb-4">
                                             <label class="form-label" for="disability">Select Disability <span class="input-required">*</span></label>
                                             <select class="form-select form-select-sm mb-3" name="disability-descript" id="disability-descript">
                                                 <option value="" hidden>Select</option>
                                             </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </fieldset>
-
-
-                            <fieldset class="fieldset">
-                                <legend>Passport Picture</legend>
-
-                                <div class="field-content">
-                                    <div class="form-fields" style="flex-grow: 8;">
-                                        <div class="photo-upload-area">
-                                            <p style="font-size: 14px; color: brown">Please upload a passport size photo of yourself. The size of the image should not be more than 100KB. The background color of your image should be white.</p>
-                                            <p style="font-size: 14px; color: red"><b>NB: The image you use will not be changed. So use a most recent passport sized picture of yourself.</b></p>
-                                            <div class="photo-display"></div>
-                                            <label class="form-label" for="applicant-photo" class="upload-photo-label btn btn-primary">Upload photo</label>
-                                            <input class="form-control" type="file" style="display: none;" name="applicant-photo" id="applicant-photo">
                                         </div>
                                     </div>
                                 </div>
@@ -201,18 +199,16 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                             </fieldset>
 
                             <fieldset class="fieldset">
-                                <legend>Languages</legend>
+                                <legend>Language</legend>
 
                                 <div class="mb-4">
                                     <label class="form-label" for="english-native">English Native <span class="input-required">*</span></label>
-                                    <span>
-                                        <input class="form-control" type="radio" name="english-native" id="english-native-yes">
-                                        <span>Yes</span>
-                                    </span>
-                                    <span>
-                                        <input class="form-control" type="radio" name="english-native" id="english-native-no">
-                                        <span>No</span>
-                                    </span>
+                                    <label for="english-native-yes">
+                                        <input style="margin-left: 20px;" type="radio" name="english-native" id="english-native-yes"> Yes
+                                    </label>
+                                    <label for="english-native-no">
+                                        <input style="margin-left: 20px;" type="radio" name="english-native" id="english-native-no"> No
+                                    </label>
                                 </div>
                                 <div class="mb-4">
                                     <label class="form-label" for="other-native">Speicfy Language</label>
@@ -309,29 +305,32 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                                     <input class="form-control" type="email" name="gd-email-address" id="gd-email-address">
                                 </div>
                             </fieldset>
+
                         </form>
 
                         <center>
                             <div class="page-control">
-                                <button type="submit" id="prevStep" onclick="whatNext(0)" class="m-5 control-button btn">Previous Step</button>
+                                <!--<button type="submit" id="prevStep" onclick="whatNext(0)" class="m-5 control-button btn">Previous Step</button>-->
                                 <button type="submit" id="saveAndExit" onclick="whatNext(1)" class="m-5 control-button btn">Save and Exit</button>
                                 <button type="submit" id="saveAndCont" onclick="whatNext(2)" class="m-5 control-button btn">Save and Continue</button>
                             </div>
                         </center>
                     </main>
                 </div>
+
+                <!-- Application progress tracker -->
                 <div class="col-4">
                     <section class="container-sm" style="margin-top: 120px; max-width:570px; width: 300px; position: relative">
                         <fieldset class="fieldset">
                             <legend style="width:100%; text-align: center; font-size: 24px; font-weight:700; margin-bottom:0px">Application Sections</legend>
                             <span class="mb-5">In progress</span>
-                            <ul class="list-group mt-5" style="padding: 0 !important; margin: 0 important; font-size:medium; font-weight:700">
-                                <li class="list-group-item" style="padding-left: 0 !important; border: none !important; color: #3366cc">Use of Information</li>
-                                <li class="list-group-item" style="padding-left: 0 !important; border: none !important; color: #3366cc">Personal Information</li>
-                                <li class="list-group-item" style="padding-left: 0 !important; border: none !important; color: #3366cc">Acedemic Background</li>
-                                <li class="list-group-item" style="padding-left: 0 !important; border: none !important; color: #3366cc">Programme Information</li>
-                                <li class="list-group-item" style="padding-left: 0 !important; border: none !important; color: #3366cc">Uploads</li>
-                                <li class="list-group-item" style="padding-left: 0 !important; border: none !important; color: #3366cc">Declaration</li>
+                            <ul class="list-group mt-5" style="padding: 0 !important; margin: 0 important; font-size:medium; font-weight:500">
+                                <li class="list-group-item" style="padding-left: 0 !important; border: none !important; color: #004d99">Use of Information</li>
+                                <li class="list-group-item" style="padding-left: 0 !important; border: none !important; color: #004d99; font-weight:700">Personal Information</li>
+                                <li class="list-group-item" style="padding-left: 0 !important; border: none !important; color: #004d99">Acedemic Background</li>
+                                <li class="list-group-item" style="padding-left: 0 !important; border: none !important; color: #004d99">Programme Information</li>
+                                <li class="list-group-item" style="padding-left: 0 !important; border: none !important; color: #004d99">Uploads</li>
+                                <li class="list-group-item" style="padding-left: 0 !important; border: none !important; color: #004d99">Declaration</li>
                             </ul>
                         </fieldset>
                     </section>

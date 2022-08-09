@@ -188,7 +188,6 @@ $data = new ExposeDataController();
                         <label for="prev-uni-completed-no">
                             <input type="radio" name="prev-uni-completed" id="prev-uni-completed-no" style="margin-left: 20px;"> No
                         </label>
-
                     </div>
 
                     <div class="mb-4">
