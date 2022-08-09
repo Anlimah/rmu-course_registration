@@ -54,8 +54,8 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                                 <div class="field-content">
                                     <div class="form-fields" style="flex-grow: 8;">
                                         <div class="mb-4">
-                                            <label class="form-label" for="title">Prefix <span class="input-required">*</span></label>
-                                            <select class="form-select form-select-sm mb-3" name="title" id="title">
+                                            <label class="form-label" for="prefix">Prefix <span class="input-required">*</span></label>
+                                            <select class="form-select form-select-sm mb-3" name="prefix" id="prefix">
                                                 <option value="" hidden>Select</option>
                                                 <option value="Mr.">Mr.</option>
                                                 <option value="Mrs.">Mrs.</option>
@@ -68,20 +68,20 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                                             </select>
                                         </div>
                                         <div class="mb-4">
-                                            <label class="form-label" for="other-names">First Name <span class="input-required">*</span></label>
-                                            <input class="form-control" type="text" name="other-names" id="other-names">
+                                            <label class="form-label" for="first-name">First Name <span class="input-required">*</span></label>
+                                            <input class="form-control" type="text" name="first-name" id="first-name">
                                         </div>
                                         <div class="mb-4">
-                                            <label class="form-label" for="other-names">Middle Names <span>(Optional)</span></label>
-                                            <input class="form-control" type="text" name="other-names" id="other-names">
+                                            <label class="form-label" for="middle-name">Middle Names <span>(Optional)</span></label>
+                                            <input class="form-control" type="text" name="middle-name" id="middle-nams">
                                         </div>
                                         <div class="mb-4">
-                                            <label class="form-label" for="surname">Surname<span class="input-required">*</span></label>
-                                            <input class="form-control" type="text" name="surname" id="surname">
+                                            <label class="form-label" for="last-name">Surname<span class="input-required">*</span></label>
+                                            <input class="form-control" type="text" name="last-name" id="last-name">
                                         </div>
                                         <div class="mb-4">
-                                            <label class="form-label" for="title">Suffix <span>(Optional)</span></label>
-                                            <select class="form-select form-select-sm mb-3" name="title" id="title">
+                                            <label class="form-label" for="suffix">Suffix <span>(Optional)</span></label>
+                                            <select class="form-select form-select-sm mb-3" name="suffix" id="suffix">
                                                 <option value="" hidden>Select</option>
                                                 <option value="Mr.">Jr.</option>
                                                 <option value="Mrs.">Sr.</option>
@@ -112,7 +112,7 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                                             <p style="font-size: 14px; color: brown">Please upload a passport size photo of yourself. The size of the image should not be more than 100KB. The background color of your image should be white.</p>
                                             <p style="font-size: 14px; color: red"><b>NB: The image you use will not be changed. So use a most recent passport sized picture of yourself.</b></p>
                                             <div class="photo-display"></div>
-                                            <label class="form-label" for="applicant-photo" class="upload-photo-label btn btn-primary">Upload photo</label>
+                                            <label for="applicant-photo" class="upload-photo-label btn btn-primary">Upload photo</label>
                                             <input class="form-control" type="file" style="display: none;" name="applicant-photo" id="applicant-photo">
                                         </div>
                                     </div>
@@ -356,6 +356,23 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                 save(data, 1);
             });
 
+            $(".form-control, .form-select").on("blur", function() {
+                $.ajax({
+                    type: "POST",
+                    url: "../api/saveOne",
+                    data: {
+                        what: this.name,
+                        value: this.value,
+                    },
+                    success: function(result) {
+                        console.log(result);
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+
+            });
         });
     </script>
 </body>

@@ -75,8 +75,8 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                             </div>
                             <div class="photo-upload-area">
                                 <p style="font-size: 14px; color: brown">Upload a scanned PDF copy of your certificate and transcipts.</p>
-                                <label class="form-label" for="applicant-photo" class="upload-photo-label btn btn-default">Upload certificate</label>
-                                <input class="form-control" type="file" name="applicant-photo" id="applicant-photo">
+                                <label for="applicant-photo" class="upload-photo-label btn btn-default">Upload certificate</label>
+                                <input class="form-control" type="file" name="applicant-photo" id="applicant-photo" style="display: none;">
                             </div>
                         </div>
                     </div>
@@ -143,7 +143,7 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
 
                             <div class="photo-upload-area">
                                 <p style="font-size: 14px; color: brown">Upload a scanned PDF copy of your certificate and transcipts.</p>
-                                <label class="form-label" for="certificate-file" class="upload-photo-label btn btn-default">Upload certificate</label>
+                                <label for="certificate-file" class="upload-photo-label btn btn-default">Upload certificate</label>
                                 <input class="form-control" type="file" name="applicant-photo" id="certificate-file" style="display: none;">
                             </div>
                         </div>

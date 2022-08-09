@@ -8,6 +8,7 @@ use Src\Controller\PaymentGateway;
 
 if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SESSION['step3Done']) && isset($_SESSION['step4Done']) && isset($_SESSION['step5Done']) && isset($_SESSION['step6Done'])) {
     if ($_SESSION['step1Done'] == true && $_SESSION['step2Done'] == true && $_SESSION['step3Done'] == true && $_SESSION['step4Done'] == true && $_SESSION['step5Done'] == true && $_SESSION['step6Done'] == true) {
+
         $payload = array(
             'tx_ref' => time(),
             'amount' => $_SESSION["step6"]['amount'],
@@ -21,7 +22,10 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
                 'phone_number' => $_SESSION["step4"]['phone_number'],
             ),
             'meta' => array(
+                'user' => $_SESSION["step6"]['user'],
                 'price' => $_SESSION["step6"]['amount'],
+                'app_type' => $_SESSION["step6"]['app_type'],
+                'app_year' => $_SESSION["step6"]['app_year'],
             ),
             'customizations' => array(
                 'title' => 'RMU admission form',

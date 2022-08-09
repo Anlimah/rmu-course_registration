@@ -44,19 +44,36 @@ class VoucherPurchase extends DatabaseMethods
         return 0;
     }
 
-    private function saveLoginDetails($app_number, $pin)
+    private function savePurchaseDetails($user, $fn, $ln, $cn, $ea, $pn, $ft, $pm, $ap)
+    {
+        $sql = "INSERT INTO `purchase_detail` VALUES(:ui, :fn, :ln, :cn, :ea, :pn, :ft, :pm, :ap)";
+        $params = array(
+            ':ui' => $user,
+            ':fn' => $fn,
+            ':ln' => $ln,
+            ':cn' => $cn,
+            ':ea' => $ea,
+            ':pn' => $pn,
+            ':ft' => $ft,
+            ':pm' => $pm,
+            ':ap' => $ap
+        );
+        return $this->inputData($sql, $params);
+    }
+
+    private function saveLoginDetails($app_number, $pin, $who)
     {
         $hashed_pin = password_hash($pin, PASSWORD_DEFAULT);
+        $sql = "INSERT INTO `applicants_login` (`app_number`, `pin`, `purchased_by`) VALUES(:a, :p, :b)";
+        $params = array(':a' => sha1($app_number), ':p' => $hashed_pin, ':b' => $who);
 
-        $sql = "INSERT INTO `applicants_login` (`app_number`, `pin`) VALUES(:a, :p)";
-        $params = array(':a' => sha1($app_number), ':p' => $hashed_pin);
         if ($this->inputData($sql, $params)) {
             return 1;
         }
         return 0;
     }
 
-    public function genLoginDetails(int $who, int $type, int $year)
+    private function genLoginDetails(int $who, int $type, int $year)
     {
         $rslt = 1;
         while ($rslt) {
@@ -68,5 +85,27 @@ class VoucherPurchase extends DatabaseMethods
             return array('app_number' => $app_num, 'pin_number' => $pin);
         }
         return 0;
+    }
+
+    public function createApplicant($data)
+    {
+        $first_name = $data['step1']['first_name'];
+        $last_name = $data['step1']['last_name'];
+        $first_name = $data['step1']['country'];
+        $first_name = $data['step2']['email_address'];
+        $first_name = $data['step4']['phone_number'];
+        $first_name = $data['step6']['form_type'];
+        $first_name = $data['step6']['pay_method'];
+        $first_name = $data['step6']['app_type'];
+        $first_name = $data['step6']['app_year'];
+
+        /*if (!$this->savePurchaseDetails()) {
+            return 0;
+        }
+        if (!$this->genLoginDetails()) {
+            return 0;
+        }
+
+        return 1;*/
     }
 }

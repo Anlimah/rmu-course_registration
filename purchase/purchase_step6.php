@@ -35,8 +35,8 @@ $data = new ExposeDataController();
             <label for="gender">Form type</label>
             <select name="form_type" id="form_type">
                 <option value="select" hidden>Select</option>
-                <option value="Degree/diploma">Degree/diploma</option>
-                <option value="Masters">Masters</option>
+                <option value="Undergraduate">Degree/diploma</option>
+                <option value="Postgraduate">Masters</option>
                 <option value="Short">Short courses</option>
             </select>
         </div>

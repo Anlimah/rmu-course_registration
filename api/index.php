@@ -162,11 +162,22 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 					$amount = $user->getFormPrice($form_type)[0]["amount"];
 
+					if ($form_type == 'Undergraduate' || $form_type == 'Short') {
+						$app_type = 1;
+					} else if ($form_type == 'Postgraduate') {
+						$app_type = 2;
+					}
+
+					$app_year = $user->getAdminYearCode();
+
 					if ($amount) {
 						$_SESSION["step6"] = array(
+							'user' => microtime(true),
 							"form_type" => $form_type,
 							"pay_method" => $pay_method,
-							"amount" => $amount
+							"amount" => $amount,
+							"app_type" => $app_type,
+							"app_year" => $app_year,
 						);
 						echo json_encode($_SESSION["step6"]);
 						$_SESSION['step6Done'] = true;
@@ -239,6 +250,15 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		} else {
 			echo 'NO';
 		}
+	} elseif ($_GET["url"] == "saveOne") {
+		$what = $_POST["what"];
+		$value = $_POST['value'];
+
+		if (isset($_POST["what"]) && !empty($_POST["what"])) {
+			$key = str_replace("-", "_", $what);
+		}
+
+		echo $value;
 	} elseif ($_GET["url"] == "save") {
 		$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 		$uri = explode('/', $uri);

@@ -57,6 +57,12 @@ class UsersController extends DatabaseMethods
         }
     }
 
+    public function getAdminYearCode()
+    {
+        $year = (string) $this->getData("SELECT EXTRACT(YEAR FROM (SELECT `start_date` FROM admission_period)) AS 'year'")[0]['year'];
+        return (int) substr($year, 2, 2);
+    }
+
     /**
      * Application Login
      * 
@@ -73,8 +79,11 @@ class UsersController extends DatabaseMethods
         return false;
     }
 
-    public function savePersonalInfo()
+    public function savePersonalInfo($key, $value)
     {
+        $sql = "INSERT INTO `personal_information` (`$key`) VALUES(:v)
+                WHERE `app_login` = :a";
+        $this->inputData($sql, array(':v' => $value, ':a' => 1));
     }
 
     public function saveEducationInfo()

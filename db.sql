@@ -1,22 +1,31 @@
-USE `rmu_admissions`;
+USE `db_admissions`;
 
 /*
 Tables for form purchase
 */
+DROP TABLE IF EXISTS `admission_period`;
+CREATE TABLE `admission_period` (
+    `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
+    `start_date` DATE NOT NULL,
+    `end_date` DATE NOT NULL,
+    `info` TEXT
+);
+INSERT INTO `admission_period`(`start_date`,`end_date`) VALUES('2022-07-01', '2022-10-01');
+
 DROP TABLE IF EXISTS `form_type`;
 CREATE TABLE `form_type` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
     `name` VARCHAR(50) NOT NULL,
     `amount` DECIMAL(6,2) NOT NULL
 );
-INSERT INTO `form_type`(`name`, `amount`) VALUES ("Masters", 250), ("Degree/diploma", 180), ("Short courses", 120);
+INSERT INTO `form_type`(`name`, `amount`) VALUES ("Postgraduate", 250), ("Undergraduate", 180), ("Short courses", 120);
 
 DROP TABLE IF EXISTS `payment_method`;
 CREATE TABLE `payment_method` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
     `name` VARCHAR(50) NOT NULL
 );
-INSERT INTO `payment_method`(`name`) VALUES ("Credit Card"), ("Mobile Money"), ("Direct Deposit");
+INSERT INTO `payment_method`(`name`) VALUES ("Credit Card"), ("Mobile Money"), ("Bank Deposit");
 
 DROP TABLE IF EXISTS `verify_phone_number`;
 CREATE TABLE `verify_phone_number` (
@@ -36,17 +45,21 @@ CREATE TABLE `verify_email_address` (
 
 DROP TABLE IF EXISTS `purchase_detail`; 
 CREATE TABLE `purchase_detail` (
-    `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
+    `id` INT(11) PRIMARY KEY,
     `first_name` VARCHAR(50) NOT NULL,
     `last_name` VARCHAR(50) NOT NULL,
     `country` VARCHAR(50) NOT NULL,
     `email_address` VARCHAR(255) NOT NULL,
     `phone_number` VARCHAR(10) NOT NULL,
+    `submitted_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+
     `form_type` INT NOT NULL,
     `payment_method` INT NOT NULL,
-    `submitted_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `admission_period` INT NOT NULL,
+    
     CONSTRAINT `fk_form_type` FOREIGN KEY (`form_type`) REFERENCES `form_type`(`id`) ON UPDATE CASCADE,
-    CONSTRAINT `fk_payment_method` FOREIGN KEY (`payment_method`) REFERENCES `payment_method`(`id`) ON UPDATE CASCADE
+    CONSTRAINT `fk_payment_method` FOREIGN KEY (`payment_method`) REFERENCES `payment_method`(`id`) ON UPDATE CASCADE,
+    CONSTRAINT `fk_purchase_acad_year` FOREIGN KEY (`admission_period`) REFERENCES `admission_period`(`id`) ON UPDATE CASCADE
 );
 
 DROP TABLE IF EXISTS `applicants_login`;
@@ -87,6 +100,21 @@ CREATE TABLE `halls` (
 );
 INSERT INTO `halls`(`name`) VALUES ('Cadet Hostel'), ('Non-cadet Hostel');
 
+DROP TABLE IF EXISTS `wassce_grades`;
+CREATE TABLE `wassce_grades` (
+    `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
+    `grade` VARCHAR(2) NOT NULL
+);
+INSERT INTO `wassce_grades`(`grade`) 
+VALUES('A1'), ('B2'), ('B3'), ('C4'), ('C5'), ('C6'), ('D7'), ('E8'), ('F9');
+
+DROP TABLE IF EXISTS `ssce_grades`;
+CREATE TABLE `ssce_grades` (
+    `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
+    `grade` VARCHAR(1) NOT NULL
+);
+INSERT INTO `ssce_grades`(`grade`) 
+VALUES('A'), ('B'), ('C'), ('D'), ('E'), ('F');
 
 /*Application Data*/
 DROP TABLE IF EXISTS `personal_information`;
@@ -95,51 +123,51 @@ CREATE TABLE `personal_information` (
 
     -- Legal Name
     `prefix` VARCHAR(10),
-    `first_name` VARCHAR(100) NOT NULL,
+    `first_name` VARCHAR(100),
     `middle_name` VARCHAR(100),
-    `last_name` VARCHAR(100) NOT NULL,
+    `last_name` VARCHAR(100),
     `suffix` VARCHAR(10),
 
     -- Personal Details
-    `gender` VARCHAR(7) NOT NULL,
-    `dob` DATE NOT NULL,
-    `marital_status` VARCHAR(25) NOT NULL,
-    `nationality` VARCHAR(25) NOT NULL,
-    `country_res` VARCHAR(25) NOT NULL,
-    `disability` VARCHAR(25) NOT NULL,
-    `photo` VARCHAR(25) NOT NULL,
+    `gender` VARCHAR(7),
+    `dob` DATE,
+    `marital_status` VARCHAR(25),
+    `nationality` VARCHAR(25),
+    `country_res` VARCHAR(25),
+    `disability` VARCHAR(25),
+    `photo` VARCHAR(25),
 
     -- Place of birth
-    `country_birth` VARCHAR(25) NOT NULL,
-    `spr_birth` VARCHAR(25) NOT NULL,
-    `city_birth` VARCHAR(25) NOT NULL,
+    `country_birth` VARCHAR(25),
+    `spr_birth` VARCHAR(25),
+    `city_birth` VARCHAR(25),
 
     -- Languages Spoken
-    `english_native` TINYINT NOT NULL,
+    `english_native` TINYINT,
     `other_language` VARCHAR(25),
 
     -- Address
-    `postal_addr` VARCHAR(255) NOT NULL,
-    `postal_town` VARCHAR(50) NOT NULL,
-    `postal_spr` VARCHAR(50) NOT NULL,
-    `postal_country` VARCHAR(50) NOT NULL,
+    `postal_addr` VARCHAR(255),
+    `postal_town` VARCHAR(50),
+    `postal_spr` VARCHAR(50),
+    `postal_country` VARCHAR(50),
 
     -- Contact
-    `phone_no1` VARCHAR(13) NOT NULL,
+    `phone_no1` VARCHAR(13),
     `phone_no2` VARCHAR(13),
-    `email_addr` VARCHAR(50) NOT NULL,
+    `email_addr` VARCHAR(50),
     
     -- Alternate/Parent/Guardian Information
 
     -- Legal Name
     `p_prefix` VARCHAR(10),
-    `p_first_name` VARCHAR(100) NOT NULL,
-    `p_last_name` VARCHAR(100) NOT NULL,
+    `p_first_name` VARCHAR(100),
+    `p_last_name` VARCHAR(100),
     `p_occupation` VARCHAR(50),
 
     -- Contact
-    `p_phone_no` VARCHAR(13) NOT NULL,
-    `p_email_addr` VARCHAR(50) NOT NULL,
+    `p_phone_no` VARCHAR(13),
+    `p_email_addr` VARCHAR(50),
 
     `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
 
@@ -151,7 +179,7 @@ DROP TABLE IF EXISTS `awaiting_certs`;
 CREATE TABLE `awaiting_certs` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
 
-    `awaiting` TINYINT DEFAULT 0;
+    `awaiting` TINYINT DEFAULT 0,
     `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
     
     `app_login` INT NOT NULL,
@@ -164,11 +192,11 @@ CREATE TABLE `academic_background` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
 
     -- Certificate info
-    `school` VARCHAR(100) NOT NULL,
-    `cert_type` VARCHAR(50) NOT NULL,
-    `month_completed` VARCHAR(2) NOT NULL,
-    `year_completed` VARCHAR(4) NOT NULL,
-    `index_number` VARCHAR(50) NOT NULL,
+    `school` VARCHAR(100),
+    `cert_type` VARCHAR(50),
+    `month_completed` VARCHAR(2),
+    `year_completed` VARCHAR(4),
+    `index_number` VARCHAR(50),
 
     -- Transcripts and cerfiticate files
     `certificate` VARCHAR(50),
@@ -180,8 +208,8 @@ CREATE TABLE `academic_background` (
     CONSTRAINT `fk_app_aca_bac` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-DROP TABLE IF EXISTS `wassce`;
-CREATE TABLE `wassce` (
+DROP TABLE IF EXISTS `high_school_results`;
+CREATE TABLE `high_school_results` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
     `course` VARCHAR(100) NOT NULL,
     `grade` VARCHAR(2) NOT NULL,
@@ -193,8 +221,8 @@ CREATE TABLE `program_info` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
 
     -- programs
-    `first_prog` INT NOT NULL,
-    `second_prog` INT NOT NULL,
+    `first_prog` INT,
+    `second_prog` INT,
 
     `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
 
@@ -205,24 +233,23 @@ CREATE TABLE `program_info` (
 DROP TABLE IF EXISTS `previous_uni_records`;
 CREATE TABLE `previous_uni_records` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
-    `name_of_uni` VARCHAR(150) NOT NULL,   
-    `program` VARCHAR(150) NOT NULL,  
+    `name_of_uni` VARCHAR(150),   
+    `program` VARCHAR(150),  
 
-    `month_enrolled` VARCHAR(2) NOT NULL,
-    `year_enrolled` VARCHAR(4) NOT NULL,
-    `completed` TINYINT DEFAULT 0,
     `month_enrolled` VARCHAR(2),
     `year_enrolled` VARCHAR(4),
+    `completed` TINYINT DEFAULT 0,
+    `month_completed` VARCHAR(2),
+    `year_completed` VARCHAR(4),
 
-    `state` VARCHAR('25'),
+    `state` VARCHAR(25),
     `reasons` TEXT,
 
     `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
 
     `app_login` INT NOT NULL,   
-    CONSTRAINT `fk_app_prev_uni` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
+    CONSTRAINT `fk_app_prev_uni` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE
 );
-
 
 
 
