@@ -128,7 +128,9 @@ q {
 blockquote:after,
 blockquote:before,
 q:after,
-q:before {
+q:before,
+p:after,
+p:before {
 	content: "";
 	content: none;
 }
@@ -238,13 +240,23 @@ header {
 	width: 100% !important;
 }
 
-.top-nav-bar {
+.top-nav-bar,
+.index-page {
 	width: 100% !important;
 	height: 100px !important;
 	background-color: #fff !important;
 	border: none !important;
-	position: fixed !important;
 	z-index: 9999 !important;
+}
+
+.top-nav-bar {
+	height: 100px !important;
+	position: fixed !important;
+}
+.index-page {
+	height: 80px !important;
+	background-color: #003262 !important;
+	position: relative !important;
 }
 
 .top-nav-bar .info-card {
