@@ -27,12 +27,11 @@ if (isset($_GET['status']) && !empty($_GET['status']) && $_GET['status'] == 'can
                 echo 'Payment was successful!<br><hr><br>';
 
                 $voucher = new VoucherPurchase();
-                $url = $voucher->createApplicant($_SESSION);
-                if ($url) {
+                if ($voucher->createApplicant($_SESSION)) {
                     echo '<span style="color:red;"><b>Please do not close this page yet.</b></span><br><br>';
                     echo 'An email with your <b>Application Number</b> and <b>PIN Code</b> and has been sent to you!<br>';
                     echo 'Please confirm and proceed to the <a href="../apply"><b>online applicatioin portal</b></a> to complete your application process.<br>';
-                    echo 'Or <a href="resend.php?id=' . sha1(md5($url)) . '">Resend</a> <b>Application Number</b> and <b>PIN Code</b> if not received.';
+                    //echo 'Or <a href="resend.php?link=' . sha1(md5($url)) . '">Resend</a> <b>Application Number</b> and <b>PIN Code</b> if not received.';
                     //header('Location: purchase_step1.php?status=success');
                 }
             }
@@ -46,4 +45,4 @@ if (isset($_GET['status']) && !empty($_GET['status']) && $_GET['status'] == 'can
     }
 }
 
-PaymentGateway::destroyAllSessions(); //Kill all sessions
+//PaymentGateway::destroyAllSessions(); //Kill all sessions

@@ -5,27 +5,17 @@ namespace Src\Controller;
 require_once('../bootstrap.php');
 
 use Src\System\DatabaseMethods;
-use Src\Controller\UsersController;
+use Src\Controller\ExposeDataController;
 
 class VoucherPurchase
 {
     private $dm;
+    private $expose;
 
     public function __construct()
     {
         $this->dm = new DatabaseMethods();
-    }
-
-    public function verifyEmailAddress($email, $code)
-    {
-        $sql = "SELECT `id` FROM `verify_email_address` WHERE `email_address`=:e AND `code`=:c";
-        return $this->dm->getID($sql, array(':e' => $email, ':c' => $code));
-    }
-
-    public function verifyPhoneNumber($number, $code)
-    {
-        $sql = "SELECT `id` FROM `verify_phone_number` WHERE `phone_number`=:p AND `code`=:c";
-        return $this->dm->getID($sql, array(':p' => $number, ':c' => $code));
+        $this->expose = new ExposeDataController();
     }
 
     private function genPin(int $length_pin = 9)
@@ -138,11 +128,11 @@ class VoucherPurchase
             if ($purchase_id) {
                 $login_details = $this->genLoginDetails($purchase_id, $at, $ay);
                 if (!empty($login_details)) {
-                    $key = 'APPLICATION NUMBER: ' . $login_details['app_number'] . ' PIN: ' . $login_details['pin_number'] . ']';
-                    $message = 'Your RMU Online Application login details [';
-                    echo $key . $message;
-                    //$this->uc->sendSMS($pn, $key, $message);
-                    //return $data;
+                    $key = 'APPLICATION NUMBER: ' . $login_details['app_number'] . '    PIN: ' . $login_details['pin_number'];
+                    $message = 'Your RMU Online Application login details ';
+                    if ($this->expose->sendSMS($pn,  $key, $message)) {
+                        return 1;
+                    }
                 }
             }/**/
         }

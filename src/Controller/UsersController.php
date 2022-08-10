@@ -10,6 +10,19 @@ use Src\System\DatabaseMethods;
 
 class UsersController extends DatabaseMethods
 {
+
+    public function verifyEmailAddress($email, $code)
+    {
+        $sql = "SELECT `id` FROM `verify_email_address` WHERE `email_address`=:e AND `code`=:c";
+        return $this->dm->getID($sql, array(':e' => $email, ':c' => $code));
+    }
+
+    public function verifyPhoneNumber($number, $code)
+    {
+        $sql = "SELECT `id` FROM `verify_phone_number` WHERE `phone_number`=:p AND `code`=:c";
+        return $this->dm->getID($sql, array(':p' => $number, ':c' => $code));
+    }
+
     public function sendEmail($recipient_email, $user_id)
     {
         //generate code and store hash version of code
