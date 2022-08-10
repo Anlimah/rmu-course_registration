@@ -113,7 +113,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 					$phone_number = $user->validateInput($_POST["phone_number"]);
 					$_SESSION["step4"] = array("phone_number" => $phone_number);
 					//echo json_encode($_SESSION["step4"]);
-					echo $user->sendSMS($phone_number);
+					$otp_code = $user->genCode(4);
+					$message = 'Your OTP verification code is';
+					echo $user->sendSMS($phone_number, $otp_code, $message);
 					$_SESSION['step4Done'] = true;
 				}
 			} else {

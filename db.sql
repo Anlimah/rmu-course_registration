@@ -52,7 +52,6 @@ CREATE TABLE `verify_email_address` (
 DROP TABLE IF EXISTS `purchase_detail`; 
 CREATE TABLE `purchase_detail` (
     `id` INT(11) PRIMARY KEY,
-    `user_id` INT UNIQUE NOT NULL,
     `first_name` VARCHAR(50) NOT NULL,
     `last_name` VARCHAR(50) NOT NULL,
     `country` VARCHAR(50) NOT NULL,
@@ -77,7 +76,7 @@ CREATE TABLE `applicants_login` (
     `pin` VARCHAR(255) NOT NULL,
     `added_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
     `purchase_id` INT NOT NULL,
-    CONSTRAINT `fk_purchase_id` FOREIGN KEY (`purchase_id`) REFERENCES `purchase_detail`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
+    CONSTRAINT `fk_purchase_id` FOREIGN KEY (`purchase_id`) REFERENCES `purchase_detail`(`id`) ON UPDATE CASCADE
 );
 
 /*

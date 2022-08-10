@@ -4,22 +4,28 @@ namespace Src\Controller;
 
 require_once('../bootstrap.php');
 
-use Twilio\Rest\Client;
-
 use Src\System\DatabaseMethods;
+use Src\Controller\UsersController;
 
-class VoucherPurchase extends DatabaseMethods
+class VoucherPurchase
 {
+    private $dm;
+
+    public function __construct()
+    {
+        $this->dm = new DatabaseMethods();
+    }
+
     public function verifyEmailAddress($email, $code)
     {
         $sql = "SELECT `id` FROM `verify_email_address` WHERE `email_address`=:e AND `code`=:c";
-        return $this->getID($sql, array(':e' => $email, ':c' => $code));
+        return $this->dm->getID($sql, array(':e' => $email, ':c' => $code));
     }
 
     public function verifyPhoneNumber($number, $code)
     {
         $sql = "SELECT `id` FROM `verify_phone_number` WHERE `phone_number`=:p AND `code`=:c";
-        return $this->getID($sql, array(':p' => $number, ':c' => $code));
+        return $this->dm->getID($sql, array(':p' => $number, ':c' => $code));
     }
 
     private function genPin(int $length_pin = 9)
@@ -30,7 +36,7 @@ class VoucherPurchase extends DatabaseMethods
 
     private function genAppNumber(int $type, int $year)
     {
-        $user_code = $this->genCode(5);
+        $user_code = $this->dm->genCode(5);
         $app_number = 'RMU-' . (($type * 10000000) + ($year * 100000) + $user_code);
         return $app_number;
     }
@@ -38,25 +44,30 @@ class VoucherPurchase extends DatabaseMethods
     private function doesCodeExists($code)
     {
         $sql = "SELECT `id` FROM `applicants_login` WHERE `app_number`=:p";
-        if ($this->getID($sql, array(':p' => sha1($code)))) {
+        if ($this->dm->getID($sql, array(':p' => sha1($code)))) {
             return 1;
         }
         return 0;
     }
 
-    private function savePurchaseDetails($user, $fn, $ln, $cn, $ea, $pn, $ft, $pm, $ap)
+    private function savePurchaseDetails(int $pi, int $ft, int $pm, int $ap, $fn, $ln, $cn, $ea, $pn)
     {
-        $sql = "INSERT INTO `purchase_detail`(`user_id`, `first_name`, `last_name`, `country`, `email_address`, `phone_number`, `form_type`, `payment_method`, `admission_period`) 
-                VALUES(:ui, :fn, :ln, :cn, :ea, :pn, $ft, $pm, $ap)";
+        $sql = "INSERT INTO `purchase_detail`(`id`, `first_name`, `last_name`, `country`, `email_address`, `phone_number`, `form_type`, `payment_method`, `admission_period`) 
+                VALUES(:ui, :fn, :ln, :cn, :ea, :pn, :ft, :pm, :ap)";
         $params = array(
-            ':ui' => $user,
+            ':ui' => $pi,
             ':fn' => $fn,
             ':ln' => $ln,
             ':cn' => $cn,
             ':ea' => $ea,
-            ':pn' => $pn
+            ':pn' => $pn,
+            ':ft' => $ft,
+            ':pm' => $pm,
+            ':ap' => $ap,
         );
-        return $this->inputData($sql, $params);
+        if ($this->dm->inputData($sql, $params)) {
+            return $pi;
+        }
     }
 
     private function saveLoginDetails($app_number, $pin, $who)
@@ -65,7 +76,7 @@ class VoucherPurchase extends DatabaseMethods
         $sql = "INSERT INTO `applicants_login` (`app_number`, `pin`, `purchase_id`) VALUES(:a, :p, :b)";
         $params = array(':a' => sha1($app_number), ':p' => $hashed_pin, ':b' => $who);
 
-        if ($this->inputData($sql, $params)) {
+        if ($this->dm->inputData($sql, $params)) {
             return 1;
         }
         return 0;
@@ -78,50 +89,64 @@ class VoucherPurchase extends DatabaseMethods
             $app_num = $this->genAppNumber($type, $year);
             $rslt = $this->doesCodeExists($app_num);
         }
-        $pin = $this->genPin();
-        if ($this->saveLoginDetails($who, $app_num, $pin)) {
+        $pin = strtoupper($this->genPin());
+        if ($this->saveLoginDetails($app_num, $pin, $who)) {
             return array('app_number' => $app_num, 'pin_number' => $pin);
         }
         return 0;
     }
 
+    //Get and Set IDs for foreign keys
+
     private function getAdmissionPeriodID()
     {
-        $sql = "SELECT `id` FROM `admission_period` WHERE `active` = :a";
-        return $this->getID($sql, array(':a' => 1));
+        $sql = "SELECT `id` FROM `admission_period` WHERE `active` = 1;";
+        return $this->dm->getID($sql);
     }
 
     private function getFormTypeID($form_type)
     {
         $sql = "SELECT `id` FROM `form_type` WHERE `name` LIKE '%$form_type%'";
-        return $this->getID($sql);
+        return $this->dm->getID($sql);
+    }
+
+    private function getPaymentMethodID($name)
+    {
+        $sql = "SELECT `id` FROM `payment_method` WHERE `name` LIKE '%$name%'";
+        return $this->dm->getID($sql);
     }
 
     public function createApplicant($data)
     {
-        $fn = $data['step1']['first_name'];
-        $ln = $data['step1']['last_name'];
-        $cn = $data['step1']['country'];
-        $ea = $data['step2']['email_address'];
-        $pn = $data['step4']['phone_number'];
-        $ft = $data['step6']['form_type'];
-        $pm = $data['step6']['pay_method'];
-        $at = $data['step6']['app_type'];
-        $ay = $data['step6']['app_year'];
-        $ui = $data['step6']['user'];
+        if (!empty($data)) {
+            $fn = $data['step1']['first_name'];
+            $ln = $data['step1']['last_name'];
+            $cn = $data['step1']['country'];
+            $ea = $data['step2']['email_address'];
+            $pn = $data['step4']['phone_number'];
+            $ft = $data['step6']['form_type'];
+            $pm = $data['step6']['pay_method'];
+            $at = $data['step6']['app_type'];
+            $ay = $data['step6']['app_year'];
+            $pi = (int) $data['step6']['user'];
 
-        $ap_id = $this->getAdmissionPeriodID();
-        $ft_id = $this->getFormTypeID($ft);
+            $ap_id = $this->getAdmissionPeriodID();
+            $ft_id = $this->getFormTypeID($ft);
+            $pm_id = $this->getPaymentMethodID($pm);
 
-        if ($this->savePurchaseDetails($ui, $fn, $ln, $cn, $ea, $pn, $ft_id, $pm, $ap_id)) {
-            echo 1;
-            $purchase_id = $this->getAdmissionPeriodID();
-            $data = $this->genLoginDetails($purchase_id, $at, $ay);
-            if (!empty($data)) {
-                return $data;
-            }
+            $purchase_id = $this->savePurchaseDetails($pi, $ft_id, $pm_id, $ap_id, $fn, $ln, $cn, $ea, $pn);
+            if ($purchase_id) {
+                $login_details = $this->genLoginDetails($purchase_id, $at, $ay);
+                if (!empty($login_details)) {
+                    $key = 'APPLICATION NUMBER: ' . $login_details['app_number'] . ' PIN: ' . $login_details['pin_number'] . ']';
+                    $message = 'Your RMU Online Application login details [';
+                    echo $key . $message;
+                    //$this->uc->sendSMS($pn, $key, $message);
+                    //return $data;
+                }
+            }/**/
         }
 
-        return 0; /**/
+        return 0;
     }
 }

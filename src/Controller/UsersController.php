@@ -26,9 +26,8 @@ class UsersController extends DatabaseMethods
         return 0;
     }
 
-    public function sendSMS($recipient_number, $ISD = '+233')
+    public function sendSMS($recipient_number, $otp_code, $message, $ISD = '+233')
     {
-        $v_code = $this->genCode(4);
 
         $sid = getenv('TWILIO_SID');
         $token = getenv('TWILIO_TKN');
@@ -37,12 +36,12 @@ class UsersController extends DatabaseMethods
         //prepare SMS message
         $to = $ISD . $recipient_number;
         $account_phone = '19785232220';
-        $from = array('from' => $account_phone, 'body' => 'Your OTP verification code is ' . $v_code);
+        $from = array('from' => $account_phone, 'body' => $message . ' ' . $otp_code);
 
         //send SMS
         $response = $client->messages->create($to, $from);
         if ($response->sid) {
-            $_SESSION['sms_code'] = $v_code;
+            $_SESSION['sms_code'] = $otp_code;
             $_SESSION['sms_sid'] = $response->sid;
             if (isset($_SESSION['sms_code']) && !empty($_SESSION['sms_code']) && isset($_SESSION['sms_sid']) && !empty($_SESSION['sms_sid'])) return 1;
         } else {

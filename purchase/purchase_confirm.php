@@ -27,24 +27,23 @@ if (isset($_GET['status']) && !empty($_GET['status']) && $_GET['status'] == 'can
                 echo 'Payment was successful!<br><hr><br>';
 
                 $voucher = new VoucherPurchase();
-                echo json_encode($voucher->createApplicant($_SESSION));
-
-                echo '<pre>' . json_encode($_SESSION) . '</pre>';
-
-                echo '<span style="color:red;"><b>Please do not close this page yet.</b></span><br><br>';
-                echo 'An email with your <b>Application Number</b> and <b>PIN Code</b> and has been sent to you!<br>';
-                echo 'Please confirm and proceed to the online applicatioin <a href="../apply"><b>portal</b></a> to complete your application process.<br>';
-                echo 'Or <a href="javascript:void()">Resend</a> <b>Application Number</b> and <b>PIN Code</b> if not received.';
-                //header('Location: purchase_step1.php?status=success');
+                $url = $voucher->createApplicant($_SESSION);
+                if ($url) {
+                    echo '<span style="color:red;"><b>Please do not close this page yet.</b></span><br><br>';
+                    echo 'An email with your <b>Application Number</b> and <b>PIN Code</b> and has been sent to you!<br>';
+                    echo 'Please confirm and proceed to the <a href="../apply"><b>online applicatioin portal</b></a> to complete your application process.<br>';
+                    echo 'Or <a href="resend.php?id=' . sha1(md5($url)) . '">Resend</a> <b>Application Number</b> and <b>PIN Code</b> if not received.';
+                    //header('Location: purchase_step1.php?status=success');
+                }
             }
         } else {
             //code
         }/**/
 
-        print_r(json_encode($response));
+        //print_r(json_encode($response));
     } catch (\Exception $e) {
         throw $e;
     }
 }
 
-//PaymentGateway::destroyAllSessions(); //Kill all sessions
+PaymentGateway::destroyAllSessions(); //Kill all sessions

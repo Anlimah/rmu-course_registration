@@ -53,7 +53,6 @@ class PaymentGateway
 
     public static function destroyAllSessions()
     {
-
         unset($_SESSION['step1']);
         unset($_SESSION['step2']);
         unset($_SESSION['step3']);
@@ -66,6 +65,12 @@ class PaymentGateway
         unset($_SESSION['step4Done']);
         unset($_SESSION['step5Done']);
         unset($_SESSION['step6Done']);
+        unset($_SESSION['_step1Token']);
+        unset($_SESSION['_step2Token']);
+        unset($_SESSION['_step3Token']);
+        unset($_SESSION['_step4Token']);
+        unset($_SESSION['_step5Token']);
+        unset($_SESSION['_step6Token']);
 
         session_unset();
         session_destroy();
