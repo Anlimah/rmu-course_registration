@@ -52,9 +52,7 @@ class UsersController extends DatabaseMethods
 
     public function getFormPrice(string $form_type)
     {
-        if (!empty($form_type)) {
-            return $this->getData("SELECT amount FROM form_type WHERE `name` LIKE '%$form_type%'");
-        }
+        return $this->getData("SELECT `amount` FROM `form_type` WHERE `name` LIKE '%$form_type%'");
     }
 
     public function getAdminYearCode()
@@ -77,20 +75,5 @@ class UsersController extends DatabaseMethods
             return true;
         }
         return false;
-    }
-
-    public function savePersonalInfo($key, $value)
-    {
-        $sql = "INSERT INTO `personal_information` (`$key`) VALUES(:v)
-                WHERE `app_login` = :a";
-        $this->inputData($sql, array(':v' => $value, ':a' => 1));
-    }
-
-    public function saveEducationInfo()
-    {
-    }
-
-    public function programmesInfo()
-    {
     }
 }

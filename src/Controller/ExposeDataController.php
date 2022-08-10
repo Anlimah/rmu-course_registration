@@ -12,6 +12,10 @@ class ExposeDataController extends DatabaseMethods
     {
         return $this->getData("SELECT * FROM `form_type`");
     }
+    public function getPaymentMethods()
+    {
+        return $this->getData("SELECT * FROM `payment_method`");
+    }
 
     public function getPrograms()
     {

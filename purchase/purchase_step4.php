@@ -27,7 +27,7 @@ if (isset($_SESSION['step3Done']) && $_SESSION['step3Done'] == true) {
     <form action="#" id="step1Form" method="post" enctype="multipart/form-data">
         <div>
             <p>
-                For your security, Cloudways wants to make sure it's really you. Please <br>
+                For your security, RMU wants to make sure it's really you. Please <br>
                 enter your phone number below. We'll send you a text message with a <br>
                 code that you'll need to enter on the next screen. <br><br>
 

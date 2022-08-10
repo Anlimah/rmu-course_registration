@@ -17,14 +17,10 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../assets/css/main.css">
-    <link rel="stylesheet" href="../assets/css/application-form.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <style>
-        .main-cont {
-            padding: 0 110px;
-        }
     </style>
 </head>
 
@@ -39,18 +35,20 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
     </nav>
 
     <div class="main-content">
-        <div class="conatainer main-cont">
+        <div class="conatainer">
             <div class="row">
                 <div class="col-8">
                     <main class=" container">
-                        <div class="page_info" style="margin-bottom: 50px; border-bottom: 1px solid #909090">
-                            <h1 style="font-size: 40px; padding-bottom: 15px">Personal Information</h1>
+                        <div class="page_info" style="margin-bottom: 30px !important;">
+                            <h1 style="font-size: 40px; padding-bottom: 15px !important">Personal Information</h1>
                         </div>
 
-                        <form id="appForm" method="POST">
+                        <hr>
+
+                        <form id="appForm" method="POST" style="margin-top: 50px !important;">
                             <fieldset class="fieldset">
                                 <legend>Legal Name</legend>
-                                <p style="margin-bottom: 30px;">Please use your legal name. DO NOT use nicknames or abbreviations</p>
+                                <p style="margin-bottom: 30px !important">Please use your legal name. DO NOT use nicknames or abbreviations</p>
                                 <div class="field-content">
                                     <div class="form-fields" style="flex-grow: 8;">
                                         <div class="mb-4">
@@ -312,29 +310,57 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                             <div class="page-control">
                                 <!--<button type="submit" id="prevStep" onclick="whatNext(0)" class="m-5 control-button btn">Previous Step</button>-->
                                 <button type="submit" id="saveAndExit" onclick="whatNext(1)" class="m-5 control-button btn">Save and Exit</button>
-                                <button type="submit" id="saveAndCont" onclick="whatNext(2)" class="m-5 control-button btn">Save and Continue</button>
+                                <button type="submit" id="saveAndCont" onclick="whatNext(2)" class="m-5 control-button btn">Next</button>
                             </div>
                         </center>
                     </main>
                 </div>
 
                 <!-- Application progress tracker -->
-                <div class="col-4">
-                    <section class="container-sm" style="margin-top: 120px; max-width:570px; width: 300px; position: relative">
-                        <fieldset class="fieldset">
-                            <legend style="width:100%; text-align: center; font-size: 24px; font-weight:700; margin-bottom:0px">Application Sections</legend>
+                <div class="col-4" style="margin-bottom: 400px;">
+
+                    <section class="container-sm" style=" display: flex; flex-direction: column;position: sticky; top: 10.7rem;">
+                        <fieldset class="fieldset" style="float:left; margin-top: 0px; max-width: 270px;min-width: 270px; width: 100%;">
+                            <legend style="width:100%; text-align: center; font-size: 20px; font-weight:700; margin-bottom:0px">Application Sections</legend>
                             <span class="mb-5">In progress</span>
                             <ul class="list-group mt-5" style="padding: 0 !important; margin: 0 important; font-size:medium; font-weight:500">
-                                <li class="list-group-item" style="padding-left: 0 !important; border: none !important; color: #004d99">Use of Information</li>
-                                <li class="list-group-item" style="padding-left: 0 !important; border: none !important; color: #004d99; font-weight:700">Personal Information</li>
-                                <li class="list-group-item" style="padding-left: 0 !important; border: none !important; color: #004d99">Acedemic Background</li>
-                                <li class="list-group-item" style="padding-left: 0 !important; border: none !important; color: #004d99">Programme Information</li>
-                                <li class="list-group-item" style="padding-left: 0 !important; border: none !important; color: #004d99">Uploads</li>
-                                <li class="list-group-item" style="padding-left: 0 !important; border: none !important; color: #004d99">Declaration</li>
+                                <li class="list-group-item" style="padding-left: 0 !important; border: none !important;">
+                                    <a href="/">Use of Information</a>
+                                </li>
+                                <li class="list-group-item" style="padding-left: 0 !important; border: none !important;">
+                                    <a href="" class="active">Personal Information</a>
+                                </li>
+                                <li class="list-group-item" style="padding-left: 0 !important; border: none !important;">
+                                    <a href="">Acedemic Background</a>
+                                </li>
+                                <li class="list-group-item" style="padding-left: 0 !important; border: none !important;">
+                                    <a href="">Programme Information</a>
+                                </li>
+                                <li class="list-group-item" style="padding-left: 0 !important; border: none !important;">
+                                    <a href="">Uploads</a>
+                                </li>
+                                <li class="list-group-item" style="padding-left: 0 !important; border: none !important;">
+                                    <a href="">Declaration</a>
+                                </li>
                             </ul>
                         </fieldset>
+
+                        <fieldset class="fieldset" style="display: flex; flex-direction: column; align-items:center; max-width: 270px; min-width: 270px;">
+                            <legend style="width:100%; text-align: center;">Need Help?</legend>
+                            <p style="width: 100%;">
+                                <span class="bi bi-telephone-fill"></span>
+                                <a href=" tel:+233302712775">+233302712775</a>
+                            </p>
+                            <p style="width: 100%;">
+                                <span class="bi bi-envelope-fill"></span>
+                                <a href="mailto:university.registrar@rmu.edu.gh">university.registrar@rmu.edu.gh</a>
+                            </p>
+                        </fieldset>
+
                     </section>
+
                 </div>
+
             </div>
         </div>
 

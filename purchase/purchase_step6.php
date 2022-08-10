@@ -13,7 +13,7 @@ if (isset($_SESSION['step5Done']) && $_SESSION['step5Done'] == true) {
 }
 
 require_once("../src/Controller/ExposeDataController.php");
-$data = new ExposeDataController();
+$expose = new ExposeDataController();
 
 ?>
 <!DOCTYPE html>
@@ -35,18 +35,24 @@ $data = new ExposeDataController();
             <label for="gender">Form type</label>
             <select name="form_type" id="form_type">
                 <option value="select" hidden>Select</option>
-                <option value="Undergraduate">Degree/diploma</option>
-                <option value="Postgraduate">Masters</option>
-                <option value="Short">Short courses</option>
+                <?php
+                $data = $expose->getFormTypes();
+                foreach ($data as $ft) {
+                    echo '<option value="' . $ft['name'] . '">' . $ft['name'] . '</option>';
+                }
+                ?>
             </select>
         </div>
         <div>
             <label for="gender">Payment Method</label>
             <select name="pay_method" id="pay_method">
                 <option value="select" hidden>Select</option>
-                <?php $data->getFormTypes(); ?>
-                <option value="Momo">MoMo/Card</option>
-                <option value="Bank">Account deposit</option>
+                <?php
+                $data = $expose->getPaymentMethods();
+                foreach ($data as $pm) {
+                    echo '<option value="' . $pm['name'] . '">' . $pm['name'] . '</option>';
+                }
+                ?>
             </select>
         </div>
         <button type="submit" style="padding: 5px 10px">Continue</button>
@@ -68,11 +74,7 @@ $data = new ExposeDataController();
                     success: function(result) {
                         console.log(result);
                         if (result) {
-                            if ($("#pay_method").val() == "Bank") {
-                                window.location.href = "../src/Controller/PaymentController.php";
-                            } else if ($("#pay_method").val() == "Momo") {
-                                window.location.href = "../src/Controller/PaymentController.php";
-                            }
+                            window.location.href = "../src/Controller/PaymentController.php";
                         }
                     },
                     error: function(error) {}

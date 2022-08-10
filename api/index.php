@@ -162,7 +162,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 					$amount = $user->getFormPrice($form_type)[0]["amount"];
 
-					if ($form_type == 'Undergraduate' || $form_type == 'Short') {
+					if ($form_type == 'Undergraduate' || $form_type == 'Short courses') {
 						$app_type = 1;
 					} else if ($form_type == 'Postgraduate') {
 						$app_type = 2;

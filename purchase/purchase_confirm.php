@@ -27,7 +27,7 @@ if (isset($_GET['status']) && !empty($_GET['status']) && $_GET['status'] == 'can
                 echo 'Payment was successful!<br><hr><br>';
 
                 $voucher = new VoucherPurchase();
-                $voucher->createApplicant($_SESSION);
+                echo json_encode($voucher->createApplicant($_SESSION));
 
                 echo '<pre>' . json_encode($_SESSION) . '</pre>';
 
