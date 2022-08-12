@@ -173,7 +173,8 @@ html {
 }
 
 body {
-	background: #fff; /*was 000*/
+	background: #fff;
+	/*was 000*/
 	font-family: ulp-font, -apple-system, BlinkMacSystemFont, Roboto, Helvetica,
 		sans-serif;
 	font-weight: 400;
@@ -185,8 +186,8 @@ body {
 }
 
 a {
-	font-size: 14px;
-	color: #004d99 !important; /*004d99;*/
+	color: #004d99 !important;
+	/*004d99;*/
 	text-decoration: none !important;
 	line-height: 1.5;
 }
@@ -196,7 +197,6 @@ a.active {
 }
 
 a:hover {
-	font-size: 15px !important;
 	font-weight: 600 !important;
 }
 
@@ -209,17 +209,21 @@ footer {
 	color: #fff;
 	z-index: 10;
 }
+
 .footer ul {
 	text-align: center;
 }
+
 .footer ul li {
 	display: inline-block;
 	margin: 0 5px;
 }
+
 .footer ul li::after {
 	margin-left: 5px;
 	content: "|";
 }
+
 .footer a {
 	color: #fff !important;
 }
@@ -253,6 +257,7 @@ header {
 	height: 100px !important;
 	position: fixed !important;
 }
+
 .index-page {
 	height: 80px !important;
 	background-color: #003262 !important;
@@ -262,7 +267,7 @@ header {
 .top-nav-bar .info-card {
 	height: 35% !important;
 	background-color: #003262 !important;
-	/*background: linear-gradient(180deg, #003262 0, #002549);*/
+	background: linear-gradient(180deg, #003262 0, #002549);
 }
 
 .top-nav-bar .info-card,
@@ -276,10 +281,19 @@ header {
 	background-color: #fff !important;
 }
 
+.info-card {
+	width: 100% !important;
+	display: flex !important;
+	flex-direction: row !important;
+	align-items: center;
+	justify-content: space-between;
+	color: #fff;
+}
+
 main {
 	color: #303030;
 	margin-bottom: 50px;
-	width: 100%;
+	width: 100% !important;
 }
 
 .main-content {
@@ -305,6 +319,7 @@ label {
 }
 
 @media only screen and (max-width: 768px) {
+
 	/* For mobile phones: */
 	main {
 		padding-left: 15px !important;
@@ -342,10 +357,14 @@ label {
 	fieldset legend {
 		font-size: 16px;
 	}
-	.container {
+
+	.main-content,
+	.info-card,
+	.logo-board {
 		padding: 0 110px !important;
 	}
 }
+
 .fieldset {
 	margin-bottom: 30px !important;
 	border: 1px solid #ccc;

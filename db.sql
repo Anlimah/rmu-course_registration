@@ -21,7 +21,9 @@ CREATE TABLE `form_type` (
     `name` VARCHAR(50) NOT NULL,
     `amount` DECIMAL(6,2) NOT NULL,
     `admission_period` INT NOT NULL,
-    CONSTRAINT `fk_ft_admis_period` FOREIGN KEY (`admission_period`) REFERENCES `admission_period`(`id`) ON UPDATE CASCADE
+
+    CONSTRAINT `fk_ft_admis_period` FOREIGN KEY (`admission_period`) 
+    REFERENCES `admission_period`(`id`) ON UPDATE CASCADE
 );
 INSERT INTO `form_type`(`name`, `amount`, `admission_period`) 
 VALUES ("Postgraduate", 250, 1), ("Undergraduate", 180, 1), ("Short courses", 120, 1);
@@ -59,14 +61,18 @@ CREATE TABLE `purchase_detail` (
     `phone_number` VARCHAR(10) NOT NULL,
 
     `form_type` INT NOT NULL,
-    `payment_method` INT NOT NULL,
-    `admission_period` INT NOT NULL,
-    
-    `submitted_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT `fk_purchase_form_type` FOREIGN KEY (`form_type`) 
+    REFERENCES `form_type`(`id`) ON UPDATE CASCADE,
 
-    CONSTRAINT `fk_form_type` FOREIGN KEY (`form_type`) REFERENCES `form_type`(`id`) ON UPDATE CASCADE,
-    CONSTRAINT `fk_payment_method` FOREIGN KEY (`payment_method`) REFERENCES `payment_method`(`id`) ON UPDATE CASCADE,
-    CONSTRAINT `fk_purchase_acad_year` FOREIGN KEY (`admission_period`) REFERENCES `admission_period`(`id`) ON UPDATE CASCADE
+    `payment_method` INT NOT NULL,
+    CONSTRAINT `fk_purchase_payment_method` FOREIGN KEY (`payment_method`) 
+    REFERENCES `payment_method`(`id`) ON UPDATE CASCADE,
+
+    `admission_period` INT NOT NULL,
+    CONSTRAINT `fk_purchase_admission_period` FOREIGN KEY (`admission_period`) 
+    REFERENCES `admission_period`(`id`) ON UPDATE CASCADE,
+    
+    `submitted_at` DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 DROP TABLE IF EXISTS `applicants_login`;
@@ -75,8 +81,10 @@ CREATE TABLE `applicants_login` (
     `app_number` VARCHAR(255) UNIQUE NOT NULL,
     `pin` VARCHAR(255) NOT NULL,
     `added_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    
     `purchase_id` INT NOT NULL,
-    CONSTRAINT `fk_purchase_id` FOREIGN KEY (`purchase_id`) REFERENCES `purchase_detail`(`id`) ON UPDATE CASCADE
+    CONSTRAINT `fk_purchase_id` FOREIGN KEY (`purchase_id`) 
+    REFERENCES `purchase_detail`(`id`) ON UPDATE CASCADE
 );
 
 /*

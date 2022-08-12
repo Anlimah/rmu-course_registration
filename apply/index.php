@@ -16,10 +16,15 @@ if (!isset($_SESSION["_start"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RMU Online Applicatioin Portal</title>
     <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <style>
+        body {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
     </style>
 </head>
 
@@ -30,13 +35,13 @@ if (!isset($_SESSION["_start"])) {
         <div class="info-card"></div>
     </header>
 
-    <div class="container-fluid">
+    <div class="container-fluid" style="margin-bottom: 100px;">
         <div class="row">
             <!--Voucher purchase info-->
-            <div class="col-7" style="height: 100%;"></div>
+            <div class="col-8" style="height: 100%;"></div>
 
             <!--Login form-->
-            <div class="col-5" style="display:flex; flex-direction:column; margin-top: 100px;">
+            <div class="col-4" style="display:flex; flex-direction:column; margin-top: 100px;">
                 <h1>Login</h1>
                 <form id="appLoginForm" style="margin-bottom: 50px">
                     <div class="mb-4">
@@ -47,7 +52,9 @@ if (!isset($_SESSION["_start"])) {
                         <label class="form-label" for="pin_code">PIN Code</label>
                         <input class="form-control form-control-lg" type="password" id="pin_code" name="pin_code" placeholder="Enter your PIN code here">
                     </div>
-                    <button type="submit" class="btn btn-primary">Login</button>
+                    <div class="mb-4">
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </div>
                     <input type="hidden" name="_logToken" value="<?= $_SESSION['_start'] ?>">
                 </form>
 
@@ -65,14 +72,41 @@ if (!isset($_SESSION["_start"])) {
             </div>
 
         </div>
+
     </div>
+    <?php require_once('../inc/page-footer.php') ?>
 
     <script src="../js/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
+
+
+
             $("#appLoginForm").on("submit", function(e) {
                 e.preventDefault();
-                //window.location.href = "purchase_step2.php";
+
+                /**
+                 *  Pregmatch: 
+                 *  1. Only numbers allowed
+                 *  2. Min and Max of 8
+                 */
+                if ($("#app_number").val().length > 8 || $("#app_number").val().length < 8) {
+                    alert("Invalid application number or PIN");
+                    return;
+                }
+
+
+                /**
+                 *  Pregmatch: 
+                 *  1. Alpha numeric allowed
+                 *  2. Min and Max of 9
+                 *  3. Case sensitive: only upper cases
+                 */
+                if ($("#pin_code").val().length < 9 || $("#pin_code").val().length > 9) {
+                    alert("Invalid application number or PIN");
+                    return;
+                }
+
                 $.ajax({
                     type: "POST",
                     url: "../api/appLogin",
@@ -82,15 +116,9 @@ if (!isset($_SESSION["_start"])) {
                     processData: false,
                     success: function(result) {
                         console.log(result);
-                        if (result) {
+                        if (result['response'] == 'success') {
                             window.location.href = 'application-step1.php';
                         }
-                        /*if (res["response"] == "success") {
-                            console.log(res['msg']);
-                            window.location.href = 'verify-code.php'
-                        } else {
-                            console.log(res['msg']);
-                        }*/
                     },
                     error: function(error) {}
                 });

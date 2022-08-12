@@ -53,11 +53,11 @@ function whatNext(x, y = 1) {
     }
 }
 
-function save(d, k) {
+function save(data, place) {
     $.ajax({
         type: "POST",
-        url: "../api/save/" + k,
-        data: d,
+        url: "../api/save/" + place,
+        data: data,
         contentType: false,
         cache: false,
         processData: false,

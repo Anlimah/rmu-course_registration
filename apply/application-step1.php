@@ -1,11 +1,18 @@
 <?php
 session_start();
 if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
-    if (!(isset($_SESSION["ghApplicant"]) && !empty($_SESSION['ghAppLogin']))) {
+    if (!(isset($_SESSION["ghApplicant"]) && !empty($_SESSION['ghApplicant']))) {
         header('Location: index.php?status=error&message=Invalid access!');
     }
 } else {
     header('Location: index.php?status=error&message=Invalid access!');
+}
+
+if (isset($_GET['logout'])) {
+    unset($_SESSION['ghAppLogin']);
+    unset($_SESSION['ghApplicant']);
+    session_destroy();
+    header('Location: index.php');
 }
 ?>
 <!DOCTYPE html>
@@ -17,6 +24,7 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
@@ -27,7 +35,12 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
 <body>
     <header class="top-nav-bar card">
         <div class="logo-board"></div>
-        <div class="info-card"></div>
+        <div class="info-card">
+            <div>Application Sections</div>
+            <div>
+                <a href="?logout=true" style="color: #fff !important">Logout</a>
+            </div>
+        </div>
     </header>
 
     <nav>
@@ -35,10 +48,10 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
     </nav>
 
     <div class="main-content">
-        <div class="conatainer">
+        <div class="container">
             <div class="row">
-                <div class="col-8">
-                    <main class=" container">
+                <div class="col-9">
+                    <main>
                         <div class="page_info" style="margin-bottom: 30px !important;">
                             <h1 style="font-size: 40px; padding-bottom: 15px !important">Personal Information</h1>
                         </div>
@@ -49,61 +62,58 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                             <fieldset class="fieldset">
                                 <legend>Legal Name</legend>
                                 <p style="margin-bottom: 30px !important">Please use your legal name. DO NOT use nicknames or abbreviations</p>
-                                <div class="field-content">
-                                    <div class="form-fields" style="flex-grow: 8;">
-                                        <div class="mb-4">
-                                            <label class="form-label" for="prefix">Prefix <span class="input-required">*</span></label>
-                                            <select class="form-select form-select-sm mb-3" name="prefix" id="prefix">
-                                                <option value="" hidden>Select</option>
-                                                <option value="Mr.">Mr.</option>
-                                                <option value="Mrs.">Mrs.</option>
-                                                <option value="Ms.">Ms.</option>
-                                                <option value="Prof. Dr.">Prof. Dr.</option>
-                                                <option value="Prof.">Prof.</option>
-                                                <option value="Rev.">Rev.</option>
-                                                <option value="Rev. Dr.">Rev. Dr.</option>
-                                                <option value="Rev. Sis.">Rev. Sis.</option>
-                                            </select>
-                                        </div>
-                                        <div class="mb-4">
-                                            <label class="form-label" for="first-name">First Name <span class="input-required">*</span></label>
-                                            <input class="form-control" type="text" name="first-name" id="first-name">
-                                        </div>
-                                        <div class="mb-4">
-                                            <label class="form-label" for="middle-name">Middle Names <span>(Optional)</span></label>
-                                            <input class="form-control" type="text" name="middle-name" id="middle-nams">
-                                        </div>
-                                        <div class="mb-4">
-                                            <label class="form-label" for="last-name">Surname<span class="input-required">*</span></label>
-                                            <input class="form-control" type="text" name="last-name" id="last-name">
-                                        </div>
-                                        <div class="mb-4">
-                                            <label class="form-label" for="suffix">Suffix <span>(Optional)</span></label>
-                                            <select class="form-select form-select-sm mb-3" name="suffix" id="suffix">
-                                                <option value="" hidden>Select</option>
-                                                <option value="Mr.">Jr.</option>
-                                                <option value="Mrs.">Sr.</option>
-                                                <option value="Ms.">I</option>
-                                                <option value="Ms.">II</option>
-                                                <option value="Ms.">III</option>
-                                                <option value="Ms.">IV</option>
-                                                <option value="Ms.">V</option>
-                                                <option value="Prof. Dr.">J.D.</option>
-                                                <option value="Prof.">Esq</option>
-                                                <option value="Rev.">M.D.</option>
-                                                <option value="Rev. Dr.">O.F.M.</option>
-                                                <option value="Rev. Sis.">O.P</option>
-                                                <option value="Rev. Sis.">Ph.D.</option>
-                                                <option value="Rev. Sis.">S.J.</option>
-                                            </select>
-                                        </div>
+                                <div class="form-fields" style="flex-grow: 8;">
+                                    <div class="mb-4">
+                                        <label class="form-label" for="prefix">Prefix <span class="input-required">*</span></label>
+                                        <select class="form-select form-select-sm mb-3" name="prefix" id="prefix">
+                                            <option value="" hidden>Select</option>
+                                            <option value="Mr.">Mr.</option>
+                                            <option value="Mrs.">Mrs.</option>
+                                            <option value="Ms.">Ms.</option>
+                                            <option value="Prof. Dr.">Prof. Dr.</option>
+                                            <option value="Prof.">Prof.</option>
+                                            <option value="Rev.">Rev.</option>
+                                            <option value="Rev. Dr.">Rev. Dr.</option>
+                                            <option value="Rev. Sis.">Rev. Sis.</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="form-label" for="first-name">First Name <span class="input-required">*</span></label>
+                                        <input class="form-control" type="text" name="first-name" id="first-name">
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="form-label" for="middle-name">Middle Names <span>(Optional)</span></label>
+                                        <input class="form-control" type="text" name="middle-name" id="middle-nams">
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="form-label" for="last-name">Surname<span class="input-required">*</span></label>
+                                        <input class="form-control" type="text" name="last-name" id="last-name">
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="form-label" for="suffix">Suffix <span>(Optional)</span></label>
+                                        <select class="form-select form-select-sm mb-3" name="suffix" id="suffix">
+                                            <option value="" hidden>Select</option>
+                                            <option value="Jr.">Jr.</option>
+                                            <option value="Sr.">Sr.</option>
+                                            <option value="I">I</option>
+                                            <option value="II">II</option>
+                                            <option value="III">III</option>
+                                            <option value="IV">IV</option>
+                                            <option value="V">V</option>
+                                            <option value="J.D.">J.D.</option>
+                                            <option value="Esq">Esq</option>
+                                            <option value="M.D.">M.D.</option>
+                                            <option value="O.F.M.">O.F.M.</option>
+                                            <option value="O.P<">O.P</option>
+                                            <option value="Ph.D.">Ph.D.</option>
+                                            <option value="S.J.">S.J.</option>
+                                        </select>
                                     </div>
                                 </div>
                             </fieldset>
 
                             <fieldset class="fieldset">
                                 <legend>Passport Picture</legend>
-
                                 <div class="field-content">
                                     <div class="form-fields" style="flex-grow: 8;">
                                         <div class="photo-upload-area">
@@ -131,7 +141,7 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                                         </div>
                                         <div class="mb-4">
                                             <label class="form-label" for="dob">Date of Birth <span class="input-required">*</span></label>
-                                            <input class="form-control" type="text" maxlength="2" name="dob-day" id="dob" placeholder="DD/MM/YYYY">
+                                            <input class="form-control" type="text" maxlength="10" name="dob" id="dob" placeholder="DD/MM/YYYY">
                                         </div>
                                         <div class="mb-4">
                                             <label class="form-label" for="marital-status">Marital Status <span class="input-required">*</span></label>
@@ -151,8 +161,8 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                                             </select>
                                         </div>
                                         <div class="mb-4">
-                                            <label class="form-label" for="country">Country of Residence <span class="input-required">*</span></label>
-                                            <select class="form-select form-select-sm mb-3" name="country" id="country">
+                                            <label class="form-label" for="country-res">Country of Residence <span class="input-required">*</span></label>
+                                            <select class="form-select form-select-sm mb-3" name="country-res" id="country-res">
                                                 <option value="" hidden>Select</option>
                                             </select>
                                         </div>
@@ -179,14 +189,14 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                                 <legend>Place of Birth</legend>
 
                                 <div class="mb-4">
-                                    <label for="country" class="form-label">Country of Birth <span class="input-required">*</span></label>
-                                    <select class="form-select form-select-sm mb-3" name="postal-country" id="postal-country">
+                                    <label for="country-birth" class="form-label">Country of Birth <span class="input-required">*</span></label>
+                                    <select class="form-select form-select-sm mb-3" name="country-birth" id="country-birth">
                                         <option value="" hidden>Select</option>
                                     </select>
                                 </div>
                                 <div class="mb-4">
-                                    <label class="form-label" for="region">State / Province / Region <span>(Optional)</span></label>
-                                    <select class="form-select form-select-sm mb-3" name="region" id="region">
+                                    <label class="form-label" for="region-birth">State / Province / Region <span>(Optional)</span></label>
+                                    <select class="form-select form-select-sm mb-3" name="region-birth" id="region-birth">
                                         <option value="" hidden>Select</option>
                                     </select>
                                 </div>
@@ -202,15 +212,15 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                                 <div class="mb-4">
                                     <label class="form-label" for="english-native">English Native <span class="input-required">*</span></label>
                                     <label for="english-native-yes">
-                                        <input style="margin-left: 20px;" type="radio" name="english-native" id="english-native-yes"> Yes
+                                        <input style="margin-left: 20px;" type="radio" name="english-native" id="english-native-yes" value="Yes"> Yes
                                     </label>
                                     <label for="english-native-no">
-                                        <input style="margin-left: 20px;" type="radio" name="english-native" id="english-native-no"> No
+                                        <input style="margin-left: 20px;" type="radio" name="english-native" id="english-native-no" value="No"> No
                                     </label>
                                 </div>
                                 <div class="mb-4">
-                                    <label class="form-label" for="other-native">Speicfy Language</label>
-                                    <select class="form-select form-select-sm mb-3" name="other-native" id="other-native">
+                                    <label class="form-label" for="language-spoken">Speicfy Language</label>
+                                    <select class="form-select form-select-sm mb-3" name="language-spoken" id="language-spoken">
                                         <option value="" hidden>Select</option>
                                     </select>
                                 </div>
@@ -249,8 +259,8 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                                     <input class="form-control" type="text" name="app-phone-number" id="app-phone-number">
                                 </div>
                                 <div class="mb-4">
-                                    <label class="form-label" for="app-phone-number"> Other Phone Number <span>(Optional)</span></label>
-                                    <input class="form-control" type="text" name="app-phone-number" id="app-phone-number">
+                                    <label class="form-label" for="app-other-number"> Other Phone Number <span>(Optional)</span></label>
+                                    <input class="form-control" type="text" name="app-other-number" id="app-other-number">
                                 </div>
                                 <div class="mb-4">
                                     <label class="form-label" for="app-email-address">Email Address <span class="input-required">*</span></label>
@@ -261,17 +271,17 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                             <fieldset class="fieldset">
                                 <legend>Parent / Guardian Information</legend>
                                 <div class="mb-4">
-                                    <label class="form-label" for="gd-title">Prefix <span class="input-required">*</span></label>
-                                    <select class="form-select form-select-sm mb-3" name="gd-title" id="gd-title">
+                                    <label class="form-label" for="gd-prefix">Prefix <span class="input-required">*</span></label>
+                                    <select class="form-select form-select-sm mb-3" name="gd-prefix" id="gd-prefix">
                                         <option value="" hidden>Select</option>
-                                        <option value="Mr">Mr.</option>
-                                        <option value="Mr">Mrs.</option>
-                                        <option value="Mr">Ms.</option>
-                                        <option value="Mr">Prof. Dr.</option>
-                                        <option value="Mr">Prof.</option>
-                                        <option value="Mr">Rev.</option>
-                                        <option value="Mr">Rev. Dr.</option>
-                                        <option value="Mr">Rev. Sis.</option>
+                                        <option value="Mr.">Mr.</option>
+                                        <option value="Mrs.">Mrs.</option>
+                                        <option value="Ms.">Ms.</option>
+                                        <option value="Prof. Dr.">Prof. Dr.</option>
+                                        <option value="Prof.">Prof.</option>
+                                        <option value="Rev.">Rev.</option>
+                                        <option value="Rev. Dr.">Rev. Dr.</option>
+                                        <option value="Rev. Sis.">Rev. Sis.</option>
                                     </select>
                                 </div>
                                 <div class="mb-4">
@@ -309,15 +319,15 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                         <center>
                             <div class="page-control">
                                 <!--<button type="submit" id="prevStep" onclick="whatNext(0)" class="m-5 control-button btn">Previous Step</button>-->
-                                <button type="submit" id="saveAndExit" onclick="whatNext(1)" class="m-5 control-button btn">Save and Exit</button>
-                                <button type="submit" id="saveAndCont" onclick="whatNext(2)" class="m-5 control-button btn">Next</button>
+                                <button type="button" id="saveAndExit" onclick="whatNext(1)" class="m-3 btn btn-default">Save and Exit</button>
+                                <button type="button" id="saveAndCont" onclick="whatNext(2)" class="m-3 btn btn-primary">Next -> Academic Background</button>
                             </div>
                         </center>
                     </main>
                 </div>
 
                 <!-- Application progress tracker -->
-                <div class="col-4" style="margin-bottom: 400px;">
+                <div class="col-3" style="margin-bottom: 400px;">
 
                     <section class="container-sm" style=" display: flex; flex-direction: column;position: sticky; top: 10.7rem;">
                         <fieldset class="fieldset" style="float:left; margin-top: 0px; max-width: 270px;min-width: 270px; width: 100%;">
@@ -325,22 +335,22 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
                             <span class="mb-5">In progress</span>
                             <ul class="list-group mt-5" style="padding: 0 !important; margin: 0 important; font-size:medium; font-weight:500">
                                 <li class="list-group-item" style="padding-left: 0 !important; border: none !important;">
-                                    <a href="/">Use of Information</a>
+                                    <a href="javscript:void()">Use of Information</a>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 0 !important; border: none !important;">
-                                    <a href="" class="active">Personal Information</a>
+                                    <a href="javscript:void()" class=" active">Personal Information</a>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 0 !important; border: none !important;">
-                                    <a href="">Acedemic Background</a>
+                                    <a href="javscript:void()">Acedemic Background</a>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 0 !important; border: none !important;">
-                                    <a href="">Programme Information</a>
+                                    <a href="javscript:void()">Programme Information</a>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 0 !important; border: none !important;">
-                                    <a href="">Uploads</a>
+                                    <a href="javscript:void()">Uploads</a>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 0 !important; border: none !important;">
-                                    <a href="">Declaration</a>
+                                    <a href="javscript:void()">Declaration</a>
                                 </li>
                             </ul>
                         </fieldset>
@@ -372,17 +382,36 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
     <script>
         $(document).ready(function() {
             getData(document.getElementById("nationality"), 'c');
-            getData(document.getElementById("country"), 'c');
-            getData(document.getElementById("postal-country"), 'c');
-            getData(document.getElementById("region"), 'r');
+            getData(document.getElementById("country-res"), 'c');
+            //getData(document.getElementById("postal-country"), 'c');
+            getData(document.getElementById("country-birth"), 'c');
+            getData(document.getElementById("address-country"), 'c');
+            //getData(document.getElementById("region"), 'r');
 
-            $("#appForm").on("submit", function(e) {
+            /*$("#appForm").on("submit", function(e) {
                 e.preventDefault();
                 var data = new FormData(this);
                 save(data, 1);
+            });*/
+
+            $(".form-select").change("blur", function() {
+                $.ajax({
+                    type: "POST",
+                    url: "../api/saveOne",
+                    data: {
+                        what: this.name,
+                        value: this.value,
+                    },
+                    success: function(result) {
+                        console.log(result);
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
             });
 
-            $(".form-control, .form-select").on("blur", function() {
+            $(".form-control").on("blur", function() {
                 $.ajax({
                     type: "POST",
                     url: "../api/saveOne",

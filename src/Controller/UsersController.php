@@ -79,13 +79,36 @@ class UsersController extends DatabaseMethods
      * 
      */
 
-    public function appLogin($app_number, $pin)
+    public function verifyLoginDetails($app_number, $pin)
     {
-        $sql = "SELECT `pin` FROM `applicants_login` WHERE `app_number` = :a";
-        $hashed_pin = $this->getData($sql, array(':a' => sha1($app_number)))[0]["pin"];
-        if ($hashed_pin && password_verify($pin, $hashed_pin)) {
-            return true;
+        $sql = "SELECT `pin`, `id` FROM `applicants_login` WHERE `app_number` = :a";
+        $hashed_pin = $this->getData($sql, array(':a' => sha1($app_number)));
+
+        if ($hashed_pin) {
+            if (!empty($hashed_pin[0]["pin"])) {
+                if (password_verify($pin, $hashed_pin[0]["pin"])) {
+                    return $hashed_pin[0]["id"];
+                }
+            }
         }
-        return false;
+        return 0;
+    }
+
+    public function updateUserInfo($what, $value, $user_id)
+    {
+        $sql = "UPDATE `personal_information` SET `$what` = :v WHERE `app_login` = :a";
+        if ($this->inputData($sql, array(':v' => $value, ':a' => $user_id))) {
+            return 1;
+        }
+        return 0;
+    }
+
+    public function updateAcademicInfo($what, $value, $user_id)
+    {
+        $sql = "UPDATE `academic_background` SET `$what` = :v WHERE `app_login` = :a";
+        if ($this->inputData($sql, array(':v' => $value, ':a' => $user_id))) {
+            return 1;
+        }
+        return 0;
     }
 }

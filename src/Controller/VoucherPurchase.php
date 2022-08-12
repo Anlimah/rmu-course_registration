@@ -60,6 +60,52 @@ class VoucherPurchase
         }
     }
 
+    private function registerApplicantPersI($user_id)
+    {
+        $sql1 = "INSERT INTO `personal_information` (`app_login`) VALUES(:a)";
+        $params1 = array(':a' => $user_id);
+        if ($this->dm->inputData($sql1, $params1)) {
+            return 1;
+        }
+        return 0;
+    }
+
+    private function registerApplicantAcaB($user_id)
+    {
+        $sql1 = "INSERT INTO `academic_background` (`app_login`) VALUES(:a)";
+        $params1 = array(':a' => $user_id);
+        if ($this->dm->inputData($sql1, $params1)) {
+            return 1;
+        }
+        return 0;
+    }
+
+    private function registerApplicantProgI($user_id)
+    {
+        $sql1 = "INSERT INTO `program_info` (`app_login`) VALUES(:a)";
+        $params1 = array(':a' => $user_id);
+        if ($this->dm->inputData($sql1, $params1)) {
+            return 1;
+        }
+        return 0;
+    }
+
+    private function registerApplicantPreUni($user_id)
+    {
+        $sql1 = "INSERT INTO `previous_uni_records` (`app_login`) VALUES(:a)";
+        $params1 = array(':a' => $user_id);
+        if ($this->dm->inputData($sql1, $params1)) {
+            return 1;
+        }
+        return 0;
+    }
+
+    private function getApplicantLoginID($app_number)
+    {
+        $sql = "SELECT `id` FROM `applicants_login` WHERE `app_number` = :a;";
+        return $this->dm->getID($sql, array(':a' => sha1($app_number)));
+    }
+
     private function saveLoginDetails($app_number, $pin, $who)
     {
         $hashed_pin = password_hash($pin, PASSWORD_DEFAULT);
@@ -67,6 +113,16 @@ class VoucherPurchase
         $params = array(':a' => sha1($app_number), ':p' => $hashed_pin, ':b' => $who);
 
         if ($this->dm->inputData($sql, $params)) {
+            $user_id = $this->getApplicantLoginID($app_number);
+            //register in Personal information table in db
+            $this->registerApplicantPersI($user_id);
+            //register in Acaedmic backgorund
+            $this->registerApplicantAcaB($user_id);
+            //register in Programs information
+            $this->registerApplicantProgI($user_id);
+            //register in Previous university information
+            $this->registerApplicantPreUni($user_id);
+
             return 1;
         }
         return 0;
