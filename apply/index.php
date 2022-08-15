@@ -25,57 +25,65 @@ if (!isset($_SESSION["_start"])) {
             margin: 0 !important;
             padding: 0 !important;
         }
+
+        .main-content {
+            top: 50px !important;
+        }
     </style>
 </head>
 
 <body>
 
-    <header class="index-page card">
-        <div class="logo-board"></div>
-        <div class="info-card"></div>
+    <header class="container-fluid index-page card">
     </header>
+    <div class="main-content">
+        <div class="container-fluid" style="margin-bottom: 100px;">
+            <div class="row">
+                <!--Voucher purchase info-->
+                <section class="col-8">
+                    <h1>Easy steps to apply</h1>
+                    <div></div>
+                </section>
 
-    <div class="container-fluid" style="margin-bottom: 100px;">
-        <div class="row">
-            <!--Voucher purchase info-->
-            <div class="col-8" style="height: 100%;"></div>
+                <!--Login form-->
+                <section class="col-4" style="display:flex; flex-direction:column; float:right">
+                    <h1>Login</h1>
+                    <form id="appLoginForm" style="margin-bottom: 50px">
+                        <div class="mb-4" style="width: 280px">
+                            <label class="form-label" for="app_number">Application Number</label>
+                            <div class="input-group ">
+                                <span class="input-group-text" id="basic-addon1">RMU-</span>
+                                <input class="form-control form-control-lg form-control-login" type="text" id="app_number" name="app_number" aria-describedby="basic-addon1" placeholder="Application Number">
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label" for="pin_code">PIN Code</label>
+                            <input class="form-control form-control-lg form-control-login" type="password" id="pin_code" name="pin_code" placeholder="PIN Code">
+                        </div>
+                        <div class="mb-4">
+                            <button type="submit" class="btn btn-primary form-btn-login">Login</button>
+                        </div>
+                        <input type="hidden" name="_logToken" value="<?= $_SESSION['_start'] ?>">
+                    </form>
 
-            <!--Login form-->
-            <div class="col-4" style="display:flex; flex-direction:column; margin-top: 100px;">
-                <h1>Login</h1>
-                <form id="appLoginForm" style="margin-bottom: 50px">
-                    <div class="mb-4">
-                        <label class="form-label" for="app_number">Application Number</label>
-                        <input class="form-control form-control-lg" type="text" id="app_number" name="app_number" placeholder="Enter your application number here">
-                    </div>
-                    <div class="mb-4">
-                        <label class="form-label" for="pin_code">PIN Code</label>
-                        <input class="form-control form-control-lg" type="password" id="pin_code" name="pin_code" placeholder="Enter your PIN code here">
-                    </div>
-                    <div class="mb-4">
-                        <button type="submit" class="btn btn-primary">Login</button>
-                    </div>
-                    <input type="hidden" name="_logToken" value="<?= $_SESSION['_start'] ?>">
-                </form>
+                    <fieldset class="fieldset" style="display: flex; flex-direction: column; align-items:center; max-width: 280px; min-width: 280px; padding: 5px 20px;">
+                        <legend style="width:100%; text-align: center;">Need Help?</legend>
+                        <p style="width: 100%;">
+                            <span class="bi bi-telephone-fill" style="margin-right: 10px;"></span>
+                            <a href=" tel:+233302712775">+233302712775</a>
+                        </p>
+                        <p style="width: 100%;">
+                            <span class="bi bi-envelope-fill" style="margin-right: 10px;"></span>
+                            <a href="mailto:university.registrar@rmu.edu.gh"> university.registrar@rmu.edu.gh</a>
+                        </p>
+                    </fieldset>
+                </section>
 
-                <fieldset class="fieldset" style="display: flex; flex-direction: column; align-items:center; max-width: 270px; min-width: 270px; padding: 5px 20px;">
-                    <legend style="width:100%; text-align: center;">Need Help?</legend>
-                    <p style="width: 100%;">
-                        <span class="bi bi-telephone-fill" style="margin-right: 10px;"></span>
-                        <a href=" tel:+233302712775">+233302712775</a>
-                    </p>
-                    <p style="width: 100%;">
-                        <span class="bi bi-envelope-fill" style="margin-right: 10px;"></span>
-                        <a href="mailto:university.registrar@rmu.edu.gh"> university.registrar@rmu.edu.gh</a>
-                    </p>
-                </fieldset>
             </div>
 
         </div>
-
+        <?php require_once('../inc/page-footer.php') ?>
     </div>
-    <?php require_once('../inc/page-footer.php') ?>
-
     <script src="../js/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {

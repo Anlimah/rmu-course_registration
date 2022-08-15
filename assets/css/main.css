@@ -303,6 +303,11 @@ main {
 	top: 150px;
 }
 
+.main-content::after {
+	margin: 0;
+	content: "";
+}
+
 label {
 	font-size: 16px;
 	font-weight: 700;
@@ -319,7 +324,6 @@ label {
 }
 
 @media only screen and (max-width: 768px) {
-
 	/* For mobile phones: */
 	main {
 		padding-left: 15px !important;
@@ -381,4 +385,24 @@ fieldset legend {
 
 .input-required {
 	color: red;
+}
+
+.form-control-login,
+.form-btn-login {
+	padding: 15px !important;
+}
+.form-btn-login {
+	max-width: 280px;
+	width: 280px;
+	margin-top: 10px;
+	background-color: #003262 !important;
+	border: 1px solid #003262;
+	border-color: transparent;
+	font-size: 16px !important;
+}
+
+.form-btn-login:hover {
+	background-color: #004d99 !important;
+	border: 1px solid #004d99;
+	border-color: transparent;
 }

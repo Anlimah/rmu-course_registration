@@ -94,7 +94,7 @@ class UsersController extends DatabaseMethods
         return 0;
     }
 
-    public function updateUserInfo($what, $value, $user_id)
+    public function updateApplicantInfo($what, $value, $user_id)
     {
         $sql = "UPDATE `personal_information` SET `$what` = :v WHERE `app_login` = :a";
         if ($this->inputData($sql, array(':v' => $value, ':a' => $user_id))) {
@@ -110,5 +110,29 @@ class UsersController extends DatabaseMethods
             return 1;
         }
         return 0;
+    }
+
+    public function fetchApplicantPersI($user_id)
+    {
+        $sql = "SELECT * FROM `personal_information` WHERE `app_login` = :a";
+        return $this->getData($sql, array(':a' => sha1($user_id)));
+    }
+
+    public function fetchApplicantAcaB($user_id)
+    {
+        $sql = "SELECT * FROM `academic_background` WHERE `app_login` = :a";
+        return $this->getData($sql, array(':a' => sha1($user_id)));
+    }
+
+    public function fetchApplicantProgI($user_id)
+    {
+        $sql = "SELECT * FROM `program_info` WHERE `app_login` = :a";
+        return $this->getData($sql, array(':a' => sha1($user_id)));
+    }
+
+    public function fetchApplicantPreUni($user_id)
+    {
+        $sql = "SELECT * FROM `previous_uni_records` WHERE `app_login` = :a";
+        return $this->getData($sql, array(':a' => sha1($user_id)));
     }
 }

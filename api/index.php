@@ -26,6 +26,18 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		//verify all sessions
 		//save all user data
 		//echo success message
+	} elseif ($_GET["url"] == "") {
+		//fetch in Personal Information
+		$user->fetchApplicantPersI($user_id);
+	} elseif ($_GET["url"] == "") {
+		//fetch in Acaedmic backgorund
+		$user->fetchApplicantAcaB($user_id);
+	} elseif ($_GET["url"] == "") {
+		//fetch in Programs information
+		$user->fetchApplicantProgI($user_id);
+	} elseif ($_GET["url"] == "") {
+		//fetch in Previous university information
+		$user->fetchApplicantPreUni($user_id);
 	}
 	// All POST request will be sent here
 } elseif ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -269,56 +281,56 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 			//Legal Name
 			if ($column == "prefix") {
-				echo $user->updateUserInfo($column, $value, $_SESSION['ghApplicant']);
+				echo $user->updateApplicantInfo($column, $value, $_SESSION['ghApplicant']);
 			}
 			if ($column == "first_name") {
-				echo $user->updateUserInfo($column, $value, $_SESSION['ghApplicant']);
+				echo $user->updateApplicantInfo($column, $value, $_SESSION['ghApplicant']);
 			}
 			if ($column == "middle_name") {
-				echo $user->updateUserInfo($column, $value, $_SESSION['ghApplicant']);
+				echo $user->updateApplicantInfo($column, $value, $_SESSION['ghApplicant']);
 			}
 			if ($column == "last_name") {
-				echo $user->updateUserInfo($column, $value, $_SESSION['ghApplicant']);
+				echo $user->updateApplicantInfo($column, $value, $_SESSION['ghApplicant']);
 			}
 			if ($column == "suffix") {
-				echo $user->updateUserInfo($column, $value, $_SESSION['ghApplicant']);
+				echo $user->updateApplicantInfo($column, $value, $_SESSION['ghApplicant']);
 			}
 
 			//Passport picture
 
 			//Personal Details
 			if ($column == "gender") {
-				echo $user->updateUserInfo($column, $value, $_SESSION['ghApplicant']);
+				echo $user->updateApplicantInfo($column, $value, $_SESSION['ghApplicant']);
 			}
 			if ($column == "dob") {
 				$value = str_replace("/", "-", $value);
-				echo $user->updateUserInfo($column, $value, $_SESSION['ghApplicant']);
+				echo $user->updateApplicantInfo($column, $value, $_SESSION['ghApplicant']);
 			}
 			if ($column == "marital_status") {
-				echo $user->updateUserInfo($column, $value, $_SESSION['ghApplicant']);
+				echo $user->updateApplicantInfo($column, $value, $_SESSION['ghApplicant']);
 			}
 			if ($column == "nationality") {
-				echo $user->updateUserInfo($column, $value, $_SESSION['ghApplicant']);
+				echo $user->updateApplicantInfo($column, $value, $_SESSION['ghApplicant']);
 			}
 			if ($column == "country_res") {
-				echo $user->updateUserInfo($column, $value, $_SESSION['ghApplicant']);
+				echo $user->updateApplicantInfo($column, $value, $_SESSION['ghApplicant']);
 			}
 			if ($column == "disability_descript") {
 				$column = 'disability';
-				echo $user->updateUserInfo($column, $value, $_SESSION['ghApplicant']);
+				echo $user->updateApplicantInfo($column, $value, $_SESSION['ghApplicant']);
 			}
 
 			//Place of birth 
 			if ($column == "country_birth") {
-				echo $user->updateUserInfo($column, $value, $_SESSION['ghApplicant']);
+				echo $user->updateApplicantInfo($column, $value, $_SESSION['ghApplicant']);
 			}
 			if ($column == "region_birth") {
 				$column = 'spr_birth';
-				echo $user->updateUserInfo($column, $value, $_SESSION['ghApplicant']);
+				echo $user->updateApplicantInfo($column, $value, $_SESSION['ghApplicant']);
 			}
 			if ($column == "home_town") {
 				$column = 'city_birth';
-				echo $user->updateUserInfo($column, $value, $_SESSION['ghApplicant']);
+				echo $user->updateApplicantInfo($column, $value, $_SESSION['ghApplicant']);
 			}
 
 			//Language
@@ -328,72 +340,72 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 				} else if ($value == "No") {
 					$english = 0;
 				}
-				echo $user->updateUserInfo($column, $english, $_SESSION['ghApplicant']);
+				echo $user->updateApplicantInfo($column, $english, $_SESSION['ghApplicant']);
 			}
 			if ($column == "language_spoken") {
-				echo $user->updateUserInfo($column, $english, $_SESSION['ghApplicant']);
+				echo $user->updateApplicantInfo($column, $english, $_SESSION['ghApplicant']);
 			}
 
 			//Address
 			if ($column == "address_line1") {
 				$column = 'postal_addr';
-				echo $user->updateUserInfo($column, $value, $_SESSION['ghApplicant']);
+				echo $user->updateApplicantInfo($column, $value, $_SESSION['ghApplicant']);
 			}
 			if ($column == "address_line2") {
 				$column = 'postal_addr2';
-				echo $user->updateUserInfo($column, $value, $_SESSION['ghApplicant']);
+				echo $user->updateApplicantInfo($column, $value, $_SESSION['ghApplicant']);
 			}
 			if ($column == "address_country") {
 				$column = 'postal_country';
-				echo $user->updateUserInfo($column, $value, $_SESSION['ghApplicant']);
+				echo $user->updateApplicantInfo($column, $value, $_SESSION['ghApplicant']);
 			}
 			if ($column == "address_region") {
 				$column = 'postal_spr';
-				echo $user->updateUserInfo($column, $value, $_SESSION['ghApplicant']);
+				echo $user->updateApplicantInfo($column, $value, $_SESSION['ghApplicant']);
 			}
 			if ($column == "address_town") {
 				$column = 'postal_town';
-				echo $user->updateUserInfo($column, $value, $_SESSION['ghApplicant']);
+				echo $user->updateApplicantInfo($column, $value, $_SESSION['ghApplicant']);
 			}
 
 			//Contact
 			if ($column == "app_phone_number") {
 				$column = 'phone_no1';
-				echo $user->updateUserInfo($column, $value, $_SESSION['ghApplicant']);
+				echo $user->updateApplicantInfo($column, $value, $_SESSION['ghApplicant']);
 			}
 			if ($column == "app_other_number") {
 				$column = 'phone_no2';
-				echo $user->updateUserInfo($column, $value, $_SESSION['ghApplicant']);
+				echo $user->updateApplicantInfo($column, $value, $_SESSION['ghApplicant']);
 			}
 			if ($column == "app_email_address") {
 				$column = 'email_addr';
-				echo $user->updateUserInfo($column, $value, $_SESSION['ghApplicant']);
+				echo $user->updateApplicantInfo($column, $value, $_SESSION['ghApplicant']);
 			}
 
 			//Parent/Guardian Legal Name
 			if ($column == "gd_prefix") {
 				$column = 'p_prefix';
-				echo $user->updateUserInfo($column, $value, $_SESSION['ghApplicant']);
+				echo $user->updateApplicantInfo($column, $value, $_SESSION['ghApplicant']);
 			}
 			if ($column == "gd_first_name") {
 				$column = 'p_first_name';
-				echo $user->updateUserInfo($column, $value, $_SESSION['ghApplicant']);
+				echo $user->updateApplicantInfo($column, $value, $_SESSION['ghApplicant']);
 			}
 			if ($column == "gd_surname") {
 				$column = 'p_last_name';
-				echo $user->updateUserInfo($column, $value, $_SESSION['ghApplicant']);
+				echo $user->updateApplicantInfo($column, $value, $_SESSION['ghApplicant']);
 			}
 			if ($column == "gd_occupation") {
 				$column = 'p_occupation';
-				echo $user->updateUserInfo($column, $value, $_SESSION['ghApplicant']);
+				echo $user->updateApplicantInfo($column, $value, $_SESSION['ghApplicant']);
 			}
 			if ($column == "gd_phone_number") {
 				$column = 'p_phone_no';
-				echo $user->updateUserInfo($column, $value, $_SESSION['ghApplicant']);
+				echo $user->updateApplicantInfo($column, $value, $_SESSION['ghApplicant']);
 			}
 			if ($column == "gd_email_address") {
 				$column = 'p_email_addr';
-				echo $user->updateUserInfo($column, $value, $_SESSION['ghApplicant']);
+				echo $user->updateApplicantInfo($column, $value, $_SESSION['ghApplicant']);
 			}
 		}
 	} elseif ($_GET["url"] == "saveTwo") {
@@ -406,7 +418,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 			//Legal Name
 			if ($column == "prefix") {
-				echo $user->updateUserInfo($column, $value, $_SESSION['ghApplicant']);
+				echo $user->updateApplicantInfo($column, $value, $_SESSION['ghApplicant']);
 			}
 		}
 	} elseif ($_GET["url"] == "save") {
