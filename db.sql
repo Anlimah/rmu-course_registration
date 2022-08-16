@@ -268,6 +268,8 @@ CREATE TABLE `previous_uni_records` (
 
 
 
+SELECT `purchase_detail`.`form_type` FROM `purchase_detail`, `applicants_login`
+WHERE `applicants_login`.`purchase_id` = `purchase_detail`.`id` AND `applicants_login`.`id` = 1;
 
 
 

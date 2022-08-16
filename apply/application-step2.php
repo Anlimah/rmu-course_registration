@@ -60,7 +60,7 @@ if (isset($_GET['logout'])) {
 
                         <form id="appForm" method="POST" style="margin-top: 50px !important;">
                             <!--Exam sitting for people applying with masters, degree, diploma, and other certificate-->
-                            <fieldset class="fieldset">
+                            <fieldset class="fieldset" id="graduate">
                                 <legend>Examination Sittings > 1</legend>
                                 <div class="field-content">
                                     <div class="form-fields" style="flex-grow: 8;">
@@ -102,7 +102,7 @@ if (isset($_GET['logout'])) {
                             </fieldset>
 
                             <!-- Exam sitting for people applying with wassce/ssce    -->
-                            <fieldset class="fieldset">
+                            <fieldset class="fieldset" id="undergraduate">
                                 <legend>Examination Sittings</legend>
                                 <div class="field-content">
                                     <div class="form-fields" style="flex-grow: 8;">
@@ -239,12 +239,55 @@ if (isset($_GET['logout'])) {
     <script src="../js/myjs.js"></script>
     <script>
         $(document).ready(function() {
-            $("#appForm").on("submit", function(e) {
-                e.preventDefault();
-                var data = new FormData(this);
-                save(data, 2);
+
+            $.ajax({
+                type: "GET",
+                url: "../api/application-type",
+                data: {
+                    value: this.value,
+                },
+                success: function(result) {
+                    console.log(result);
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            })
+
+            $(".form-select").change("blur", function() {
+                $.ajax({
+                    type: "PUT",
+                    url: "../api/education",
+                    data: {
+                        what: this.name,
+                        value: this.value,
+                    },
+                    success: function(result) {
+                        console.log(result);
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
             });
 
+            $(".form-control").on("blur", function() {
+                $.ajax({
+                    type: "POST",
+                    url: "../api/education",
+                    data: {
+                        what: this.name,
+                        value: this.value,
+                    },
+                    success: function(result) {
+                        console.log(result);
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+
+            });
         });
     </script>
 </body>

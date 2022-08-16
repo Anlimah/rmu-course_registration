@@ -11,7 +11,7 @@ use Src\Controller\UsersController;
 
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: GET,POST");
+header("Access-Control-Allow-Methods: GET,POST,PUT,DELETE");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
@@ -26,9 +26,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		//verify all sessions
 		//save all user data
 		//echo success message
-	} elseif ($_GET["url"] == "") {
-		//fetch in Personal Information
-		$user->fetchApplicantPersI($user_id);
+	} elseif ($_GET["url"] == "personal") {
+		$response = $user->fetchApplicantPersI($_SESSION['ghApplicant']);
+		echo json_encode($response);
 	} elseif ($_GET["url"] == "") {
 		//fetch in Acaedmic backgorund
 		$user->fetchApplicantAcaB($user_id);
@@ -271,9 +271,24 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		} else {
 			echo 'NO';
 		}
-	} elseif ($_GET["url"] == "saveOne") {
-		$what = $_POST["what"];
-		$value = $_POST['value'];
+	} elseif ($_GET["url"] == "save") {
+		$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+		$uri = explode('/', $uri);
+		if ($uri[4] == 1) {
+		} elseif ($uri[4] == 2) {
+		} elseif ($uri[4] == 3) {
+		} elseif ($uri[4] == 4) {
+			$message = array("response" => "success");
+			echo json_encode($message);
+		}
+	}
+} else if ($_SERVER['REQUEST_METHOD'] == "PUT") {
+	parse_str(file_get_contents("php://input"), $_PUT);
+
+	if ($_GET["url"] == "personal") {
+
+		$what = $_PUT["what"];
+		$value = $_PUT['value'];
 
 		if (isset($what) && !empty($what)) {
 			$column = str_replace("-", "_", $what);
@@ -408,30 +423,10 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 				echo $user->updateApplicantInfo($column, $value, $_SESSION['ghApplicant']);
 			}
 		}
-	} elseif ($_GET["url"] == "saveTwo") {
-		$what = $_POST["what"];
-		$value = $_POST['value'];
-
-		if (isset($what) && !empty($what)) {
-			$column = str_replace("-", "_", $what);
-
-
-			//Legal Name
-			if ($column == "prefix") {
-				echo $user->updateApplicantInfo($column, $value, $_SESSION['ghApplicant']);
-			}
-		}
-	} elseif ($_GET["url"] == "save") {
-		$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-		$uri = explode('/', $uri);
-		if ($uri[4] == 1) {
-		} elseif ($uri[4] == 2) {
-		} elseif ($uri[4] == 3) {
-		} elseif ($uri[4] == 4) {
-			$message = array("response" => "success");
-			echo json_encode($message);
-		}
+	} elseif ($_GET["url"] == "education") {
 	}
+} else if ($_SERVER['REQUEST_METHOD'] == "DELETE") {
+	//code
 } else {
 	http_response_code(405);
 }

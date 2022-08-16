@@ -52,13 +52,13 @@ if (!isset($_SESSION["_start"])) {
                         <div class="mb-4" style="width: 280px">
                             <label class="form-label" for="app_number">Application Number</label>
                             <div class="input-group ">
-                                <span class="input-group-text" id="basic-addon1">RMU-</span>
+                                <span class="input-group-text" id="basic-addon1" style="font-weight: 600;">RMU - </span>
                                 <input class="form-control form-control-lg form-control-login" type="text" id="app_number" name="app_number" aria-describedby="basic-addon1" placeholder="Application Number">
                             </div>
                         </div>
                         <div class="mb-4">
                             <label class="form-label" for="pin_code">PIN Code</label>
-                            <input class="form-control form-control-lg form-control-login" type="password" id="pin_code" name="pin_code" placeholder="PIN Code">
+                            <input class="form-control form-control-lg form-control-login" style="width: 280px" type="password" id="pin_code" name="pin_code" placeholder="PIN Code">
                         </div>
                         <div class="mb-4">
                             <button type="submit" class="btn btn-primary form-btn-login">Login</button>
@@ -87,8 +87,6 @@ if (!isset($_SESSION["_start"])) {
     <script src="../js/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
-
-
 
             $("#appLoginForm").on("submit", function(e) {
                 e.preventDefault();

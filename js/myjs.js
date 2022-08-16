@@ -58,9 +58,6 @@ function save(data, place) {
         type: "POST",
         url: "../api/save/" + place,
         data: data,
-        contentType: false,
-        cache: false,
-        processData: false,
         success: function(result) {
             console.log(result);
             if (result["response"] == "success") {

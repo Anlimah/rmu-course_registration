@@ -392,17 +392,18 @@ fieldset legend {
 	padding: 15px !important;
 }
 .form-btn-login {
-	max-width: 280px;
-	width: 280px;
-	margin-top: 10px;
+	max-width: 280px !important;
+	min-width: 280px !important;
+	width: 280px !important;
+	margin-top: 10px !important;
 	background-color: #003262 !important;
-	border: 1px solid #003262;
-	border-color: transparent;
+	border: 1px solid #003262 !important;
+	border-color: transparent !important;
 	font-size: 16px !important;
 }
 
 .form-btn-login:hover {
 	background-color: #004d99 !important;
-	border: 1px solid #004d99;
-	border-color: transparent;
+	border: 1px solid #004d99 !important;
+	border-color: transparent !important;
 }

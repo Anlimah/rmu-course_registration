@@ -82,12 +82,12 @@ class UsersController extends DatabaseMethods
     public function verifyLoginDetails($app_number, $pin)
     {
         $sql = "SELECT `pin`, `id` FROM `applicants_login` WHERE `app_number` = :a";
-        $hashed_pin = $this->getData($sql, array(':a' => sha1($app_number)));
+        $data = $this->getData($sql, array(':a' => sha1($app_number)));
 
-        if ($hashed_pin) {
-            if (!empty($hashed_pin[0]["pin"])) {
-                if (password_verify($pin, $hashed_pin[0]["pin"])) {
-                    return $hashed_pin[0]["id"];
+        if ($data) {
+            if (!empty($data[0]["pin"])) {
+                if (password_verify($pin, $data[0]["pin"])) {
+                    return $data[0]["id"];
                 }
             }
         }
@@ -106,33 +106,50 @@ class UsersController extends DatabaseMethods
     public function updateAcademicInfo($what, $value, $user_id)
     {
         $sql = "UPDATE `academic_background` SET `$what` = :v WHERE `app_login` = :a";
-        if ($this->inputData($sql, array(':v' => $value, ':a' => $user_id))) {
-            return 1;
-        }
-        return 0;
+        $this->inputData($sql, array(':v' => $value, ':a' => $user_id));
     }
 
+    public function updateProgramInfo($what, $value, $user_id)
+    {
+        $sql = "UPDATE `program_info` SET `$what` = :v WHERE `app_login` = :a";
+        $this->inputData($sql, array(':v' => $value, ':a' => $user_id));
+    }
+
+    //GET
     public function fetchApplicantPersI($user_id)
     {
-        $sql = "SELECT * FROM `personal_information` WHERE `app_login` = :a";
-        return $this->getData($sql, array(':a' => sha1($user_id)));
+        $sql = "SELECT `prefix`, `first_name`, `middle_name`, `last_name`, `suffix`, 
+                `gender`, `dob`, `marital_status`, `nationality`, `country_res`, 
+                `disability`, `photo`, `country_birth`, `spr_birth`, `city_birth`, 
+                `english_native`, `other_language`, `postal_addr`, `postal_town`, 
+                `postal_spr`, `postal_country`, `phone_no1`, `phone_no2`, `email_addr`, 
+                `p_prefix`, `p_first_name`, `p_last_name`, `p_occupation`, `p_phone_no`, 
+                `p_email_addr` FROM `personal_information` WHERE `app_login` = :a";
+        return $this->getData($sql, array(':a' => $user_id));
     }
 
     public function fetchApplicantAcaB($user_id)
     {
         $sql = "SELECT * FROM `academic_background` WHERE `app_login` = :a";
-        return $this->getData($sql, array(':a' => sha1($user_id)));
+        return $this->getData($sql, array(':a' => $user_id));
     }
 
     public function fetchApplicantProgI($user_id)
     {
         $sql = "SELECT * FROM `program_info` WHERE `app_login` = :a";
-        return $this->getData($sql, array(':a' => sha1($user_id)));
+        return $this->getData($sql, array(':a' => $user_id));
     }
 
     public function fetchApplicantPreUni($user_id)
     {
         $sql = "SELECT * FROM `previous_uni_records` WHERE `app_login` = :a";
-        return $this->getData($sql, array(':a' => sha1($user_id)));
+        return $this->getData($sql, array(':a' => $user_id));
+    }
+
+    public function getApplicationType($user_id)
+    {
+        $sql = "SELECT `purchase_detail`.`form_type` FROM `purchase_detail`, `applicants_login`
+        WHERE `applicants_login`.`purchase_id` = `purchase_detail`.`id` AND `applicants_login`.`id` = :a";
+        return $this->getData($sql, array(':a' => $user_id));
     }
 }

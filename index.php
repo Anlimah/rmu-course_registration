@@ -78,7 +78,7 @@
         <div class="container-sm app-proecess-info">
             <h1>Application Process</h1>
             <p style="font-size: medium;">
-                Buy voucher from any of our <a href="">vendors listed here</a>.
+                Buy voucher <a href="purchase/purchase_step1.php" title="Buy voucher online via Mobile Money and Credit Card">here</a> or from any of our <a href="">vendors listed here</a>.
             </p>
             <div style="width: 100%; display:flex; flex-direction:column;justify-content: space-between; margin-top: 10px">
                 <!--<a href="purchase/purchase_step1.php" class="btn-card btn">
@@ -91,7 +91,7 @@
         </div>
 
         <div class="help_area">
-            <div class="help_chat_area" style=""></div>
+            <div class="help_chat_area"></div>
             <button style="padding: 5px 10px; cursor: pointer">Chat with us</button>
         </div>
     </div>
