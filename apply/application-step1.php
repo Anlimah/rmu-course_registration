@@ -388,19 +388,27 @@ if (isset($_GET['logout'])) {
             getData(document.getElementById("address-country"), 'c');
             //getData(document.getElementById("region"), 'r');
 
+            var data = {};
+
             $.ajax({
                 type: "GET",
                 url: "../api/personal",
                 success: function(result) {
                     var res = result[0];
-                    for (data of result) {
-                        console.log(res['prefix']);
-                    }
+                    console.log(res)
+                    if (res) {
+                        data = res
+                    };
+                    console.log(data['last_name'])
                 },
                 error: function(error) {
                     console.log(error);
                 }
             });
+
+            $("#prefix").val(data['prefix']);
+            $("#first-name").val(data['first_name']);
+            $("#last-name").val(data['last_name']);
 
             $(".form-select").change("blur", function() {
                 $.ajax({
