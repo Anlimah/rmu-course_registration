@@ -132,6 +132,17 @@ INSERT INTO `ssce_grades`(`grade`)
 VALUES('A'), ('B'), ('C'), ('D'), ('E'), ('F');
 
 /*Application Data*/
+
+DROP TABLE IF EXISTS `applicant_uploads`;
+CREATE TABLE `applicant_uploads` (
+    `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
+    `type` VARCHAR(25), -- photo, certificate, transcript
+    `file_name` VARCHAR(50),
+    `app_login` INT NOT NULL,
+    `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT `fk_uploaded_files` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE
+);
+
 DROP TABLE IF EXISTS `personal_information`;
 CREATE TABLE `personal_information` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
@@ -187,7 +198,7 @@ CREATE TABLE `personal_information` (
     `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
 
     `app_login` INT NOT NULL,
-    CONSTRAINT `fk_app_pf` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
+    CONSTRAINT `fk_app_pf` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE
 );
 
 DROP TABLE IF EXISTS `awaiting_certs`;
@@ -198,7 +209,7 @@ CREATE TABLE `awaiting_certs` (
     `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
     
     `app_login` INT NOT NULL,
-    CONSTRAINT `fk_app_a_certs` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
+    CONSTRAINT `fk_app_a_certs` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE
 
 );
 
@@ -220,7 +231,7 @@ CREATE TABLE `academic_background` (
     `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
 
     `app_login` INT NOT NULL,
-    CONSTRAINT `fk_app_aca_bac` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
+    CONSTRAINT `fk_app_aca_bac` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE
 );
 
 DROP TABLE IF EXISTS `high_school_results`;
@@ -242,7 +253,7 @@ CREATE TABLE `program_info` (
     `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
 
     `app_login` INT NOT NULL,   
-    CONSTRAINT `fk_app_prog_info` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
+    CONSTRAINT `fk_app_prog_info` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE
 );
 
 DROP TABLE IF EXISTS `previous_uni_records`;
@@ -251,10 +262,10 @@ CREATE TABLE `previous_uni_records` (
     `name_of_uni` VARCHAR(150),   
     `program` VARCHAR(150),  
 
-    `month_enrolled` VARCHAR(2),
+    `month_enrolled` VARCHAR(3),
     `year_enrolled` VARCHAR(4),
     `completed` TINYINT DEFAULT 0,
-    `month_completed` VARCHAR(2),
+    `month_completed` VARCHAR(3),
     `year_completed` VARCHAR(4),
 
     `state` VARCHAR(25),

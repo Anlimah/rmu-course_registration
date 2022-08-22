@@ -14,6 +14,8 @@ if (isset($_GET['logout'])) {
     session_destroy();
     header('Location: index.php');
 }
+
+$user_id = $_SESSION['ghApplicant'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -185,9 +187,9 @@ if (isset($_GET['logout'])) {
                 </div>
 
                 <!-- Application progress tracker -->
-                <div class="col-3" style="margin-bottom: 400px;">
+                <section class="col-3" style="margin-bottom: 400px;">
 
-                    <section class="container-sm" style=" display: flex; flex-direction: column;position: sticky; top: 10.7rem;">
+                    <div class="container-sm" style=" display: flex; flex-direction: column;position: sticky; top: 10.7rem;">
                         <fieldset class="fieldset" style="float:left; margin-top: 0px; max-width: 270px;min-width: 270px; width: 100%;">
                             <legend style="width:100%; text-align: center; font-size: 20px; font-weight:700; margin-bottom:0px">Application Sections</legend>
                             <span class="mb-5">In progress</span>
@@ -196,19 +198,19 @@ if (isset($_GET['logout'])) {
                                     <a href="javscript:void()">Use of Information</a>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 0 !important; border: none !important;">
-                                    <a href="javscript:void()">Personal Information</a>
+                                    <a href="application-step1.php">Personal Information</a>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 0 !important; border: none !important;">
-                                    <a href="javscript:void()" class=" active">Acedemic Background</a>
+                                    <a href="application-step2.php" class=" active">Acedemic Background</a>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 0 !important; border: none !important;">
-                                    <a href="javscript:void()">Programme Information</a>
+                                    <a href="application-step3.php">Programme Information</a>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 0 !important; border: none !important;">
-                                    <a href="javscript:void()">Uploads</a>
+                                    <a href="application-step4.php">Uploads</a>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 0 !important; border: none !important;">
-                                    <a href="javscript:void()">Declaration</a>
+                                    <a href="application-step5.php">Declaration</a>
                                 </li>
                             </ul>
                         </fieldset>
@@ -225,13 +227,13 @@ if (isset($_GET['logout'])) {
                             </p>
                         </fieldset>
 
-                    </section>
+                    </div>
 
-                </div>
+                </section>
 
             </div>
-
         </div>
+
         <?php require_once('../inc/page-footer.php') ?>
     </div>
 

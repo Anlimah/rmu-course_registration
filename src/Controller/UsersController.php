@@ -69,7 +69,8 @@ class UsersController extends DatabaseMethods
 
     public function getAdminYearCode()
     {
-        $year = (string) $this->getData("SELECT EXTRACT(YEAR FROM (SELECT `start_date` FROM admission_period)) AS 'year'")[0]['year'];
+        $sql = "SELECT EXTRACT(YEAR FROM (SELECT `start_date` FROM admission_period)) AS 'year'";
+        $year = (string) $this->getData($sql)[0]['year'];
         return (int) substr($year, 2, 2);
     }
 
@@ -130,19 +131,23 @@ class UsersController extends DatabaseMethods
 
     public function fetchApplicantAcaB($user_id)
     {
-        $sql = "SELECT * FROM `academic_background` WHERE `app_login` = :a";
+        $sql = "SELECT `school`, `cert_type`, `month_completed`, `year_completed`, 
+                `index_number`, `certificate`, `transcript` 
+                FROM `academic_background` WHERE `app_login` = :a";
         return $this->getData($sql, array(':a' => $user_id));
     }
 
     public function fetchApplicantProgI($user_id)
     {
-        $sql = "SELECT * FROM `program_info` WHERE `app_login` = :a";
-        return $this->getData($sql, array(':a' => $user_id));
+        $sql = "SELECT * FROM `program_info` WHERE 1";
+        return $this->getData($sql, array());
     }
 
     public function fetchApplicantPreUni($user_id)
     {
-        $sql = "SELECT * FROM `previous_uni_records` WHERE `app_login` = :a";
+        $sql = "SELECT `name_of_uni`, `program`, `month_enrolled`, `year_enrolled`, 
+                `completed`, `month_completed`, `year_completed`, `state`, `reasons` 
+                FROM `previous_uni_records` WHERE `app_login` = :a";
         return $this->getData($sql, array(':a' => $user_id));
     }
 

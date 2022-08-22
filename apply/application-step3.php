@@ -18,6 +18,8 @@ if (isset($_GET['logout'])) {
     header('Location: index.php');
 }
 
+$user_id = $_SESSION['ghApplicant'];
+
 require_once("../src/Controller/ExposeDataController.php");
 $data = new ExposeDataController();
 
@@ -64,6 +66,16 @@ $data = new ExposeDataController();
                         </div>
 
                         <hr>
+                        <?php
+                        require_once('../bootstrap.php');
+
+                        use Src\Controller\UsersController;
+
+                        $user = new UsersController();
+                        $personal_AB = $user->fetchApplicantProgI($user_id);
+                        $personal_PU = $user->fetchApplicantPreUni($user_id);
+
+                        ?>
 
                         <form id="appForm" method="POST" style="margin-top: 50px !important;">
                             <fieldset class="fieldset">
@@ -75,7 +87,11 @@ $data = new ExposeDataController();
                                         <?php
                                         $programs = $data->getPrograms();
                                         foreach ($programs as $program) {
-                                            echo '<option value="' . $program['id'] . '">' . $program['name'] . '</option>';
+                                            if ($personal_AB[0]["first_prog"] == $program['id']) {
+                                                echo '<option value="' . $program['id'] . '" selected>' . $program['name'] . '</option>';
+                                            } else {
+                                                echo '<option value="' . $program['id'] . '">' . $program['name'] . '</option>';
+                                            }
                                         }
                                         ?>
                                     </select>
@@ -86,7 +102,11 @@ $data = new ExposeDataController();
                                         <?php
                                         $programs = $data->getPrograms();
                                         foreach ($programs as $program) {
-                                            echo '<option value="' . $program['id'] . '">' . $program['name'] . '</option>';
+                                            if ($personal_AB[0]["second_prog"] == $program['id']) {
+                                                echo '<option value="' . $program['id'] . '" selected>' . $program['name'] . '</option>';
+                                            } else {
+                                                echo '<option value="' . $program['id'] . '">' . $program['name'] . '</option>';
+                                            }
                                         }
                                         ?>
                                     </select>
@@ -108,65 +128,68 @@ $data = new ExposeDataController();
                                 <legend>Previous University Enrollment Information</legend>
                                 <div class="mb-4">
                                     <label class="form-label" for="app-prev-uni-name">Name of University</label>
-                                    <input class="form-control" type="text" name="app-prev-uni-name" id="app-prev-uni-name">
+                                    <input class="form-control" type="text" name="app-prev-uni-name" id="app-prev-uni-name" value="<?= $personal_PU[0]["name_of_uni"] ?>">
                                 </div>
                                 <div class="mb-4">
                                     <label class="form-label" for="app-prev-uni-prog">Program Pursued</label>
-                                    <input class="form-control" type="text" name="app-prev-uni-prog" id="app-prev-uni-prog">
+                                    <input class="form-control" type="text" name="app-prev-uni-prog" id="app-prev-uni-prog" value="<?= $personal_PU[0]["program"] ?>">
                                 </div>
                                 <div class="mb-4">
                                     <label class="form-label" for="app-prev-uni-enrolled">Date enrolled</label>
-                                    <select class="form-select form-select-sm mb-3" name="app-prev-uni-enrolled-month" id="month">
-                                        <option hidden>Month</option>
-                                        <option value="Jan">Jan</option>
-                                        <option value="Feb">Feb</option>
-                                        <option value="Mar">Mar</option>
-                                        <option value="Apr">Apr</option>
-                                        <option value="May">May</option>
-                                        <option value="Jun">Jun</option>
-                                        <option value="Jul">Jul</option>
-                                        <option value="Aug">Aug</option>
-                                        <option value="Sep">Sep</option>
-                                        <option value="Oct">Oct</option>
-                                        <option value="Nov">Nov</option>
-                                        <option value="Dec">Dec</option>
-                                    </select>
-                                    <select class="form-select form-select-sm mb-3" name="app-prev-uni-enrolled-year" id="year">
-                                        <option hidden>Year</option>
-                                        <option value="2022">2022</option>
-                                        <option value="2021">2021</option>
-                                        <option value="2020">2020</option>
-                                        <option value="2019">2019</option>
-                                        <option value="2018">2018</option>
-                                        <option value="2017">2017</option>
-                                        <option value="2016">2016</option>
-                                        <option value="2015">2015</option>
-                                        <option value="2014">2014</option>
-                                        <option value="2013">2013</option>
-                                        <option value="2012">2012</option>
-                                        <option value="2011">2011</option>
-                                        <option value="2010">2010</option>
-                                        <option value="2009">2009</option>
-                                        <option value="2008">2008</option>
-                                        <option value="2007">2007</option>
-                                        <option value="2006">2006</option>
-                                        <option value="2005">2005</option>
-                                        <option value="2004">2004</option>
-                                        <option value="2003">2003</option>
-                                        <option value="2002">2002</option>
-                                        <option value="2001">2001</option>
-                                        <option value="2000">2000</option>
-                                        <option value="1999">1999</option>
-                                        <option value="1998">1998</option>
-                                        <option value="1997">1997</option>
-                                        <option value="1996">1996</option>
-                                        <option value="1995">1995</option>
-                                        <option value="1994">1994</option>
-                                        <option value="1993">1993</option>
-                                        <option value="1992">1992</option>
-                                        <option value="1991">1991</option>
-                                        <option value="1990">1990</option>
-                                    </select>
+                                    <div style="max-width: 280px !important; display:flex; flex-direction:row; justify-content: space-between">
+                                        <select class="form-select form-select-sm mb-3" style="margin-right: 10px;" name="app-prev-uni-enrolled-month" id="app-prev-uni-enrolled-month">
+                                            <option hidden>Month</option>
+                                            <option value="Jan" <?= $personal_PU[0]["month_completed"] == "Jan" ? "selected" : "" ?>>Jan</option>
+                                            <option value="Feb" <?= $personal_PU[0]["month_completed"] == "Feb" ? "selected" : "" ?>>Feb</option>
+                                            <option value="Mar" <?= $personal_PU[0]["month_completed"] == "Mar" ? "selected" : "" ?>>Mar</option>
+                                            <option value="Apr" <?= $personal_PU[0]["month_completed"] == "Apr" ? "selected" : "" ?>>Apr</option>
+                                            <option value="May" <?= $personal_PU[0]["month_completed"] == "May" ? "selected" : "" ?>>May</option>
+                                            <option value="Jun" <?= $personal_PU[0]["month_completed"] == "Jun" ? "selected" : "" ?>>Jun</option>
+                                            <option value="Jul" <?= $personal_PU[0]["month_completed"] == "Jul" ? "selected" : "" ?>>Jul</option>
+                                            <option value="Aug" <?= $personal_PU[0]["month_completed"] == "Aug" ? "selected" : "" ?>>Aug</option>
+                                            <option value="Sep" <?= $personal_PU[0]["month_completed"] == "Sep" ? "selected" : "" ?>>Sep</option>
+                                            <option value="Oct" <?= $personal_PU[0]["month_completed"] == "Oct" ? "selected" : "" ?>>Oct</option>
+                                            <option value="Nov" <?= $personal_PU[0]["month_completed"] == "Nov" ? "selected" : "" ?>>Nov</option>
+                                            <option value="Dec" <?= $personal_PU[0]["month_completed"] == "Dec" ? "selected" : "" ?>>Dec</option>
+                                        </select>
+                                        <select class="form-select form-select-sm mb-3" name="app-prev-uni-enrolled-year" id="app-prev-uni-enrolled-year">
+                                            <option hidden>Year</option>
+                                            <option value="2022" <?= $personal_PU[0]["year_enrolled"] == "2022" ? "selected" : "" ?>>2022</option>
+                                            <option value="2021" <?= $personal_PU[0]["year_enrolled"] == "2021" ? "selected" : "" ?>>2021</option>
+                                            <option value="2020" <?= $personal_PU[0]["year_enrolled"] == "2020" ? "selected" : "" ?>>2020</option>
+                                            <option value="2019" <?= $personal_PU[0]["year_enrolled"] == "2019" ? "selected" : "" ?>>2019</option>
+                                            <option value="2018" <?= $personal_PU[0]["year_enrolled"] == "2018" ? "selected" : "" ?>>2018</option>
+                                            <option value="2017" <?= $personal_PU[0]["year_enrolled"] == "2017" ? "selected" : "" ?>>2017</option>
+                                            <option value="2016" <?= $personal_PU[0]["year_enrolled"] == "2016" ? "selected" : "" ?>>2016</option>
+                                            <option value="2015" <?= $personal_PU[0]["year_enrolled"] == "2015" ? "selected" : "" ?>>2015</option>
+                                            <option value="2014" <?= $personal_PU[0]["year_enrolled"] == "2014" ? "selected" : "" ?>>2014</option>
+                                            <option value="2013" <?= $personal_PU[0]["year_enrolled"] == "2013" ? "selected" : "" ?>>2013</option>
+                                            <option value="2012" <?= $personal_PU[0]["year_enrolled"] == "2012" ? "selected" : "" ?>>2012</option>
+                                            <option value="2011" <?= $personal_PU[0]["year_enrolled"] == "2011" ? "selected" : "" ?>>2011</option>
+                                            <option value="2010" <?= $personal_PU[0]["year_enrolled"] == "2010" ? "selected" : "" ?>>2010</option>
+                                            <option value="2009" <?= $personal_PU[0]["year_enrolled"] == "2009" ? "selected" : "" ?>>2009</option>
+                                            <option value="2008" <?= $personal_PU[0]["year_enrolled"] == "2008" ? "selected" : "" ?>>2008</option>
+                                            <option value="2007" <?= $personal_PU[0]["year_enrolled"] == "2007" ? "selected" : "" ?>>2007</option>
+                                            <option value="2006" <?= $personal_PU[0]["year_enrolled"] == "2006" ? "selected" : "" ?>>2006</option>
+                                            <option value="2005" <?= $personal_PU[0]["year_enrolled"] == "2005" ? "selected" : "" ?>>2005</option>
+                                            <option value="2004" <?= $personal_PU[0]["year_enrolled"] == "2004" ? "selected" : "" ?>>2004</option>
+                                            <option value="2003" <?= $personal_PU[0]["year_enrolled"] == "2003" ? "selected" : "" ?>>2003</option>
+                                            <option value="2002" <?= $personal_PU[0]["year_enrolled"] == "2002" ? "selected" : "" ?>>2002</option>
+                                            <option value="2001" <?= $personal_PU[0]["year_enrolled"] == "2001" ? "selected" : "" ?>>2001</option>
+                                            <option value="2000" <?= $personal_PU[0]["year_enrolled"] == "2000" ? "selected" : "" ?>>2000</option>
+                                            <option value="1999" <?= $personal_PU[0]["year_enrolled"] == "1999" ? "selected" : "" ?>>1999</option>
+                                            <option value="1998" <?= $personal_PU[0]["year_enrolled"] == "1998" ? "selected" : "" ?>>1998</option>
+                                            <option value="1997" <?= $personal_PU[0]["year_enrolled"] == "1997" ? "selected" : "" ?>>1997</option>
+                                            <option value="1996" <?= $personal_PU[0]["year_enrolled"] == "1996" ? "selected" : "" ?>>1996</option>
+                                            <option value="1995" <?= $personal_PU[0]["year_enrolled"] == "1995" ? "selected" : "" ?>>1995</option>
+                                            <option value="1994" <?= $personal_PU[0]["year_enrolled"] == "1994" ? "selected" : "" ?>>1994</option>
+                                            <option value="1993" <?= $personal_PU[0]["year_enrolled"] == "1993" ? "selected" : "" ?>>1993</option>
+                                            <option value="1992" <?= $personal_PU[0]["year_enrolled"] == "1992" ? "selected" : "" ?>>1992</option>
+                                            <option value="1991" <?= $personal_PU[0]["year_enrolled"] == "1991" ? "selected" : "" ?>>1991</option>
+                                            <option value="1990" <?= $personal_PU[0]["year_enrolled"] == "1990" ? "selected" : "" ?>>1990</option>
+                                        </select>
+                                    </div>
+
                                 </div>
 
                                 <div class="mb-4">
@@ -180,27 +203,74 @@ $data = new ExposeDataController();
                                 </div>
 
                                 <div class="mb-4">
-                                    <label class="form-label" for="prev-uni-completed-date">Date of Completion</label>
-                                    <select class="form-select form-select-sm mb-3" name="prev-uni-completed-date-month" id="prev-uni-completed-date-month">
-                                        <option hidden>Month</option>
-                                    </select>
-                                    <select class="form-select form-select-sm mb-3" name="prev-uni-completed-date-year" id="prev-uni-completed-date-year">
-                                        <option hidden>Year</option>
-                                    </select>
+                                    <label class="form-label" for="prev-uni-completed-date">Date Completed</label>
+                                    <div style="max-width: 280px !important; display:flex; flex-direction:row; justify-content: space-between">
+                                        <select class="form-select form-select-sm mb-3" style="margin-right: 10px;" name="prev-uni-completed-date-month" id="prev-uni-completed-date-month">
+                                            <option hidden>Month</option>
+                                            <option value="Jan" <?= $personal_PU[0]["month_completed"] == "Jan" ? "selected" : "" ?>>Jan</option>
+                                            <option value="Feb" <?= $personal_PU[0]["month_completed"] == "Feb" ? "selected" : "" ?>>Feb</option>
+                                            <option value="Mar" <?= $personal_PU[0]["month_completed"] == "Mar" ? "selected" : "" ?>>Mar</option>
+                                            <option value="Apr" <?= $personal_PU[0]["month_completed"] == "Apr" ? "selected" : "" ?>>Apr</option>
+                                            <option value="May" <?= $personal_PU[0]["month_completed"] == "May" ? "selected" : "" ?>>May</option>
+                                            <option value="Jun" <?= $personal_PU[0]["month_completed"] == "Jun" ? "selected" : "" ?>>Jun</option>
+                                            <option value="Jul" <?= $personal_PU[0]["month_completed"] == "Jul" ? "selected" : "" ?>>Jul</option>
+                                            <option value="Aug" <?= $personal_PU[0]["month_completed"] == "Aug" ? "selected" : "" ?>>Aug</option>
+                                            <option value="Sep" <?= $personal_PU[0]["month_completed"] == "Sep" ? "selected" : "" ?>>Sep</option>
+                                            <option value="Oct" <?= $personal_PU[0]["month_completed"] == "Oct" ? "selected" : "" ?>>Oct</option>
+                                            <option value="Nov" <?= $personal_PU[0]["month_completed"] == "Nov" ? "selected" : "" ?>>Nov</option>
+                                            <option value="Dec" <?= $personal_PU[0]["month_completed"] == "Dec" ? "selected" : "" ?>>Dec</option>
+                                        </select>
+                                        <select class="form-select form-select-sm mb-3" name="prev-uni-completed-date-year" id="prev-uni-completed-date-year">
+                                            <option hidden>Year</option>
+                                            <option value="2022" <?= $personal_PU[0]["year_completed"] == "2022" ? "selected" : "" ?>>2022</option>
+                                            <option value="2021" <?= $personal_PU[0]["year_completed"] == "2021" ? "selected" : "" ?>>2021</option>
+                                            <option value="2020" <?= $personal_PU[0]["year_completed"] == "2020" ? "selected" : "" ?>>2020</option>
+                                            <option value="2019" <?= $personal_PU[0]["year_completed"] == "2019" ? "selected" : "" ?>>2019</option>
+                                            <option value="2018" <?= $personal_PU[0]["year_completed"] == "2018" ? "selected" : "" ?>>2018</option>
+                                            <option value="2017" <?= $personal_PU[0]["year_completed"] == "2017" ? "selected" : "" ?>>2017</option>
+                                            <option value="2016" <?= $personal_PU[0]["year_completed"] == "2016" ? "selected" : "" ?>>2016</option>
+                                            <option value="2015" <?= $personal_PU[0]["year_completed"] == "2015" ? "selected" : "" ?>>2015</option>
+                                            <option value="2014" <?= $personal_PU[0]["year_completed"] == "2014" ? "selected" : "" ?>>2014</option>
+                                            <option value="2013" <?= $personal_PU[0]["year_completed"] == "2013" ? "selected" : "" ?>>2013</option>
+                                            <option value="2012" <?= $personal_PU[0]["year_completed"] == "2012" ? "selected" : "" ?>>2012</option>
+                                            <option value="2011" <?= $personal_PU[0]["year_completed"] == "2011" ? "selected" : "" ?>>2011</option>
+                                            <option value="2010" <?= $personal_PU[0]["year_completed"] == "2010" ? "selected" : "" ?>>2010</option>
+                                            <option value="2009" <?= $personal_PU[0]["year_completed"] == "2009" ? "selected" : "" ?>>2009</option>
+                                            <option value="2008" <?= $personal_PU[0]["year_completed"] == "2008" ? "selected" : "" ?>>2008</option>
+                                            <option value="2007" <?= $personal_PU[0]["year_completed"] == "2007" ? "selected" : "" ?>>2007</option>
+                                            <option value="2006" <?= $personal_PU[0]["year_completed"] == "2006" ? "selected" : "" ?>>2006</option>
+                                            <option value="2005" <?= $personal_PU[0]["year_completed"] == "2005" ? "selected" : "" ?>>2005</option>
+                                            <option value="2004" <?= $personal_PU[0]["year_completed"] == "2004" ? "selected" : "" ?>>2004</option>
+                                            <option value="2003" <?= $personal_PU[0]["year_completed"] == "2003" ? "selected" : "" ?>>2003</option>
+                                            <option value="2002" <?= $personal_PU[0]["year_completed"] == "2002" ? "selected" : "" ?>>2002</option>
+                                            <option value="2001" <?= $personal_PU[0]["year_completed"] == "2001" ? "selected" : "" ?>>2001</option>
+                                            <option value="2000" <?= $personal_PU[0]["year_completed"] == "2000" ? "selected" : "" ?>>2000</option>
+                                            <option value="1999" <?= $personal_PU[0]["year_completed"] == "1999" ? "selected" : "" ?>>1999</option>
+                                            <option value="1998" <?= $personal_PU[0]["year_completed"] == "1998" ? "selected" : "" ?>>1998</option>
+                                            <option value="1997" <?= $personal_PU[0]["year_completed"] == "1997" ? "selected" : "" ?>>1997</option>
+                                            <option value="1996" <?= $personal_PU[0]["year_completed"] == "1996" ? "selected" : "" ?>>1996</option>
+                                            <option value="1995" <?= $personal_PU[0]["year_completed"] == "1995" ? "selected" : "" ?>>1995</option>
+                                            <option value="1994" <?= $personal_PU[0]["year_completed"] == "1994" ? "selected" : "" ?>>1994</option>
+                                            <option value="1993" <?= $personal_PU[0]["year_completed"] == "1993" ? "selected" : "" ?>>1993</option>
+                                            <option value="1992" <?= $personal_PU[0]["year_completed"] == "1992" ? "selected" : "" ?>>1992</option>
+                                            <option value="1991" <?= $personal_PU[0]["year_completed"] == "1991" ? "selected" : "" ?>>1991</option>
+                                            <option value="1990" <?= $personal_PU[0]["year_completed"] == "1990" ? "selected" : "" ?>>1990</option>
+                                        </select>
+                                    </div>
                                 </div>
 
                                 <div class="mb-4">
                                     <label class="form-label" for="prev-uni-reasons">If you did not complete, select reason(s)</label>
                                     <select class="form-select form-select-sm mb-3" name="prev-uni-reasons" id="prev-uni-reasons">
                                         <option hidden>Reasons</option>
-                                        <option value="Deffered">Deffered</option>
-                                        <option value="Withdrawn">Withdrawn</option>
+                                        <option value="Deffered" <?= $personal_PU[0]["state"] == "Deffered" ? "selected" : "" ?>>Deffered</option>
+                                        <option value="Withdrawn" <?= $personal_PU[0]["state"] == "Withdrawn" ? "selected" : "" ?>>Withdrawn</option>
                                     </select>
                                 </div>
 
                                 <div class="mb-4">
                                     <label class="form-label" for="prev-uni-reasons-stmt">Reasons...</label>
-                                    <textarea name="prev-uni-reasons-stmt" id="" cols="30" rows="5"></textarea>
+                                    <textarea name="prev-uni-reasons-stmt" id="" style="width: 280px !important;" cols="30" rows="5" class="form-control form-control-sm"><?= $personal_PU[0]["reasons"] ?></textarea>
                                 </div>
                             </fieldset>
 
@@ -218,9 +288,9 @@ $data = new ExposeDataController();
                 </div>
 
                 <!-- Application progress tracker -->
-                <div class="col-3" style="margin-bottom: 400px;">
+                <section class="col-3" style="margin-bottom: 400px;">
 
-                    <section class="container-sm" style=" display: flex; flex-direction: column;position: sticky; top: 10.7rem;">
+                    <div class="container-sm" style=" display: flex; flex-direction: column;position: sticky; top: 10.7rem;">
                         <fieldset class="fieldset" style="float:left; margin-top: 0px; max-width: 270px;min-width: 270px; width: 100%;">
                             <legend style="width:100%; text-align: center; font-size: 20px; font-weight:700; margin-bottom:0px">Application Sections</legend>
                             <span class="mb-5">In progress</span>
@@ -229,19 +299,19 @@ $data = new ExposeDataController();
                                     <a href="javscript:void()">Use of Information</a>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 0 !important; border: none !important;">
-                                    <a href="javscript:void()">Personal Information</a>
+                                    <a href="application-step1.php">Personal Information</a>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 0 !important; border: none !important;">
-                                    <a href="javscript:void()" class=" active">Acedemic Background</a>
+                                    <a href="application-step2.php">Acedemic Background</a>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 0 !important; border: none !important;">
-                                    <a href="javscript:void()">Programme Information</a>
+                                    <a href="application-step3.php" class=" active">Programme Information</a>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 0 !important; border: none !important;">
-                                    <a href="javscript:void()">Uploads</a>
+                                    <a href="application-step4.php">Uploads</a>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 0 !important; border: none !important;">
-                                    <a href="javscript:void()">Declaration</a>
+                                    <a href="application-step5.php">Declaration</a>
                                 </li>
                             </ul>
                         </fieldset>
@@ -258,12 +328,13 @@ $data = new ExposeDataController();
                             </p>
                         </fieldset>
 
-                    </section>
+                    </div>
 
-                </div>
+                </section>
 
             </div>
         </div>
+
         <?php require_once('../inc/page-footer.php') ?>
     </div>
 

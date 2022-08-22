@@ -14,6 +14,8 @@ if (isset($_GET['logout'])) {
     session_destroy();
     header('Location: index.php');
 }
+
+$user_id = $_SESSION['ghApplicant'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -58,6 +60,15 @@ if (isset($_GET['logout'])) {
 
                         <hr>
 
+                        <?php
+                        require_once('../bootstrap.php');
+
+                        use Src\Controller\UsersController;
+
+                        $user = new UsersController();
+                        $personal = $user->fetchApplicantPersI($user_id);
+
+                        ?>
                         <form id="appForm" method="POST" style="margin-top: 50px !important;">
                             <fieldset class="fieldset">
                                 <legend>Legal Name</legend>
@@ -67,62 +78,47 @@ if (isset($_GET['logout'])) {
                                         <label class="form-label" for="prefix">Prefix <span class="input-required">*</span></label>
                                         <select class="form-select form-select-sm mb-3" name="prefix" id="prefix">
                                             <option value="" hidden>Select</option>
-                                            <option value="Mr.">Mr.</option>
-                                            <option value="Mrs.">Mrs.</option>
-                                            <option value="Ms.">Ms.</option>
-                                            <option value="Prof. Dr.">Prof. Dr.</option>
-                                            <option value="Prof.">Prof.</option>
-                                            <option value="Rev.">Rev.</option>
-                                            <option value="Rev. Dr.">Rev. Dr.</option>
-                                            <option value="Rev. Sis.">Rev. Sis.</option>
+                                            <option value="Mr." <?= $personal[0]["prefix"] == "Mr." ? "selected" : "" ?>>Mr.</option>
+                                            <option value="Mrs." <?= $personal[0]["prefix"] == "Mrs." ? "selected" : "" ?>>Mrs.</option>
+                                            <option value="Ms." <?= $personal[0]["prefix"] == "Ms." ? "selected" : "" ?>>Ms.</option>
+                                            <option value="Prof. Dr." <?= $personal[0]["prefix"] == "Prof. Dr." ? "selected" : "" ?>>Prof. Dr.</option>
+                                            <option value="Prof." <?= $personal[0]["prefix"] == "Prof." ? "selected" : "" ?>>Prof.</option>
+                                            <option value="Rev." <?= $personal[0]["prefix"] == "Rev." ? "selected" : "" ?>>Rev.</option>
+                                            <option value="Rev. Dr." <?= $personal[0]["prefix"] == "Rev. Dr." ? "selected" : "" ?>>Rev. Dr.</option>
+                                            <option value="Rev. Sis." <?= $personal[0]["prefix"] == "Rev. Sis." ? "selected" : "" ?>>Rev. Sis.</option>
                                         </select>
                                     </div>
                                     <div class="mb-4">
                                         <label class="form-label" for="first-name">First Name <span class="input-required">*</span></label>
-                                        <input class="form-control" type="text" name="first-name" id="first-name">
+                                        <input class="form-control" type="text" name="first-name" id="first-name" value="<?= $personal[0]["first_name"] ?>">
                                     </div>
                                     <div class="mb-4">
                                         <label class="form-label" for="middle-name">Middle Names <span>(Optional)</span></label>
-                                        <input class="form-control" type="text" name="middle-name" id="middle-nams">
+                                        <input class="form-control" type="text" name="middle-name" id="middle-nams" value="<?= $personal[0]["middle_name"] ?>">
                                     </div>
                                     <div class="mb-4">
                                         <label class="form-label" for="last-name">Surname<span class="input-required">*</span></label>
-                                        <input class="form-control" type="text" name="last-name" id="last-name">
+                                        <input class="form-control" type="text" name="last-name" id="last-name" value="<?= $personal[0]["last_name"] ?>">
                                     </div>
                                     <div class="mb-4">
                                         <label class="form-label" for="suffix">Suffix <span>(Optional)</span></label>
                                         <select class="form-select form-select-sm mb-3" name="suffix" id="suffix">
                                             <option value="" hidden>Select</option>
-                                            <option value="Jr.">Jr.</option>
-                                            <option value="Sr.">Sr.</option>
-                                            <option value="I">I</option>
-                                            <option value="II">II</option>
-                                            <option value="III">III</option>
-                                            <option value="IV">IV</option>
-                                            <option value="V">V</option>
-                                            <option value="J.D.">J.D.</option>
-                                            <option value="Esq">Esq</option>
-                                            <option value="M.D.">M.D.</option>
-                                            <option value="O.F.M.">O.F.M.</option>
-                                            <option value="O.P<">O.P</option>
-                                            <option value="Ph.D.">Ph.D.</option>
-                                            <option value="S.J.">S.J.</option>
+                                            <option value="Jr." <?= $personal[0]["suffix"] == "Jr." ? "selected" : "" ?>>Jr.</option>
+                                            <option value="Sr." <?= $personal[0]["suffix"] == "Sr." ? "selected" : "" ?>>Sr.</option>
+                                            <option value="I" <?= $personal[0]["suffix"] == "I" ? "selected" : "" ?>>I</option>
+                                            <option value="II" <?= $personal[0]["suffix"] == "II" ? "selected" : "" ?>>II</option>
+                                            <option value="III" <?= $personal[0]["suffix"] == "III" ? "selected" : "" ?>>III</option>
+                                            <option value="IV" <?= $personal[0]["suffix"] == "IV" ? "selected" : "" ?>>IV</option>
+                                            <option value="V" <?= $personal[0]["suffix"] == "V" ? "selected" : "" ?>>V</option>
+                                            <option value="J.D." <?= $personal[0]["suffix"] == "J.D." ? "selected" : "" ?>>J.D.</option>
+                                            <option value="Esq" <?= $personal[0]["suffix"] == "Esq" ? "selected" : "" ?>>Esq</option>
+                                            <option value="M.D." <?= $personal[0]["suffix"] == "M.D." ? "selected" : "" ?>>M.D.</option>
+                                            <option value="O.F.M." <?= $personal[0]["suffix"] == "O.F.M." ? "selected" : "" ?>>O.F.M.</option>
+                                            <option value="O.P." <?= $personal[0]["suffix"] == "O.P." ? "selected" : "" ?>>O.P.</option>
+                                            <option value="Ph.D." <?= $personal[0]["suffix"] == "Ph.D." ? "selected" : "" ?>>Ph.D.</option>
+                                            <option value="S.J." <?= $personal[0]["suffix"] == "S.J." ? "selected" : "" ?>>S.J.</option>
                                         </select>
-                                    </div>
-                                </div>
-                            </fieldset>
-
-                            <fieldset class="fieldset">
-                                <legend>Passport Picture</legend>
-                                <div class="field-content">
-                                    <div class="form-fields" style="flex-grow: 8;">
-                                        <div class="photo-upload-area">
-                                            <p style="font-size: 14px; color: brown">Please upload a passport size photo of yourself. The size of the image should not be more than 100KB. The background color of your image should be white.</p>
-                                            <p style="font-size: 14px; color: red"><b>NB: The image you use will not be changed. So use a most recent passport sized picture of yourself.</b></p>
-                                            <div class="photo-display"></div>
-                                            <label for="applicant-photo" class="upload-photo-label btn btn-primary">Upload photo</label>
-                                            <input class="form-control" type="file" style="display: none;" name="applicant-photo" id="applicant-photo">
-                                        </div>
                                     </div>
                                 </div>
                             </fieldset>
@@ -135,23 +131,23 @@ if (isset($_GET['logout'])) {
                                             <label class="form-label" for="gender">Gender <span class="input-required">*</span></label>
                                             <select class="form-select form-select-sm mb-3" name="gender" id="gender">
                                                 <option value="" hidden>Select</option>
-                                                <option value="Male">Male</option>
-                                                <option value="Female">Female</option>
+                                                <option value="Male" <?= $personal[0]["gender"] == "Male" ? "selected" : "" ?>>Male</option>
+                                                <option value="Female" <?= $personal[0]["gender"] == "Female" ? "selected" : "" ?>>Female</option>
                                             </select>
                                         </div>
                                         <div class="mb-4">
                                             <label class="form-label" for="dob">Date of Birth <span class="input-required">*</span></label>
-                                            <input class="form-control" type="text" maxlength="10" name="dob" id="dob" placeholder="DD/MM/YYYY">
+                                            <input class="form-control" type="text" maxlength="10" name="dob" id="dob" placeholder="DD/MM/YYYY" value="<?= $personal[0]["dob"] ?>">
                                         </div>
                                         <div class="mb-4">
                                             <label class="form-label" for="marital-status">Marital Status <span class="input-required">*</span></label>
                                             <select class="form-select form-select-sm mb-3" name="marital-status" id="marital-status">
                                                 <option value="" hidden>Select</option>
-                                                <option value="Single">Single</option>
-                                                <option value="Married">Married</option>
-                                                <option value="Divorced">Divorced</option>
-                                                <option value="Widowed">Widowed</option>
-                                                <option value="Separarted">Separated</option>
+                                                <option value="Single" <?= $personal[0]["marital_status"] == "Single" ? "selected" : "" ?>>Single</option>
+                                                <option value="Married" <?= $personal[0]["marital_status"] == "Married" ? "selected" : "" ?>>Married</option>
+                                                <option value="Divorced" <?= $personal[0]["marital_status"] == "Divorced" ? "selected" : "" ?>>Divorced</option>
+                                                <option value="Widowed" <?= $personal[0]["marital_status"] == "Widowed" ? "selected" : "" ?>>Widowed</option>
+                                                <option value="Separarted" <?= $personal[0]["marital_status"] == "Separarted" ? "selected" : "" ?>>Separated</option>
                                             </select>
                                         </div>
                                         <div class="mb-4">
@@ -169,10 +165,10 @@ if (isset($_GET['logout'])) {
                                         <div class="mb-4">
                                             <label class="form-label" for="disability">Any Disability <span class="input-required">*</span></label>
                                             <label class="form-check-label" for="disability-yes">
-                                                <input style="margin-left: 20px;" type="radio" name="disability" id="disability-yes" value="yes"> Yes
+                                                <input style="margin-left: 20px;" type="radio" name="disability" id="disability-yes" value="yes" <?= $personal[0]["disability"] == 1 ? "checked" : "" ?>> Yes
                                             </label>
                                             <label class="form-check-label" for="disability-no">
-                                                <input style="margin-left: 20px;" type="radio" name="disability" id="disability-no" value="no"> No
+                                                <input style="margin-left: 20px;" type="radio" name="disability" id="disability-no" value="no" <?= $personal[0]["disability"] == 0 ? "checked" : "" ?>> No
                                             </label>
                                         </div>
                                         <div class="mb-4">
@@ -202,7 +198,7 @@ if (isset($_GET['logout'])) {
                                 </div>
                                 <div class="mb-4">
                                     <label class="form-label" for="home-town">City of birth <span class="input-required">*</span></label>
-                                    <input class="form-control" type="text" name="home-town" id="home-town">
+                                    <input class="form-control" type="text" name="home-town" id="home-town" value="<?= $personal[0]["city_birth"] ?>">
                                 </div>
                             </fieldset>
 
@@ -212,10 +208,20 @@ if (isset($_GET['logout'])) {
                                 <div class="mb-4">
                                     <label class="form-label" for="english-native">English Native <span class="input-required">*</span></label>
                                     <label for="english-native-yes">
-                                        <input style="margin-left: 20px;" type="radio" name="english-native" id="english-native-yes" value="Yes"> Yes
+                                        <input style="margin-left: 20px;" type="radio" name="english-native" id="english-native-yes" value="Yes" <?= $personal[0]["english_native"] == 1 ? "checked" : "" ?>> Yes
                                     </label>
                                     <label for="english-native-no">
-                                        <input style="margin-left: 20px;" type="radio" name="english-native" id="english-native-no" value="No"> No
+                                        <input style="margin-left: 20px;" type="radio" name="english-native" id="english-native-no" value="No" <?= $personal[0]["english_native"] == 0 ? "checked" : "" ?>> No
+                                    </label>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="form-label" for="english-native">Do you understand and speak some english? <span class="input-required">*</span></label>
+                                    <label for="english-native-yes">
+                                        <input style="margin-left: 20px;" type="radio" name="und-speak-english" id="und-speak-english-yes" value="Yes" <?= $personal[0]["english_native"] == 1 ? "checked" : "" ?>> Yes
+                                    </label>
+                                    <label for="english-native-no">
+                                        <input style="margin-left: 20px;" type="radio" name="und-speak-english" id="und-speak-english-no" value="No" <?= $personal[0]["english_native"] == 0 ? "checked" : "" ?>> No
                                     </label>
                                 </div>
                                 <div class="mb-4">
@@ -230,11 +236,11 @@ if (isset($_GET['logout'])) {
                                 <legend>Address</legend>
                                 <div class="mb-4">
                                     <label class="form-label" for="address-line1">Address Line 1 <span class="input-required">*</span></label>
-                                    <input class="form-control" type="text" name="address-line1" id="address-line1">
+                                    <input class="form-control" type="text" name="address-line1" id="address-line1" value="<?= $personal[0]["postal_addr"] ?>">
                                 </div>
                                 <div class="mb-4">
                                     <label class="form-label" for="address-line2">Address Line 2 <span>(Optional)</span></label>
-                                    <input class="form-control" type="text" name="address-line2" id="address-line2">
+                                    <input class="form-control" type="text" name="address-line2" id="address-line2" value="<?= $personal[0]["postal_addr"] ?>">
                                 </div>
                                 <div class="mb-4">
                                     <label class="form-label" for="address-country">Country <span class="input-required">*</span></label>
@@ -244,11 +250,11 @@ if (isset($_GET['logout'])) {
                                 </div>
                                 <div class="mb-4">
                                     <label class="form-label" for="address-region">State / Privince / Region <span class="input-required">*</span></label>
-                                    <input class="form-control" type="text" name="address-region" id="address-region">
+                                    <input class="form-control" type="text" name="address-region" id="address-region" value="<?= $personal[0]["postal_spr"] ?>">
                                 </div>
                                 <div class="mb-4">
                                     <label class="form-label" for="address-town">City <span class="input-required">*</span></label>
-                                    <input class="form-control" type="text" name="address-town" id="address-town">
+                                    <input class="form-control" type="text" name="address-town" id="address-town" value="<?= $personal[0]["postal_town"] ?>">
                                 </div>
                             </fieldset>
 
@@ -256,15 +262,15 @@ if (isset($_GET['logout'])) {
                                 <legend>Contact</legend>
                                 <div class="mb-4">
                                     <label class="form-label" for="app-phone-number">Primary Phone Number <span class="input-required">*</span></label>
-                                    <input class="form-control" type="text" name="app-phone-number" id="app-phone-number">
+                                    <input class="form-control" type="text" name="app-phone-number" id="app-phone-number" value="<?= $personal[0]["phone_no1"] ?>">
                                 </div>
                                 <div class="mb-4">
                                     <label class="form-label" for="app-other-number"> Other Phone Number <span>(Optional)</span></label>
-                                    <input class="form-control" type="text" name="app-other-number" id="app-other-number">
+                                    <input class="form-control" type="text" name="app-other-number" id="app-other-number" value="<?= $personal[0]["phone_no2"] ?>">
                                 </div>
                                 <div class="mb-4">
                                     <label class="form-label" for="app-email-address">Email Address <span class="input-required">*</span></label>
-                                    <input class="form-control" type="email" name="app-email-address" id="app-email-address">
+                                    <input class="form-control" type="email" name="app-email-address" id="app-email-address" value="<?= $personal[0]["email_addr"] ?>">
                                 </div>
                             </fieldset>
 
@@ -274,27 +280,27 @@ if (isset($_GET['logout'])) {
                                     <label class="form-label" for="gd-prefix">Prefix <span class="input-required">*</span></label>
                                     <select class="form-select form-select-sm mb-3" name="gd-prefix" id="gd-prefix">
                                         <option value="" hidden>Select</option>
-                                        <option value="Mr.">Mr.</option>
-                                        <option value="Mrs.">Mrs.</option>
-                                        <option value="Ms.">Ms.</option>
-                                        <option value="Prof. Dr.">Prof. Dr.</option>
-                                        <option value="Prof.">Prof.</option>
-                                        <option value="Rev.">Rev.</option>
-                                        <option value="Rev. Dr.">Rev. Dr.</option>
-                                        <option value="Rev. Sis.">Rev. Sis.</option>
+                                        <option value="Mr." <?= $personal[0]["p_prefix"] == "Mr." ? "selected" : "" ?>>Mr.</option>
+                                        <option value="Mrs." <?= $personal[0]["p_prefix"] == "Mrs." ? "selected" : "" ?>>Mrs.</option>
+                                        <option value="Ms." <?= $personal[0]["p_prefix"] == "Ms." ? "selected" : "" ?>>Ms.</option>
+                                        <option value="Prof. Dr." <?= $personal[0]["p_prefix"] == "Prof. Dr." ? "selected" : "" ?>>Prof. Dr.</option>
+                                        <option value="Prof." <?= $personal[0]["p_prefix"] == "Prof." ? "selected" : "" ?>>Prof.</option>
+                                        <option value="Rev." <?= $personal[0]["p_prefix"] == "Rev." ? "selected" : "" ?>>Rev.</option>
+                                        <option value="Rev. Dr." <?= $personal[0]["p_prefix"] == "Rev. Dr." ? "selected" : "" ?>>Rev. Dr.</option>
+                                        <option value="Rev. Sis." <?= $personal[0]["p_prefix"] == "Rev. Sis." ? "selected" : "" ?>>Rev. Sis.</option>
                                     </select>
                                 </div>
                                 <div class="mb-4">
                                     <label class="form-label" for="gd-surname">Surname <span class="input-required">*</span></label>
-                                    <input class="form-control" type="text" name="gd-surname" id="gd-surname">
+                                    <input class="form-control" type="text" name="gd-surname" id="gd-surname" value="<?= $personal[0]["p_last_name"] ?>">
                                 </div>
                                 <div class="mb-4">
                                     <label class="form-label" for="gd-first-name">First Name <span class="input-required">*</span></label>
-                                    <input class="form-control" type="text" name="gd-first-name" id="gd-first-name">
+                                    <input class="form-control" type="text" name="gd-first-name" id="gd-first-name" value="<?= $personal[0]["p_first_name"] ?>">
                                 </div>
                                 <div class="mb-4">
                                     <label class="form-label" for="gd-occupation">Occupation <span class="input-required">*</span></label>
-                                    <input class="form-control" type="text" name="gd-occupation" id="gd-occupation">
+                                    <input class="form-control" type="text" name="gd-occupation" id="gd-occupation" value="<?= $personal[0]["p_occupation"] ?>">
                                 </div>
                                 <div class="mb-4">
                                     <label class="form-label" for="gd-phone-number">Phone Number <span class="input-required">*</span></label>
@@ -306,11 +312,11 @@ if (isset($_GET['logout'])) {
                                         <option value="Widowed">+236</option>
                                         <option value="Separarted">+237</option>
                                     </select>
-                                    <input class="form-control" type="tel" name="gd-phone-number" id="phone-number">
+                                    <input class="form-control" type="tel" name="gd-phone-number" id="phone-number" value="<?= $personal[0]["p_phone_no"] ?>">
                                 </div>
                                 <div class="mb-4">
                                     <label class="form-label" for="gd-email-address">Email Address</label>
-                                    <input class="form-control" type="email" name="gd-email-address" id="gd-email-address">
+                                    <input class="form-control" type="email" name="gd-email-address" id="gd-email-address" value="<?= $personal[0]["p_email_addr"] ?>">
                                 </div>
                             </fieldset>
 
@@ -327,9 +333,9 @@ if (isset($_GET['logout'])) {
                 </div>
 
                 <!-- Application progress tracker -->
-                <div class="col-3" style="margin-bottom: 400px;">
+                <section class="col-3" style="margin-bottom: 400px;">
 
-                    <section class="container-sm" style=" display: flex; flex-direction: column;position: sticky; top: 10.7rem;">
+                    <div class="container-sm" style=" display: flex; flex-direction: column;position: sticky; top: 10.7rem;">
                         <fieldset class="fieldset" style="float:left; margin-top: 0px; max-width: 270px;min-width: 270px; width: 100%;">
                             <legend style="width:100%; text-align: center; font-size: 20px; font-weight:700; margin-bottom:0px">Application Sections</legend>
                             <span class="mb-5">In progress</span>
@@ -338,19 +344,19 @@ if (isset($_GET['logout'])) {
                                     <a href="javscript:void()">Use of Information</a>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 0 !important; border: none !important;">
-                                    <a href="javscript:void()" class=" active">Personal Information</a>
+                                    <a href="application-step1.php" class=" active">Personal Information</a>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 0 !important; border: none !important;">
-                                    <a href="javscript:void()">Acedemic Background</a>
+                                    <a href="application-step2.php">Acedemic Background</a>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 0 !important; border: none !important;">
-                                    <a href="javscript:void()">Programme Information</a>
+                                    <a href="application-step3.php">Programme Information</a>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 0 !important; border: none !important;">
-                                    <a href="javscript:void()">Uploads</a>
+                                    <a href="application-step4.php">Uploads</a>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 0 !important; border: none !important;">
-                                    <a href="javscript:void()">Declaration</a>
+                                    <a href="application-step5.php">Declaration</a>
                                 </li>
                             </ul>
                         </fieldset>
@@ -367,9 +373,9 @@ if (isset($_GET['logout'])) {
                             </p>
                         </fieldset>
 
-                    </section>
+                    </div>
 
-                </div>
+                </section>
 
             </div>
         </div>
@@ -387,28 +393,6 @@ if (isset($_GET['logout'])) {
             getData(document.getElementById("country-birth"), 'c');
             getData(document.getElementById("address-country"), 'c');
             //getData(document.getElementById("region"), 'r');
-
-            var data = {};
-
-            $.ajax({
-                type: "GET",
-                url: "../api/personal",
-                success: function(result) {
-                    var res = result[0];
-                    console.log(res)
-                    if (res) {
-                        data = res
-                    };
-                    console.log(data['last_name'])
-                },
-                error: function(error) {
-                    console.log(error);
-                }
-            });
-
-            $("#prefix").val(data['prefix']);
-            $("#first-name").val(data['first_name']);
-            $("#last-name").val(data['last_name']);
 
             $(".form-select").change("blur", function() {
                 $.ajax({
