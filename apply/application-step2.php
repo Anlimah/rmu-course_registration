@@ -156,12 +156,6 @@ $user_id = $_SESSION['ghApplicant'];
                                                 </ul>
                                             </div>
                                         </div>
-
-                                        <div class="photo-upload-area">
-                                            <p style="font-size: 14px; color: brown">Upload a scanned PDF copy of your certificate and transcipts.</p>
-                                            <label for="certificate-file" class="upload-photo-label btn btn-default">Upload certificate</label>
-                                            <input class="form-control" type="file" name="applicant-photo" id="certificate-file" style="display: none;">
-                                        </div>
                                     </div>
                                 </div>
                             </fieldset>
