@@ -46,7 +46,7 @@ if (!isset($_SESSION["_start"])) {
                 </section>
 
                 <!--Login form-->
-                <section class="col-4" style="display:flex; flex-direction:column; float:right">
+                <section class="col-4" style="display:flex; flex-direction:column; float: right !important">
                     <h1>Login</h1>
                     <form id="appLoginForm" style="margin-bottom: 50px">
                         <div class="mb-4" style="width: 280px">
@@ -66,7 +66,7 @@ if (!isset($_SESSION["_start"])) {
                         <input type="hidden" name="_logToken" value="<?= $_SESSION['_start'] ?>">
                     </form>
 
-                    <fieldset class="fieldset" style="display: flex; flex-direction: column; align-items:center; max-width: 280px; min-width: 280px; padding: 5px 20px;">
+                    <fieldset class="fieldset need-help" style="display: flex; flex-direction: column; align-items:center; max-width: 280px; min-width: 280px; padding: 5px 20px;">
                         <legend style="width:100%; text-align: center;">Need Help?</legend>
                         <p style="width: 100%;">
                             <span class="bi bi-telephone-fill" style="margin-right: 10px;"></span>

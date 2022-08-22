@@ -94,11 +94,6 @@ $user_id = $_SESSION['ghApplicant'];
                                                 <option value="" hidden>Year</option>
                                             </select>
                                         </div>
-                                        <div class="photo-upload-area">
-                                            <p style="font-size: 14px; color: brown">Upload a scanned PDF copy of your certificate and transcipts.</p>
-                                            <label for="applicant-photo" class="upload-photo-label btn btn-default">Upload certificate <span class="input-required">*</span></label>
-                                            <input class="form-control" type="file" name="applicant-photo" id="applicant-photo" style="display: none;">
-                                        </div>
                                     </div>
                                 </div>
                             </fieldset>

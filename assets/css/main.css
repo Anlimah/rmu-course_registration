@@ -204,28 +204,27 @@ footer {
 	background-color: #000;
 	display: block;
 	position: relative;
-	padding: 0.7rem 0 !important;
+	padding: 0.5rem 0;
 	width: 100%;
 	color: #fff;
 	z-index: 10;
 }
-
 .footer ul {
 	text-align: center;
 }
-
 .footer ul li {
 	display: inline-block;
-	margin: 0 5px;
+	margin: 0 4px;
 }
-
+.footer a {
+	color: #fff;
+}
 .footer ul li::after {
-	margin-left: 5px;
+	margin-left: 4px;
 	content: "|";
 }
-
-.footer a {
-	color: #fff !important;
+.footer ul li:last-child::after {
+	content: "";
 }
 
 /*
@@ -389,7 +388,7 @@ fieldset legend {
 
 .form-control-login,
 .form-btn-login {
-	padding: 15px !important;
+	padding: 12px !important;
 }
 .form-btn-login {
 	max-width: 280px !important;
