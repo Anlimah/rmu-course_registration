@@ -7,22 +7,22 @@
             <span class="mb-5">In progress</span>
             <ul class="list-group mt-5" style="padding: 0 !important; margin: 0 important; font-size:medium; font-weight:500">
                 <li class="list-group-item" style="padding-left: 0 !important; border: none !important;">
-                    <a href="javscript:void()">Use of Information</a>
+                    <a href="application-step0.php" class="<?= $page["id"] == 0 ? "active" : "" ?>">Use of Information</a>
                 </li>
                 <li class="list-group-item" style="padding-left: 0 !important; border: none !important;">
-                    <a href="application-step1.php">Personal Information</a>
+                    <a href="application-step1.php" class="<?= $page["id"] == 1 ? "active" : "" ?>">Personal Information</a>
                 </li>
                 <li class="list-group-item" style="padding-left: 0 !important; border: none !important;">
-                    <a href="application-step2.php">Acedemic Background</a>
+                    <a href="application-step2.php" class="<?= $page["id"] == 2 ? "active" : "" ?>">Education Background</a>
                 </li>
                 <li class="list-group-item" style="padding-left: 0 !important; border: none !important;">
-                    <a href="application-step3.php">Programme Information</a>
+                    <a href="application-step3.php" class="<?= $page["id"] == 3 ? "active" : "" ?>">Programme Information</a>
                 </li>
                 <li class="list-group-item" style="padding-left: 0 !important; border: none !important;">
-                    <a href="application-step4.php">Uploads</a>
+                    <a href="application-step4.php" class="<?= $page["id"] == 4 ? "active" : "" ?>">Uploads</a>
                 </li>
                 <li class="list-group-item" style="padding-left: 0 !important; border: none !important;">
-                    <a href="application-step5.php" class=" active">Declaration</a>
+                    <a href="application-step5.php" class="<?= $page["id"] == 5 ? "active" : "" ?>">Declaration</a>
                 </li>
             </ul>
         </fieldset>

@@ -16,6 +16,8 @@ if (isset($_GET['logout'])) {
 }
 
 $user_id = $_SESSION['ghApplicant'];
+
+$page = array("id" => 2, "name" => "Personal Information");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,19 +37,8 @@ $user_id = $_SESSION['ghApplicant'];
 </head>
 
 <body>
-    <header class="top-nav-bar card">
-        <div class="logo-board"></div>
-        <div class="info-card">
-            <div>Application Sections</div>
-            <div>
-                <a href="?logout=true" style="color: #fff !important">Logout</a>
-            </div>
-        </div>
-    </header>
 
-    <nav>
-
-    </nav>
+    <?php require_once("../inc/top-page-section.php") ?>
 
     <div class="main-content">
         <div class="container">
@@ -60,165 +51,17 @@ $user_id = $_SESSION['ghApplicant'];
 
                         <hr>
 
-                        <form id="appForm" method="POST" style="margin-top: 50px !important;">
-                            <!--Exam sitting for people applying with masters, degree, diploma, and other certificate-->
-                            <fieldset class="fieldset" id="graduate">
-                                <legend>Examination Sittings > 1</legend>
-                                <div class="field-content">
-                                    <div class="form-fields" style="flex-grow: 8;">
-                                        <div class="mb-4">
-                                            <label class="form-label" for="app-exam-index">School Name <span class="input-required">*</span></label>
-                                            <input class="form-control" type="text" name="app-exam-index" id="app-exam-index" placeholder="School Name">
-                                        </div>
-                                        <div class="mb-4">
-                                            <label class="form-label" for="app-exam-index"> Certificate/Degree <span class="input-required">*</span></label>
-                                            <select class="form-select form-select-sm mb-3" name="app-exam-type" id="app-exam-type">
-                                                <option value="" hidden>Examination Type</option>
-                                                <option value="2022">2022</option>
-                                                <option value="2021">2021</option>
-                                                <option value="2020">2020</option>
-                                                <option value="2019">2019</option>
-                                                <option value="2018">2018</option>
-                                            </select>
-                                        </div>
-                                        <div class="mb-4">
-                                            <label class="form-label" for="app-exam-index">Index Number <span class="input-required">*</span></label>
-                                            <input class="form-control" type="text" name="app-exam-index" id="app-exam-index" placeholder="Index Number">
-                                        </div>
-                                        <div class="mb-4">
-                                            <label class="form-label" for="app-exam-date">Date <span class="input-required">*</span></label>
-                                            <select class="form-select form-select-sm mb-3" name="app-exam-month" id="app-exam-month" class="monthList">
-                                                <option value="" hidden>Month</option>
-                                            </select>
-                                            <select class="form-select form-select-sm mb-3" name="app-exam-year" id="app-exam-year" class="yearList">
-                                                <option value="" hidden>Year</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </fieldset>
+                        <!-- Page form -->
+                        <?php require_once("../apply/forms/education-background.php") ?>
 
-                            <!-- Exam sitting for people applying with wassce/ssce    -->
-                            <fieldset class="fieldset" id="undergraduate">
-                                <legend>Examination Sittings</legend>
-                                <div class="field-content">
-                                    <div class="form-fields" style="flex-grow: 8;">
-                                        <div class="mb-4">
-                                            <label class="form-label" for="app-exam-index">School Name <span class="input-required">*</span></label>
-                                            <input class="form-control" type="text" name="app-exam-index" id="app-exam-index" placeholder="School Name">
-                                        </div>
-                                        <div class="mb-4">
-                                            <label class="form-label" for="app-exam-index"> Certificate/Degree <span class="input-required">*</span></label>
-                                            <select class="form-select form-select-sm mb-3" name="app-exam-type" id="app-exam-type">
-                                                <option value="" hidden>Examination Type</option>
-                                                <option value="2022">2022</option>
-                                                <option value="2021">2021</option>
-                                                <option value="2020">2020</option>
-                                                <option value="2019">2019</option>
-                                                <option value="2018">2018</option>
-                                            </select>
-                                        </div>
-                                        <div class="mb-4">
-                                            <label class="form-label" for="app-exam-index"><span>*</span> Index Number</label>
-                                            <input class="form-control" type="text" name="app-exam-index" id="app-exam-index" placeholder="Index Number">
-                                        </div>
-                                        <div class="mb-4">
-                                            <label class="form-label" for="app-exam-date"><span>*</span> Date</label>
-                                            <select class="form-select form-select-sm mb-3" name="app-exam-month" id="app-exam-month" class="form-select form-select-lg mb-3">
-                                                <option value="" hidden>Month</option>
-                                            </select>
-                                            <select class="form-select form-select-sm mb-3" name="app-exam-year" id="app-exam-year" class="yearList">
-                                                <option value="" hidden>Year</option>
-                                            </select>
-                                        </div>
+                        <!-- Bottom page navigation -->
+                        <?php require_once("../inc/bottom-page-section.php"); ?>
 
-                                        <div class="mb-4">
-                                            <button style="padding: 2px 50px;" type="button" id="verify-wassce-result">Verify Result</button>
-                                        </div>
-
-                                        <div id="display-wassce-result" style="display: flex; flex-direction: row;">
-                                            <div id="core-subjects">
-                                                <label class="form-label" for="">Core Subjects</label>
-                                                <ul>
-                                                    <li>English Language: <span>A</span></li>
-                                                    <li>Integrated Science: <span>A</span></li>
-                                                    <li>Core Mathematics: <span>A</span></li>
-                                                    <li>Social Studies: <span>A</span></li>
-                                                </ul>
-                                            </div>
-                                            <div id="elective-subjects" style="margin-left: 50px;">
-                                                <label class="form-label" for="">ELective Subjects</label>
-                                                <ul>
-                                                    <li>English Language: <span>A</span></li>
-                                                    <li>Integrated Science: <span>A</span></li>
-                                                    <li>Core Mathematics: <span>A</span></li>
-                                                    <li>Social Studies: <span>A</span></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </fieldset>
-                        </form>
-
-                        <div class="mb-4">
-                            <button class="btn btn-primary" style="padding: 10px; float:right;">Add Education</button>
-                        </div>
-
-                        <center style="margin-top: 120px;">
-                            <div class="page-control">
-                                <button type="button" onclick="whatNext(0, 2)" class="m-3 control-button btn">Previous Step</button>
-                                <!--<button type="submit" id="saveAndExit" onclick="whatNext(1)" class="m-5 control-button btn">Save and Exit</button>-->
-                                <button type="button" onclick="whatNext(3)" class="m-3  btn btn-primary">Next -> Programme Information</button>
-                            </div>
-                        </center>
                     </main>
                 </div>
 
-                <!-- Application progress tracker -->
-                <section class="col-3" style="margin-bottom: 400px;">
-
-                    <div class="container-sm" style=" display: flex; flex-direction: column;position: sticky; top: 10.7rem;">
-                        <fieldset class="fieldset" style="float:left; margin-top: 0px; max-width: 270px;min-width: 270px; width: 100%;">
-                            <legend style="width:100%; text-align: center; font-size: 20px; font-weight:700; margin-bottom:0px">Application Sections</legend>
-                            <span class="mb-5">In progress</span>
-                            <ul class="list-group mt-5" style="padding: 0 !important; margin: 0 important; font-size:medium; font-weight:500">
-                                <li class="list-group-item" style="padding-left: 0 !important; border: none !important;">
-                                    <a href="javscript:void()">Use of Information</a>
-                                </li>
-                                <li class="list-group-item" style="padding-left: 0 !important; border: none !important;">
-                                    <a href="application-step1.php">Personal Information</a>
-                                </li>
-                                <li class="list-group-item" style="padding-left: 0 !important; border: none !important;">
-                                    <a href="application-step2.php" class=" active">Acedemic Background</a>
-                                </li>
-                                <li class="list-group-item" style="padding-left: 0 !important; border: none !important;">
-                                    <a href="application-step3.php">Programme Information</a>
-                                </li>
-                                <li class="list-group-item" style="padding-left: 0 !important; border: none !important;">
-                                    <a href="application-step4.php">Uploads</a>
-                                </li>
-                                <li class="list-group-item" style="padding-left: 0 !important; border: none !important;">
-                                    <a href="application-step5.php">Declaration</a>
-                                </li>
-                            </ul>
-                        </fieldset>
-
-                        <fieldset class="fieldset" style="display: flex; flex-direction: column; align-items:center; max-width: 270px; min-width: 270px;">
-                            <legend style="width:100%; text-align: center;">Need Help?</legend>
-                            <p style="width: 100%;">
-                                <span class="bi bi-telephone-fill"></span>
-                                <a href=" tel:+233302712775">+233302712775</a>
-                            </p>
-                            <p style="width: 100%;">
-                                <span class="bi bi-envelope-fill"></span>
-                                <a href="mailto:university.registrar@rmu.edu.gh">university.registrar@rmu.edu.gh</a>
-                            </p>
-                        </fieldset>
-
-                    </div>
-
-                </section>
+                <!-- Right page navigation and help div -->
+                <?php require_once("../inc/right-page-section.php"); ?>
 
             </div>
         </div>

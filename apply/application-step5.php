@@ -16,6 +16,8 @@ if (isset($_GET['logout'])) {
 }
 
 $user_id = $_SESSION['ghApplicant'];
+
+$page = array("id" => 5, "name" => "Personal Information");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,19 +37,8 @@ $user_id = $_SESSION['ghApplicant'];
 </head>
 
 <body>
-    <header class="top-nav-bar card">
-        <div class="logo-board"></div>
-        <div class="info-card">
-            <div>Application Sections</div>
-            <div>
-                <a href="?logout=true" style="color: #fff !important">Logout</a>
-            </div>
-        </div>
-    </header>
 
-    <nav>
-
-    </nav>
+    <?php require_once("../inc/top-page-section.php") ?>
 
     <div class="main-content">
         <div class="container">
@@ -60,29 +51,17 @@ $user_id = $_SESSION['ghApplicant'];
 
                         <hr>
 
-                        <?php
-                        require_once('../bootstrap.php');
+                        <!-- Page form -->
+                        <?php require_once("../apply/forms/declaration.php") ?>
 
-                        use Src\Controller\UsersController;
+                        <!-- Bottom page navigation -->
+                        <?php require_once("../inc/bottom-page-section.php"); ?>
 
-                        $user = new UsersController();
-                        $personal = $user->fetchApplicantPersI($user_id);
-
-                        ?>
-                        <form id="appForm" method="POST" style="margin-top: 50px !important;">
-                        </form>
-
-                        <center>
-                            <div class="page-control">
-                                <!--<button type="submit" id="prevStep" onclick="whatNext(0)" class="m-5 control-button btn">Previous Step</button>-->
-                                <button type="button" id="saveAndExit" onclick="whatNext(1)" class="m-3 btn btn-default">Save and Exit</button>
-                                <button type="button" id="saveAndCont" onclick="whatNext(2)" class="m-3 btn btn-primary">Next -> Academic Background</button>
-                            </div>
-                        </center>
                     </main>
                 </div>
 
-                <?php require_once("../inc/right-display.php"); ?>
+                <!-- Right page navigation and help div -->
+                <?php require_once("../inc/right-page-section.php"); ?>
 
             </div>
         </div>
@@ -94,29 +73,6 @@ $user_id = $_SESSION['ghApplicant'];
     <script src="../js/myjs.js"></script>
     <script>
         $(document).ready(function() {
-            getData(document.getElementById("nationality"), 'c');
-            getData(document.getElementById("country-res"), 'c');
-            //getData(document.getElementById("postal-country"), 'c');
-            getData(document.getElementById("country-birth"), 'c');
-            getData(document.getElementById("address-country"), 'c');
-            //getData(document.getElementById("region"), 'r');
-
-            $(".form-select").change("blur", function() {
-                $.ajax({
-                    type: "PUT",
-                    url: "../api/personal",
-                    data: {
-                        what: this.name,
-                        value: this.value,
-                    },
-                    success: function(result) {
-                        console.log(result);
-                    },
-                    error: function(error) {
-                        console.log(error);
-                    }
-                });
-            });
 
             $(".form-control").on("blur", function() {
                 $.ajax({

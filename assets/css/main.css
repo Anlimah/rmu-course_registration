@@ -406,3 +406,8 @@ fieldset legend {
 	border: 1px solid #004d99 !important;
 	border-color: transparent !important;
 }
+
+.yes-disability,
+.not-english-native {
+	display: none !important;
+}
