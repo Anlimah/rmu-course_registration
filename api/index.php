@@ -27,17 +27,19 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		//save all user data
 		//echo success message
 	} elseif ($_GET["url"] == "personal") {
-		$response = $user->fetchApplicantPersI($_SESSION['ghApplicant']);
-		echo json_encode($response);
+		echo json_encode($user->fetchApplicantPersI($_SESSION['ghApplicant']));
 	} elseif ($_GET["url"] == "") {
 		//fetch in Acaedmic backgorund
-		$user->fetchApplicantAcaB($user_id);
+		echo json_encode($user->fetchApplicantAcaB($user_id));
 	} elseif ($_GET["url"] == "") {
 		//fetch in Programs information
-		$user->fetchApplicantProgI($user_id);
+		echo json_encode($user->fetchApplicantProgI($user_id));
 	} elseif ($_GET["url"] == "") {
 		//fetch in Previous university information
-		$user->fetchApplicantPreUni($user_id);
+		echo json_encode($user->fetchApplicantPreUni($user_id));
+	} elseif ($_GET["url"] == "") {
+		//fetch in Previous university information
+		echo json_encode($user->fetchApplicantPreUni($user_id));
 	}
 	// All POST request will be sent here
 } elseif ($_SERVER['REQUEST_METHOD'] == "POST") {
