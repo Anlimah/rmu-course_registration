@@ -2,8 +2,12 @@
 
 use Src\Controller\UsersController;
 
-require_once('../src/Controller/UsersController.php');
+use Src\Controller\ExposeDataController;
 
+require_once("../src/Controller/ExposeDataController.php");
+$data = new ExposeDataController();
+
+require_once('../src/Controller/UsersController.php');
 $user = new UsersController();
 $personal_AB = $user->fetchApplicantProgI($user_id);
 $personal_PU = $user->fetchApplicantPreUni($user_id);

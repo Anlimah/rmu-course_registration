@@ -1,8 +1,5 @@
 <?php
 
-use Src\Controller\ExposeDataController;
-use Src\Controller\UsersController;
-
 session_start();
 if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
     if (!(isset($_SESSION["ghApplicant"]) && !empty($_SESSION['ghApplicant']))) {
@@ -20,9 +17,6 @@ if (isset($_GET['logout'])) {
 }
 
 $user_id = $_SESSION['ghApplicant'];
-
-require_once("../src/Controller/ExposeDataController.php");
-$data = new ExposeDataController();
 
 $page = array("id" => 3, "name" => "Personal Information");
 ?>

@@ -19,6 +19,7 @@ $user_id = $_SESSION['ghApplicant'];
 
 $page = array("id" => 0, "name" => "Use of Information");
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
