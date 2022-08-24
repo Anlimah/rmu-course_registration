@@ -1,4 +1,20 @@
+<?php
+
+use Src\Controller\UsersController;
+
+require_once('../src/Controller/UsersController.php');
+
+$user = new UsersController();
+$data = $user->fetchApplicantAcaB($user_id);
+
+?>
 <form id="appForm" method="POST" style="margin-top: 50px !important;">
+
+    <?php
+
+
+    ?>
+
     <!--Exam sitting for people applying with masters, degree, diploma, and other certificate-->
     <fieldset class="fieldset" id="graduate">
         <legend>Examination Sittings > 1</legend>
