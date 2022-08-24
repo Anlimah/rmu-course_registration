@@ -117,6 +117,9 @@ if (!isset($_SESSION["_start"])) {
                     type: "POST",
                     url: "../api/appLogin",
                     data: new FormData(this),
+                    contentType: false,
+                    cache: false,
+                    processData: false,
                     success: function(result) {
                         console.log(result);
                         if (result['response'] == 'success') {

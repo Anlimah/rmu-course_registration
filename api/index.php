@@ -429,6 +429,17 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			}
 		}
 	} elseif ($_GET["url"] == "education") {
+
+		$what = $_PUT["what"];
+		$value = $_PUT['value'];
+
+		if (isset($what) && !empty($what)) {
+			$column = str_replace("-", "_", $what);
+
+			if ($column == "prefix") {
+				echo $user->updateApplicantInfo($column, $value, $_SESSION['ghApplicant']);
+			}
+		}
 	}
 } else if ($_SERVER['REQUEST_METHOD'] == "DELETE") {
 	//code
