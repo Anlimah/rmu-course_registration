@@ -66,15 +66,15 @@ if (!isset($_SESSION["_start"])) {
                         <input type="hidden" name="_logToken" value="<?= $_SESSION['_start'] ?>">
                     </form>
 
-                    <fieldset class="fieldset need-help" style="display: flex; flex-direction: column; align-items:center; max-width: 280px; min-width: 280px; padding: 5px 20px;">
+                    <fieldset class="fieldset" style="display: flex; flex-direction: column; align-items:center; max-width: 270px; min-width: 270px;">
                         <legend style="width:100%; text-align: center;">Need Help?</legend>
                         <p style="width: 100%;">
-                            <span class="bi bi-telephone-fill" style="margin-right: 10px;"></span>
+                            <span class="bi bi-telephone-fill"></span>
                             <a href=" tel:+233302712775">+233302712775</a>
                         </p>
                         <p style="width: 100%;">
-                            <span class="bi bi-envelope-fill" style="margin-right: 10px;"></span>
-                            <a href="mailto:university.registrar@rmu.edu.gh"> university.registrar@rmu.edu.gh</a>
+                            <span class="bi bi-envelope-fill"></span>
+                            <a href="mailto:university.registrar@rmu.edu.gh">university.registrar@rmu.edu.gh</a>
                         </p>
                     </fieldset>
                 </section>
@@ -117,9 +117,6 @@ if (!isset($_SESSION["_start"])) {
                     type: "POST",
                     url: "../api/appLogin",
                     data: new FormData(this),
-                    contentType: false,
-                    cache: false,
-                    processData: false,
                     success: function(result) {
                         console.log(result);
                         if (result['response'] == 'success') {

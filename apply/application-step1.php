@@ -90,9 +90,9 @@ $page = array("id" => 1, "name" => "Personal Information");
 
             $(".english-native").click(function() {
                 if ($('#english-native-yes').is(':checked')) {
-                    $("#english-native-list").removeClass("not-english-native");
-                } else if ($('#english-native-no').is(':checked')) {
                     $("#english-native-list").addClass("not-english-native");
+                } else if ($('#english-native-no').is(':checked')) {
+                    $("#english-native-list").removeClass("not-english-native");
                 }
             });
 
@@ -113,7 +113,7 @@ $page = array("id" => 1, "name" => "Personal Information");
                 });
             });
 
-            $(".form-control").on("blur", function() {
+            $(".form-control, .form-radio").on("blur", function() {
                 $.ajax({
                     type: "PUT",
                     url: "../api/personal",

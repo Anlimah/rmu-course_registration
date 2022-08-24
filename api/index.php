@@ -332,6 +332,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			if ($column == "country_res") {
 				echo $user->updateApplicantInfo($column, $value, $_SESSION['ghApplicant']);
 			}
+			if ($column == "disability") {
+				echo $user->updateApplicantInfo($column, $value, $_SESSION['ghApplicant']);
+			}
 			if ($column == "disability_descript") {
 				$column = 'disability';
 				echo $user->updateApplicantInfo($column, $value, $_SESSION['ghApplicant']);

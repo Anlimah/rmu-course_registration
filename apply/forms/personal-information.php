@@ -105,10 +105,10 @@ $personal = $user->fetchApplicantPersI($user_id);
                 <div class="mb-4">
                     <label class="form-label" for="disability">Any Disability <span class="input-required">*</span></label>
                     <label class="form-check-label" for="disability-yes">
-                        <input class="disability" style="margin-left: 20px;" type="radio" name="disability" id="disability-yes" value="yes" <?= $personal[0]["disability"] == 1 ? "checked" : "" ?>> Yes
+                        <input class="disability form-radio" style="margin-left: 20px;" type="radio" name="disability" id="disability-yes" value="1" <?= $personal[0]["disability"] == 1 ? "checked" : "" ?>> Yes
                     </label>
                     <label class="form-check-label" for="disability-no">
-                        <input class="disability" style="margin-left: 20px;" type="radio" name="disability" id="disability-no" value="no" <?= $personal[0]["disability"] == 0 ? "checked" : "" ?>> No
+                        <input class="disability form-radio" style="margin-left: 20px;" type="radio" name="disability" id="disability-no" value="0" <?= $personal[0]["disability"] == 0 ? "checked" : "" ?>> No
                     </label>
                 </div>
                 <div class="mb-4 yes-disability" id="disability-list">
@@ -148,20 +148,20 @@ $personal = $user->fetchApplicantPersI($user_id);
         <div class="mb-4">
             <label class="form-label" for="english-native">English Native <span class="input-required">*</span></label>
             <label for="english-native-yes">
-                <input class="english-native" style="margin-left: 20px;" type="radio" name="english-native" id="english-native-yes" value="Yes" <?= $personal[0]["english_native"] == 1 ? "checked" : "" ?>> Yes
+                <input class="english-native form-radio" style="margin-left: 20px;" type="radio" name="english-native" id="english-native-yes" value="1" <?= $personal[0]["english_native"] == 1 ? "checked" : "" ?>> Yes
             </label>
             <label for="english-native-no">
-                <input class="english-native" style="margin-left: 20px;" type="radio" name="english-native" id="english-native-no" value="No" <?= $personal[0]["english_native"] == 0 ? "checked" : "" ?>> No
+                <input class="english-native form-radio" style="margin-left: 20px;" type="radio" name="english-native" id="english-native-no" value="0" <?= $personal[0]["english_native"] == 0 ? "checked" : "" ?>> No
             </label>
         </div>
 
         <div class="mb-4 not-english-native" id="english-native-list">
             <label class="form-label" for="english-native">Do you understand and speak some english? <span class="input-required">*</span></label>
             <label for="english-native-yes">
-                <input style="margin-left: 20px;" type="radio" name="und-speak-english" id="und-speak-english-yes" value="Yes" <?= $personal[0]["english_native"] == 1 ? "checked" : "" ?>> Yes
+                <input class="" style="margin-left: 20px;" type="radio" name="und-speak-english" id="und-speak-english-yes" value="Yes" <?= $personal[0]["english_native"] == 1 ? "checked" : "" ?>> Yes
             </label>
             <label for="english-native-no">
-                <input style="margin-left: 20px;" type="radio" name="und-speak-english" id="und-speak-english-no" value="No" <?= $personal[0]["english_native"] == 0 ? "checked" : "" ?>> No
+                <input class="" style="margin-left: 20px;" type="radio" name="und-speak-english" id="und-speak-english-no" value="No" <?= $personal[0]["english_native"] == 0 ? "checked" : "" ?>> No
             </label>
             <div class="mb-4">
                 <label class="form-label" for="language-spoken">Speicfy Language</label>
@@ -211,7 +211,7 @@ $personal = $user->fetchApplicantPersI($user_id);
                     <option value="Widowed">+236</option>
                     <option value="Separarted">+237</option>
                 </select>
-                <input class="form-control form-select-sm" style="width: 65%" type="text" name="app-phone-number" id="app-phone-number" value="<?= $personal[0]["phone_no1"] ?>">
+                <input class="form-control form-control-sm" style="width: 65%" type="text" name="app-phone-number" id="app-phone-number" value="<?= $personal[0]["phone_no1"] ?>">
             </div>
         </div>
         <div class="mb-4">
@@ -225,7 +225,7 @@ $personal = $user->fetchApplicantPersI($user_id);
                     <option value="Widowed">+236</option>
                     <option value="Separarted">+237</option>
                 </select>
-                <input class="form-control form-select-sm" style="width: 65%" type="text" name="app-other-number" id="app-other-number" value="<?= $personal[0]["phone_no2"] ?>">
+                <input class="form-control form-control-sm" style="width: 65%" type="text" name="app-other-number" id="app-other-number" value="<?= $personal[0]["phone_no2"] ?>">
             </div>
         </div>
         <div class="mb-4">

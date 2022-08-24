@@ -160,7 +160,8 @@ CREATE TABLE `personal_information` (
     `marital_status` VARCHAR(25),
     `nationality` VARCHAR(25),
     `country_res` VARCHAR(25),
-    `disability` VARCHAR(25),
+    `disability` TINYINT,
+    `disability_descript` VARCHAR(25),
     `photo` VARCHAR(25),
 
     -- Place of birth
