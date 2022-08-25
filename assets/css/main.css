@@ -163,7 +163,7 @@ strong {
 }
 
 .hide {
-	display: none;
+	display: none !important;
 }
 
 body,
@@ -323,6 +323,69 @@ label {
 	color: #353535;
 }
 
+.fieldset,
+.right-section {
+	margin-bottom: 30px !important;
+	border: 1px solid #ccc;
+	padding: 30px 20px;
+	border-radius: 5px;
+}
+
+.fieldset {
+	display: flex !important;
+	flex-direction: row !important;
+	justify-content: space-between;
+}
+
+.fieldset > .field-content {
+	float: left !important;
+	padding: 0;
+}
+
+fieldset legend {
+	margin-bottom: 25px !important;
+	padding: 0;
+	color: #202020;
+	font-weight: bolder;
+}
+
+.input-required {
+	color: red;
+}
+
+.form-control-login,
+.form-btn-login {
+	padding: 12px !important;
+}
+.form-btn-login {
+	max-width: 280px !important;
+	min-width: 280px !important;
+	width: 280px !important;
+	margin-top: 10px !important;
+	background-color: #003262 !important;
+	border: 1px solid #003262 !important;
+	border-color: transparent !important;
+	font-size: 16px !important;
+}
+
+.form-btn-login:hover {
+	background-color: #004d99 !important;
+	border: 1px solid #004d99 !important;
+	border-color: transparent !important;
+}
+
+.yes-disability,
+.not-english-native {
+	display: none !important;
+}
+
+.radio-btn {
+	margin-right: 10px;
+	padding: 5px 8px;
+	border: 1px solid #ccc;
+	border-radius: 7px;
+}
+
 @media only screen and (max-width: 768px) {
 	/* For mobile phones: */
 	main {
@@ -367,48 +430,15 @@ label {
 	.logo-board {
 		padding: 0 110px !important;
 	}
-}
 
-.fieldset {
-	margin-bottom: 30px !important;
-	border: 1px solid #ccc;
-	padding: 20px;
-	border-radius: 5px;
-}
+	fieldset > .field-header {
+		width: 100% !important;
+		max-width: 250px !important;
+		margin-right: 15px;
+	}
 
-fieldset legend {
-	margin-bottom: 25px !important;
-	padding: 5px 0px;
-	color: #202020;
-	font-weight: bolder;
-}
-
-.input-required {
-	color: red;
-}
-
-.form-control-login,
-.form-btn-login {
-	padding: 12px !important;
-}
-.form-btn-login {
-	max-width: 280px !important;
-	min-width: 280px !important;
-	width: 280px !important;
-	margin-top: 10px !important;
-	background-color: #003262 !important;
-	border: 1px solid #003262 !important;
-	border-color: transparent !important;
-	font-size: 16px !important;
-}
-
-.form-btn-login:hover {
-	background-color: #004d99 !important;
-	border: 1px solid #004d99 !important;
-	border-color: transparent !important;
-}
-
-.yes-disability,
-.not-english-native {
-	display: none !important;
+	fieldset > .field-content {
+		width: 100% !important;
+		margin-left: 15px;
+	}
 }

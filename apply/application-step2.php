@@ -74,6 +74,14 @@ $page = array("id" => 2, "name" => "Education Background");
     <script>
         $(document).ready(function() {
 
+            $(".prev-uni-rec").click(function() {
+                if ($('#prev-uni-rec-yes').is(':checked')) {
+                    $("#prev-uni-yes").removeClass("yes-disability");
+                } else if ($('#prev-uni-rec-yes').is(':checked')) {
+                    $("#prev-uni-yes").addClass("yes-disability");
+                }
+            });
+
             $(".form-select").change("blur", function() {
                 $.ajax({
                     type: "PUT",

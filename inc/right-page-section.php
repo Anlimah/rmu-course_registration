@@ -1,7 +1,7 @@
 <!-- Application progress tracker -->
 <section class="col-3" style="margin-bottom: 110px;">
     <div class="container-sm" style="margin-top: 93px; display: flex; flex-direction: column; position: -webkit-sticky; position: sticky; top: 10.3rem;">
-        <fieldset class="fieldset card" style="float:left; margin-top: 0px; max-width: 270px;min-width: 270px; width: 100%;">
+        <fieldset class="right-section card" style="float:left; margin-top: 0px; max-width: 270px;min-width: 270px; width: 100%;">
             <legend style="width:100%; text-align: center; font-size: 20px; font-weight:700; margin-bottom:0px">Application Sections</legend>
             <span style="font-size: small;">In progress</span>
             <ul class="list-group mt-4 mb-4" style="padding: 5px 0 !important; margin: 0 important; font-size:medium; font-weight:600">
