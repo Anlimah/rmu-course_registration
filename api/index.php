@@ -379,6 +379,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 			$column = substr_replace($column, "", -1);
 			echo $user->updateAcademicInfo($column, $value, $_SESSION['ghApplicant']);
+			exit(1);
 		}
 	}
 } else if ($_SERVER['REQUEST_METHOD'] == "DELETE") {
