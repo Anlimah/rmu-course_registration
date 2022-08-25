@@ -221,9 +221,9 @@ CREATE TABLE `academic_background` (
     -- Certificate info
     `school` VARCHAR(100),
     `cert_type` VARCHAR(50),
-    `month_completed` VARCHAR(2),
+    `month_completed` VARCHAR(3),
     `year_completed` VARCHAR(4),
-    `index_number` VARCHAR(50),
+    `index_number` VARCHAR(20),
 
     -- Transcripts and cerfiticate files
     `certificate` VARCHAR(50),

@@ -17,7 +17,7 @@ if (isset($_GET['logout'])) {
 
 $user_id = $_SESSION['ghApplicant'];
 
-$page = array("id" => 5, "name" => "Personal Information");
+$page = array("id" => 5, "name" => "Declaration");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -74,23 +74,6 @@ $page = array("id" => 5, "name" => "Personal Information");
     <script>
         $(document).ready(function() {
 
-            $(".form-control").on("blur", function() {
-                $.ajax({
-                    type: "PUT",
-                    url: "../api/personal",
-                    data: {
-                        what: this.name,
-                        value: this.value,
-                    },
-                    success: function(result) {
-                        console.log(result);
-                    },
-                    error: function(error) {
-                        console.log(error);
-                    }
-                });
-
-            });
         });
     </script>
 </body>

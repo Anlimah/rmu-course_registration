@@ -17,7 +17,7 @@ if (isset($_GET['logout'])) {
 
 $user_id = $_SESSION['ghApplicant'];
 
-$page = array("id" => 2, "name" => "Personal Information");
+$page = array("id" => 2, "name" => "Education Background");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -70,23 +70,9 @@ $page = array("id" => 2, "name" => "Personal Information");
     </div>
 
     <script src="../js/jquery-3.6.0.min.js"></script>
-    <script src="../js/myjs.js"></script>
+    <!--<script src="../js/myjs.js"></script>-->
     <script>
         $(document).ready(function() {
-
-            $.ajax({
-                type: "GET",
-                url: "../api/application-type",
-                data: {
-                    value: this.value,
-                },
-                success: function(result) {
-                    console.log(result);
-                },
-                error: function(error) {
-                    console.log(error);
-                }
-            })
 
             $(".form-select").change("blur", function() {
                 $.ajax({
@@ -107,7 +93,7 @@ $page = array("id" => 2, "name" => "Personal Information");
 
             $(".form-control").on("blur", function() {
                 $.ajax({
-                    type: "POST",
+                    type: "PUT",
                     url: "../api/education",
                     data: {
                         what: this.name,

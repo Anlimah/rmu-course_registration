@@ -63,9 +63,9 @@ $page = array("id" => 0, "name" => "Use of Information");
 
                         <hr>
 
-                        <div>
-
-                        </div>
+                        <fieldset class="fieldset">
+                            <legend>Use of Information Agreement</legend>
+                        </fieldset>
 
                         <!-- Bottom page navigation -->
                         <?php require_once("../inc/bottom-page-section.php"); ?>

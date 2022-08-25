@@ -9,7 +9,7 @@ $data = $user->fetchApplicantAcaB($user_id);
 $app_type = $user->getApplicationType($user_id);
 
 ?>
-<form id="appForm" method="POST" style="margin-top: 50px !important;">
+<form id="appForm" method="#" style="margin-top: 50px !important;">
 
     <?php if ($app_type[0]["form_type"] == 1) { ?>
 
@@ -20,11 +20,11 @@ $app_type = $user->getApplicationType($user_id);
                 <div class="form-fields" style="flex-grow: 8;">
                     <div class="mb-4">
                         <label class="form-label" for="school1">School Name <span class="input-required">*</span></label>
-                        <input class="form-control" type="text" name="school" id="school" placeholder="School Name">
+                        <input class="form-control" type="text" name="school1" id="school1" placeholder="School Name">
                     </div>
                     <div class="mb-4">
                         <label class="form-label" for="cert-type"> Certificate/Degree <span class="input-required">*</span></label>
-                        <select class="form-select form-select-sm mb-3" name="cert-type1" id="cert-type">
+                        <select class="form-select form-select-sm mb-3" name="cert-type1" id="cert-type1">
                             <option value="" hidden>Examination Type</option>
                             <option value="2022">2022</option>
                             <option value="2021">2021</option>
@@ -40,7 +40,7 @@ $app_type = $user->getApplicationType($user_id);
                     <div class="mb-4">
                         <label class="form-label" for="completion-date">Date <span class="input-required">*</span></label>
                         <div style="max-width: 280px !important; display:flex; flex-direction:row; justify-content: space-between">
-                            <select class="form-select form-select-sm mb-3" style="margin-right: 10px;" name="month-completed" id="month-completed" class="form-select form-select-lg mb-3">
+                            <select class="form-select form-select-sm mb-3" style="margin-right: 10px;" name="month-completed1" id="month-completed1" class="form-select form-select-lg mb-3">
                                 <option value="" hidden>Month</option>
                                 <option hidden>Month</option>
                                 <option value="Jan" <?= $data[0]["month_completed"] == "Jan" ? "selected" : "" ?>>Jan</option>
@@ -56,7 +56,7 @@ $app_type = $user->getApplicationType($user_id);
                                 <option value="Nov" <?= $data[0]["month_completed"] == "Nov" ? "selected" : "" ?>>Nov</option>
                                 <option value="Dec" <?= $data[0]["month_completed"] == "Dec" ? "selected" : "" ?>>Dec</option>
                             </select>
-                            <select class="form-select form-select-sm mb-3" name="year-completed" id="year-completed" class="yearList">
+                            <select class="form-select form-select-sm mb-3" name="year-completed1" id="year-completed1" class="yearList">
                                 <option value="" hidden>Year</option>
                                 <option value="2022" <?= $data[0]["year_completed"] == "2022" ? "selected" : "" ?>>2022</option>
                                 <option value="2021" <?= $data[0]["year_completed"] == "2021" ? "selected" : "" ?>>2021</option>
@@ -105,12 +105,12 @@ $app_type = $user->getApplicationType($user_id);
             <div class="field-content">
                 <div class="form-fields" style="flex-grow: 8;">
                     <div class="mb-4">
-                        <label class="form-label" for="app-exam-index">School Name <span class="input-required">*</span></label>
-                        <input class="form-control" type="text" name="app-exam-index" id="app-exam-index" placeholder="School Name">
+                        <label class="form-label" for="school1">School Name <span class="input-required">*</span></label>
+                        <input class="form-control" type="text" name="school1" id="school1" placeholder="School Name">
                     </div>
                     <div class="mb-4">
-                        <label class="form-label" for="app-exam-index"> Certificate/Degree <span class="input-required">*</span></label>
-                        <select class="form-select form-select-sm mb-3" name="app-exam-type" id="app-exam-type">
+                        <label class="form-label" for="cert-type"> Certificate/Degree <span class="input-required">*</span></label>
+                        <select class="form-select form-select-sm mb-3" name="cert-type1" id="cert-type1">
                             <option value="" hidden>Examination Type</option>
                             <option value="2022">2022</option>
                             <option value="2021">2021</option>
@@ -120,13 +120,13 @@ $app_type = $user->getApplicationType($user_id);
                         </select>
                     </div>
                     <div class="mb-4">
-                        <label class="form-label" for="app-exam-index"><span>*</span> Index Number</label>
-                        <input class="form-control" type="text" name="app-exam-index" id="app-exam-index" placeholder="Index Number">
+                        <label class="form-label" for="index-number">Index Number <span class="input-required">*</span></label>
+                        <input class="form-control" type="text" name="index-number1" id="index-number1" placeholder="Index Number">
                     </div>
                     <div class="mb-4">
-                        <label class="form-label" for="app-exam-date"><span>*</span> Date</label>
+                        <label class="form-label" for="completion-date">Date <span class="input-required">*</span></label>
                         <div style="max-width: 280px !important; display:flex; flex-direction:row; justify-content: space-between">
-                            <select class="form-select form-select-sm mb-3" style="margin-right: 10px;" name="app-exam-month" id="app-exam-month" class="form-select form-select-lg mb-3">
+                            <select class="form-select form-select-sm mb-3" style="margin-right: 10px;" name="month-completed1" id="month-completed1" class="form-select form-select-lg mb-3">
                                 <option value="" hidden>Month</option>
                                 <option hidden>Month</option>
                                 <option value="Jan" <?= $data[0]["month_completed"] == "Jan" ? "selected" : "" ?>>Jan</option>
@@ -142,7 +142,7 @@ $app_type = $user->getApplicationType($user_id);
                                 <option value="Nov" <?= $data[0]["month_completed"] == "Nov" ? "selected" : "" ?>>Nov</option>
                                 <option value="Dec" <?= $data[0]["month_completed"] == "Dec" ? "selected" : "" ?>>Dec</option>
                             </select>
-                            <select class="form-select form-select-sm mb-3" name="app-exam-year" id="app-exam-year" class="yearList">
+                            <select class="form-select form-select-sm mb-3" name="year-completed1" id="year-completed1" class="yearList">
                                 <option value="" hidden>Year</option>
                                 <option value="2022" <?= $data[0]["year_completed"] == "2022" ? "selected" : "" ?>>2022</option>
                                 <option value="2021" <?= $data[0]["year_completed"] == "2021" ? "selected" : "" ?>>2021</option>

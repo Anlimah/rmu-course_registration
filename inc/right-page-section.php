@@ -1,10 +1,10 @@
 <!-- Application progress tracker -->
 <section class="col-3" style="margin-bottom: 110px;">
-    <div class="container-sm" style="margin-top: 145px; display: flex; flex-direction: column; position: -webkit-sticky; position: sticky; top: 10.3rem;">
+    <div class="container-sm" style="margin-top: 93px; display: flex; flex-direction: column; position: -webkit-sticky; position: sticky; top: 10.3rem;">
         <fieldset class="fieldset card" style="float:left; margin-top: 0px; max-width: 270px;min-width: 270px; width: 100%;">
             <legend style="width:100%; text-align: center; font-size: 20px; font-weight:700; margin-bottom:0px">Application Sections</legend>
-            <span>In progress</span>
-            <ul class="list-group mt-4 mb-4" style="padding: 10px 0 !important; margin: 0 important; font-size:medium; font-weight:500">
+            <span style="font-size: small;">In progress</span>
+            <ul class="list-group mt-4 mb-4" style="padding: 5px 0 !important; margin: 0 important; font-size:medium; font-weight:600">
                 <li class="list-group-item" style="padding-left: 0 !important; border: none !important;">
                     <a href="application-step0.php" class="<?= $page["id"] == 0 ? "active" : "" ?>">Use of Information</a>
                 </li>
@@ -24,7 +24,9 @@
                     <a href="application-step5.php" class="<?= $page["id"] == 5 ? "active" : "" ?>">Declaration</a>
                 </li>
             </ul>
-            <span>All edit saved!</span>
+            <?php if ($page["id"] >= 0) { ?>
+                <span style="font-size: small;">All progress saved.</span>
+            <?php } ?>
         </fieldset>
     </div>
 </section>

@@ -18,7 +18,7 @@ if (isset($_GET['logout'])) {
 
 $user_id = $_SESSION['ghApplicant'];
 
-$page = array("id" => 3, "name" => "Personal Information");
+$page = array("id" => 3, "name" => "Programmes Information");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -74,18 +74,7 @@ $page = array("id" => 3, "name" => "Personal Information");
     <script src="../js/myjs.js"></script>
     <script>
         $(document).ready(function() {
-            /*getData(document.getElementById("prev-uni-completed-date-month"), 'm');
-            getData(document.getElementById("prev-uni-completed-date-year"), 'y');*/
 
-            $("#appForm").on("submit", function(e) {
-                e.preventDefault();
-                var data = new FormData(this);
-                save(data, 3);
-            });
-
-            $(".prev-uni-rec").on("click", function() {
-                alert("OK")
-            })
         });
     </script>
 </body>

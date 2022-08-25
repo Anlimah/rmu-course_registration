@@ -183,6 +183,7 @@ body {
 	line-height: 1;
 	background-color: #fff !important;
 	color: #282828 !important;
+	font-size: 16px !important;
 }
 
 a {
@@ -358,7 +359,7 @@ label {
 	}
 
 	fieldset legend {
-		font-size: 16px;
+		font-size: 18px;
 	}
 
 	.main-content,

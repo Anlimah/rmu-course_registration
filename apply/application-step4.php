@@ -17,7 +17,7 @@ if (isset($_GET['logout'])) {
 
 $user_id = $_SESSION['ghApplicant'];
 
-$page = array("id" => 4, "name" => "Personal Information");
+$page = array("id" => 4, "name" => "Uploads");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,7 +46,7 @@ $page = array("id" => 4, "name" => "Personal Information");
                 <div class="col-9">
                     <main>
                         <div class="page_info" style="margin-bottom: 30px !important;">
-                            <h1 style="font-size: 40px; padding-bottom: 15px !important">Documents Upload</h1>
+                            <h1 style="font-size: 40px; padding-bottom: 15px !important">Uploads</h1>
                         </div>
 
                         <hr>
