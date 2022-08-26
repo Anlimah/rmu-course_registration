@@ -1,3 +1,15 @@
+<?php
+require_once('../bootstrap.php');
+
+use Src\Controller\UsersController;
+
+use Src\Controller\ExposeDataController;
+
+$data = new ExposeDataController();
+$user = new UsersController();
+
+
+?>
 <form id="appForm" method="POST" style="margin-top: 50px !important;">
     <fieldset class="fieldset">
         <legend>Passport Picture</legend>

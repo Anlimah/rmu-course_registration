@@ -198,7 +198,7 @@ a.active {
 }
 
 a:hover {
-	font-weight: 600 !important;
+	font-weight: bolder !important;
 }
 
 footer {
