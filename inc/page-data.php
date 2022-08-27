@@ -11,7 +11,16 @@ for ($i = 0; $i < $total; $i++) {
     array_push($pages, array("id" => $id, "name" => ""));
 }
 
-print_r($pages);
+
+$page = array(
+    array("id" => 0, "name" => "Use of Information"),
+    array("id" => 1, "name" => "Personal Information"),
+    array("id" => 2, "name" => "Education Background"),
+    array("id" => 3, "name" => "Programmes Information"),
+    array("id" => 4, "name" => "Uploads"),
+    array("id" => 5, "name" => "Declaration"),
+);
+
 
 $countries = array(
     array("name" => "Afghanistan",  "code" => "+93"),
@@ -245,3 +254,6 @@ $countries = array(
     array("name" => "Zambia",  "code" => "+"),
     array("name" => "Zimbabwe", "code" => "+"),
 );
+
+define('COUNTRIES', $countries, true);
+define('PAGES', $pages, true);
