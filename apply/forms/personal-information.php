@@ -1,8 +1,8 @@
 <?php
 
-use Src\Controller\UsersController;
+require_once('../bootstrap.php');
 
-require_once('../src/Controller/UsersController.php');
+use Src\Controller\UsersController;
 
 $user = new UsersController();
 $personal = $user->fetchApplicantPersI($user_id);
@@ -222,7 +222,7 @@ $personal = $user->fetchApplicantPersI($user_id);
             <div class="mb-4">
                 <label class="form-label" for="app-phone-number">Primary Phone Number <span class="input-required">*</span></label>
                 <div style="max-width: 280px !important; display:flex !important; flex-direction:row !important; justify-content: space-between !important">
-                    <select class="form-select form-select-sm" name="gd-country" id="gd-country" style="margin-right: 10px; width: 35%">
+                    <select class="form-select form-select-sm" name="gd-country" id="gd-country" style="margin-right: 10px; width: 30%">
                         <option value="" hidden>Select</option>
                         <option value="Single" selected>+233</option>
                         <option value="Married">+234</option>
@@ -230,13 +230,13 @@ $personal = $user->fetchApplicantPersI($user_id);
                         <option value="Widowed">+236</option>
                         <option value="Separarted">+237</option>
                     </select>
-                    <input class="form-control form-control-sm" style="width: 65%" type="text" name="app-phone-number" id="app-phone-number" value="<?= $personal[0]["phone_no1"] ?>">
+                    <input class="form-control form-control-sm" style="width: 70%" type="text" name="app-phone-number" id="app-phone-number" value="<?= $personal[0]["phone_no1"] ?>">
                 </div>
             </div>
             <div class="mb-4">
                 <label class="form-label" for="app-other-number"> Other Phone Number <span>(Optional)</span></label>
                 <div style="max-width: 280px !important; display:flex !important; flex-direction:row !important; justify-content: space-between !important">
-                    <select class="form-select form-select-sm" name="gd-country" id="gd-country" style="margin-right: 10px; width: 35%">
+                    <select class="form-select form-select-sm" name="gd-country" id="gd-country" style="margin-right: 10px; width: 30%">
                         <option value="" hidden>Select</option>
                         <option value="Single" selected>+233</option>
                         <option value="Married">+234</option>
@@ -244,7 +244,7 @@ $personal = $user->fetchApplicantPersI($user_id);
                         <option value="Widowed">+236</option>
                         <option value="Separarted">+237</option>
                     </select>
-                    <input class="form-control form-control-sm" style="width: 65%" type="text" name="app-other-number" id="app-other-number" value="<?= $personal[0]["phone_no2"] ?>">
+                    <input class="form-control form-control-sm" style="width: 70%" type="text" name="app-other-number" id="app-other-number" value="<?= $personal[0]["phone_no2"] ?>">
                 </div>
             </div>
             <div class="mb-4">
@@ -288,7 +288,7 @@ $personal = $user->fetchApplicantPersI($user_id);
             <div class="mb-4">
                 <label class="form-label" for="gd-phone-number">Phone Number <span class="input-required">*</span></label>
                 <div style="max-width: 280px !important; display:flex !important; flex-direction:row !important; justify-content: space-between !important">
-                    <select class="form-select form-select-sm" name="gd-country" id="gd-country" style="margin-right: 10px; width: 35%">
+                    <select class="form-select form-select-sm" name="gd-country" id="gd-country" style="margin-right: 10px; width: 30%">
                         <option value="" hidden>Select</option>
                         <option value="Single" selected>+233</option>
                         <option value="Married">+234</option>
@@ -296,7 +296,7 @@ $personal = $user->fetchApplicantPersI($user_id);
                         <option value="Widowed">+236</option>
                         <option value="Separarted">+237</option>
                     </select>
-                    <input class="form-control form-select-sm" style="width: 65%" type="tel" name="gd-phone-number" id="phone-number" value="<?= $personal[0]["p_phone_no"] ?>">
+                    <input class="form-control form-select-sm" style="width: 70%" type="tel" name="gd-phone-number" id="phone-number" value="<?= $personal[0]["p_phone_no"] ?>">
                 </div>
             </div>
             <div class="mb-4">
