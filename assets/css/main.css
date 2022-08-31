@@ -254,6 +254,7 @@ header {
 	width: 100% !important;
 	background-color: #fff !important;
 	border: none !important;
+	z-index: 9 !important;
 }
 
 .top-nav-bar {
