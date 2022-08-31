@@ -254,7 +254,6 @@ header {
 	width: 100% !important;
 	background-color: #fff !important;
 	border: none !important;
-	z-index: 9999 !important;
 }
 
 .top-nav-bar {
@@ -341,7 +340,7 @@ label {
 	justify-content: space-between;
 }
 
-.fieldset>.field-content {
+.fieldset > .field-content {
 	float: left !important;
 	padding: 0;
 }
@@ -392,7 +391,6 @@ fieldset legend {
 }
 
 @media only screen and (max-width: 768px) {
-
 	/* For mobile phones: */
 	main {
 		padding-left: 15px !important;
@@ -437,13 +435,13 @@ fieldset legend {
 		padding: 0 110px !important;
 	}
 
-	fieldset>.field-header {
+	fieldset > .field-header {
 		width: 100% !important;
 		max-width: 250px !important;
 		margin-right: 15px;
 	}
 
-	fieldset>.field-content {
+	fieldset > .field-content {
 		width: 100% !important;
 		margin-left: 15px;
 	}
