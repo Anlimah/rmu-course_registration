@@ -34,7 +34,7 @@ if (!isset($_SESSION["_start"])) {
 
 <body>
 
-    <header class="container-fluid index-page card">
+    <header class="container-fluid index-page">
     </header>
     <div class="main-content">
         <div class="container-fluid" style="margin-bottom: 100px;">

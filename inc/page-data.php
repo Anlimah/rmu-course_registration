@@ -273,12 +273,12 @@ $countries = array(
 define('COUNTRIES', $countries, true);
 define('PAGES', $pages, true);
 
-function countries($key, $countries)
+function countries($key)
 {
     if ($key) {
-        for ($i = 0; $i < count($countries); $i++) {
-            if ($key == $countries[$i]["name"]) return json_encode($countries[$i]);
+        for ($i = 0; $i < count(COUNTRIES); $i++) {
+            if ($key == COUNTRIES[$i]["name"]) return json_encode(COUNTRIES[$i]);
         }
     }
-    return $countries;
+    return COUNTRIES;
 }

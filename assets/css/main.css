@@ -210,20 +210,25 @@ footer {
 	color: #fff;
 	z-index: 10;
 }
+
 .footer ul {
 	text-align: center;
 }
+
 .footer ul li {
 	display: inline-block;
 	margin: 0 4px;
 }
+
 .footer a {
 	color: #fff;
 }
+
 .footer ul li::after {
 	margin-left: 4px;
 	content: "|";
 }
+
 .footer ul li:last-child::after {
 	content: "";
 }
@@ -247,7 +252,6 @@ header {
 .top-nav-bar,
 .index-page {
 	width: 100% !important;
-	height: 100px !important;
 	background-color: #fff !important;
 	border: none !important;
 	z-index: 9999 !important;
@@ -337,7 +341,7 @@ label {
 	justify-content: space-between;
 }
 
-.fieldset > .field-content {
+.fieldset>.field-content {
 	float: left !important;
 	padding: 0;
 }
@@ -357,6 +361,7 @@ fieldset legend {
 .form-btn-login {
 	padding: 12px !important;
 }
+
 .form-btn-login {
 	max-width: 280px !important;
 	min-width: 280px !important;
@@ -387,6 +392,7 @@ fieldset legend {
 }
 
 @media only screen and (max-width: 768px) {
+
 	/* For mobile phones: */
 	main {
 		padding-left: 15px !important;
@@ -431,13 +437,13 @@ fieldset legend {
 		padding: 0 110px !important;
 	}
 
-	fieldset > .field-header {
+	fieldset>.field-header {
 		width: 100% !important;
 		max-width: 250px !important;
 		margin-right: 15px;
 	}
 
-	fieldset > .field-content {
+	fieldset>.field-content {
 		width: 100% !important;
 		margin-left: 15px;
 	}
