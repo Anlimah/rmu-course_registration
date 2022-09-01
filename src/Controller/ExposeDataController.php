@@ -2,8 +2,6 @@
 
 namespace Src\Controller;
 
-require_once('../bootstrap.php');
-
 use Twilio\Rest\Client;
 use Src\System\DatabaseMethods;
 

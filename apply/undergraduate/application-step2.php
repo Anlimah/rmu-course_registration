@@ -2,24 +2,23 @@
 session_start();
 if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
     if (!(isset($_SESSION["ghApplicant"]) && !empty($_SESSION['ghApplicant']))) {
-        header('Location: index.php?status=error&message=Invalid access!');
+        header('Location: ../index.php?status=error&message=Invalid access!');
     }
 } else {
-    header('Location: index.php?status=error&message=Invalid access!');
+    header('Location: ../index.php?status=error&message=Invalid access!');
 }
 
 if (isset($_GET['logout'])) {
     unset($_SESSION['ghAppLogin']);
     unset($_SESSION['ghApplicant']);
     session_destroy();
-    header('Location: index.php');
+    header('Location: ../index.php');
 }
 
 $user_id = $_SESSION['ghApplicant'];
 
-$page = array("id" => 0, "name" => "Use of Information");
+$page = array("id" => 2, "name" => "Education Background");
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,8 +27,8 @@ $page = array("id" => 0, "name" => "Use of Information");
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../assets/css/main.css">
-    <!--<link rel="stylesheet" href="../assets/css/bootstrap.css">-->
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="stylesheet" href="../../assets/css/bootstrap.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
@@ -38,19 +37,8 @@ $page = array("id" => 0, "name" => "Use of Information");
 </head>
 
 <body>
-    <header class="top-nav-bar card">
-        <div class="logo-board"></div>
-        <div class="info-card">
-            <div>Application Sections</div>
-            <div>
-                <a href="?logout=true" style="color: #fff !important">Logout</a>
-            </div>
-        </div>
-    </header>
 
-    <nav>
-
-    </nav>
+    <?php require_once("../../inc/top-page-section.php") ?>
 
     <div class="main-content">
         <div class="container">
@@ -58,39 +46,62 @@ $page = array("id" => 0, "name" => "Use of Information");
                 <div class="col-9">
                     <main>
                         <div class="page_info" style="margin-bottom: 30px !important;">
-                            <h1 style="font-size: 40px; padding-bottom: 15px !important">Use of Information</h1>
+                            <h1 style="font-size: 40px; padding-bottom: 15px !important">Education Background</h1>
                         </div>
 
                         <hr>
 
-                        <fieldset class="fieldset">
-                            <legend>Use of Information Agreement</legend>
-                        </fieldset>
+                        <!-- Page form -->
+                        <?php require_once("forms/education-background.php") ?>
 
                         <!-- Bottom page navigation -->
-                        <?php require_once("../inc/bottom-page-section.php"); ?>
+                        <?php require_once("../../inc/bottom-page-section.php"); ?>
 
                     </main>
                 </div>
 
                 <!-- Right page navigation and help div -->
-                <?php require_once("../inc/right-page-section.php"); ?>
+                <?php require_once("../../inc/right-page-section.php"); ?>
 
             </div>
         </div>
-
-        <?php require_once('../inc/page-footer.php') ?>
+        <?php require_once('../../inc/app-page-footer.php') ?>
     </div>
 
-    <script src="../js/jquery-3.6.0.min.js"></script>
-    <script src="../js/myjs.js"></script>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <!--<script src="../../js/myjs.js"></script>-->
     <script>
         $(document).ready(function() {
+
+            $(".prev-uni-rec").click(function() {
+                if ($('#prev-uni-rec-yes').is(':checked')) {
+                    $("#prev-uni-yes").removeClass("yes-disability");
+                } else if ($('#prev-uni-rec-yes').is(':checked')) {
+                    $("#prev-uni-yes").addClass("yes-disability");
+                }
+            });
+
+            $(".form-select").change("blur", function() {
+                $.ajax({
+                    type: "PUT",
+                    url: "../../api/education",
+                    data: {
+                        what: this.name,
+                        value: this.value,
+                    },
+                    success: function(result) {
+                        console.log(result);
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            });
 
             $(".form-control").on("blur", function() {
                 $.ajax({
                     type: "PUT",
-                    url: "../api/personal",
+                    url: "../../api/education",
                     data: {
                         what: this.name,
                         value: this.value,

@@ -260,14 +260,28 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 				$app_number = "RMU-" . $user->validateInput($_POST["app_number"]);
 				$pin_code = $user->validateInput($_POST["pin_code"]);
 
-				$user_id = $user->verifyLoginDetails($app_number, $pin_code);
+				$result = $user->verifyLoginDetails($app_number, $pin_code);
 
-				if (!$user_id) {
+				if (!$result) {
 					die(json_encode(array("response" => "error", "msg" => "Incorrect application number or PIN! " . $user_id)));
 				} else {
-					$_SESSION['ghApplicant'] = $user_id;
+					$_SESSION['ghApplicant'] = $result["id"];
 					$_SESSION['ghAppLogin'] = true;
-					echo json_encode(array("response" => "success", "msg" => "Login successfull!"));
+					$type = "";
+
+					switch ($result["type"]) {
+						case 1:
+							$type = 'postgraduate';
+							break;
+						case 2:
+							$type = 'undergraduate';
+							break;
+
+						default:
+							$type = 'none';
+							break;
+					}
+					echo json_encode(array("response" => "success", "msg" => $type));
 				}
 			}
 		} else {

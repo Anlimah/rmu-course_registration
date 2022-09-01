@@ -1,4 +1,4 @@
-<footer class="footer container-fluid" style="bottom: 0; position:relative; margin-top: 12%">
+<footer class="footer">
     <ul>
         <li>
             <a href="/" target="_blank">Privacy</a>

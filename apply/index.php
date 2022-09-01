@@ -66,7 +66,7 @@ if (!isset($_SESSION["_start"])) {
                         <input type="hidden" name="_logToken" value="<?= $_SESSION['_start'] ?>">
                     </form>
 
-                    <fieldset class="fieldset" style="display: flex; flex-direction: column; align-items:center; max-width: 270px; min-width: 270px;">
+                    <fieldset class="fieldset" style="display: flex !important; flex-direction: column !important; align-items:center !important; max-width: 280px !important; min-width: 280px !important; font-size: 14px">
                         <legend style="width:100%; text-align: center;">Need Help?</legend>
                         <p style="width: 100%;">
                             <span class="bi bi-telephone-fill"></span>
@@ -77,6 +77,7 @@ if (!isset($_SESSION["_start"])) {
                             <a href="mailto:university.registrar@rmu.edu.gh">university.registrar@rmu.edu.gh</a>
                         </p>
                     </fieldset>
+
                 </section>
 
             </div>
@@ -123,7 +124,7 @@ if (!isset($_SESSION["_start"])) {
                     success: function(result) {
                         console.log(result);
                         if (result['response'] == 'success') {
-                            window.location.href = 'application-step1.php';
+                            window.location.href = result['msg'] + '/welcome.php';
                         }
                     },
                     error: function(error) {}

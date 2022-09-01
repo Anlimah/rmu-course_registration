@@ -2,8 +2,6 @@
 
 namespace Src\Controller;
 
-require_once('../bootstrap.php');
-
 use Twilio\Rest\Client;
 
 use Src\System\DatabaseMethods;
@@ -82,13 +80,20 @@ class UsersController extends DatabaseMethods
 
     public function verifyLoginDetails($app_number, $pin)
     {
-        $sql = "SELECT `pin`, `id` FROM `applicants_login` WHERE `app_number` = :a";
+        $sql = "SELECT `pin`, `id`, `purchase_id` FROM `applicants_login` WHERE `app_number` = :a";
         $data = $this->getData($sql, array(':a' => sha1($app_number)));
 
         if ($data) {
             if (!empty($data[0]["pin"])) {
                 if (password_verify($pin, $data[0]["pin"])) {
-                    return $data[0]["id"];
+
+                    // Get application form type
+                    $sql2 = "SELECT `form_type` FROM `purchase_detail` WHERE `id` = :a";
+                    $data2 = $this->getData($sql2, array(':a' => $data[0]["purchase_id"]));
+
+                    if ($data2) {
+                        return array("id" => $data[0]["id"], "type" => $data2[0]["form_type"]);
+                    }
                 }
             }
         }
