@@ -55,10 +55,6 @@ $app_type = $user->getApplicationType($user_id);
                                     </select>
                                 </div>
                                 <div class="mb-4">
-                                    <label class="form-label" for="index-number">Index Number <span class="input-required">*</span></label>
-                                    <input class="form-control" type="text" name="index-number1" id="index-number1" placeholder="Index Number">
-                                </div>
-                                <div class="mb-4">
                                     <label class="form-label" for="completion-date">Date Started <span class="input-required">*</span></label>
                                     <div style="max-width: 280px !important; display:flex; flex-direction:row; justify-content: space-between">
                                         <select class="form-select form-select-sm mb-3" style="margin-right: 10px;" name="month-completed1" id="month-completed1" class="form-select form-select-lg mb-3">

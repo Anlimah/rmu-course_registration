@@ -24,9 +24,11 @@ class ExposeDataController
         return $this->dm->getData("SELECT * FROM `payment_method`");
     }
 
-    public function getPrograms()
+    public function getPrograms($type)
     {
-        return $this->dm->getData("SELECT * FROM `programs`");
+        $sql = "SELECT * FROM `programs` WHERE `type` = :t";
+        $param = array(":t" => $type);
+        return $this->dm->getData($sql, $param);
     }
 
     public function getHalls()
