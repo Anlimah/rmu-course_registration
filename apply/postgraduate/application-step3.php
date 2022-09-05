@@ -40,6 +40,23 @@ $page = array("id" => 3, "name" => "Programmes Information");
     <script>
         $(document).ready(function() {
 
+            if ($("#how-heard-about").is(":selected")) {
+                $("#other-heard").addClass("display");
+            }
+
+            $("#hear-about-prog").on("change", function() {
+                if (this.value == "Other") {
+                    $("#other-heard").addClass("display");
+                } else {
+                    $("#other-heard").removeClass("display");
+                    $("#other-heard").addClass("hide");
+                }
+
+            })
+
+            if ($("#earn-grad-deg-yes").is(":checked")) {
+                alert("")
+            }
         });
     </script>
 </body>

@@ -23,7 +23,7 @@ $personal_PU = $user->fetchApplicantPreUni($user_id);
                 <select class="form-select form-select-sm mb-3" name="app-prog-first" id="app-prog-first">
                     <option hidden>Choose </option>
                     <?php
-                    $programs = $data->getPrograms();
+                    $programs = $data->getPrograms(2);
                     foreach ($programs as $program) {
                         if ($personal_AB[0]["first_prog"] == $program['id']) {
                             echo '<option value="' . $program['id'] . '" selected>' . $program['name'] . '</option>';
@@ -38,7 +38,7 @@ $personal_PU = $user->fetchApplicantPreUni($user_id);
                 <select class="form-select form-select-sm mb-3" name="app-prog-second" id="app-prog-second">
                     <option hidden>Choose </option>
                     <?php
-                    $programs = $data->getPrograms();
+                    $programs = $data->getPrograms(2);
                     foreach ($programs as $program) {
                         if ($personal_AB[0]["second_prog"] == $program['id']) {
                             echo '<option value="' . $program['id'] . '" selected>' . $program['name'] . '</option>';

@@ -11,7 +11,7 @@ for ($i = 0; $i < $total; $i++) {
     array_push($pages, array("id" => $id, "name" => ""));
 }*/
 
-$page = array(
+$pages = array(
     array("id" => 0, "name" => "Use of Information"),
     array("id" => 1, "name" => "Personal Information"),
     array("id" => 2, "name" => "Education Background"),
@@ -270,8 +270,8 @@ $countries = array(
 );
 
 
-define('COUNTRIES', $countries, true);
-define('PAGES', $pages, true);
+define('COUNTRIES', $countries);
+define('PAGES', $pages);
 
 function countries($country)
 {

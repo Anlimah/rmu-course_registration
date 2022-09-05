@@ -165,6 +165,9 @@ strong {
 .hide {
 	display: none !important;
 }
+.display {
+	display: block !important;
+}
 
 body,
 html {

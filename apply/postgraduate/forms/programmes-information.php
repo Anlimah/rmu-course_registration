@@ -35,6 +35,26 @@ $personal_PU = $user->fetchApplicantPreUni($user_id);
                 </select>
             </div>
             <div class="mb-4">
+                <label class="form-label" for="hear-about-prog">How did you hear about this program? <span class="input-required">*</span></label>
+                <select class="form-select form-select-sm mb-3" name="hear-about-prog" id="hear-about-prog">
+                    <option hidden>Choose </option>
+                    <optionvalue="Recruiter">Recruiter</option>
+                        <option value="Internet">Internet</option>
+                        <option value="School Counselor">School Counselor</option>
+                        <option value="Magasine">Magazine</option>
+                        <option value="School Faculty Member">School Faculty Member</option>
+                        <option value="Poster">Poster</option>
+                        <option value="RMU Student">RMU Student</option>
+                        <option value="RMU Brochure">RMU Brochure</option>
+                        <option value="Family Member">Family Member</option>
+                        <option id="how-heard-about" value="Other" selected>Other</option>
+                </select>
+                <div class="mt-4 hide" id="other-heard">
+                    <label class="form-label" for="other-hear-about-prog">From which source did you hear about this program? <span class="input-required">*</span></label>
+                    <input type="text" class="form-control form-control-sm" id="other-hear-about-prog">
+                </div>
+            </div>
+            <div class="mb-4">
                 <label class="form-label" for="disability">Have you previously been enrolled as an undergraduate at RMU? <span class="input-required">*</span></label>
                 <div>
                     <label class="form-label radio-btn" for="was-undergrad-yes">
@@ -55,7 +75,8 @@ $personal_PU = $user->fetchApplicantPreUni($user_id);
                         <input style="margin: 0 !important; padding: 0 !important;" class="english-native form-radio" type="radio" name="earn-grad-deg" id="earn-grad-deg-no" value="0" <?= 0 == 0 ? "checked" : "" ?>> NO
                     </label>
                 </div>
-
+                <div class="mt">
+                </div>
             </div>
         </div>
     </fieldset>
