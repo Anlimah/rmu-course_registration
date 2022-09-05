@@ -110,15 +110,15 @@ $personal = $user->fetchApplicantPersI($user_id);
                 </div>
                 <div class="mb-4">
                     <label class="form-label" for="disability">Any Disability <span class="input-required">*</span></label>
-                    <label class="form-check-label" for="disability-yes">
-                        <input class="disability form-radio" style="margin-left: 20px;" type="radio" name="disability" id="disability-yes" value="1" <?= $personal[0]["disability"] == 1 ? "checked" : "" ?>> Yes
+                    <label class="form-label radio-btn" for="disability-yes">
+                        <input class="disability form-radio" style="margin: 0 !important; padding: 0 !important;" type="radio" name="disability" id="disability-yes" value="1" <?= $personal[0]["disability"] == 1 ? "checked" : "" ?>> Yes
                     </label>
-                    <label class="form-check-label" for="disability-no">
-                        <input class="disability form-radio" style="margin-left: 20px;" type="radio" name="disability" id="disability-no" value="0" <?= $personal[0]["disability"] == 0 ? "checked" : "" ?>> No
+                    <label class="form-label radio-btn" for="disability-no">
+                        <input class="disability form-radio" style="margin: 0 !important; padding: 0 !important;" type="radio" name="disability" id="disability-no" value="0" <?= $personal[0]["disability"] == 0 ? "checked" : "" ?>> No
                     </label>
                 </div>
                 <div class="mb-4 yes-disability" id="disability-list">
-                    <label class="form-label" for="disability">Select Disability <span class="input-required">*</span></label>
+                    <label class="form-label" for="disability-descript">Select Disability <span class="input-required">*</span></label>
                     <select class="form-select form-select-sm mb-3" name="disability-descript" id="disability-descript">
                         <option value="" hidden>Select</option>
                     </select>
@@ -168,13 +168,13 @@ $personal = $user->fetchApplicantPersI($user_id);
 
             <div class="mb-4 not-english-native" id="english-native-list">
                 <label class="form-label" for="english-native">Do you understand and speak some english? <span class="input-required">*</span></label>
-                <label for="english-native-yes">
-                    <input class="" style="margin-left: 20px;" type="radio" name="und-speak-english" id="und-speak-english-yes" value="Yes" <?= $personal[0]["english_native"] == 1 ? "checked" : "" ?>> Yes
+                <label class="form-label radio-btn" for="und-speak-english-yes">
+                    <input class="" style="margin: 0 !important; padding: 0 !important;" type="radio" name="und-speak-english" id="und-speak-english-yes" value="Yes" <?= $personal[0]["english_native"] == 1 ? "checked" : "" ?>> Yes
                 </label>
-                <label for="english-native-no">
-                    <input class="" style="margin-left: 20px;" type="radio" name="und-speak-english" id="und-speak-english-no" value="No" <?= $personal[0]["english_native"] == 0 ? "checked" : "" ?>> No
+                <label class="form-label radio-btn" for="und-speak-english-no">
+                    <input class="" style="margin: 0 !important; padding: 0 !important;" type="radio" name="und-speak-english" id="und-speak-english-no" value="No" <?= $personal[0]["english_native"] == 0 ? "checked" : "" ?>> No
                 </label>
-                <div class="mb-4">
+                <div class="mt-4">
                     <label class="form-label" for="language-spoken">Speicfy Language</label>
                     <select class="form-select form-select-sm mb-3" name="language-spoken" id="language-spoken">
                         <option value="" hidden>Select</option>
@@ -254,7 +254,7 @@ $personal = $user->fetchApplicantPersI($user_id);
         </div>
     </fieldset>
 
-    <fieldset class="fieldset">
+    <!--<fieldset class="fieldset">
         <div class="field-header">
             <legend>Parent / Guardian Information</legend>
         </div>
@@ -304,6 +304,6 @@ $personal = $user->fetchApplicantPersI($user_id);
                 <input class="form-control" type="email" name="gd-email-address" id="gd-email-address" value="<?= $personal[0]["p_email_addr"] ?>">
             </div>
         </div>
-    </fieldset>
+    </fieldset>-->
 
 </form>

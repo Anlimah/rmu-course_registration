@@ -12,7 +12,7 @@ if (isset($_SESSION['step5Done']) && $_SESSION['step5Done'] == true) {
     header('Location: purchase_step5.php');
 }
 
-require_once("../src/Controller/ExposeDataController.php");
+require_once('../bootstrap.php');
 $expose = new ExposeDataController();
 
 ?>
