@@ -11,14 +11,41 @@ for ($i = 0; $i < $total; $i++) {
     array_push($pages, array("id" => $id, "name" => ""));
 }*/
 
-$pages = array(
+$months = array(
+    array("name" => "January", "abbr" => "Jan"),
+    array("name" => "February", "abbr" => "Feb"),
+    array("name" => "March", "abbr" => "Mar"),
+    array("name" => "April", "abbr" => "Apr"),
+    array("name" => "May", "abbr" => "May"),
+    array("name" => "June", "abbr" => "Jun"),
+    array("name" => "July", "abbr" => "Jul"),
+    array("name" => "August", "abbr" => "Aug"),
+    array("name" => "September", "abbr" => "Sep"),
+    array("name" => "October", "abbr" => "Oct"),
+    array("name" => "November", "abbr" => "Nov"),
+    array("name" => "December", "abbr" => "Dec"),
+);
+
+$years = array(
+    "year" => 2022, "year" => 2021, "year" => 2020, "year" => 2019,
+    "year" => 2018, "year" => 2017, "year" => 2016, "year" => 2015,
+    "year" => 2014, "year" => 2013, "year" => 2012, "year" => 2011,
+    "year" => 2010, "year" => 2009, "year" => 2008, "year" => 2007,
+    "year" => 2006, "year" => 2005, "year" => 2004, "year" => 2003,
+    "year" => 2002, "year" => 2001, "year" => 2000, "year" => 1999,
+    "year" => 1998, "year" => 1997, "year" => 1996,
+);
+
+/*$pages = array(
     array("id" => 0, "name" => "Use of Information"),
     array("id" => 1, "name" => "Personal Information"),
     array("id" => 2, "name" => "Education Background"),
     array("id" => 3, "name" => "Programmes Information"),
     array("id" => 4, "name" => "Uploads"),
     array("id" => 5, "name" => "Declaration"),
-);
+);*/
+
+$schools = array();
 
 $countries = array(
     array("name" => "Afghanistan",  "code" => "+93"),
@@ -269,9 +296,9 @@ $countries = array(
     array("name" => "Zimbabwe", "code" => "+263"),
 );
 
-
+define('MONTHS', $months);
 define('COUNTRIES', $countries);
-define('PAGES', $pages);
+//define('PAGES', $pages);
 
 function countries($country)
 {

@@ -52,10 +52,12 @@ $page = array("id" => 2, "name" => "Education Background");
                         <hr>
 
                         <!-- Page form -->
-                        <?php require_once("forms/education-background.php") ?>
+                        <form id="appForm" method="#" style="margin-top: 50px !important;">
+                            <?php require_once("forms/education-background.php") ?>
 
-                        <!-- Bottom page navigation -->
-                        <?php require_once("../../inc/bottom-page-section.php"); ?>
+                            <!-- Bottom page navigation -->
+                            <?php require_once("../../inc/bottom-page-section.php"); ?>
+                        </form>
 
                     </main>
                 </div>

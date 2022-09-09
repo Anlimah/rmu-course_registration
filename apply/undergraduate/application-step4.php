@@ -52,10 +52,12 @@ $page = array("id" => 4, "name" => "Uploads");
                         <hr>
 
                         <!-- Page form -->
-                        <?php require_once("forms/documents-upload.php") ?>
+                        <form id="appForm" method="POST" style="margin-top: 50px !important;">
+                            <?php require_once("forms/documents-upload.php") ?>
 
-                        <!-- Bottom page navigation -->
-                        <?php require_once("../../inc/bottom-page-section.php"); ?>
+                            <!-- Bottom page navigation -->
+                            <?php require_once("../../inc/bottom-page-section.php"); ?>
+                        </form>
 
                     </main>
                 </div>

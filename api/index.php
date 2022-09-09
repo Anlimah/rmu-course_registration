@@ -304,7 +304,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	if ($_GET["url"] == "personal") {
 
 		$what = $_PUT["what"];
-		$value = $_PUT['value'];
+		$value = strtoupper($user->validateInput($_PUT['value']));
 
 		if (isset($what) && !empty($what)) {
 			$column = str_replace("-", "_", $what);
@@ -331,6 +331,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 				} else if ($value == "No") {
 					$value = 0;
 				}
+			}
+			if ($column == "language_spoken") {
+				$column = 'other_language';
 			}
 
 			//Address

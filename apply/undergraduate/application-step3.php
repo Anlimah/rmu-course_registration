@@ -52,10 +52,13 @@ $page = array("id" => 3, "name" => "Programmes Information");
                         <hr>
 
                         <!-- Page form -->
-                        <?php require_once("forms/programmes-information.php") ?>
+                        <form id="appForm" method="POST" style="margin-top: 50px !important;">
+                            <?php require_once("forms/programmes-information.php") ?>
 
-                        <!-- Bottom page navigation -->
-                        <?php require_once("../../inc/bottom-page-section.php"); ?>
+                            <!-- Bottom page navigation -->
+                            <?php require_once("../../inc/bottom-page-section.php"); ?>
+                        </form>
+
 
                     </main>
                 </div>

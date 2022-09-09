@@ -52,10 +52,12 @@ $page = array("id" => 5, "name" => "Declaration");
                         <hr>
 
                         <!-- Page form -->
-                        <?php require_once("forms/declaration.php") ?>
+                        <form id="appForm" method="POST" style="margin-top: 50px !important;">
+                            <?php require_once("forms/declaration.php") ?>
 
-                        <!-- Bottom page navigation -->
-                        <?php require_once("../../inc/bottom-page-section.php"); ?>
+                            <!-- Bottom page navigation -->
+                            <?php require_once("../../inc/bottom-page-section.php"); ?>
+                        </form>
 
                     </main>
                 </div>

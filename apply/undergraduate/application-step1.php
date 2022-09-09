@@ -52,10 +52,12 @@ $page = array("id" => 1, "name" => "Personal Information");
                         <hr>
 
                         <!-- Page form -->
-                        <?php require_once("forms/personal-information.php") ?>
+                        <form id="appForm" method="POST" style="margin-top: 50px !important;">
+                            <?php require_once("forms/personal-information.php") ?>
 
-                        <!-- Bottom page navigation -->
-                        <?php require_once("../../inc/bottom-page-section.php"); ?>
+                            <!-- Bottom page navigation -->
+                            <?php require_once("../../inc/bottom-page-section.php"); ?>
+                        </form>
 
                     </main>
                 </div>
@@ -72,12 +74,6 @@ $page = array("id" => 1, "name" => "Personal Information");
     <script src="../../js/myjs.js"></script>
     <script>
         $(document).ready(function() {
-            getData(document.getElementById("nationality"), 'c');
-            getData(document.getElementById("country-res"), 'c');
-            //getData(document.getElementById("postal-country"), 'c');
-            getData(document.getElementById("country-birth"), 'c');
-            getData(document.getElementById("address-country"), 'c');
-            //getData(document.getElementById("region"), 'r');
 
             $(".disability").click(function() {
                 if ($('#disability-yes').is(':checked')) {
