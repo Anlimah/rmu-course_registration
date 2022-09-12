@@ -91,6 +91,10 @@ $page = array("id" => 1, "name" => "Personal Information");
                 }
             });
 
+            $(".country-code").on(":change", function() {
+                $(this).find("option:selected").text("+" + $(this).find("option:selected").text().match(/(\d+)/g));
+            })
+
             $(".form-select").change("blur", function() {
                 $.ajax({
                     type: "PUT",

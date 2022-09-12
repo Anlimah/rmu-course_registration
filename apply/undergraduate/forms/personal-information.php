@@ -257,11 +257,11 @@ require_once('../../inc/page-data.php');
         <div class="mb-4">
             <label class="form-label" for="app-phone-number">Primary Phone Number <span class="input-required">*</span></label>
             <div style="max-width: 280px !important; display:flex !important; flex-direction:row !important; justify-content: space-between !important">
-                <select class="form-select form-select-sm" name="gd-country" id="gd-country" style="margin-right: 10px; width: 30%">
+                <select class="form-select form-select-sm  country-code" name="app-phone-number-code" id="app-phone-number-code" style="margin-right: 10px; width: 30%">
                     <option value="" hidden>Select</option>
                     <?php
                     foreach (COUNTRIES as $cn) {
-                        echo '<option value="' . $cn["code"] . '">' . $cn["code"] . '</option>';
+                        echo '<option value="' . $cn["code"] . '">' . $cn["name"] . ' (' . $cn["code"] . ')</option>';
                     }
                     ?>
                 </select>
@@ -271,11 +271,11 @@ require_once('../../inc/page-data.php');
         <div class="mb-4">
             <label class="form-label" for="app-other-number"> Other Phone Number <span>(Optional)</span></label>
             <div style="max-width: 280px !important; display:flex !important; flex-direction:row !important; justify-content: space-between !important">
-                <select class="form-select form-select-sm" name="gd-country" id="gd-country" style="margin-right: 10px; width: 30%">
+                <select class="form-select form-select-sm  country-code" name="app-other-number-code" id="app-other-number-code" style="margin-right: 10px; width: 30%">
                     <option value="" hidden>Select</option>
                     <?php
                     foreach (COUNTRIES as $cn) {
-                        echo '<option value="' . $cn["code"] . '">' . $cn["code"] . '</option>';
+                        echo '<option value="' . $cn["code"] . '">' . $cn["name"] . ' (' . $cn["code"] . ')</option>';
                     }
                     ?>
                 </select>
@@ -323,15 +323,15 @@ require_once('../../inc/page-data.php');
         <div class="mb-4">
             <label class="form-label" for="gd-phone-number">Phone Number <span class="input-required">*</span></label>
             <div style="max-width: 280px !important; display:flex !important; flex-direction:row !important; justify-content: space-between !important">
-                <select class="form-select form-select-sm" name="gd-country" id="gd-country" style="margin-right: 10px; width: 30%">
+                <select class="form-select form-select-sm country-code" name="gd-phone-number-code" id="gd-phone-number-code" style="margin-right: 10px; width: 30%">
                     <option value="" hidden>Select</option>
                     <?php
                     foreach (COUNTRIES as $cn) {
-                        echo '<option value="' . $cn["code"] . '">' . $cn["code"] . '</option>';
+                        echo '<option value="' . $cn["code"] . '">' . $cn["name"] . ' (' . $cn["code"] . ')</option>';
                     }
                     ?>
                 </select>
-                <input class="form-control form-select-sm" style="width: 70%" type="tel" name="gd-phone-number" id="phone-number" value="<?= $personal[0]["p_phone_no"] ?>">
+                <input class="form-control form-select-sm" style="width: 70%" type="tel" name="gd-phone-number" id="gd-phone-number" value="<?= $personal[0]["p_phone_no"] ?>">
             </div>
         </div>
         <div class="mb-4">
