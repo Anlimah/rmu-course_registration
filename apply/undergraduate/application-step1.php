@@ -77,17 +77,17 @@ $page = array("id" => 1, "name" => "Personal Information");
 
             $(".disability").click(function() {
                 if ($('#disability-yes').is(':checked')) {
-                    $("#disability-list").removeClass("yes-disability");
+                    $("#disability-list").removeClass("hide");
                 } else if ($('#disability-no').is(':checked')) {
-                    $("#disability-list").addClass("yes-disability");
+                    $("#disability-list").addClass("hide");
                 }
             });
 
             $(".english-native").click(function() {
                 if ($('#english-native-yes').is(':checked')) {
-                    $("#english-native-list").addClass("not-english-native");
+                    $("#english-native-list").addClass("hide");
                 } else if ($('#english-native-no').is(':checked')) {
-                    $("#english-native-list").removeClass("not-english-native");
+                    $("#english-native-list").removeClass("hide");
                 }
             });
 
@@ -112,7 +112,25 @@ $page = array("id" => 1, "name" => "Personal Information");
                 });
             });
 
-            $(".form-control, .form-radio").on("blur", function() {
+            $(".form-control").on("blur", function() {
+                $.ajax({
+                    type: "PUT",
+                    url: "../../api/personal",
+                    data: {
+                        what: this.name,
+                        value: this.value,
+                    },
+                    success: function(result) {
+                        console.log(result);
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+
+            });
+
+            $(".form-radio").on("click", function() {
                 $.ajax({
                     type: "PUT",
                     url: "../../api/personal",

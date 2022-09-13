@@ -37,8 +37,8 @@ require_once('../../inc/page-data.php');
                 <input class="form-control" type="text" name="first-name" id="first-name" value="<?= $personal[0]["first_name"] ?>">
             </div>
             <div class="mb-4">
-                <label class="form-label" for="middle-name">Middle Names <span>(Optional)</span></label>
-                <input class="form-control" type="text" name="middle-name" id="middle-nams" value="<?= $personal[0]["middle_name"] ?>">
+                <label class="form-label" for="middle-name">Middle Name <span>(Optional)</span></label>
+                <input class="form-control" type="text" name="middle-name" id="middle-names" value="<?= $personal[0]["middle_name"] ?>">
             </div>
             <div class="mb-4">
                 <label class="form-label" for="last-name">Surname<span class="input-required">*</span></label>
@@ -99,7 +99,7 @@ require_once('../../inc/page-data.php');
             </div>
             <div class="mb-4">
                 <label class="form-label" for="nationality">Nationality <span class="input-required">*</span></label>
-                <input class="form-control form-control-sm mb-3" list="nationality-list" name="nationality" id="nationality">
+                <input class="form-control form-control-sm mb-3" list="nationality-list" name="nationality" id="nationality" value="<?= $personal[0]["nationality"] ?>">
                 <datalist id="nationality-list">
                     <?php
                     foreach (COUNTRIES as $cn) {
@@ -110,8 +110,8 @@ require_once('../../inc/page-data.php');
             </div>
             <div class="mb-4">
                 <label class="form-label" for="country-res">Country of Residence <span class="input-required">*</span></label>
-                <input class="form-control form-control-sm mb-3" list="country-res-list" name="country-res" id="country-res">
-                <datalist id="country-res-list">
+                <input class="form-control form-control-sm mb-3" list="country-res-list" name="country-res" id="country-res" value="<?= $personal[0]["country_res"] ?>">
+                <datalist id=" country-res-list">
                     <?php
                     foreach (COUNTRIES as $cn) {
                         echo '<option value="' . $cn["name"] . '">';
@@ -120,15 +120,15 @@ require_once('../../inc/page-data.php');
                 </datalist>
             </div>
             <div class="mb-4">
-                <label class="form-label" for="disability">Any Disability <span class="input-required">*</span></label>
-                <label class="form-check-label" for="disability-yes">
-                    <input class="disability form-radio" style="margin-left: 20px;" type="radio" name="disability" id="disability-yes" value="1" <?= $personal[0]["disability"] == 1 ? "checked" : "" ?>> Yes
+                <label class="form-label">Any Disability <span class="input-required">*</span></label>
+                <label class="form-label radio-btn" for="disability-yes">
+                    <input class="disability form-radio" style="margin: 0 !important; padding: 0 !important;" type="radio" name="disability" id="disability-yes" value="1" <?= $personal[0]["disability"] == 1 ? "checked" : "" ?>> Yes
                 </label>
-                <label class="form-check-label" for="disability-no">
-                    <input class="disability form-radio" style="margin-left: 20px;" type="radio" name="disability" id="disability-no" value="0" <?= $personal[0]["disability"] == 0 ? "checked" : "" ?>> No
+                <label class="form-label radio-btn" for="disability-no">
+                    <input class="disability form-radio" style="margin: 0 !important; padding: 0 !important;" type="radio" name="disability" id="disability-no" value="0" <?= $personal[0]["disability"] == 0 ? "checked" : "" ?>> No
                 </label>
             </div>
-            <div class="mb-4 yes-disability" id="disability-list">
+            <div class="mb-4 <?= $personal[0]["disability"] ? "" : "hide" ?>" id="disability-list">
                 <label class="form-label" for="disability">Select Disability <span class="input-required">*</span></label>
                 <select class="form-select form-select-sm mb-3" name="disability-descript" id="disability-descript">
                     <option value="" hidden>Select</option>
@@ -145,7 +145,7 @@ require_once('../../inc/page-data.php');
     <div class="field-content">
         <div class="mb-4">
             <label for="country-birth" class="form-label">Country of Birth <span class="input-required">*</span></label>
-            <input class="form-control form-control-sm mb-3" list="country-birth-list" name="country-birth" id="country-birth">
+            <input class="form-control form-control-sm mb-3" list="country-birth-list" name="country-birth" id="country-birth" value="<?= $personal[0]["country_birth"] ?>">
             <datalist id="country-birth-list">
                 <?php
                 foreach (COUNTRIES as $cn) {
@@ -156,7 +156,7 @@ require_once('../../inc/page-data.php');
         </div>
         <div class="mb-4">
             <label class="form-label" for="region-birth">State / Province / Region <span>(Optional)</span></label>
-            <input class="form-control form-control-sm mb-3" list="region-birth-list" name="region-birth" id="country-birth">
+            <input class="form-control form-control-sm mb-3" list="region-birth-list" name="region-birth" id="country-birth" value="<?= $personal[0]["spr_birth"] ?>">
             <datalist id="region-birth-list">
                 <?php
                 foreach (COUNTRIES as $cn) {
@@ -187,7 +187,7 @@ require_once('../../inc/page-data.php');
             </label>
         </div>
 
-        <div class="mt-3 not-english-native" id="english-native-list">
+        <div class="mt-3 hide" id="english-native-list">
             <label class="form-label" for="english-native">Do you understand and speak some english? <span class="input-required">*</span></label>
             <label for="speak-some-eng-yes" class="form-label radio-btn">
                 <input class="english-native form-radio" style="margin: 0 !important; padding: 0 !important;" type="radio" name="speak-some-eng" id="speak-some-eng-yes" value="Yes" <?= $personal[0]["english_native"] == 1 ? "checked" : "" ?>> Yes

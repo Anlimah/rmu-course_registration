@@ -109,7 +109,7 @@ $personal = $user->fetchApplicantPersI($user_id);
                     </select>
                 </div>
                 <div class="mb-4">
-                    <label class="form-label" for="disability">Any Disability <span class="input-required">*</span></label>
+                    <label class="form-label">Any Disability <span class="input-required">*</span></label>
                     <label class="form-label radio-btn" for="disability-yes">
                         <input class="disability form-radio" style="margin: 0 !important; padding: 0 !important;" type="radio" name="disability" id="disability-yes" value="1" <?= $personal[0]["disability"] == 1 ? "checked" : "" ?>> Yes
                     </label>
@@ -117,7 +117,7 @@ $personal = $user->fetchApplicantPersI($user_id);
                         <input class="disability form-radio" style="margin: 0 !important; padding: 0 !important;" type="radio" name="disability" id="disability-no" value="0" <?= $personal[0]["disability"] == 0 ? "checked" : "" ?>> No
                     </label>
                 </div>
-                <div class="mb-4 yes-disability" id="disability-list">
+                <div class="mb-4 hide" id="disability-list">
                     <label class="form-label" for="disability-descript">Select Disability <span class="input-required">*</span></label>
                     <select class="form-select form-select-sm mb-3" name="disability-descript" id="disability-descript">
                         <option value="" hidden>Select</option>
@@ -166,7 +166,7 @@ $personal = $user->fetchApplicantPersI($user_id);
                 </label>
             </div>
 
-            <div class="mb-4 not-english-native" id="english-native-list">
+            <div class="mb-4 hide" id="english-native-list">
                 <label class="form-label" for="english-native">Do you understand and speak some english? <span class="input-required">*</span></label>
                 <label class="form-label radio-btn" for="und-speak-english-yes">
                     <input class="" style="margin: 0 !important; padding: 0 !important;" type="radio" name="und-speak-english" id="und-speak-english-yes" value="Yes" <?= $personal[0]["english_native"] == 1 ? "checked" : "" ?>> Yes
@@ -253,57 +253,5 @@ $personal = $user->fetchApplicantPersI($user_id);
             </div>
         </div>
     </fieldset>
-
-    <!--<fieldset class="fieldset">
-        <div class="field-header">
-            <legend>Parent / Guardian Information</legend>
-        </div>
-        <div class="field-content">
-            <div class="mb-4">
-                <label class="form-label" for="gd-prefix">Prefix <span class="input-required">*</span></label>
-                <select class="form-select form-select-sm mb-3" name="gd-prefix" id="gd-prefix">
-                    <option value="" hidden>Select</option>
-                    <option value="Mr." <?= $personal[0]["p_prefix"] == "Mr." ? "selected" : "" ?>>Mr.</option>
-                    <option value="Mrs." <?= $personal[0]["p_prefix"] == "Mrs." ? "selected" : "" ?>>Mrs.</option>
-                    <option value="Ms." <?= $personal[0]["p_prefix"] == "Ms." ? "selected" : "" ?>>Ms.</option>
-                    <option value="Prof. Dr." <?= $personal[0]["p_prefix"] == "Prof. Dr." ? "selected" : "" ?>>Prof. Dr.</option>
-                    <option value="Prof." <?= $personal[0]["p_prefix"] == "Prof." ? "selected" : "" ?>>Prof.</option>
-                    <option value="Rev." <?= $personal[0]["p_prefix"] == "Rev." ? "selected" : "" ?>>Rev.</option>
-                    <option value="Rev. Dr." <?= $personal[0]["p_prefix"] == "Rev. Dr." ? "selected" : "" ?>>Rev. Dr.</option>
-                    <option value="Rev. Sis." <?= $personal[0]["p_prefix"] == "Rev. Sis." ? "selected" : "" ?>>Rev. Sis.</option>
-                </select>
-            </div>
-            <div class="mb-4">
-                <label class="form-label" for="gd-surname">Surname <span class="input-required">*</span></label>
-                <input class="form-control" type="text" name="gd-surname" id="gd-surname" value="<?= $personal[0]["p_last_name"] ?>">
-            </div>
-            <div class="mb-4">
-                <label class="form-label" for="gd-first-name">First Name <span class="input-required">*</span></label>
-                <input class="form-control" type="text" name="gd-first-name" id="gd-first-name" value="<?= $personal[0]["p_first_name"] ?>">
-            </div>
-            <div class="mb-4">
-                <label class="form-label" for="gd-occupation">Occupation <span class="input-required">*</span></label>
-                <input class="form-control" type="text" name="gd-occupation" id="gd-occupation" value="<?= $personal[0]["p_occupation"] ?>">
-            </div>
-            <div class="mb-4">
-                <label class="form-label" for="gd-phone-number">Phone Number <span class="input-required">*</span></label>
-                <div style="max-width: 280px !important; display:flex !important; flex-direction:row !important; justify-content: space-between !important">
-                    <select class="form-select form-select-sm" name="gd-country" id="gd-country" style="margin-right: 10px; width: 30%">
-                        <option value="" hidden>Select</option>
-                        <option value="Single" selected>+233</option>
-                        <option value="Married">+234</option>
-                        <option value="Divorced">+235</option>
-                        <option value="Widowed">+236</option>
-                        <option value="Separarted">+237</option>
-                    </select>
-                    <input class="form-control form-select-sm" style="width: 70%" type="tel" name="gd-phone-number" id="phone-number" value="<?= $personal[0]["p_phone_no"] ?>">
-                </div>
-            </div>
-            <div class="mb-4">
-                <label class="form-label" for="gd-email-address">Email Address</label>
-                <input class="form-control" type="email" name="gd-email-address" id="gd-email-address" value="<?= $personal[0]["p_email_addr"] ?>">
-            </div>
-        </div>
-    </fieldset>-->
 
 </form>
