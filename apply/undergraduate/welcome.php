@@ -57,9 +57,9 @@ $page = array("id" => -1, "name" => "Personal Information");
                                     This is your dedicated application space. All of your progress will be saved automatically as you go, making it easy for you to access and update it as needed. You can return to your application to make changes to sections that have been saved or begin work on new sections.
                                     For applicants applying for posgraduate programmes or degree programs with diploma certificates, you may need to request transcripts from any colleges you’ve attended, as well as letters of recommendation from professional and/or academic references. Please note that these materials take time to process and should be requested as soon as possible.
                                 </p>
-                                <div class="fieldset" style="display: flex; flex-direction:column; justify-content:space-between;padding-bottom: 0 !important;margin-bottom: 0 !important">
-                                    <h2 style="font-weight: 700; font-size:14px; margin-bottom: 20px">Having trouble? Contact Regional Maritime University, admissions.</h2>
-                                    <p style="display: flex; flex-direction:column; justify-content:space-between;">
+                                <div class="fieldset" style="display: flex !important; flex-direction:column !important; justify-content:space-between;padding-bottom: 0 !important;margin-bottom: 0 !important">
+                                    <h2 style="font-weight: 700; font-size:16px; margin-bottom: 20px">Having trouble? Contact Regional Maritime University, admissions.</h2>
+                                    <p style="display: flex !important; flex-direction:column !important; justify-content:space-between;">
 
                                         <a href="mailto:university.registrar@rmu.edu.gh">
                                             <span class="bi bi-envelope-fill"> university.registrar@rmu.edu.gh</span>

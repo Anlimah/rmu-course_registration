@@ -128,7 +128,7 @@ require_once('../../inc/page-data.php');
                     <input class="disability form-radio" style="margin: 0 !important; padding: 0 !important;" type="radio" name="disability" id="disability-no" value="0" <?= $personal[0]["disability"] == 0 ? "checked" : "" ?>> No
                 </label>
             </div>
-            <div class="mb-4 <?= $personal[0]["disability"] ? "" : "hide" ?>" id="disability-list">
+            <div class="mb-4 <?= $personal[0]["disability"] == 1 ? "" : "hide" ?>" id="disability-list">
                 <label class="form-label" for="disability">Select Disability <span class="input-required">*</span></label>
                 <select class="form-select form-select-sm mb-3" name="disability-descript" id="disability-descript">
                     <option value="" hidden>Select</option>
