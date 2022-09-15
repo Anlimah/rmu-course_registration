@@ -6,7 +6,6 @@ use Src\Controller\UsersController;
 
 $user = new UsersController();
 $personal = $user->fetchApplicantPersI($user_id);
-
 require_once('../../inc/page-data.php');
 
 ?>
@@ -22,14 +21,14 @@ require_once('../../inc/page-data.php');
                 <label class="form-label" for="prefix">Prefix <span class="input-required">*</span></label>
                 <select class="form-select form-select-sm mb-3" name="prefix" id="prefix">
                     <option value="" hidden>Select</option>
-                    <option value="Mr." <?= $personal[0]["prefix"] == "Mr." ? "selected" : "" ?>>Mr.</option>
-                    <option value="Mrs." <?= $personal[0]["prefix"] == "Mrs." ? "selected" : "" ?>>Mrs.</option>
-                    <option value="Ms." <?= $personal[0]["prefix"] == "Ms." ? "selected" : "" ?>>Ms.</option>
-                    <option value="Prof. Dr." <?= $personal[0]["prefix"] == "Prof. Dr." ? "selected" : "" ?>>Prof. Dr.</option>
-                    <option value="Prof." <?= $personal[0]["prefix"] == "Prof." ? "selected" : "" ?>>Prof.</option>
-                    <option value="Rev." <?= $personal[0]["prefix"] == "Rev." ? "selected" : "" ?>>Rev.</option>
-                    <option value="Rev. Dr." <?= $personal[0]["prefix"] == "Rev. Dr." ? "selected" : "" ?>>Rev. Dr.</option>
-                    <option value="Rev. Sis." <?= $personal[0]["prefix"] == "Rev. Sis." ? "selected" : "" ?>>Rev. Sis.</option>
+                    <option value="Mr." <?= $personal[0]["prefix"] == strtoupper("Mr.") ? "selected" : "" ?>>Mr.</option>
+                    <option value="Mrs." <?= $personal[0]["prefix"] == strtoupper("Mrs.") ? "selected" : "" ?>>Mrs.</option>
+                    <option value="Ms." <?= $personal[0]["prefix"] == strtoupper("Ms.") ? "selected" : "" ?>>Ms.</option>
+                    <option value="Prof. Dr." <?= $personal[0]["prefix"] == strtoupper("Prof. Dr.") ? "selected" : "" ?>>Prof. Dr.</option>
+                    <option value="Prof." <?= $personal[0]["prefix"] == strtoupper("Prof.") ? "selected" : "" ?>>Prof.</option>
+                    <option value="Rev." <?= $personal[0]["prefix"] == strtoupper("Rev.") ? "selected" : "" ?>>Rev.</option>
+                    <option value="Rev. Dr." <?= $personal[0]["prefix"] == strtoupper("Rev. Dr.") ? "selected" : "" ?>>Rev. Dr.</option>
+                    <option value="Rev. Sis." <?= $personal[0]["prefix"] == strtoupper("Rev. Sis.") ? "selected" : "" ?>>Rev. Sis.</option>
                 </select>
             </div>
             <div class="mb-4">
@@ -48,20 +47,20 @@ require_once('../../inc/page-data.php');
                 <label class="form-label" for="suffix">Suffix <span>(Optional)</span></label>
                 <select class="form-select form-select-sm mb-3" name="suffix" id="suffix">
                     <option value="" hidden>Select</option>
-                    <option value="Jr." <?= $personal[0]["suffix"] == "Jr." ? "selected" : "" ?>>Jr.</option>
-                    <option value="Sr." <?= $personal[0]["suffix"] == "Sr." ? "selected" : "" ?>>Sr.</option>
-                    <option value="I" <?= $personal[0]["suffix"] == "I" ? "selected" : "" ?>>I</option>
-                    <option value="II" <?= $personal[0]["suffix"] == "II" ? "selected" : "" ?>>II</option>
-                    <option value="III" <?= $personal[0]["suffix"] == "III" ? "selected" : "" ?>>III</option>
-                    <option value="IV" <?= $personal[0]["suffix"] == "IV" ? "selected" : "" ?>>IV</option>
-                    <option value="V" <?= $personal[0]["suffix"] == "V" ? "selected" : "" ?>>V</option>
-                    <option value="J.D." <?= $personal[0]["suffix"] == "J.D." ? "selected" : "" ?>>J.D.</option>
-                    <option value="Esq" <?= $personal[0]["suffix"] == "Esq" ? "selected" : "" ?>>Esq</option>
-                    <option value="M.D." <?= $personal[0]["suffix"] == "M.D." ? "selected" : "" ?>>M.D.</option>
-                    <option value="O.F.M." <?= $personal[0]["suffix"] == "O.F.M." ? "selected" : "" ?>>O.F.M.</option>
-                    <option value="O.P." <?= $personal[0]["suffix"] == "O.P." ? "selected" : "" ?>>O.P.</option>
-                    <option value="Ph.D." <?= $personal[0]["suffix"] == "Ph.D." ? "selected" : "" ?>>Ph.D.</option>
-                    <option value="S.J." <?= $personal[0]["suffix"] == "S.J." ? "selected" : "" ?>>S.J.</option>
+                    <option value="Jr." <?= $personal[0]["suffix"] == strtoupper("Jr.") ? "selected" : "" ?>>Jr.</option>
+                    <option value="Sr." <?= $personal[0]["suffix"] == strtoupper("Sr.") ? "selected" : "" ?>>Sr.</option>
+                    <option value="I" <?= $personal[0]["suffix"] == strtoupper("I") ? "selected" : "" ?>>I</option>
+                    <option value="II" <?= $personal[0]["suffix"] == strtoupper("II") ? "selected" : "" ?>>II</option>
+                    <option value="III" <?= $personal[0]["suffix"] == strtoupper("III") ? "selected" : "" ?>>III</option>
+                    <option value="IV" <?= $personal[0]["suffix"] == strtoupper("IV") ? "selected" : "" ?>>IV</option>
+                    <option value="V" <?= $personal[0]["suffix"] == strtoupper("V") ? "selected" : "" ?>>V</option>
+                    <option value="J.D." <?= $personal[0]["suffix"] == strtoupper("J.D.") ? "selected" : "" ?>>J.D.</option>
+                    <option value="Esq" <?= $personal[0]["suffix"] == strtoupper("Esq") ? "selected" : "" ?>>Esq</option>
+                    <option value="M.D." <?= $personal[0]["suffix"] == strtoupper("M.D.") ? "selected" : "" ?>>M.D.</option>
+                    <option value="O.F.M." <?= $personal[0]["suffix"] == strtoupper("O.F.M.") ? "selected" : "" ?>>O.F.M.</option>
+                    <option value="O.P." <?= $personal[0]["suffix"] == strtoupper("O.P.") ? "selected" : "" ?>>O.P.</option>
+                    <option value="Ph.D." <?= $personal[0]["suffix"] == strtoupper("Ph.D.") ? "selected" : "" ?>>Ph.D.</option>
+                    <option value="S.J." <?= $personal[0]["suffix"] == strtoupper("S.J.") ? "selected" : "" ?>>S.J.</option>
                 </select>
             </div>
         </div>
@@ -78,8 +77,8 @@ require_once('../../inc/page-data.php');
                 <label class="form-label" for="gender">Gender <span class="input-required">*</span></label>
                 <select class="form-select form-select-sm mb-3" name="gender" id="gender">
                     <option value="" hidden>Select</option>
-                    <option value="Male" <?= $personal[0]["gender"] == "Male" ? "selected" : "" ?>>Male</option>
-                    <option value="Female" <?= $personal[0]["gender"] == "Female" ? "selected" : "" ?>>Female</option>
+                    <option value="Male" <?= $personal[0]["gender"] == strtoupper("Male") ? "selected" : "" ?>>Male</option>
+                    <option value="Female" <?= $personal[0]["gender"] == strtoupper("Female") ? "selected" : "" ?>>Female</option>
                 </select>
             </div>
             <div class="mb-4">
@@ -90,11 +89,11 @@ require_once('../../inc/page-data.php');
                 <label class="form-label" for="marital-status">Marital Status <span class="input-required">*</span></label>
                 <select class="form-select form-select-sm mb-3" name="marital-status" id="marital-status">
                     <option value="" hidden>Select</option>
-                    <option value="Single" <?= $personal[0]["marital_status"] == "Single" ? "selected" : "" ?>>Single</option>
-                    <option value="Married" <?= $personal[0]["marital_status"] == "Married" ? "selected" : "" ?>>Married</option>
-                    <option value="Divorced" <?= $personal[0]["marital_status"] == "Divorced" ? "selected" : "" ?>>Divorced</option>
-                    <option value="Widowed" <?= $personal[0]["marital_status"] == "Widowed" ? "selected" : "" ?>>Widowed</option>
-                    <option value="Separarted" <?= $personal[0]["marital_status"] == "Separarted" ? "selected" : "" ?>>Separated</option>
+                    <option value="Single" <?= $personal[0]["marital_status"] == strtoupper("Single") ? "selected" : "" ?>>Single</option>
+                    <option value="Married" <?= $personal[0]["marital_status"] == strtoupper("Married") ? "selected" : "" ?>>Married</option>
+                    <option value="Divorced" <?= $personal[0]["marital_status"] == strtoupper("Divorced") ? "selected" : "" ?>>Divorced</option>
+                    <option value="Widowed" <?= $personal[0]["marital_status"] == strtoupper("Widowed") ? "selected" : "" ?>>Widowed</option>
+                    <option value="Separarted" <?= $personal[0]["marital_status"] == strtoupper("Separarted") ? "selected" : "" ?>>Separated</option>
                 </select>
             </div>
             <div class="mb-4">
@@ -199,15 +198,15 @@ require_once('../../inc/page-data.php');
                 <label class="form-label" for="language-spoken">Speicfy Language</label>
                 <select class="form-select form-select-sm mb-3" name="language-spoken" id="language-spoken">
                     <option value="" hidden>Select</option>
-                    <option value="Arabic" <?= $personal[0]["other_language"] == "Arabic" ? "selected" : "" ?>>Arabic</option>
-                    <option value="Bengali" <?= $personal[0]["other_language"] == "Bengali" ? "selected" : "" ?>>Bengali</option>
-                    <option value="French" <?= $personal[0]["other_language"] == "French" ? "selected" : "" ?>>French</option>
-                    <option value="Hindi" <?= $personal[0]["other_language"] == "Hindi" ? "selected" : "" ?>>Hindi</option>
-                    <option value="Indonesian" <?= $personal[0]["other_language"] == "Indonesian" ? "selected" : "" ?>>Indonesian</option>
-                    <option value="Mandarin" <?= $personal[0]["other_language"] == "Mandarin" ? "selected" : "" ?>>Mandarin</option>
-                    <option value="Portuguese" <?= $personal[0]["other_language"] == "Portuguese" ? "selected" : "" ?>>Portuguese</option>
-                    <option value="Russian" <?= $personal[0]["other_language"] == "Russian" ? "selected" : "" ?>>Russian</option>
-                    <option value="Spanish" <?= $personal[0]["other_language"] == "Spanish" ? "selected" : "" ?>>Spanish</option>
+                    <option value="Arabic" <?= $personal[0]["other_language"] == strtoupper("Arabic") ? "selected" : "" ?>>Arabic</option>
+                    <option value="Bengali" <?= $personal[0]["other_language"] == strtoupper("Bengali") ? "selected" : "" ?>>Bengali</option>
+                    <option value="French" <?= $personal[0]["other_language"] == strtoupper("French") ? "selected" : "" ?>>French</option>
+                    <option value="Hindi" <?= $personal[0]["other_language"] == strtoupper("Hindi") ? "selected" : "" ?>>Hindi</option>
+                    <option value="Indonesian" <?= $personal[0]["other_language"] == strtoupper("Indonesian") ? "selected" : "" ?>>Indonesian</option>
+                    <option value="Mandarin" <?= $personal[0]["other_language"] == strtoupper("Mandarin") ? "selected" : "" ?>>Mandarin</option>
+                    <option value="Portuguese" <?= $personal[0]["other_language"] == strtoupper("Portuguese") ? "selected" : "" ?>>Portuguese</option>
+                    <option value="Russian" <?= $personal[0]["other_language"] == strtoupper("Russian") ? "selected" : "" ?>>Russian</option>
+                    <option value="Spanish" <?= $personal[0]["other_language"] == strtoupper("Spanish") ? "selected" : "" ?>>Spanish</option>
                 </select>
             </div>
         </div>
@@ -229,7 +228,7 @@ require_once('../../inc/page-data.php');
         </div>
         <div class="mb-4">
             <label class="form-label" for="address-country">Country <span class="input-required">*</span></label>
-            <input class="form-control form-control-sm mb-3" list="address-country-list" name="address-country" id="address-country">
+            <input class="form-control form-control-sm mb-3" list="address-country-list" name="address-country" id="address-country" value="<?= $personal[0]["postal_country"] ?>">
             <datalist id="address-country-list">
                 <?php
                 foreach (COUNTRIES as $cn) {
@@ -257,7 +256,7 @@ require_once('../../inc/page-data.php');
         <div class="mb-4">
             <label class="form-label" for="app-phone-number">Primary Phone Number <span class="input-required">*</span></label>
             <div style="max-width: 280px !important; display:flex !important; flex-direction:row !important; justify-content: space-between !important">
-                <select class="form-select form-select-sm  country-code" name="app-phone-number-code" id="app-phone-number-code" style="margin-right: 10px; width: 30%">
+                <select class="form-select form-select-sm  country-code" name="app-phone-number-code" id="app-phone-number-code" style="margin-right: 10px; width: 45%">
                     <option value="" hidden>Select</option>
                     <?php
                     foreach (COUNTRIES as $cn) {
@@ -271,7 +270,7 @@ require_once('../../inc/page-data.php');
         <div class="mb-4">
             <label class="form-label" for="app-other-number"> Other Phone Number <span>(Optional)</span></label>
             <div style="max-width: 280px !important; display:flex !important; flex-direction:row !important; justify-content: space-between !important">
-                <select class="form-select form-select-sm  country-code" name="app-other-number-code" id="app-other-number-code" style="margin-right: 10px; width: 30%">
+                <select class="form-select form-select-sm  country-code" name="app-other-number-code" id="app-other-number-code" style="margin-right: 10px; width: 45%">
                     <option value="" hidden>Select</option>
                     <?php
                     foreach (COUNTRIES as $cn) {
@@ -298,14 +297,14 @@ require_once('../../inc/page-data.php');
             <label class="form-label" for="gd-prefix">Prefix <span class="input-required">*</span></label>
             <select class="form-select form-select-sm mb-3" name="gd-prefix" id="gd-prefix">
                 <option value="" hidden>Select</option>
-                <option value="Mr." <?= $personal[0]["p_prefix"] == "Mr." ? "selected" : "" ?>>Mr.</option>
-                <option value="Mrs." <?= $personal[0]["p_prefix"] == "Mrs." ? "selected" : "" ?>>Mrs.</option>
-                <option value="Ms." <?= $personal[0]["p_prefix"] == "Ms." ? "selected" : "" ?>>Ms.</option>
-                <option value="Prof. Dr." <?= $personal[0]["p_prefix"] == "Prof. Dr." ? "selected" : "" ?>>Prof. Dr.</option>
-                <option value="Prof." <?= $personal[0]["p_prefix"] == "Prof." ? "selected" : "" ?>>Prof.</option>
-                <option value="Rev." <?= $personal[0]["p_prefix"] == "Rev." ? "selected" : "" ?>>Rev.</option>
-                <option value="Rev. Dr." <?= $personal[0]["p_prefix"] == "Rev. Dr." ? "selected" : "" ?>>Rev. Dr.</option>
-                <option value="Rev. Sis." <?= $personal[0]["p_prefix"] == "Rev. Sis." ? "selected" : "" ?>>Rev. Sis.</option>
+                <option value="Mr." <?= $personal[0]["prefix"] == strtoupper("Mr.") ? "selected" : "" ?>>Mr.</option>
+                <option value="Mrs." <?= $personal[0]["prefix"] == strtoupper("Mrs.") ? "selected" : "" ?>>Mrs.</option>
+                <option value="Ms." <?= $personal[0]["prefix"] == strtoupper("Ms.") ? "selected" : "" ?>>Ms.</option>
+                <option value="Prof. Dr." <?= $personal[0]["prefix"] == strtoupper("Prof. Dr.") ? "selected" : "" ?>>Prof. Dr.</option>
+                <option value="Prof." <?= $personal[0]["prefix"] == strtoupper("Prof.") ? "selected" : "" ?>>Prof.</option>
+                <option value="Rev." <?= $personal[0]["prefix"] == strtoupper("Rev.") ? "selected" : "" ?>>Rev.</option>
+                <option value="Rev. Dr." <?= $personal[0]["prefix"] == strtoupper("Rev. Dr.") ? "selected" : "" ?>>Rev. Dr.</option>
+                <option value="Rev. Sis." <?= $personal[0]["prefix"] == strtoupper("Rev. Sis.") ? "selected" : "" ?>>Rev. Sis.</option>
             </select>
         </div>
         <div class="mb-4">
@@ -323,7 +322,7 @@ require_once('../../inc/page-data.php');
         <div class="mb-4">
             <label class="form-label" for="gd-phone-number">Phone Number <span class="input-required">*</span></label>
             <div style="max-width: 280px !important; display:flex !important; flex-direction:row !important; justify-content: space-between !important">
-                <select class="form-select form-select-sm country-code" name="gd-phone-number-code" id="gd-phone-number-code" style="margin-right: 10px; width: 30%">
+                <select class="form-select form-select-sm country-code" name="gd-phone-number-code" id="gd-phone-number-code" style="margin-right: 10px; width: 45%">
                     <option value="" hidden>Select</option>
                     <?php
                     foreach (COUNTRIES as $cn) {

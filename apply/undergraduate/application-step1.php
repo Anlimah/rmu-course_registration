@@ -52,7 +52,7 @@ $page = array("id" => 1, "name" => "Personal Information");
                         <hr>
 
                         <!-- Page form -->
-                        <form id="appForm" method="POST" style="margin-top: 50px !important;">
+                        <form id="personal-info" method="POST" style="margin-top: 50px !important;">
                             <?php require_once("forms/personal-information.php") ?>
 
                             <!-- Bottom page navigation -->
@@ -127,7 +127,6 @@ $page = array("id" => 1, "name" => "Personal Information");
                         console.log(error);
                     }
                 });
-
             });
 
             $(".form-radio").on("click", function() {
@@ -137,6 +136,25 @@ $page = array("id" => 1, "name" => "Personal Information");
                     data: {
                         what: this.name,
                         value: this.value,
+                    },
+                    success: function(result) {
+                        console.log(result);
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            });
+
+            $("form").on("submit", function(e) {
+                e.preventDefault();
+                let form = $(this).attr("id");
+                $.ajax({
+                    type: "PUT",
+                    url: "../../api/verify",
+                    data: {
+                        what: form,
+                        value: "verify",
                     },
                     success: function(result) {
                         console.log(result);

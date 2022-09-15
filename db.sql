@@ -285,3 +285,40 @@ WHERE `applicants_login`.`purchase_id` = `purchase_detail`.`id` AND `applicants_
 
 
 
+/*
+    Restructuring DB according to sections in and questions
+*/
+
+/* Website Pages */
+DROP TABLE IF EXISTS `web_pages`;
+CREATE TABLE `web_pages` (
+    `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
+    `page_name` VARCHAR(150) NOT NULL UNIQUE
+);
+INSERT INTO `web_pages`(`page_name`) VALUES
+('Use of Information'),('Personal Information'),('Education Background'),('Programme Information'),('Uploads'),('Declaration');
+
+/*Personal Information Page*/
+DROP TABLE IF EXISTS `page_sections`;
+CREATE TABLE `page_sections` (
+    `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
+    `section_name` VARCHAR(150) NOT NULL UNIQUE,
+    `page` INT NOT NULL,   
+    CONSTRAINT `fk_section_page` FOREIGN KEY (`page`) REFERENCES `web_pages`(`id`) ON UPDATE CASCADE
+);
+INSERT INTO `page_sections`(`section_name`, `page`) VALUES
+('Use of Information Agreement', 1),                             
+('Legal Name', 2),('Personal Details', 2),('Place of Birth', 2),('Language', 2),('Address', 2),('Contact', 2),('Parent/Guardian', 2),
+('Education', 3),('Programmes', 4),('Passport Picture', 5),('Certificates', 5),('Transcripts', 5);
+
+/*Personal Information Page*/
+DROP TABLE IF EXISTS `section_questions`;
+CREATE TABLE `section_questions` (
+    `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
+    `section` VARCHAR(150) NOT NULL UNIQUE,
+    `question` VARCHAR(255) NOT NULL,
+    `type` VARCHAR(25);
+    CONSTRAINT `fk_section_page` FOREIGN KEY (`page`) REFERENCES `web_pages`(`id`) ON UPDATE CASCADE
+);
+
+
