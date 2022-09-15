@@ -162,4 +162,8 @@ class UsersController extends DatabaseMethods
         WHERE `applicants_login`.`purchase_id` = `purchase_detail`.`id` AND `applicants_login`.`id` = :a";
         return $this->getData($sql, array(':a' => $user_id));
     }
+
+    public function verify_form($uri)
+    {
+    }
 }

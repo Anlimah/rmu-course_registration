@@ -287,16 +287,27 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		} else {
 			echo 'NO';
 		}
-	} elseif ($_GET["url"] == "save") {
+	} elseif ($_GET["url"] == "verify") {
 		$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 		$uri = explode('/', $uri);
-		if ($uri[4] == 1) {
+
+		switch ($uri[4]) {
+			case 'personal-info':
+				echo json_encode($user->verify_form($uri[4]));
+				break;
+
+			default:
+				echo json_encode(array("response" => "error", "msg" => "Invalid Request!"));
+				break;
+		}
+
+		/*if ($uri[4] == 1) {
 		} elseif ($uri[4] == 2) {
 		} elseif ($uri[4] == 3) {
 		} elseif ($uri[4] == 4) {
 			$message = array("response" => "success");
 			echo json_encode($message);
-		}
+		}*/
 	}
 } else if ($_SERVER['REQUEST_METHOD'] == "PUT") {
 	parse_str(file_get_contents("php://input"), $_PUT);

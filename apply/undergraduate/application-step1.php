@@ -150,12 +150,8 @@ $page = array("id" => 1, "name" => "Personal Information");
                 e.preventDefault();
                 let form = $(this).attr("id");
                 $.ajax({
-                    type: "PUT",
-                    url: "../../api/verify",
-                    data: {
-                        what: form,
-                        value: "verify",
-                    },
+                    type: "POST",
+                    url: "../../api/verify/" + form,
                     success: function(result) {
                         console.log(result);
                     },

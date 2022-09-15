@@ -278,8 +278,6 @@ CREATE TABLE `previous_uni_records` (
     CONSTRAINT `fk_app_prev_uni` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE
 );
 
-
-
 SELECT `purchase_detail`.`form_type` FROM `purchase_detail`, `applicants_login`
 WHERE `applicants_login`.`purchase_id` = `purchase_detail`.`id` AND `applicants_login`.`id` = 1;
 
@@ -293,32 +291,44 @@ WHERE `applicants_login`.`purchase_id` = `purchase_detail`.`id` AND `applicants_
 DROP TABLE IF EXISTS `web_pages`;
 CREATE TABLE `web_pages` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
+    -- `upgid` VARCHAR(255) UNIQUE NOT NULL,
     `page_name` VARCHAR(150) NOT NULL UNIQUE
 );
 INSERT INTO `web_pages`(`page_name`) VALUES
 ('Use of Information'),('Personal Information'),('Education Background'),('Programme Information'),('Uploads'),('Declaration');
 
-/*Personal Information Page*/
+/*Page Sections*/
 DROP TABLE IF EXISTS `page_sections`;
 CREATE TABLE `page_sections` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
-    `section_name` VARCHAR(150) NOT NULL UNIQUE,
+    -- `ustid` VARCHAR(255) UNIQUE NOT NULL,
+    `name` VARCHAR(150) NOT NULL UNIQUE,
+    `description` VARCHAR(255),
     `page` INT NOT NULL,   
-    CONSTRAINT `fk_section_page` FOREIGN KEY (`page`) REFERENCES `web_pages`(`id`) ON UPDATE CASCADE
+    CONSTRAINT `fk_page_section` FOREIGN KEY (`page`) REFERENCES `web_pages`(`id`) ON UPDATE CASCADE
 );
-INSERT INTO `page_sections`(`section_name`, `page`) VALUES
+INSERT INTO `page_sections`(`name`, `page`) VALUES
 ('Use of Information Agreement', 1),                             
 ('Legal Name', 2),('Personal Details', 2),('Place of Birth', 2),('Language', 2),('Address', 2),('Contact', 2),('Parent/Guardian', 2),
 ('Education', 3),('Programmes', 4),('Passport Picture', 5),('Certificates', 5),('Transcripts', 5);
 
-/*Personal Information Page*/
+/*Section Questions*/
 DROP TABLE IF EXISTS `section_questions`;
 CREATE TABLE `section_questions` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
-    `section` VARCHAR(150) NOT NULL UNIQUE,
+    -- `uqtid` VARCHAR(255) UNIQUE NOT NULL,
     `question` VARCHAR(255) NOT NULL,
-    `type` VARCHAR(25);
-    CONSTRAINT `fk_section_page` FOREIGN KEY (`page`) REFERENCES `web_pages`(`id`) ON UPDATE CASCADE
+    `type` VARCHAR(25) NOT NULL DEFAULT 'text', -- text, dropdown, radio, checkbox, date, etc.
+    `place_holder` VARCHAR(25),
+    `required` TINYINT DEFAULT 1,
+
+    `section` INT NOT NULL,
+    CONSTRAINT `fk_section_question` FOREIGN KEY (`section`) REFERENCES `page_sections`(`id`) ON UPDATE CASCADE
 );
+INSERT INTO `section_questions`(`question`, `type`, `place_holder`) VALUES
+('Do you agree to the terms outlined?', 'dropdown', 'Select', 1),                             
+('Legal Name', 2),('Personal Details', 2),('Place of Birth', 2),('Language', 2),('Address', 2),('Contact', 2),('Parent/Guardian', 2),
+('Education', 3),('Programmes', 4),('Passport Picture', 5),('Certificates', 5),('Transcripts', 5);
+
 
 
