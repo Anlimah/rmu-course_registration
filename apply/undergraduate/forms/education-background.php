@@ -19,17 +19,6 @@ require_once('../../inc/page-data.php');
 
     <div class="field-content">
         <div class="mb-4">
-            <label class="form-label" for="cert-type">Mode of application <span class="input-required">*</span></label>
-            <select class="form-select form-select-sm mb-3" name="app-mode" id="app-mode">
-                <option value="" hidden>Examination Type</option>
-                <option value="WASSCE">WASSCE</option>
-                <option value="SSCE">SSCE</option>
-                <option value="DIPLOMA">Diploma</option>
-                <option value="DEGREE">Degree</option>
-            </select>
-        </div>
-
-        <div class="mb-4">
             <label class="form-label" for="cert-type">Education History <span class="input-required">*</span></label>
             <p>
                 Please list all colleges, universities, or other secondary institutions in which you attended classes. If you went to multiple institutions, please enter each separately. </br>
@@ -54,7 +43,7 @@ require_once('../../inc/page-data.php');
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <div id="wassce-ssce" class="steps" style="margin: auto 20%;">
+                        <div id="step-1" class="steps" style="margin: auto 20%;">
                             <div class="mb-4">
                                 <label class="form-label" for="school1">School Name <span class="input-required">*</span></label>
                                 <input class="form-control" type="text" name="school1" id="school1" placeholder="School Name">
@@ -82,6 +71,10 @@ require_once('../../inc/page-data.php');
                                     <option value="DIPLOMA">Diploma</option>
                                     <option value="DEGREE">Degree</option>
                                 </select>
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label" for="index-number">Index Number <span class="input-required">*</span></label>
+                                <input class="form-control" type="text" name="index-number" id="index-number" placeholder="Index Number">
                             </div>
                             <div class="mb-4">
                                 <label class="form-label" for="completion-date">Date Started <span class="input-required">*</span></label>
@@ -188,6 +181,24 @@ require_once('../../inc/page-data.php');
                                         <option value="1990" <?= $data[0]["year_completed"] == "1990" ? "selected" : "" ?>>1990</option>
                                     </select>
                                 </div>
+                            </div>
+                        </div>
+                        <div id="step-3" class="steps hide" style="display:none; margin: auto 20%;">
+                            <div class="mb-4">
+                                <label class="form-label" for="cert-type">Course/Program Studied <span class="input-required">*</span></label>
+                                <select class="form-select form-select-sm mb-3" name="cert-type1" id="cert-type1">
+                                    <option hidden>Select</option>
+                                    <option value="Business">Business</option>
+                                    <option value="General Arts">General Arts</option>
+                                    <option value="General Science">General Science</option>
+                                    <option value="Home Economics">Home Economics</option>
+                                    <option value="Visual Arts">Visual Arts</option>
+                                    <option value="Technical">Technical</option>
+                                </select>
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label" for="school1">School Name <span class="input-required">*</span></label>
+                                <input class="form-control" type="text" name="school1" id="school1" placeholder="School Name">
                             </div>
                         </div>
                     </div>
