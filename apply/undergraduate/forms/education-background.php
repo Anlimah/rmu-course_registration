@@ -9,6 +9,10 @@ $data = $user->fetchApplicantAcaB($user_id);
 $app_type = $user->getApplicationType($user_id);
 
 require_once('../../inc/page-data.php');
+echo count(SHSCOURSES["elective"]);
+/*for ($i = 0; $i < count(SHSCOURSES[0]["core"]); $i++) {
+    echo SHSCOURSES[0]["core"][$i];
+}*/
 
 ?>
 
@@ -138,11 +142,18 @@ require_once('../../inc/page-data.php');
                                 <div style="max-width: 280px !important; display:flex; flex-direction:row; justify-content: space-between">
                                     <select class="form-select form-select-sm" style="margin-right: 10px;" name="month-completed1" id="month-completed1" class="form-select form-select-lg mb-3">
                                         <option hidden>Month</option>
-                                        <?php
-                                        foreach (MONTHS as $month) {
-                                            echo '<option value="' . $month["abbr"] . '" ' . $data[0]["month_completed"] == $month["abbr"] ? "selected" : "" . ' ?>>' . $month["abbr"] . '</option>';
-                                        }
-                                        ?>
+                                        <option value="Jan" <?= $data[0]["month_completed"] == "Jan" ? "selected" : "" ?>>Jan</option>
+                                        <option value="Feb" <?= $data[0]["month_completed"] == "Feb" ? "selected" : "" ?>>Feb</option>
+                                        <option value="Mar" <?= $data[0]["month_completed"] == "Mar" ? "selected" : "" ?>>Mar</option>
+                                        <option value="Apr" <?= $data[0]["month_completed"] == "Apr" ? "selected" : "" ?>>Apr</option>
+                                        <option value="May" <?= $data[0]["month_completed"] == "May" ? "selected" : "" ?>>May</option>
+                                        <option value="Jun" <?= $data[0]["month_completed"] == "Jun" ? "selected" : "" ?>>Jun</option>
+                                        <option value="Jul" <?= $data[0]["month_completed"] == "Jul" ? "selected" : "" ?>>Jul</option>
+                                        <option value="Aug" <?= $data[0]["month_completed"] == "Aug" ? "selected" : "" ?>>Aug</option>
+                                        <option value="Sep" <?= $data[0]["month_completed"] == "Sep" ? "selected" : "" ?>>Sep</option>
+                                        <option value="Oct" <?= $data[0]["month_completed"] == "Oct" ? "selected" : "" ?>>Oct</option>
+                                        <option value="Nov" <?= $data[0]["month_completed"] == "Nov" ? "selected" : "" ?>>Nov</option>
+                                        <option value="Dec" <?= $data[0]["month_completed"] == "Dec" ? "selected" : "" ?>>Dec</option>
                                     </select>
                                     <select class="form-select form-select-sm" name="year-completed1" id="year-completed1" class="yearList">
                                         <option value="" hidden>Year</option>
@@ -185,20 +196,53 @@ require_once('../../inc/page-data.php');
                         </div>
                         <div id="step-3" class="steps hide" style="display:none; margin: auto 20%;">
                             <div class="mb-4">
-                                <label class="form-label" for="cert-type">Course/Program Studied <span class="input-required">*</span></label>
+                                <label class="form-label" for="cert-type">Course/Program of Study <span class="input-required">*</span></label>
                                 <select class="form-select form-select-sm mb-3" name="cert-type1" id="cert-type1">
                                     <option hidden>Select</option>
-                                    <option value="Business">Business</option>
-                                    <option value="General Arts">General Arts</option>
-                                    <option value="General Science">General Science</option>
-                                    <option value="Home Economics">Home Economics</option>
-                                    <option value="Visual Arts">Visual Arts</option>
-                                    <option value="Technical">Technical</option>
+                                    <?php
+                                    for ($i = 0; $i < count(SHSCOURSES["elective"]); $i++) {
+                                        echo '<option value="' . SHSCOURSES["elective"][$i]["name"] . '">' . SHSCOURSES["elective"][$i]["name"] . '</option>';
+                                    }
+                                    ?>
                                 </select>
                             </div>
-                            <div class="mb-4">
-                                <label class="form-label" for="school1">School Name <span class="input-required">*</span></label>
-                                <input class="form-control" type="text" name="school1" id="school1" placeholder="School Name">
+                            <div class="mb-4" id="core-subjects">
+                                <label class="form-label" for="cert-type">Core Subjects <span class="input-required">*</span></label>
+
+                                <?php
+                                for ($i = 0; $i < count(SHSCOURSES["core"]); $i++) {
+                                    echo '
+                                        <div class="mb-2" style="display:flex !important; flex-direction:row !important; justify-content: space-between !important">
+                                            <input style="margin-right: 10px; width: 70%" class="form-control" type="text" name="core-sbj' . ($i + 1) . '" id="core-sbj' . ($i + 1) . '" value="' . SHSCOURSES["core"][$i] . '" disabled>
+                                            <select style="width: 30%" class="form-select form-select-sm" name="cert-type1" id="cert-type1">
+                                                <option hidden>Grade</option>
+                                                <option value="A">A</option>
+                                                <option value="B">B</option>
+                                                <option value="C">C</option>
+                                                <option value="D">D</option>
+                                                <option value="E">E</option>
+                                                <option value="F">F</option>
+                                            </select>
+                                        </div>
+                                    ';
+                                }
+                                ?>
+                            </div>
+                            <div class="mb-4" id="elective-subjects">
+                                <label class="form-label" for="cert-type">Elective Subjects <span class="input-required">*</span></label>
+
+                                <!--<div class="mb-2" style="display:flex !important; flex-direction:row !important; justify-content: space-between !important">
+                                    <input style="margin-right: 10px; width: 70%" class="form-control" type="text" name="elective-sbj' . ($i + 1) . '" id="elective-sbj' . ($i + 1) . '" value="' . SHSCOURSES[" elective"][$i] . '" disabled>
+                                    <select style="width: 30%" class="form-select form-select-sm" name="cert-type1" id="cert-type1">
+                                        <option hidden>Grade</option>
+                                        <option value="A">A</option>
+                                        <option value="B">B</option>
+                                        <option value="C">C</option>
+                                        <option value="D">D</option>
+                                        <option value="E">E</option>
+                                        <option value="F">F</option>
+                                    </select>
+                                </div>-->
                             </div>
                         </div>
                     </div>

@@ -12,40 +12,43 @@ for ($i = 0; $i < $total; $i++) {
 }*/
 
 $shs_courses = array(
-    array(
-        "name" => "BUSINESS",
-        "subjects" => array("ACCOUNTING", "BUSINESS MANAGEMENT", "ECONOMICS", "PRINCIPLE OF COSTING", "ELECTIVE MATHS", "FRENCH")
-    ),
-    array(
-        "name" => "GENERAL ARTS",
-        "subjects" => array("LITERATURE IN ENGLISH", "FRENCH", "ECONOMICS", "GEOGRAPHY", "HISTORY", "GOVERNMENT", "RELIGIOUS STUDIES")
-    ),
-    array(
-        "name" => "GENERAL SCIENCE",
-        "subjects" => array("PHYSICS", "CHEMISTRY", "ELECTIVE MATHS", "BIOLOGY")
-    ),
-    array(
-        "name" => "HOME ECONOMICS",
-        "subjects" => array("MANAGEMENT IN LIVING", "FOOD AND NUTRITION", "GENERAL KNOWLEDGE IN ARTS", "TEXTILE", "FRENCH", "ECONOMICS")
-    ),
-    array(
-        "name" => "VISUAL ARTS",
-        "subjects" => array(
-            "GENERAL KNOWLEDGE IN ARTS", "TEXTILE", "GRAPHIC DESIGN", "LITERATURE IN ENGLISH", "FRENCH",
-            "ECONOMICS", "BASKETRY", "LEATHER WORK", "PICTURE MAKING", "CERAMICS AND SCULPTURE"
-        )
-    ),
-    array(
-        "name" => "Technical",
-        "subjects" => array(
-            "Building Construction Technology", "Carpentry And Joinery", "Catering",
+    "core" => array("CORE MATHEMATICS", "ENGLISH LANGUAGE", "INTEGRATED SCIENCE", "SOCIAL STUDIES"),
+    "elective" => array(
+        array(
+            "name" => "BUSINESS",
+            "subjects" => array("ACCOUNTING", "BUSINESS MANAGEMENT", "ECONOMICS", "PRINCIPLE OF COSTING", "ELECTIVE MATHS", "FRENCH")
+        ),
+        array(
+            "name" => "GENERAL ARTS",
+            "subjects" => array("LITERATURE IN ENGLISH", "FRENCH", "ECONOMICS", "GEOGRAPHY", "HISTORY", "GOVERNMENT", "RELIGIOUS STUDIES")
+        ),
+        array(
+            "name" => "GENERAL SCIENCE",
+            "subjects" => array("PHYSICS", "CHEMISTRY", "ELECTIVE MATHS", "BIOLOGY")
+        ),
+        array(
+            "name" => "HOME ECONOMICS",
+            "subjects" => array("MANAGEMENT IN LIVING", "FOOD AND NUTRITION", "GENERAL KNOWLEDGE IN ARTS", "TEXTILE", "FRENCH", "ECONOMICS")
+        ),
+        array(
+            "name" => "VISUAL ARTS",
+            "subjects" => array(
+                "GENERAL KNOWLEDGE IN ARTS", "TEXTILE", "GRAPHIC DESIGN", "LITERATURE IN ENGLISH", "FRENCH",
+                "ECONOMICS", "BASKETRY", "LEATHER WORK", "PICTURE MAKING", "CERAMICS AND SCULPTURE"
+            )
+        ),
+        array(
+            "name" => "Technical",
+            "subjects" => array(
+                "Building Construction Technology", "Carpentry And Joinery", "Catering",
 
-            "Electrical Installation Work", "Electronics", "Fashion And Design",
+                "Electrical Installation Work", "Electronics", "Fashion And Design",
 
-            "General Textiles", "Industrial Mechanics", "Mechanical Engineering Craft Practice",
+                "General Textiles", "Industrial Mechanics", "Mechanical Engineering Craft Practice",
 
-            "Metal Work", "Photography", "Plumbing Craft", "Printing Craft", "Welding And Fabrication", "Wood Work"
-        )
+                "Metal Work", "Photography", "Plumbing Craft", "Printing Craft", "Welding And Fabrication", "Wood Work"
+            )
+        ),
     ),
 );
 
@@ -336,6 +339,7 @@ $countries = array(
 
 define('MONTHS', $months);
 define('COUNTRIES', $countries);
+define('SHSCOURSES', $shs_courses);
 //define('PAGES', $pages);
 
 function countries($country)

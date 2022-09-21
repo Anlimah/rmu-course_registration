@@ -119,12 +119,12 @@ $page = array("id" => 2, "name" => "Education Background");
             });
 
             let start = 1;
-            let end = 3;
+            let end = 4;
             let next = 1;
 
             $("#nextStep").click(function() {
-                if (start => 1 && start < end) {
-                    next = start + 1;
+                if (start >= 1 && start < end) {
+                    next = next + 1;
                     $(".steps").addClass("hide");
                     $(".steps").removeClass("display");
                     $("#step-" + next).removeClass("hide");
