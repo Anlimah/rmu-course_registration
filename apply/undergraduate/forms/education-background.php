@@ -9,10 +9,10 @@ $data = $user->fetchApplicantAcaB($user_id);
 $app_type = $user->getApplicationType($user_id);
 
 require_once('../../inc/page-data.php');
-echo count(SHSCOURSES["elective"]);
-/*for ($i = 0; $i < count(SHSCOURSES[0]["core"]); $i++) {
-    echo SHSCOURSES[0]["core"][$i];
-}*/
+//echo json_encode(SHSCOURSES["elective"][]);
+for ($i = 0; $i < count(SHSCOURSES["elective"]); $i++) {
+    echo json_encode(SHSCOURSES["elective"][$i]['subjects']);
+}
 
 ?>
 
@@ -196,8 +196,8 @@ echo count(SHSCOURSES["elective"]);
                         </div>
                         <div id="step-3" class="steps hide" style="display:none; margin: auto 20%;">
                             <div class="mb-4">
-                                <label class="form-label" for="cert-type">Course/Program of Study <span class="input-required">*</span></label>
-                                <select class="form-select form-select-sm mb-3" name="cert-type1" id="cert-type1">
+                                <label class="form-label" for="course-program">Course/Program of Study <span class="input-required">*</span></label>
+                                <select class="form-select form-select-sm mb-3" name="course-program" id="course-program">
                                     <option hidden>Select</option>
                                     <?php
                                     for ($i = 0; $i < count(SHSCOURSES["elective"]); $i++) {
@@ -207,14 +207,14 @@ echo count(SHSCOURSES["elective"]);
                                 </select>
                             </div>
                             <div class="mb-4" id="core-subjects">
-                                <label class="form-label" for="cert-type">Core Subjects <span class="input-required">*</span></label>
+                                <label class="form-label">Core Subjects <span class="input-required">*</span></label>
 
                                 <?php
                                 for ($i = 0; $i < count(SHSCOURSES["core"]); $i++) {
                                     echo '
                                         <div class="mb-2" style="display:flex !important; flex-direction:row !important; justify-content: space-between !important">
                                             <input style="margin-right: 10px; width: 70%" class="form-control" type="text" name="core-sbj' . ($i + 1) . '" id="core-sbj' . ($i + 1) . '" value="' . SHSCOURSES["core"][$i] . '" disabled>
-                                            <select style="width: 30%" class="form-select form-select-sm" name="cert-type1" id="cert-type1">
+                                            <select style="width: 30%" class="form-select form-select-sm" name="core-sbj-grd' . ($i + 1) . '" id="core-sbj-grd' . ($i + 1) . '">
                                                 <option hidden>Grade</option>
                                                 <option value="A">A</option>
                                                 <option value="B">B</option>
@@ -230,19 +230,33 @@ echo count(SHSCOURSES["elective"]);
                             </div>
                             <div class="mb-4" id="elective-subjects">
                                 <label class="form-label" for="cert-type">Elective Subjects <span class="input-required">*</span></label>
+                                <?php
+                                for ($i = 0; $i < 4; $i++) {
+                                ?>
+                                    <div class="mb-2" style="display:flex !important; flex-direction:row !important; justify-content: space-between !important">
+                                        <select style="margin-right: 10px; width: 70%" class="form-select form-select-sm" name="cert-type1" id="cert-type1">
+                                            <option hidden>Subject</option>
 
-                                <!--<div class="mb-2" style="display:flex !important; flex-direction:row !important; justify-content: space-between !important">
-                                    <input style="margin-right: 10px; width: 70%" class="form-control" type="text" name="elective-sbj' . ($i + 1) . '" id="elective-sbj' . ($i + 1) . '" value="' . SHSCOURSES[" elective"][$i] . '" disabled>
-                                    <select style="width: 30%" class="form-select form-select-sm" name="cert-type1" id="cert-type1">
-                                        <option hidden>Grade</option>
-                                        <option value="A">A</option>
-                                        <option value="B">B</option>
-                                        <option value="C">C</option>
-                                        <option value="D">D</option>
-                                        <option value="E">E</option>
-                                        <option value="F">F</option>
-                                    </select>
-                                </div>-->
+                                            <?php
+                                            for ($j = 0; $j < count(SHSCOURSES["elective"][0]["subjects"]); $j++) {
+                                                echo '<option value="' . SHSCOURSES["elective"][0]["subjects"][$j] . '">' . SHSCOURSES["elective"][0]["subjects"][$j] . '</option>';
+                                            }
+                                            ?>
+                                        </select>
+                                        <select style="width: 30%" class="form-select form-select-sm" name="cert-type1" id="cert-type1">
+                                            <option hidden>Grade</option>
+                                            <option value="A">A</option>
+                                            <option value="B">B</option>
+                                            <option value="C">C</option>
+                                            <option value="D">D</option>
+                                            <option value="E">E</option>
+                                            <option value="F">F</option>
+                                        </select>
+                                    </div>
+                                <?php
+                                }
+                                ?>
+
                             </div>
                         </div>
                     </div>
