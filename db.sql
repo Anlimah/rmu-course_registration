@@ -295,7 +295,8 @@ CREATE TABLE `web_pages` (
     `page_name` VARCHAR(150) NOT NULL UNIQUE
 );
 INSERT INTO `web_pages`(`page_name`) VALUES
-('Use of Information'),('Personal Information'),('Education Background'),('Programme Information'),('Uploads'),('Declaration');
+('Use of Information'),('Personal Information'),('Education Background'),
+('Programme Information'),('Uploads'),('Declaration');
 
 /*Page Sections*/
 DROP TABLE IF EXISTS `page_sections`;
@@ -309,8 +310,9 @@ CREATE TABLE `page_sections` (
 );
 INSERT INTO `page_sections`(`name`, `page`) VALUES
 ('Use of Information Agreement', 1),                             
-('Legal Name', 2),('Personal Details', 2),('Place of Birth', 2),('Language', 2),('Address', 2),('Contact', 2),('Parent/Guardian', 2),
-('Education', 3),('Programmes', 4),('Passport Picture', 5),('Certificates', 5),('Transcripts', 5);
+('Legal Name', 2),('Personal Details', 2),('Place of Birth', 2),('Language', 2),
+('Address', 2),('Contact', 2),('Parent/Guardian', 2),('Education', 3),
+('Programmes', 4),('Passport Picture', 5),('Certificates', 5),('Transcripts', 5);
 
 /*Section Questions*/
 DROP TABLE IF EXISTS `section_questions`;
@@ -321,7 +323,6 @@ CREATE TABLE `section_questions` (
     `type` VARCHAR(25) NOT NULL DEFAULT 'text', -- text, dropdown, radio, checkbox, date, etc.
     `place_holder` VARCHAR(25),
     `required` TINYINT DEFAULT 1,
-
     `section` INT NOT NULL,
     CONSTRAINT `fk_section_question` FOREIGN KEY (`section`) REFERENCES `page_sections`(`id`) ON UPDATE CASCADE
 );

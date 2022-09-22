@@ -309,6 +309,160 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			echo json_encode($message);
 		}*/
 	}
+	/*
+	adding Education
+	*/
+	if ($_GET["url"] == "addEducation") {
+		$errors = [];
+		$data = [];
+
+		//step 1
+		if (empty($_POST['sch_name'])) {
+			$errors['sch_name'] = 'School Name is required.';
+		}
+
+		if (empty($_POST['sch_country'])) {
+			$errors['sch_country'] = 'School Country is required.';
+		}
+
+		if (empty($_POST['sch_region'])) {
+			$errors['sch_region'] = 'School Province/Region is required.';
+		}
+
+		if (empty($_POST['sch_city'])) {
+			$errors['sch_city'] = 'School City is required.';
+		}
+
+		//step 2
+		if (empty($_POST['cert_type'])) {
+			$errors['cert_type'] = 'Certificate/Degree Earned is required.';
+		}
+
+		if (empty($_POST['index_number'])) {
+			$errors['index_number'] = 'Index Number is required.';
+		}
+
+		if (empty($_POST['month_started']) || $_POST['month_started'] == "Month") {
+			$errors['month_started'] = 'Date is invalid.';
+		}
+
+		if (empty($_POST['year_started']) || $_POST['year_started'] == "Year") {
+			$errors['year_started'] = 'Date is invalid.';
+		}
+
+		if (empty($_POST['month_completed']) || $_POST['month_completed'] == "Month") {
+			$errors['month_completed'] = 'Date is invalid.';
+		}
+
+		if (empty($_POST['year_completed']) || $_POST['year_completed'] == "Year") {
+			$errors['year_completed'] = 'Date is invalid.';
+		}
+
+		//step 3
+		if (empty($_POST['course_studied'])) {
+			$errors['course_studied'] = 'Course/Program of Study is required.';
+		}
+
+		//core subjects
+		if (empty($_POST['core_sbj1'])) {
+			$errors['core_sbj1'] = 'Subject is required.';
+		}
+		if (empty($_POST['core_sbj2'])) {
+			$errors['core_sbj2'] = 'Subject is required.';
+		}
+		if (empty($_POST['core_sbj3'])) {
+			$errors['core_sbj3'] = 'Subject is required.';
+		}
+		if (empty($_POST['core_sbj4'])) {
+			$errors['core_sbj4'] = 'Subject is required.';
+		}
+
+		//core subjects grades
+		if (empty($_POST['core_sbj_grd1']) || $_POST['core_sbj_grd1'] == "Grade") {
+			$errors['core_sbj_grd1'] = 'Subject\'s grade is required.';
+		}
+		if (empty($_POST['core_sbj_grd2']) || $_POST['core_sbj_grd2'] == "Grade") {
+			$errors['core_sbj_grd2'] = 'Subject\'s grade is required.';
+		}
+		if (empty($_POST['core_sbj_grd3']) || $_POST['core_sbj_grd3'] == "Grade") {
+			$errors['core_sbj_grd3'] = 'Subject\'s grade is required.';
+		}
+		if (empty($_POST['core_sbj_grd4']) || $_POST['core_sbj_grd4'] == "Grade") {
+			$errors['core_sbj_grd4'] = 'Subject\'s grade is required.';
+		}
+
+		//elective subjects
+		if (empty($_POST['elective_sbj1'])  || $_POST['elective_sbj1'] == "Subject") {
+			$errors['elective_sbj1'] = 'Subject is required.';
+		}
+		if (empty($_POST['elective_sbj2'])  || $_POST['elective_sbj2'] == "Subject") {
+			$errors['elective_sbj2'] = 'Subject is required.';
+		}
+		if (empty($_POST['elective_sbj3'])  || $_POST['elective_sbj3'] == "Subject") {
+			$errors['elective_sbj3'] = 'Subject is required.';
+		}
+		if (empty($_POST['elective_sbj4'])  || $_POST['elective_sbj4'] == "Subject") {
+			$errors['elective_sbj4'] = 'Subject is required.';
+		}
+
+		//core subjects grades
+		if (empty($_POST['elective_sbj_grd1'])) {
+			$errors['elective_sbj_grd1'] = 'Subject\'s grade is required.';
+		}
+		if (empty($_POST['elective_sbj_grd2'])) {
+			$errors['elective_sbj_grd2'] = 'Subject\'s grade is required.';
+		}
+		if (empty($_POST['elective_sbj_grd3'])) {
+			$errors['elective_sbj_grd3'] = 'Subject\'s grade is required.';
+		}
+		if (empty($_POST['elective_sbj_grd4'])) {
+			$errors['elective_sbj_grd4'] = 'Subject\'s grade is required.';
+		}
+
+		$response = "";
+
+		if (!empty($errors)) {
+			$data['success'] = false;
+			$data['errors'] = $errors;
+		} else {
+			$data['success'] = true;
+			$data['message'] = 'Success!';
+
+			$sch_name = $user->validateInput($_POST["sch_name"]);
+			$sch_country = $user->validateInput($_POST["sch_country"]);
+			$sch_region = $user->validateInput($_POST["sch_region"]);
+			$sch_city = $user->validateInput($_POST["sch_city"]);
+			$cert_type = $user->validateInput($_POST["cert_type"]);
+			$index_number = $user->validateInput($_POST["index_number"]);
+			$month_started = $user->validateInput($_POST["month_started"]);
+			$year_started = $user->validateInput($_POST["year_started"]);
+			$month_completed = $user->validateInput($_POST["month_completed"]);
+			$year_completed = $user->validateInput($_POST["year_completed"]);
+			$course_studied = $user->validateInput($_POST["course_studied"]);
+
+			$core_sbj1 = $user->validateInput($_POST["core_sbj1"]);
+			$core_sbj2 = $user->validateInput($_POST["core_sbj2"]);
+			$core_sbj3 = $user->validateInput($_POST["core_sbj3"]);
+			$core_sbj4 = $user->validateInput($_POST["core_sbj4"]);
+			$core_sbj_grd1 = $user->validateInput($_POST["core_sbj_grd1"]);
+			$core_sbj_grd2 = $user->validateInput($_POST["core_sbj_grd2"]);
+			$core_sbj_grd3 = $user->validateInput($_POST["core_sbj_grd3"]);
+			$core_sbj_grd4 = $user->validateInput($_POST["core_sbj_grd4"]);
+
+			$elective_sbj1 = $user->validateInput($_POST["elective_sbj1"]);
+			$elective_sbj2 = $user->validateInput($_POST["elective_sbj2"]);
+			$elective_sbj3 = $user->validateInput($_POST["elective_sbj3"]);
+			$elective_sbj4 = $user->validateInput($_POST["elective_sbj4"]);
+			$elective_sbj_grd1 = $user->validateInput($_POST["elective_sbj_grd1"]);
+			$elective_sbj_grd2 = $user->validateInput($_POST["elective_sbj_grd2"]);
+			$elective_sbj_grd3 = $user->validateInput($_POST["elective_sbj_grd3"]);
+			$elective_sbj_grd4 = $user->validateInput($_POST["elective_sbj_grd4"]);
+
+			$response = json_encode($user->saveEducation());
+		}
+
+		echo json_encode($data);
+	}
 } else if ($_SERVER['REQUEST_METHOD'] == "PUT") {
 	parse_str(file_get_contents("php://input"), $_PUT);
 

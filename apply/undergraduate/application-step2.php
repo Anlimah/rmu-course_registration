@@ -100,7 +100,7 @@ $page = array("id" => 2, "name" => "Education Background");
                 });
             });
 
-            $(".form-control").on("blur", function() {
+            /*$(".form-control").on("blur", function() {
                 $.ajax({
                     type: "PUT",
                     url: "../../api/education",
@@ -116,22 +116,31 @@ $page = array("id" => 2, "name" => "Education Background");
                     }
                 });
 
-            });
+            });*/
 
             let start = 1;
-            let end = 4;
+            let end = 3;
             let next = 1;
 
             $("#nextStep").click(function() {
-                if (start >= 1 && start < end) {
-                    next = next + 1;
-                    $(".steps").addClass("hide");
-                    $(".steps").removeClass("display");
-                    $("#step-" + next).removeClass("hide");
-                    $("#step-" + next).addClass("display");
-                    $("#prevStep").removeClass("hide");
-                    $("#prevStep").addClass("display");
-                }
+                if (next)
+                    if (start >= 1 && start < end) {
+                        next = next + 1;
+                        $(".steps").addClass("hide");
+                        $(".steps").removeClass("display");
+                        $("#step-" + next).removeClass("hide");
+                        $("#step-" + next).addClass("display");
+                        $("#prevStep").removeClass("hide");
+                        $("#prevStep").addClass("display");
+                        $(this).blur();
+                        if (next == end) {
+                            $(this).hide();
+                            $("#save-education-btn").removeClass("hide");
+                            $("#save-education-btn").addClass("display");
+                            $(this).addClass("hide");
+                            $(this).removeClass("display");
+                        }
+                    }
             });
 
             $("#prevStep").click(function() {
@@ -141,10 +150,21 @@ $page = array("id" => 2, "name" => "Education Background");
                     $(".steps").removeClass("display");
                     $("#step-" + next).removeClass("hide");
                     $("#step-" + next).addClass("display");
+                    $("#nextStep").removeClass("hide");
+                    $("#nextStep").addClass("display");
+                    $("#save-education-btn").addClass("hide");
+                    $("#save-education-btn").removeClass("display");
+                    $("#nextStep").show();
+                    $(this).blur();
+                    if (next == 1) {
+                        $("#prevStep").removeClass("display");
+                        $("#prevStep").addClass("hide");
+                    }
                 }
             });
         });
     </script>
+    <script src="../../js/add-education-form.js"></script>
 </body>
 
 </html>

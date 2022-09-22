@@ -166,4 +166,9 @@ class UsersController extends DatabaseMethods
     public function verify_form($uri)
     {
     }
+
+    public function saveEducation()
+    {
+        return json_encode(array("response" => "ok"));
+    }
 }
