@@ -202,6 +202,7 @@ a.active {
 
 a:hover {
 	font-weight: bolder !important;
+	cursor: pointer;
 }
 
 footer {
@@ -406,6 +407,67 @@ fieldset legend {
 input,
 select {
 	text-transform: uppercase;
+}
+
+.edu-history {
+	width: 100% !important;
+	/*height: 120px !important;*/
+	background-color: #fff !important;
+	border: 1px solid #ccc !important;
+	border-radius: 5px !important;
+	display: flex !important;
+	flex-direction: column !important;
+}
+.edu-history-header {
+	width: 100% !important;
+	height: 84px !important;
+	background-color: #fff !important;
+	display: flex !important;
+	flex-direction: row !important;
+	justify-content: space-between !important;
+}
+
+.edu-history-header-info {
+	width: 80% !important;
+	height: 100% !important;
+	padding: 10px 20px !important;
+}
+
+.edu-history-control {
+	width: 90px !important;
+	height: 50px !important;
+	background-color: #e6e6e6 !important;
+	display: flex !important;
+	flex-direction: row !important;
+	justify-content: space-between !important;
+	padding: 0 !important;
+	margin: 0 !important;
+}
+
+.edu-history-footer {
+	width: 100% !important;
+	height: 36px !important;
+	background-color: #ffffb3 !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	display: flex !important;
+	flex-direction: row !important;
+	padding: 6px 20px !important;
+}
+
+.edit-edu-btn,
+.delete-edu-btn {
+	width: 50% !important;
+	padding: 10px !important;
+	border: none !important;
+	border-radius: 0px !important;
+}
+.edit-edu-btn:hover,
+.delete-edu-btn:hover {
+	background-color: #ff9900 !important;
+}
+.delete-edu-btn:hover {
+	border-top-right-radius: 5px !important;
 }
 
 @media only screen and (max-width: 768px) {

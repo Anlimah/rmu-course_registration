@@ -317,106 +317,134 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		$data = [];
 
 		//step 1
-		if (empty($_POST['sch_name'])) {
-			$errors['sch_name'] = 'School Name is required.';
+		$sch_name = $user->validateInputTextOnly($_POST["sch_name"]);
+		if ($sch_name['status'] == "error") {
+			$errors['sch_name'] = 'School Name is ' . $sch_name['message'] . '.';
 		}
 
-		if (empty($_POST['sch_country'])) {
-			$errors['sch_country'] = 'School Country is required.';
+		$sch_country = $user->validateInputTextOnly($_POST["sch_country"]);
+		if ($sch_country['status'] == "error") {
+			$errors['sch_country'] = 'School Country is ' . $sch_country['message'] . '.';
 		}
 
-		if (empty($_POST['sch_region'])) {
-			$errors['sch_region'] = 'School Province/Region is required.';
+		$sch_region = $user->validateInputTextOnly($_POST["sch_region"]);
+		if ($sch_region['status'] == "error") {
+			$errors['sch_region'] = 'School Province/Region is ' . $sch_region['message'] . '.';
 		}
 
-		if (empty($_POST['sch_city'])) {
-			$errors['sch_city'] = 'School City is required.';
+		$sch_city = $user->validateInputTextOnly($_POST["sch_city"]);
+		if ($sch_city['status'] == "error") {
+			$errors['sch_city'] = 'School City is ' . $sch_city['message'] . '.';
 		}
 
 		//step 2
-		if (empty($_POST['cert_type'])) {
-			$errors['cert_type'] = 'Certificate/Degree Earned is required.';
+		$cert_type = $user->validateInputTextOnly($_POST["cert_type"]);
+		if ($cert_type['status'] == "error") {
+			$errors['cert_type'] = 'Certificate/Degree Earned is ' . $cert_type['message'] . '.';
 		}
 
-		if (empty($_POST['index_number'])) {
-			$errors['index_number'] = 'Index Number is required.';
+		$index_number = $user->validateInputTextNumber($_POST["index_number"]);
+		if ($index_number['status'] == "error") {
+			$errors['index_number'] = 'Index Number is ' . $index_number['message'] . '.';
 		}
 
-		if (empty($_POST['month_started']) || $_POST['month_started'] == "Month") {
-			$errors['month_started'] = 'Date is invalid.';
+		$month_started = $user->validateInputTextOnly($_POST["month_started"]);
+		if ($month_started['status'] == "error" || $_POST['month_started'] == "Month") {
+			$errors['date_started'] = 'Date Started is invalid.';
 		}
 
-		if (empty($_POST['year_started']) || $_POST['year_started'] == "Year") {
-			$errors['year_started'] = 'Date is invalid.';
+		$year_started = $user->validateYearData($_POST["year_started"]);
+		if ($year_started['status'] == "error" || $_POST['year_started'] == "Year") {
+			$errors['date_started'] = 'Date Started is invalid.';
 		}
 
-		if (empty($_POST['month_completed']) || $_POST['month_completed'] == "Month") {
-			$errors['month_completed'] = 'Date is invalid.';
+		$month_completed = $user->validateInputTextOnly($_POST["month_completed"]);
+		if ($month_completed['status'] == "error" || $_POST['month_completed'] == "Month") {
+			$errors['date_completed'] = 'Date Completed is invalid.';
 		}
 
-		if (empty($_POST['year_completed']) || $_POST['year_completed'] == "Year") {
-			$errors['year_completed'] = 'Date is invalid.';
+		$year_completed = $user->validateYearData($_POST["year_completed"]);
+		if ($year_completed['status'] == "error" || $_POST['year_completed'] == "Year") {
+			$errors['date_completed'] = 'Date Completed is invalid.';
 		}
 
 		//step 3
-		if (empty($_POST['course_studied'])) {
-			$errors['course_studied'] = 'Course/Program of Study is required.';
+		$course_studied = $user->validateInputTextOnly($_POST["course_studied"]);
+		if ($course_studied['status'] == "error" || $_POST['course_studied'] == "Select") {
+			$errors['course_studied'] = 'Course/Program of Study is ' . $course_studied['message'] . '.';
 		}
 
 		//core subjects
-		if (empty($_POST['core_sbj1'])) {
-			$errors['core_sbj1'] = 'Subject is required.';
+		$core_sbj1 = $user->validateInputTextOnly($_POST["core_sbj1"]);
+		if ($core_sbj1['status'] == "error" || $_POST['core_sbj1'] == "Select") {
+			$errors['core_sbj_grp1'] = 'Subject is ' . $core_sbj1['message'] . '.';
 		}
-		if (empty($_POST['core_sbj2'])) {
-			$errors['core_sbj2'] = 'Subject is required.';
+		$core_sbj2 = $user->validateInputTextOnly($_POST["core_sbj2"]);
+		if ($core_sbj2['status'] == "error" || $_POST['core_sbj2'] == "Select") {
+			$errors['core_sbj_grp2'] = 'Subject is ' . $core_sbj2['message'] . '.';
 		}
-		if (empty($_POST['core_sbj3'])) {
-			$errors['core_sbj3'] = 'Subject is required.';
+		$core_sbj3 = $user->validateInputTextOnly($_POST["core_sbj3"]);
+		if ($core_sbj3['status'] == "error" || $_POST['core_sbj3'] == "Select") {
+			$errors['core_sbj_grp3'] = 'Subject is ' . $core_sbj3['message'] . '.';
 		}
-		if (empty($_POST['core_sbj4'])) {
-			$errors['core_sbj4'] = 'Subject is required.';
+		$core_sbj4 = $user->validateInputTextOnly($_POST["core_sbj4"]);
+		if ($core_sbj4['status'] == "error" || $_POST['core_sbj4'] == "Select") {
+			$errors['core_sbj_grp4'] = 'Subject is ' . $core_sbj4['message'] . '.';
 		}
 
 		//core subjects grades
-		if (empty($_POST['core_sbj_grd1']) || $_POST['core_sbj_grd1'] == "Grade") {
-			$errors['core_sbj_grd1'] = 'Subject\'s grade is required.';
+		$core_sbj_grd1 = $user->validateGrade($_POST["core_sbj_grd1"]);
+		if ($core_sbj_grd1['status'] == "error" || $_POST['core_sbj_grd1'] == "Grade") {
+			$errors['core_sbj_grp1'] = 'Subject\'s grade is ' . $core_sbj_grd1['message'] . '.';
 		}
-		if (empty($_POST['core_sbj_grd2']) || $_POST['core_sbj_grd2'] == "Grade") {
-			$errors['core_sbj_grd2'] = 'Subject\'s grade is required.';
+		$core_sbj_grd2 = $user->validateGrade($_POST["core_sbj_grd2"]);
+		if ($core_sbj_grd2['status'] == "error" || $_POST['core_sbj_grd2'] == "Grade") {
+			$errors['core_sbj_grp2'] = 'Subject\'s grade is ' . $core_sbj_grd2['message'] . '.';
 		}
-		if (empty($_POST['core_sbj_grd3']) || $_POST['core_sbj_grd3'] == "Grade") {
-			$errors['core_sbj_grd3'] = 'Subject\'s grade is required.';
+		$core_sbj_grd3 = $user->validateGrade($_POST["core_sbj_grd3"]);
+		if ($core_sbj_grd3['status'] == "error" || $_POST['core_sbj_grd3'] == "Grade") {
+			$errors['core_sbj_grp3'] = 'Subject\'s grade is ' . $core_sbj_grd3['message'] . '.';
 		}
-		if (empty($_POST['core_sbj_grd4']) || $_POST['core_sbj_grd4'] == "Grade") {
-			$errors['core_sbj_grd4'] = 'Subject\'s grade is required.';
+		$core_sbj_grd4 = $user->validateGrade($_POST["core_sbj_grd4"]);
+		if ($core_sbj_grd4['status'] == "error" || $_POST['core_sbj_grd4'] == "Grade") {
+			$errors['core_sbj_grp4'] = 'Subject\'s grade is ' . $core_sbj_grd4['message'] . '.';
 		}
+
 
 		//elective subjects
-		if (empty($_POST['elective_sbj1'])  || $_POST['elective_sbj1'] == "Subject") {
-			$errors['elective_sbj1'] = 'Subject is required.';
+		$elective_sbj1 = $user->validateInputTextOnly($_POST["elective_sbj1"]);
+		if ($elective_sbj1['status'] == "error" || $_POST['elective_sbj1'] == "Subject") {
+			$errors['elective_sbj_grp1'] = 'Subject is ' . $elective_sbj1['message'] . '.';
 		}
-		if (empty($_POST['elective_sbj2'])  || $_POST['elective_sbj2'] == "Subject") {
-			$errors['elective_sbj2'] = 'Subject is required.';
+		$elective_sbj2 = $user->validateInputTextOnly($_POST["elective_sbj2"]);
+		if ($elective_sbj2['status'] == "error" || $_POST['elective_sbj2'] == "Subject") {
+			$errors['elective_sbj_grp2'] = 'Subject is ' . $elective_sbj2['message'] . '.';
 		}
-		if (empty($_POST['elective_sbj3'])  || $_POST['elective_sbj3'] == "Subject") {
-			$errors['elective_sbj3'] = 'Subject is required.';
+		$elective_sbj3 = $user->validateInputTextOnly($_POST["elective_sbj3"]);
+		if ($elective_sbj3['status'] == "error" || $_POST['elective_sbj3'] == "Subject") {
+			$errors['elective_sbj_grp3'] = 'Subject is ' . $elective_sbj3['message'] . '.';
 		}
-		if (empty($_POST['elective_sbj4'])  || $_POST['elective_sbj4'] == "Subject") {
-			$errors['elective_sbj4'] = 'Subject is required.';
+		$elective_sbj4 = $user->validateInputTextOnly($_POST["elective_sbj4"]);
+		if ($elective_sbj4['status'] == "error" || $_POST['elective_sbj4'] == "Subject") {
+			$errors['elective_sbj_grp4'] = 'Subject is ' . $elective_sbj4['message'] . '.';
 		}
 
 		//core subjects grades
-		if (empty($_POST['elective_sbj_grd1'])) {
-			$errors['elective_sbj_grd1'] = 'Subject\'s grade is required.';
+		$elective_sbj_grd1 = $user->validateGrade($_POST["elective_sbj_grd1"]);
+		if ($elective_sbj_grd1['status'] == "error") {
+			$errors['elective_sbj_grp1'] = 'Subject\'s grade is ' . $elective_sbj_grd1['message'] . '.';
 		}
-		if (empty($_POST['elective_sbj_grd2'])) {
-			$errors['elective_sbj_grd2'] = 'Subject\'s grade is required.';
+		$elective_sbj_grd2 = $user->validateGrade($_POST["elective_sbj_grd2"]);
+		if ($elective_sbj_grd2['status'] == "error") {
+			$errors['elective_sbj_grp2'] = 'Subject\'s grade is ' . $elective_sbj_grd2['message'] . '.';
 		}
-		if (empty($_POST['elective_sbj_grd3'])) {
-			$errors['elective_sbj_grd3'] = 'Subject\'s grade is required.';
+		$elective_sbj_grd3 = $user->validateGrade($_POST["elective_sbj_grd3"]);
+		if ($elective_sbj_grd3['status'] == "error") {
+			$errors['elective_sbj_grp3'] = 'Subject\'s grade is ' . $elective_sbj_grd3['message'] . '.';
 		}
-		if (empty($_POST['elective_sbj_grd4'])) {
-			$errors['elective_sbj_grd4'] = 'Subject\'s grade is required.';
+		$elective_sbj_grd4 = $user->validateGrade($_POST["elective_sbj_grd4"]);
+		if ($elective_sbj_grd4['status'] == "error") {
+			$errors['elective_sbj_grp4'] = 'Subject\'s grade is ' . $elective_sbj_grd4['message'] . '.';
 		}
 
 		$response = "";
@@ -427,36 +455,6 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		} else {
 			$data['success'] = true;
 			$data['message'] = 'Success!';
-
-			$sch_name = $user->validateInput($_POST["sch_name"]);
-			$sch_country = $user->validateInput($_POST["sch_country"]);
-			$sch_region = $user->validateInput($_POST["sch_region"]);
-			$sch_city = $user->validateInput($_POST["sch_city"]);
-			$cert_type = $user->validateInput($_POST["cert_type"]);
-			$index_number = $user->validateInput($_POST["index_number"]);
-			$month_started = $user->validateInput($_POST["month_started"]);
-			$year_started = $user->validateInput($_POST["year_started"]);
-			$month_completed = $user->validateInput($_POST["month_completed"]);
-			$year_completed = $user->validateInput($_POST["year_completed"]);
-			$course_studied = $user->validateInput($_POST["course_studied"]);
-
-			$core_sbj1 = $user->validateInput($_POST["core_sbj1"]);
-			$core_sbj2 = $user->validateInput($_POST["core_sbj2"]);
-			$core_sbj3 = $user->validateInput($_POST["core_sbj3"]);
-			$core_sbj4 = $user->validateInput($_POST["core_sbj4"]);
-			$core_sbj_grd1 = $user->validateInput($_POST["core_sbj_grd1"]);
-			$core_sbj_grd2 = $user->validateInput($_POST["core_sbj_grd2"]);
-			$core_sbj_grd3 = $user->validateInput($_POST["core_sbj_grd3"]);
-			$core_sbj_grd4 = $user->validateInput($_POST["core_sbj_grd4"]);
-
-			$elective_sbj1 = $user->validateInput($_POST["elective_sbj1"]);
-			$elective_sbj2 = $user->validateInput($_POST["elective_sbj2"]);
-			$elective_sbj3 = $user->validateInput($_POST["elective_sbj3"]);
-			$elective_sbj4 = $user->validateInput($_POST["elective_sbj4"]);
-			$elective_sbj_grd1 = $user->validateInput($_POST["elective_sbj_grd1"]);
-			$elective_sbj_grd2 = $user->validateInput($_POST["elective_sbj_grd2"]);
-			$elective_sbj_grd3 = $user->validateInput($_POST["elective_sbj_grd3"]);
-			$elective_sbj_grd4 = $user->validateInput($_POST["elective_sbj_grd4"]);
 
 			$response = json_encode($user->saveEducation());
 		}

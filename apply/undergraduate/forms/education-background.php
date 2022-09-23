@@ -14,6 +14,8 @@ require_once('../../inc/page-data.php');
     echo json_encode(SHSCOURSES["elective"][$i]['subjects']);
 }*/
 
+$edu = 10;
+
 ?>
 
 <fieldset class="fieldset" id="graduate">
@@ -34,12 +36,32 @@ require_once('../../inc/page-data.php');
             <?php } ?>
         </div>
 
-        <div class="mb-4" id="education-list"></div>
+        <div class="mb-4" id="education-list">
+            <div class="mb-4 edu-history">
+                <div class="edu-history-header">
+                    <div class="edu-history-header-info">
+                        <p style="font-size: 17px; font-weight: 600;margin:0;padding:0">Regional Maritime University</p>
+                        <p style="font-size: 16px; font-weight: 500; color:#8c8c8c;margin:0;padding:0">Sept 2009 - May 2013</p>
+                    </div>
+                    <div class="edu-history-control">
+                        <button type="button" class="btn edit-edu-btn" id="<?= $edu ?>">
+                            <span class="bi bi-pencil-fill" style="font-size: 20px !important;"></span>
+                        </button>
+                        <button type="button" class="btn delete-edu-btn" id="<?= $edu ?>">
+                            <span class="bi bi-trash-fill" style="font-size: 20px !important;"></span>
+                        </button>
+                    </div>
+                </div>
+                <!--<div class="edu-history-footer">
+                    <a>Upload a scan copy of Certificate</a>
+                </div>-->
+            </div>
+        </div>
 
-        <button type="button" class="mb-4 btn btn-primary" data-bs-toggle="modal" data-bs-target="#addSchool">Add School</button>
+        <button type="button" id="add-education-btn" class="mb-4 btn btn-primary" data-bs-toggle="modal" data-bs-target="#addSchoolModal">Add School</button>
 
         <!-- Modal -->
-        <div class="modal fade" id="addSchool" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal fade" id="addSchoolModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class=" modal-header">
@@ -49,25 +71,25 @@ require_once('../../inc/page-data.php');
                     <div class="modal-body">
                         <form id="education-form">
                             <div id="step-1" class="steps" style="margin: auto 20%;">
-                                <div class="mb-4">
+                                <div class="mb-4" id="sch-name-group">
                                     <label class="form-label" for="sch-name">School Name <span class="input-required">*</span></label>
                                     <input class="form-control" type="text" name="sch-name" id="sch-name">
                                 </div>
-                                <div class="mb-4">
+                                <div class="mb-4" id="sch-country-group">
                                     <label class="form-label" for="sch-country">School Country <span class="input-required">*</span></label>
                                     <input class="form-control" type="text" name="sch-country" id="sch-country">
                                 </div>
-                                <div class="mb-4">
+                                <div class="mb-4" id="sch-region-group">
                                     <label class="form-label" for="sch-region">School Province/Region <span class="input-required">*</span></label>
                                     <input class="form-control" type="text" name="sch-region" id="sch-region">
                                 </div>
-                                <div class="mb-4">
+                                <div class="mb-4" id="sch-city-group">
                                     <label class="form-label" for="sch-city">School City <span class="input-required">*</span></label>
                                     <input class="form-control" type="text" name="sch-city" id="sch-city">
                                 </div>
                             </div>
                             <div id="step-2" class="steps hide" style="display:none; margin: auto 20%;">
-                                <div class="mb-4">
+                                <div class="mb-4" id="cert-type-group">
                                     <label class="form-label" for="cert-type">Certificate/Degree Earned <span class="input-required">*</span></label>
                                     <select class="form-select form-select-sm" name="cert-type" id="cert-type">
                                         <option value="" hidden>Select</option>
@@ -77,11 +99,11 @@ require_once('../../inc/page-data.php');
                                         <option value="DEGREE">DEGREE</option>
                                     </select>
                                 </div>
-                                <div class="mb-4">
+                                <div class="mb-4" id="index-number-group">
                                     <label class="form-label" for="index-number">Index Number <span class="input-required">*</span></label>
                                     <input class="form-control" type="text" name="index-number" id="index-number" placeholder="Index Number">
                                 </div>
-                                <div class="mb-4">
+                                <div class="mb-4" id="date-started-group">
                                     <label class="form-label" for="completion-date">Date Started <span class="input-required">*</span></label>
                                     <div style="max-width: 280px !important; display:flex; flex-direction:row; justify-content: space-between">
                                         <select class="form-select form-select-sm" style="margin-right: 10px;" name="month-started" id="month-started" class="form-select form-select-lg mb-3">
@@ -137,7 +159,7 @@ require_once('../../inc/page-data.php');
                                         </select>
                                     </div>
                                 </div>
-                                <div class="mb-4">
+                                <div class="mb-4" id="date-completed-group">
                                     <label class="form-label" for="completion-date">Date Completed <span class="input-required">*</span></label>
                                     <div style="max-width: 280px !important; display:flex; flex-direction:row; justify-content: space-between">
                                         <select class="form-select form-select-sm" style="margin-right: 10px;" name="month-completed" id="month-completed" class="form-select form-select-lg mb-3">
@@ -195,7 +217,7 @@ require_once('../../inc/page-data.php');
                                 </div>
                             </div>
                             <div id="step-3" class="steps hide" style="display:none; margin: auto 20%;">
-                                <div class="mb-4">
+                                <div class="mb-4" id="course-studied-group">
                                     <label class="form-label" for="course-studied">Course/Program of Study <span class="input-required">*</span></label>
                                     <select class="form-select form-select-sm" name="course-studied" id="course-studied">
                                         <option hidden>Select</option>
@@ -211,7 +233,7 @@ require_once('../../inc/page-data.php');
                                     <?php
                                     for ($i = 0; $i < count(SHSCOURSES["core"]); $i++) {
                                     ?>
-                                        <div class="mb-2" style="display:flex !important; flex-direction:row !important; justify-content: space-between !important">
+                                        <div class="mb-2 core-sbj<?= ($i + 1) ?>-group " style="display:flex !important; flex-direction:row !important; justify-content: space-between !important">
                                             <input style="margin-right: 10px; width: 75%" class="form-control" type="text" name="core-sbj<?= ($i + 1) ?>" id="core-sbj<?= ($i + 1) ?>" value="<?= SHSCOURSES["core"][$i] ?>" disabled>
                                             <select style="width: 25%" class="form-select form-select-sm subject-grade" name="core-sbj-grd<?= ($i + 1) ?>" id="core-sbj-grd<?= ($i + 1) ?>">
                                                 <option value="Grade" hidden>Grade</option>
@@ -232,7 +254,7 @@ require_once('../../inc/page-data.php');
                                     <?php
                                     for ($i = 0; $i < 4; $i++) {
                                     ?>
-                                        <div class="mb-2" style="display:flex !important; flex-direction:row !important; justify-content: space-between !important">
+                                        <div class="mb-2 elective-sbj<?= ($i + 1) ?>-group " style="display:flex !important; flex-direction:row !important; justify-content: space-between !important">
                                             <select style="margin-right: 10px; width: 75%" class="form-select form-select-sm" name="elective-sbj<?= ($i + 1) ?>" id="elective-sbj<?= ($i + 1) ?>">
                                                 <option value="Subject" hidden>Subject</option>
 
@@ -261,8 +283,9 @@ require_once('../../inc/page-data.php');
                         </form>
                     </div>
                     <div class="modal-footer" style="display: flex !important; flex-direction: row-reverse !important; justify-content: space-between !important;">
-                        <button class="btn btn-primary hide" id="save-education-btn" style="width: 150px;">Save</button>
+                        <button class="btn btn-primary hide" id="save-education-btn" style="width: 120px;">Save and Close</button>
                         <button type="button" class="btn btn-primary" id="nextStep">Next Step</button>
+                        <p>Step 1 of 4</p>
                         <button type="button" class="btn btn-secondary hide" id="prevStep">Prev. Step</button>
                     </div>
                 </div>
