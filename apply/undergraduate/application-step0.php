@@ -57,18 +57,17 @@ $page = array("id" => 0, "name" => "Use of Information");
             <div class="row">
                 <div class="col-9">
                     <main>
-                        <div class="page_info" style="margin-bottom: 30px !important;">
+                        <div class="page_info" style="margin-bottom: 0px !important;">
                             <h1 style="font-size: 40px; padding-bottom: 15px !important">Use of Information</h1>
                         </div>
 
-                        <hr>
+                        <!-- Page form -->
+                        <form id="use-of-info" method="POST" style="margin-top: 15px !important;">
+                            <?php require_once("forms/use-of-info.php") ?>
 
-                        <fieldset class="fieldset">
-                            <legend>Use of Information Agreement</legend>
-                        </fieldset>
-
-                        <!-- Bottom page navigation -->
-                        <?php require_once("../../inc/bottom-page-section.php"); ?>
+                            <!-- Bottom page navigation -->
+                            <?php require_once("../../inc/bottom-page-section.php"); ?>
+                        </form>
 
                     </main>
                 </div>

@@ -219,11 +219,19 @@ CREATE TABLE `academic_background` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
 
     -- Certificate info
-    `school` VARCHAR(100),
-    `cert_type` VARCHAR(50),
+    `school_name` VARCHAR(100),
+    `country` VARCHAR(100),
+    `region` VARCHAR(100),
+    `city` VARCHAR(100),
+    
+    `cert_type` VARCHAR(20),
+    `index_number` VARCHAR(20),
+    `month_started` VARCHAR(3),
+    `year_started` VARCHAR(4),
     `month_completed` VARCHAR(3),
     `year_completed` VARCHAR(4),
-    `index_number` VARCHAR(20),
+    
+    `course_of_study` VARCHAR(100),
 
     -- Transcripts and cerfiticate files
     `certificate` VARCHAR(50),
@@ -238,9 +246,11 @@ CREATE TABLE `academic_background` (
 DROP TABLE IF EXISTS `high_school_results`;
 CREATE TABLE `high_school_results` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
-    `course` VARCHAR(100) NOT NULL,
+    `type` VARCHAR(10) DEFAULT 'core',
+    `subject` VARCHAR(100) NOT NULL,
     `grade` VARCHAR(2) NOT NULL,
     `acad_back_id` INT NOT NULL -- Referencing academic background
+    CONSTRAINT `fk_grades_aca_bac` FOREIGN KEY (`acad_back_id`) REFERENCES `academic_background`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 DROP TABLE IF EXISTS `program_info`;
@@ -248,8 +258,8 @@ CREATE TABLE `program_info` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
 
     -- programs
-    `first_prog` INT,
-    `second_prog` INT,
+    `first_prog` VARCHAR(100),
+    `second_prog` VARCHAR(100),
 
     `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
 

@@ -45,14 +45,12 @@ $page = array("id" => 2, "name" => "Education Background");
             <div class="row">
                 <div class="col-9">
                     <main>
-                        <div class="page_info" style="margin-bottom: 30px !important;">
+                        <div class="page_info" style="margin-bottom: 0px !important;">
                             <h1 style="font-size: 40px; padding-bottom: 15px !important">Education Background</h1>
                         </div>
 
-                        <hr>
-
                         <!-- Page form -->
-                        <form id="appForm" method="#" style="margin-top: 50px !important;">
+                        <form id="appForm" method="#" style="margin-top: 15px !important;">
                             <?php require_once("forms/education-background.php") ?>
 
                             <!-- Bottom page navigation -->

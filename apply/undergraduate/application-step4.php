@@ -45,14 +45,12 @@ $page = array("id" => 4, "name" => "Uploads");
             <div class="row">
                 <div class="col-9">
                     <main>
-                        <div class="page_info" style="margin-bottom: 30px !important;">
+                        <div class="page_info" style="margin-bottom: 0px !important;">
                             <h1 style="font-size: 40px; padding-bottom: 15px !important">Uploads</h1>
                         </div>
 
-                        <hr>
-
                         <!-- Page form -->
-                        <form id="appForm" method="POST" style="margin-top: 50px !important;">
+                        <form id="appForm" method="POST" style="margin-top: 15px !important;">
                             <?php require_once("forms/documents-upload.php") ?>
 
                             <!-- Bottom page navigation -->

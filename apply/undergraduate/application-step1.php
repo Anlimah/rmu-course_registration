@@ -45,14 +45,12 @@ $page = array("id" => 1, "name" => "Personal Information");
             <div class="row">
                 <div class="col-9">
                     <main>
-                        <div class="page_info" style="margin-bottom: 30px !important;">
+                        <div class="page_info" style="margin-bottom: 0px !important;">
                             <h1 style="font-size: 40px; padding-bottom: 15px !important">Personal Information</h1>
                         </div>
 
-                        <hr>
-
                         <!-- Page form -->
-                        <form id="personal-info" method="POST" style="margin-top: 50px !important;">
+                        <form id="personal-info" method="POST" style="margin-top: 15px !important;">
                             <?php require_once("forms/personal-information.php") ?>
 
                             <!-- Bottom page navigation -->

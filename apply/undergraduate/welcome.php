@@ -46,18 +46,20 @@ $page = array("id" => -1, "name" => "Personal Information");
                 <div class="row">
                     <div class="col-9">
                         <main>
-                            <div class="page_info" style="margin-bottom: 30px !important;">
+                            <div class="page_info" style="margin-bottom: 0px !important;">
                                 <h1 style="font-size: 40px; padding-bottom: 15px !important; font-weight: 700;">Welcome to your application</h1>
                             </div>
 
-                            <hr>
+                            <div style="margin-top: 0px !important">
+                                <div class="fieldset-col" style="margin-bottom: 0px !important; padding: 10px 0px !important">
+                                    <p>
+                                        This is your dedicated application space. All of your progress will be saved automatically as you go, making it easy for you to access and update it as needed. You can return to your application to make changes to sections that have been saved or begin work on new sections.
+                                    </p>
+                                    <p> For applicants applying for posgraduate programmes or degree programs with diploma certificates, you may need to request transcripts from any colleges you’ve attended, as well as letters of recommendation from professional and/or academic references. Please note that these materials take time to process and should be requested as soon as possible.
+                                    </p>
+                                </div>
 
-                            <div style="margin-top: 50px !important">
-                                <p style="margin-bottom: 50px !important">
-                                    This is your dedicated application space. All of your progress will be saved automatically as you go, making it easy for you to access and update it as needed. You can return to your application to make changes to sections that have been saved or begin work on new sections.
-                                    For applicants applying for posgraduate programmes or degree programs with diploma certificates, you may need to request transcripts from any colleges you’ve attended, as well as letters of recommendation from professional and/or academic references. Please note that these materials take time to process and should be requested as soon as possible.
-                                </p>
-                                <div class="fieldset" style="display: flex !important; flex-direction:column !important; justify-content:space-between;padding-bottom: 0 !important;margin-bottom: 0 !important">
+                                <div class="contact-area" style="display: flex !important; flex-direction:column !important; justify-content:space-between;padding-bottom: 0 !important;margin-bottom: 0 !important">
                                     <h2 style="font-weight: 700; font-size:16px; margin-bottom: 20px">Having trouble? Contact Regional Maritime University, admissions.</h2>
                                     <p style="display: flex !important; flex-direction:column !important; justify-content:space-between;">
 
