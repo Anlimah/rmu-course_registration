@@ -235,6 +235,7 @@ $(document).ready(function () {
 
                 //Steps redirection
                 if (step_errors) {
+                    alert(step_errors);
                     $(".steps").addClass("hide");
                     $(".steps").removeClass("display");
                     $("#step-" + step_errors).removeClass("hide");
@@ -262,7 +263,7 @@ $(document).ready(function () {
                         $("#save-education-btn").removeClass("display");
                         $("#save-education-btn").addClass("hide");
                     }
-                    next = step_errors;
+                    //next = step_errors;
                 }
 
             } else {

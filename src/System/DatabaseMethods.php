@@ -189,7 +189,7 @@ class DatabaseMethods
             return array("status" => "error", "message" => "required");
         }
 
-        if (count($input) < 1 || count($input) > 2) {
+        if (strlen($input) < 1 || strlen($input) > 2) {
             return array("status" => "error", "message" => "invalid");
         }
 

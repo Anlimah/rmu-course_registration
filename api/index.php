@@ -394,38 +394,38 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 		//core subjects grades
 		$core_sbj_grd1 = $user->validateGrade($_POST["core_sbj_grd1"]);
-		if ($core_sbj_grd1['status'] == "error" || $_POST['core_sbj_grd1'] == "Grade") {
+		if ($core_sbj_grd1['status'] == "error") {
 			$errors['core_sbj_grp1'] = 'Subject\'s grade is ' . $core_sbj_grd1['message'] . '.';
 		}
 		$core_sbj_grd2 = $user->validateGrade($_POST["core_sbj_grd2"]);
-		if ($core_sbj_grd2['status'] == "error" || $_POST['core_sbj_grd2'] == "Grade") {
+		if ($core_sbj_grd2['status'] == "error") {
 			$errors['core_sbj_grp2'] = 'Subject\'s grade is ' . $core_sbj_grd2['message'] . '.';
 		}
 		$core_sbj_grd3 = $user->validateGrade($_POST["core_sbj_grd3"]);
-		if ($core_sbj_grd3['status'] == "error" || $_POST['core_sbj_grd3'] == "Grade") {
+		if ($core_sbj_grd3['status'] == "error") {
 			$errors['core_sbj_grp3'] = 'Subject\'s grade is ' . $core_sbj_grd3['message'] . '.';
 		}
 		$core_sbj_grd4 = $user->validateGrade($_POST["core_sbj_grd4"]);
-		if ($core_sbj_grd4['status'] == "error" || $_POST['core_sbj_grd4'] == "Grade") {
+		if ($core_sbj_grd4['status'] == "error") {
 			$errors['core_sbj_grp4'] = 'Subject\'s grade is ' . $core_sbj_grd4['message'] . '.';
 		}
 
 
 		//elective subjects
 		$elective_sbj1 = $user->validateInputTextOnly($_POST["elective_sbj1"]);
-		if ($elective_sbj1['status'] == "error" || $_POST['elective_sbj1'] == "Subject") {
+		if ($elective_sbj1['status'] == "error" || $_POST['elective_sbj1'] == "Select") {
 			$errors['elective_sbj_grp1'] = 'Subject is ' . $elective_sbj1['message'] . '.';
 		}
 		$elective_sbj2 = $user->validateInputTextOnly($_POST["elective_sbj2"]);
-		if ($elective_sbj2['status'] == "error" || $_POST['elective_sbj2'] == "Subject") {
+		if ($elective_sbj2['status'] == "error" || $_POST['elective_sbj2'] == "Select") {
 			$errors['elective_sbj_grp2'] = 'Subject is ' . $elective_sbj2['message'] . '.';
 		}
 		$elective_sbj3 = $user->validateInputTextOnly($_POST["elective_sbj3"]);
-		if ($elective_sbj3['status'] == "error" || $_POST['elective_sbj3'] == "Subject") {
+		if ($elective_sbj3['status'] == "error" || $_POST['elective_sbj3'] == "Select") {
 			$errors['elective_sbj_grp3'] = 'Subject is ' . $elective_sbj3['message'] . '.';
 		}
 		$elective_sbj4 = $user->validateInputTextOnly($_POST["elective_sbj4"]);
-		if ($elective_sbj4['status'] == "error" || $_POST['elective_sbj4'] == "Subject") {
+		if ($elective_sbj4['status'] == "error" || $_POST['elective_sbj4'] == "Select") {
 			$errors['elective_sbj_grp4'] = 'Subject is ' . $elective_sbj4['message'] . '.';
 		}
 

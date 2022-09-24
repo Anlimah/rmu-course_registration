@@ -233,17 +233,19 @@ $edu = 10;
                                     <?php
                                     for ($i = 0; $i < count(SHSCOURSES["core"]); $i++) {
                                     ?>
-                                        <div class="mb-2 core-sbj<?= ($i + 1) ?>-group " style="display:flex !important; flex-direction:row !important; justify-content: space-between !important">
-                                            <input style="margin-right: 10px; width: 75%" class="form-control" type="text" name="core-sbj<?= ($i + 1) ?>" id="core-sbj<?= ($i + 1) ?>" value="<?= SHSCOURSES["core"][$i] ?>" disabled>
-                                            <select style="width: 25%" class="form-select form-select-sm subject-grade" name="core-sbj-grd<?= ($i + 1) ?>" id="core-sbj-grd<?= ($i + 1) ?>">
-                                                <option value="Grade" hidden>Grade</option>
-                                                <option value="A">A</option>
-                                                <option value="B">B</option>
-                                                <option value="C">C</option>
-                                                <option value="D">D</option>
-                                                <option value="E">E</option>
-                                                <option value="F">F</option>
-                                            </select>
+                                        <div id="core-sbj<?= ($i + 1) ?>-group" class="mb-2">
+                                            <div style="display:flex !important; flex-direction:row !important; justify-content: space-between !important">
+                                                <input style="margin-right: 10px; width: 75%" class="form-control" type="text" name="core-sbj<?= ($i + 1) ?>" id="core-sbj<?= ($i + 1) ?>" value="<?= SHSCOURSES["core"][$i] ?>" disabled>
+                                                <select style="width: 25%" class="form-select form-select-sm subject-grade" name="core-sbj-grd<?= ($i + 1) ?>" id="core-sbj-grd<?= ($i + 1) ?>">
+                                                    <option value="Grade" hidden>Grade</option>
+                                                    <option value="A">A</option>
+                                                    <option value="B">B</option>
+                                                    <option value="C">C</option>
+                                                    <option value="D">D</option>
+                                                    <option value="E">E</option>
+                                                    <option value="F">F</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     <?php
                                     }
@@ -254,25 +256,27 @@ $edu = 10;
                                     <?php
                                     for ($i = 0; $i < 4; $i++) {
                                     ?>
-                                        <div class="mb-2 elective-sbj<?= ($i + 1) ?>-group " style="display:flex !important; flex-direction:row !important; justify-content: space-between !important">
-                                            <select style="margin-right: 10px; width: 75%" class="form-select form-select-sm" name="elective-sbj<?= ($i + 1) ?>" id="elective-sbj<?= ($i + 1) ?>">
-                                                <option value="Subject" hidden>Subject</option>
+                                        <div id="elective-sbj<?= ($i + 1) ?>-group" class="mb-2">
+                                            <div style="display:flex !important; flex-direction:row !important; justify-content: space-between !important">
+                                                <select style="margin-right: 10px; width: 75%" class="form-select form-select-sm" name="elective-sbj<?= ($i + 1) ?>" id="elective-sbj<?= ($i + 1) ?>">
+                                                    <option value="Select" hidden>Select</option>
 
-                                                <?php
-                                                for ($j = 0; $j < count(SHSCOURSES["elective"][0]["subjects"]); $j++) {
-                                                    echo '<option value="' . SHSCOURSES["elective"][0]["subjects"][$j] . '">' . SHSCOURSES["elective"][0]["subjects"][$j] . '</option>';
-                                                }
-                                                ?>
-                                            </select>
-                                            <select style="width: 25%" class="form-select form-select-sm" name="elective-sbj-grd<?= ($i + 1) ?>" id="elective-sbj-grd<?= ($i + 1) ?>">
-                                                <option value="Grade" hidden>Grade</option>
-                                                <option value="A">A</option>
-                                                <option value="B">B</option>
-                                                <option value="C">C</option>
-                                                <option value="D">D</option>
-                                                <option value="E">E</option>
-                                                <option value="F">F</option>
-                                            </select>
+                                                    <?php
+                                                    for ($j = 0; $j < count(SHSCOURSES["elective"][0]["subjects"]); $j++) {
+                                                        echo '<option value="' . SHSCOURSES["elective"][0]["subjects"][$j] . '">' . SHSCOURSES["elective"][0]["subjects"][$j] . '</option>';
+                                                    }
+                                                    ?>
+                                                </select>
+                                                <select style="width: 25%" class="form-select form-select-sm" name="elective-sbj-grd<?= ($i + 1) ?>" id="elective-sbj-grd<?= ($i + 1) ?>">
+                                                    <option value="Grade" hidden>Grade</option>
+                                                    <option value="A">A</option>
+                                                    <option value="B">B</option>
+                                                    <option value="C">C</option>
+                                                    <option value="D">D</option>
+                                                    <option value="E">E</option>
+                                                    <option value="F">F</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     <?php
                                     }
