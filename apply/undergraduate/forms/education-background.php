@@ -40,25 +40,39 @@ $edu = 10;
             <label class="form-label" for="cert-type">Education History</label>
 
             <!--Education List Display Area-->
-            <div class="mb-4 edu-history">
-                <div class="edu-history-header">
-                    <div class="edu-history-header-info">
-                        <p style="font-size: 17px; font-weight: 600;margin:0;padding:0">Regional Maritime University</p>
-                        <p style="font-size: 16px; font-weight: 500; color:#8c8c8c;margin:0;padding:0">Sept 2009 - May 2013</p>
-                    </div>
-                    <div class="edu-history-control">
-                        <button type="button" class="btn edit-edu-btn" id="<?= $edu ?>">
-                            <span class="bi bi-pencil-fill" style="font-size: 20px !important;"></span>
-                        </button>
-                        <button type="button" class="btn delete-edu-btn" id="<?= $edu ?>">
-                            <span class="bi bi-trash-fill" style="font-size: 20px !important;"></span>
-                        </button>
-                    </div>
-                </div>
-                <!--<div class="edu-history-footer">
-                    <a>Upload a scan copy of Certificate</a>
-                </div>-->
+            <div>
+                <?php
+                if (!empty($academic_BG)) {
+                    foreach ($academic_BG as $edu_hist) {
+                ?>
+                        <div class="mb-4 edu-history" id="edu-history<?= $edu_hist["s_number"] ?>">
+                            <div class="edu-history-header">
+                                <div class="edu-history-header-info">
+                                    <p style="font-size: 17px; font-weight: 600;margin:0;padding:0"><?= ucwords(strtolower($edu_hist["school_name"])) ?></p>
+                                    <p style="font-size: 16px; font-weight: 500; color:#8c8c8c;margin:0;padding:0">
+                                        <?= ucwords(strtolower($edu_hist["month_started"])) . " " . ucwords(strtolower($edu_hist["year_started"])) . " - " ?>
+                                        <?= ucwords(strtolower($edu_hist["month_completed"])) . " " . ucwords(strtolower($edu_hist["year_completed"])) ?>
+                                    </p>
+                                </div>
+                                <div class="edu-history-control">
+                                    <button type="button" class="btn edit-edu-btn" id="edit<?= $edu_hist["s_number"] ?>">
+                                        <span class="bi bi-pencil-fill" style="font-size: 20px !important;"></span>
+                                    </button>
+                                    <button type="button" class="btn delete-edu-btn" id="delete<?= $edu_hist["s_number"] ?>">
+                                        <span class="bi bi-trash-fill" style="font-size: 20px !important;"></span>
+                                    </button>
+                                </div>
+                            </div>
+                            <!--<div class="edu-history-footer">
+                            <a>Upload a scanned copy of Certificate</a>
+                        </div>-->
+                        </div>
+                <?php
+                    }
+                }
+                ?>
             </div>
+
             <!--Education List Display Area End-->
 
         </div>
@@ -111,112 +125,112 @@ $edu = 10;
                                 <div class="mb-4" id="date-started-group">
                                     <label class="form-label" for="completion-date">Date Started <span class="input-required">*</span></label>
                                     <div style="max-width: 280px !important; display:flex; flex-direction:row; justify-content: space-between">
-                                        <select class="form-select form-select-sm" style="margin-right: 10px;" name="month-started" id="month-started" class="form-select form-select-lg mb-3">
+                                        <select class="form-select form-select-sm" style="margin-right: 10px;" name="month-started" id="month-started">
                                             <option hidden>Month</option>
-                                            <option value="Jan" <?= $data[0]["month_completed"] == "Jan" ? "selected" : "" ?>>Jan</option>
-                                            <option value="Feb" <?= $data[0]["month_completed"] == "Feb" ? "selected" : "" ?>>Feb</option>
-                                            <option value="Mar" <?= $data[0]["month_completed"] == "Mar" ? "selected" : "" ?>>Mar</option>
-                                            <option value="Apr" <?= $data[0]["month_completed"] == "Apr" ? "selected" : "" ?>>Apr</option>
-                                            <option value="May" <?= $data[0]["month_completed"] == "May" ? "selected" : "" ?>>May</option>
-                                            <option value="Jun" <?= $data[0]["month_completed"] == "Jun" ? "selected" : "" ?>>Jun</option>
-                                            <option value="Jul" <?= $data[0]["month_completed"] == "Jul" ? "selected" : "" ?>>Jul</option>
-                                            <option value="Aug" <?= $data[0]["month_completed"] == "Aug" ? "selected" : "" ?>>Aug</option>
-                                            <option value="Sep" <?= $data[0]["month_completed"] == "Sep" ? "selected" : "" ?>>Sep</option>
-                                            <option value="Oct" <?= $data[0]["month_completed"] == "Oct" ? "selected" : "" ?>>Oct</option>
-                                            <option value="Nov" <?= $data[0]["month_completed"] == "Nov" ? "selected" : "" ?>>Nov</option>
-                                            <option value="Dec" <?= $data[0]["month_completed"] == "Dec" ? "selected" : "" ?>>Dec</option>
+                                            <option value="Jan">Jan</option>
+                                            <option value="Feb">Feb</option>
+                                            <option value="Mar">Mar</option>
+                                            <option value="Apr">Apr</option>
+                                            <option value="May">May</option>
+                                            <option value="Jun">Jun</option>
+                                            <option value="Jul">Jul</option>
+                                            <option value="Aug">Aug</option>
+                                            <option value="Sep">Sep</option>
+                                            <option value="Oct">Oct</option>
+                                            <option value="Nov">Nov</option>
+                                            <option value="Dec">Dec</option>
                                         </select>
                                         <select class="form-select form-select-sm" name="year-started" id="year-started" class="yearList">
                                             <option hidden>Year</option>
-                                            <option value="2022" <?= $data[0]["year_completed"] == "2022" ? "selected" : "" ?>>2022</option>
-                                            <option value="2021" <?= $data[0]["year_completed"] == "2021" ? "selected" : "" ?>>2021</option>
-                                            <option value="2020" <?= $data[0]["year_completed"] == "2020" ? "selected" : "" ?>>2020</option>
-                                            <option value="2019" <?= $data[0]["year_completed"] == "2019" ? "selected" : "" ?>>2019</option>
-                                            <option value="2018" <?= $data[0]["year_completed"] == "2018" ? "selected" : "" ?>>2018</option>
-                                            <option value="2017" <?= $data[0]["year_completed"] == "2017" ? "selected" : "" ?>>2017</option>
-                                            <option value="2016" <?= $data[0]["year_completed"] == "2016" ? "selected" : "" ?>>2016</option>
-                                            <option value="2015" <?= $data[0]["year_completed"] == "2015" ? "selected" : "" ?>>2015</option>
-                                            <option value="2014" <?= $data[0]["year_completed"] == "2014" ? "selected" : "" ?>>2014</option>
-                                            <option value="2013" <?= $data[0]["year_completed"] == "2013" ? "selected" : "" ?>>2013</option>
-                                            <option value="2012" <?= $data[0]["year_completed"] == "2012" ? "selected" : "" ?>>2012</option>
-                                            <option value="2011" <?= $data[0]["year_completed"] == "2011" ? "selected" : "" ?>>2011</option>
-                                            <option value="2010" <?= $data[0]["year_completed"] == "2010" ? "selected" : "" ?>>2010</option>
-                                            <option value="2009" <?= $data[0]["year_completed"] == "2009" ? "selected" : "" ?>>2009</option>
-                                            <option value="2008" <?= $data[0]["year_completed"] == "2008" ? "selected" : "" ?>>2008</option>
-                                            <option value="2007" <?= $data[0]["year_completed"] == "2007" ? "selected" : "" ?>>2007</option>
-                                            <option value="2006" <?= $data[0]["year_completed"] == "2006" ? "selected" : "" ?>>2006</option>
-                                            <option value="2005" <?= $data[0]["year_completed"] == "2005" ? "selected" : "" ?>>2005</option>
-                                            <option value="2004" <?= $data[0]["year_completed"] == "2004" ? "selected" : "" ?>>2004</option>
-                                            <option value="2003" <?= $data[0]["year_completed"] == "2003" ? "selected" : "" ?>>2003</option>
-                                            <option value="2002" <?= $data[0]["year_completed"] == "2002" ? "selected" : "" ?>>2002</option>
-                                            <option value="2001" <?= $data[0]["year_completed"] == "2001" ? "selected" : "" ?>>2001</option>
-                                            <option value="2000" <?= $data[0]["year_completed"] == "2000" ? "selected" : "" ?>>2000</option>
-                                            <option value="1999" <?= $data[0]["year_completed"] == "1999" ? "selected" : "" ?>>1999</option>
-                                            <option value="1998" <?= $data[0]["year_completed"] == "1998" ? "selected" : "" ?>>1998</option>
-                                            <option value="1997" <?= $data[0]["year_completed"] == "1997" ? "selected" : "" ?>>1997</option>
-                                            <option value="1996" <?= $data[0]["year_completed"] == "1996" ? "selected" : "" ?>>1996</option>
-                                            <option value="1995" <?= $data[0]["year_completed"] == "1995" ? "selected" : "" ?>>1995</option>
-                                            <option value="1994" <?= $data[0]["year_completed"] == "1994" ? "selected" : "" ?>>1994</option>
-                                            <option value="1993" <?= $data[0]["year_completed"] == "1993" ? "selected" : "" ?>>1993</option>
-                                            <option value="1992" <?= $data[0]["year_completed"] == "1992" ? "selected" : "" ?>>1992</option>
-                                            <option value="1991" <?= $data[0]["year_completed"] == "1991" ? "selected" : "" ?>>1991</option>
-                                            <option value="1990" <?= $data[0]["year_completed"] == "1990" ? "selected" : "" ?>>1990</option>
+                                            <option value="2022">2022</option>
+                                            <option value="2021">2021</option>
+                                            <option value="2020">2020</option>
+                                            <option value="2019">2019</option>
+                                            <option value="2018">2018</option>
+                                            <option value="2017">2017</option>
+                                            <option value="2016">2016</option>
+                                            <option value="2015">2015</option>
+                                            <option value="2014">2014</option>
+                                            <option value="2013">2013</option>
+                                            <option value="2012">2012</option>
+                                            <option value="2011">2011</option>
+                                            <option value="2010">2010</option>
+                                            <option value="2009">2009</option>
+                                            <option value="2008">2008</option>
+                                            <option value="2007">2007</option>
+                                            <option value="2006">2006</option>
+                                            <option value="2005">2005</option>
+                                            <option value="2004">2004</option>
+                                            <option value="2003">2003</option>
+                                            <option value="2002">2002</option>
+                                            <option value="2001">2001</option>
+                                            <option value="2000">2000</option>
+                                            <option value="1999">1999</option>
+                                            <option value="1998">1998</option>
+                                            <option value="1997">1997</option>
+                                            <option value="1996">1996</option>
+                                            <option value="1995">1995</option>
+                                            <option value="1994">1994</option>
+                                            <option value="1993">1993</option>
+                                            <option value="1992">1992</option>
+                                            <option value="1991">1991</option>
+                                            <option value="1990">1990</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="mb-4" id="date-completed-group">
                                     <label class="form-label" for="completion-date">Date Completed <span class="input-required">*</span></label>
                                     <div style="max-width: 280px !important; display:flex; flex-direction:row; justify-content: space-between">
-                                        <select class="form-select form-select-sm" style="margin-right: 10px;" name="month-completed" id="month-completed" class="form-select form-select-lg mb-3">
+                                        <select class="form-select form-select-sm" style="margin-right: 10px;" name="month-completed" id="month-completed">
                                             <option hidden>Month</option>
-                                            <option value="Jan" <?= $data[0]["month_completed"] == "Jan" ? "selected" : "" ?>>Jan</option>
-                                            <option value="Feb" <?= $data[0]["month_completed"] == "Feb" ? "selected" : "" ?>>Feb</option>
-                                            <option value="Mar" <?= $data[0]["month_completed"] == "Mar" ? "selected" : "" ?>>Mar</option>
-                                            <option value="Apr" <?= $data[0]["month_completed"] == "Apr" ? "selected" : "" ?>>Apr</option>
-                                            <option value="May" <?= $data[0]["month_completed"] == "May" ? "selected" : "" ?>>May</option>
-                                            <option value="Jun" <?= $data[0]["month_completed"] == "Jun" ? "selected" : "" ?>>Jun</option>
-                                            <option value="Jul" <?= $data[0]["month_completed"] == "Jul" ? "selected" : "" ?>>Jul</option>
-                                            <option value="Aug" <?= $data[0]["month_completed"] == "Aug" ? "selected" : "" ?>>Aug</option>
-                                            <option value="Sep" <?= $data[0]["month_completed"] == "Sep" ? "selected" : "" ?>>Sep</option>
-                                            <option value="Oct" <?= $data[0]["month_completed"] == "Oct" ? "selected" : "" ?>>Oct</option>
-                                            <option value="Nov" <?= $data[0]["month_completed"] == "Nov" ? "selected" : "" ?>>Nov</option>
-                                            <option value="Dec" <?= $data[0]["month_completed"] == "Dec" ? "selected" : "" ?>>Dec</option>
+                                            <option value="Jan">Jan</option>
+                                            <option value="Feb">Feb</option>
+                                            <option value="Mar">Mar</option>
+                                            <option value="Apr">Apr</option>
+                                            <option value="May">May</option>
+                                            <option value="Jun">Jun</option>
+                                            <option value="Jul">Jul</option>
+                                            <option value="Aug">Aug</option>
+                                            <option value="Sep">Sep</option>
+                                            <option value="Oct">Oct</option>
+                                            <option value="Nov">Nov</option>
+                                            <option value="Dec">Dec</option>
                                         </select>
                                         <select class="form-select form-select-sm" name="year-completed" id="year-completed" class="yearList">
                                             <option hidden>Year</option>
-                                            <option value="2022" <?= $data[0]["year_completed"] == "2022" ? "selected" : "" ?>>2022</option>
-                                            <option value="2021" <?= $data[0]["year_completed"] == "2021" ? "selected" : "" ?>>2021</option>
-                                            <option value="2020" <?= $data[0]["year_completed"] == "2020" ? "selected" : "" ?>>2020</option>
-                                            <option value="2019" <?= $data[0]["year_completed"] == "2019" ? "selected" : "" ?>>2019</option>
-                                            <option value="2018" <?= $data[0]["year_completed"] == "2018" ? "selected" : "" ?>>2018</option>
-                                            <option value="2017" <?= $data[0]["year_completed"] == "2017" ? "selected" : "" ?>>2017</option>
-                                            <option value="2016" <?= $data[0]["year_completed"] == "2016" ? "selected" : "" ?>>2016</option>
-                                            <option value="2015" <?= $data[0]["year_completed"] == "2015" ? "selected" : "" ?>>2015</option>
-                                            <option value="2014" <?= $data[0]["year_completed"] == "2014" ? "selected" : "" ?>>2014</option>
-                                            <option value="2013" <?= $data[0]["year_completed"] == "2013" ? "selected" : "" ?>>2013</option>
-                                            <option value="2012" <?= $data[0]["year_completed"] == "2012" ? "selected" : "" ?>>2012</option>
-                                            <option value="2011" <?= $data[0]["year_completed"] == "2011" ? "selected" : "" ?>>2011</option>
-                                            <option value="2010" <?= $data[0]["year_completed"] == "2010" ? "selected" : "" ?>>2010</option>
-                                            <option value="2009" <?= $data[0]["year_completed"] == "2009" ? "selected" : "" ?>>2009</option>
-                                            <option value="2008" <?= $data[0]["year_completed"] == "2008" ? "selected" : "" ?>>2008</option>
-                                            <option value="2007" <?= $data[0]["year_completed"] == "2007" ? "selected" : "" ?>>2007</option>
-                                            <option value="2006" <?= $data[0]["year_completed"] == "2006" ? "selected" : "" ?>>2006</option>
-                                            <option value="2005" <?= $data[0]["year_completed"] == "2005" ? "selected" : "" ?>>2005</option>
-                                            <option value="2004" <?= $data[0]["year_completed"] == "2004" ? "selected" : "" ?>>2004</option>
-                                            <option value="2003" <?= $data[0]["year_completed"] == "2003" ? "selected" : "" ?>>2003</option>
-                                            <option value="2002" <?= $data[0]["year_completed"] == "2002" ? "selected" : "" ?>>2002</option>
-                                            <option value="2001" <?= $data[0]["year_completed"] == "2001" ? "selected" : "" ?>>2001</option>
-                                            <option value="2000" <?= $data[0]["year_completed"] == "2000" ? "selected" : "" ?>>2000</option>
-                                            <option value="1999" <?= $data[0]["year_completed"] == "1999" ? "selected" : "" ?>>1999</option>
-                                            <option value="1998" <?= $data[0]["year_completed"] == "1998" ? "selected" : "" ?>>1998</option>
-                                            <option value="1997" <?= $data[0]["year_completed"] == "1997" ? "selected" : "" ?>>1997</option>
-                                            <option value="1996" <?= $data[0]["year_completed"] == "1996" ? "selected" : "" ?>>1996</option>
-                                            <option value="1995" <?= $data[0]["year_completed"] == "1995" ? "selected" : "" ?>>1995</option>
-                                            <option value="1994" <?= $data[0]["year_completed"] == "1994" ? "selected" : "" ?>>1994</option>
-                                            <option value="1993" <?= $data[0]["year_completed"] == "1993" ? "selected" : "" ?>>1993</option>
-                                            <option value="1992" <?= $data[0]["year_completed"] == "1992" ? "selected" : "" ?>>1992</option>
-                                            <option value="1991" <?= $data[0]["year_completed"] == "1991" ? "selected" : "" ?>>1991</option>
-                                            <option value="1990" <?= $data[0]["year_completed"] == "1990" ? "selected" : "" ?>>1990</option>
+                                            <option value="2022">2022</option>
+                                            <option value="2021">2021</option>
+                                            <option value="2020">2020</option>
+                                            <option value="2019">2019</option>
+                                            <option value="2018">2018</option>
+                                            <option value="2017">2017</option>
+                                            <option value="2016">2016</option>
+                                            <option value="2015">2015</option>
+                                            <option value="2014">2014</option>
+                                            <option value="2013">2013</option>
+                                            <option value="2012">2012</option>
+                                            <option value="2011">2011</option>
+                                            <option value="2010">2010</option>
+                                            <option value="2009">2009</option>
+                                            <option value="2008">2008</option>
+                                            <option value="2007">2007</option>
+                                            <option value="2006">2006</option>
+                                            <option value="2005">2005</option>
+                                            <option value="2004">2004</option>
+                                            <option value="2003">2003</option>
+                                            <option value="2002">2002</option>
+                                            <option value="2001">2001</option>
+                                            <option value="2000">2000</option>
+                                            <option value="1999">1999</option>
+                                            <option value="1998">1998</option>
+                                            <option value="1997">1997</option>
+                                            <option value="1996">1996</option>
+                                            <option value="1995">1995</option>
+                                            <option value="1994">1994</option>
+                                            <option value="1993">1993</option>
+                                            <option value="1992">1992</option>
+                                            <option value="1991">1991</option>
+                                            <option value="1990">1990</option>
                                         </select>
                                     </div>
                                 </div>
@@ -289,6 +303,11 @@ $edu = 10;
 
                                 </div>
                             </div>
+                            <!--<div id="step-4" class="steps hide" style="display:none; margin: auto 20%;">
+                                <div class="mb-4" id="sch-name-group">
+
+                                </div>
+                            </div>-->
                         </form>
                     </div>
                     <div class="modal-footer" style="display: flex !important; flex-direction: row-reverse !important; justify-content: space-between !important;">
@@ -304,21 +323,27 @@ $edu = 10;
     </div>
 </fieldset>
 
+<!--Previous university record section-->
 <fieldset class="fieldset">
     <div class="field-header">
         <legend>Previous University Enrollment Information</legend>
     </div>
 
+    <!--
+
+    -->
+
+    <!--Previous university record-->
     <div class="field-content">
         <div class="mb-4">
             <div class="mb-4">
                 <label class="form-label">Do you have any previous University records? <span class="input-required">*</span></label>
                 <div>
                     <label class="form-label radio-btn" for="prev-uni-rec-yes">
-                        <input class="prev-uni-rec form-radio" style="margin: 0 !important; padding: 0 !important;" type="radio" name="prev-uni-rec" id="prev-uni-rec-yes" value="1" <?= $pre_uni_rec[0]["pre_uni_rec"] == 1 ? "checked" : "" ?>> Yes
+                        <input class="prev-uni-rec form-radio form-radio-btn" style="margin: 0 !important; padding: 0 !important;" type="radio" name="prev-uni-rec" id="prev-uni-rec-yes" value="1" <?= $pre_uni_rec[0]["pre_uni_rec"] == 1 ? "checked" : "" ?>> Yes
                     </label>
                     <label class="form-label radio-btn" for="prev-uni-rec-no">
-                        <input class="prev-uni-rec form-radio" style="margin: 0 !important; padding: 0 !important;" type="radio" name="prev-uni-rec" id="prev-uni-rec-no" value="0" <?= $pre_uni_rec[0]["pre_uni_rec"] == 0 ? "checked" : "" ?>> No
+                        <input class="prev-uni-rec form-radio form-radio-btn" style="margin: 0 !important; padding: 0 !important;" type="radio" name="prev-uni-rec" id="prev-uni-rec-no" value="0" <?= $pre_uni_rec[0]["pre_uni_rec"] == 0 ? "checked" : "" ?>> No
                     </label>
                 </div>
             </div>
@@ -327,31 +352,31 @@ $edu = 10;
             <div class="<?= $pre_uni_rec[0]["pre_uni_rec"] == 1 ? "" : "hide" ?>" id="prev-uni-rec-list">
                 <div class="mb-4">
                     <label class="form-label" for="name_of_uni">Name of University <span class="input-required">*</span></label>
-                    <input class="form-control" type="text" name="name_of_uni" id="name_of_uni" value="<?= $pre_uni_rec[0]["name_of_uni"] ?>">
+                    <input class="form-control form-text-input" type="text" name="name_of_uni" id="name_of_uni" value="<?= $pre_uni_rec[0]["name_of_uni"] ?>">
                 </div>
                 <div class="mb-4">
                     <label class="form-label" for="program">Program Pursued <span class="input-required">*</span></label>
-                    <input class="form-control" type="text" name="program" id="program" value="<?= $pre_uni_rec[0]["program"] ?>">
+                    <input class="form-control form-text-input" type="text" name="program" id="program" value="<?= $pre_uni_rec[0]["program"] ?>">
                 </div>
                 <div class="mb-4" id="date-enrolled-uni">
                     <label class="form-label" for="completion-date">Date Enrolled <span class="input-required">*</span></label>
                     <div style="max-width: 280px !important; display:flex; flex-direction:row; justify-content: space-between">
-                        <select class="form-select form-select-sm" style="margin-right: 10px;" name="month-enrolled" id="month-enrolled" class="form-select form-select-lg mb-3">
+                        <select class="form-select-option form-select form-select-sm" style="margin-right: 10px;" name="month-enrolled" id="month-enrolled">
                             <option hidden>Month</option>
-                            <option value="Jan" <?= $pre_uni_rec[0]["month_enrolled"] == "Jan" ? "selected" : "" ?>>Jan</option>
-                            <option value="Feb" <?= $pre_uni_rec[0]["month_enrolled"] == "Feb" ? "selected" : "" ?>>Feb</option>
-                            <option value="Mar" <?= $pre_uni_rec[0]["month_enrolled"] == "Mar" ? "selected" : "" ?>>Mar</option>
-                            <option value="Apr" <?= $pre_uni_rec[0]["month_enrolled"] == "Apr" ? "selected" : "" ?>>Apr</option>
-                            <option value="May" <?= $pre_uni_rec[0]["month_enrolled"] == "May" ? "selected" : "" ?>>May</option>
-                            <option value="Jun" <?= $pre_uni_rec[0]["month_enrolled"] == "Jun" ? "selected" : "" ?>>Jun</option>
-                            <option value="Jul" <?= $pre_uni_rec[0]["month_enrolled"] == "Jul" ? "selected" : "" ?>>Jul</option>
-                            <option value="Aug" <?= $pre_uni_rec[0]["month_enrolled"] == "Aug" ? "selected" : "" ?>>Aug</option>
-                            <option value="Sep" <?= $pre_uni_rec[0]["month_enrolled"] == "Sep" ? "selected" : "" ?>>Sep</option>
-                            <option value="Oct" <?= $pre_uni_rec[0]["month_enrolled"] == "Oct" ? "selected" : "" ?>>Oct</option>
-                            <option value="Nov" <?= $pre_uni_rec[0]["month_enrolled"] == "Nov" ? "selected" : "" ?>>Nov</option>
-                            <option value="Dec" <?= $pre_uni_rec[0]["month_enrolled"] == "Dec" ? "selected" : "" ?>>Dec</option>
+                            <option value="Jan" <?= $pre_uni_rec[0]["month_enrolled"] == "JAN" ? "selected" : "" ?>>Jan</option>
+                            <option value="Feb" <?= $pre_uni_rec[0]["month_enrolled"] == "FEB" ? "selected" : "" ?>>Feb</option>
+                            <option value="Mar" <?= $pre_uni_rec[0]["month_enrolled"] == "MAR" ? "selected" : "" ?>>Mar</option>
+                            <option value="Apr" <?= $pre_uni_rec[0]["month_enrolled"] == "APR" ? "selected" : "" ?>>Apr</option>
+                            <option value="May" <?= $pre_uni_rec[0]["month_enrolled"] == "MAY" ? "selected" : "" ?>>May</option>
+                            <option value="Jun" <?= $pre_uni_rec[0]["month_enrolled"] == "JUN" ? "selected" : "" ?>>Jun</option>
+                            <option value="Jul" <?= $pre_uni_rec[0]["month_enrolled"] == "JUL" ? "selected" : "" ?>>Jul</option>
+                            <option value="Aug" <?= $pre_uni_rec[0]["month_enrolled"] == "AUG" ? "selected" : "" ?>>Aug</option>
+                            <option value="Sep" <?= $pre_uni_rec[0]["month_enrolled"] == "SEP" ? "selected" : "" ?>>Sep</option>
+                            <option value="Oct" <?= $pre_uni_rec[0]["month_enrolled"] == "OCT" ? "selected" : "" ?>>Oct</option>
+                            <option value="Nov" <?= $pre_uni_rec[0]["month_enrolled"] == "NOV" ? "selected" : "" ?>>Nov</option>
+                            <option value="Dec" <?= $pre_uni_rec[0]["month_enrolled"] == "DEC" ? "selected" : "" ?>>Dec</option>
                         </select>
-                        <select class="form-select form-select-sm" name="year-enrolled" id="year-enrolled" class="yearList">
+                        <select class="form-select-option form-select form-select-sm" name="year-enrolled" id="year-enrolled" class="yearList">
                             <option hidden>Year</option>
                             <option value="2022" <?= $pre_uni_rec[0]["year_enrolled"] == "2022" ? "selected" : "" ?>>2022</option>
                             <option value="2021" <?= $pre_uni_rec[0]["year_enrolled"] == "2021" ? "selected" : "" ?>>2021</option>
@@ -392,31 +417,31 @@ $edu = 10;
                 <div class="mb-4">
                     <label class="form-label">Did you complete? <span class="input-required">*</span></label>
                     <label class="form-label radio-btn" for="completed-prev-uni-yes">
-                        <input class="completed-prev-uni form-radio" style="margin: 0 !important; padding: 0 !important;" type="radio" name="completed-prev-uni" id="completed-prev-uni-yes" value="1" <?= $pre_uni_rec[0]["completed"] == 1 ? "checked" : "" ?>> Yes
+                        <input class="completed-prev-uni form-radio form-radio-btn" style="margin: 0 !important; padding: 0 !important;" type="radio" name="completed-prev-uni" id="completed-prev-uni-yes" value="1" <?= $pre_uni_rec[0]["completed"] == 1 ? "checked" : "" ?>> Yes
                     </label>
                     <label class="form-label radio-btn" for="completed-prev-uni-no">
-                        <input class="completed-prev-uni form-radio" style="margin: 0 !important; padding: 0 !important;" type="radio" name="completed-prev-uni" id="completed-prev-uni-no" value="0" <?= $pre_uni_rec[0]["completed"] == 0 ? "checked" : "" ?>> No
+                        <input class="completed-prev-uni form-radio form-radio-btn" style="margin: 0 !important; padding: 0 !important;" type="radio" name="completed-prev-uni" id="completed-prev-uni-no" value="0" <?= $pre_uni_rec[0]["completed"] == 0 ? "checked" : "" ?>> No
                     </label>
                 </div>
                 <div class="mb-4 <?= $pre_uni_rec[0]["completed"] == 1 ? "" : "hide" ?>" id="date-completed-uni">
                     <label class="form-label" for="completion-date">Date Completed <span class="input-required">*</span></label>
                     <div style="max-width: 280px !important; display:flex; flex-direction:row; justify-content: space-between">
-                        <select class="form-select form-select-sm" style="margin-right: 10px;" name="month-completed" id="month-completed" class="form-select form-select-lg mb-3">
+                        <select class="form-select-option form-select form-select-sm" style="margin-right: 10px;" name="month-completed" id="month-completed">
                             <option hidden>Month</option>
-                            <option value="Jan" <?= $pre_uni_rec[0]["month_completed"] == "Jan" ? "selected" : "" ?>>Jan</option>
-                            <option value="Feb" <?= $pre_uni_rec[0]["month_completed"] == "Feb" ? "selected" : "" ?>>Feb</option>
-                            <option value="Mar" <?= $pre_uni_rec[0]["month_completed"] == "Mar" ? "selected" : "" ?>>Mar</option>
-                            <option value="Apr" <?= $pre_uni_rec[0]["month_completed"] == "Apr" ? "selected" : "" ?>>Apr</option>
-                            <option value="May" <?= $pre_uni_rec[0]["month_completed"] == "May" ? "selected" : "" ?>>May</option>
-                            <option value="Jun" <?= $pre_uni_rec[0]["month_completed"] == "Jun" ? "selected" : "" ?>>Jun</option>
-                            <option value="Jul" <?= $pre_uni_rec[0]["month_completed"] == "Jul" ? "selected" : "" ?>>Jul</option>
-                            <option value="Aug" <?= $pre_uni_rec[0]["month_completed"] == "Aug" ? "selected" : "" ?>>Aug</option>
-                            <option value="Sep" <?= $pre_uni_rec[0]["month_completed"] == "Sep" ? "selected" : "" ?>>Sep</option>
-                            <option value="Oct" <?= $pre_uni_rec[0]["month_completed"] == "Oct" ? "selected" : "" ?>>Oct</option>
-                            <option value="Nov" <?= $pre_uni_rec[0]["month_completed"] == "Nov" ? "selected" : "" ?>>Nov</option>
-                            <option value="Dec" <?= $pre_uni_rec[0]["month_completed"] == "Dec" ? "selected" : "" ?>>Dec</option>
+                            <option value="Jan" <?= $pre_uni_rec[0]["month_completed"] == "JAN" ? "selected" : "" ?>>Jan</option>
+                            <option value="Feb" <?= $pre_uni_rec[0]["month_completed"] == "FEB" ? "selected" : "" ?>>Feb</option>
+                            <option value="Mar" <?= $pre_uni_rec[0]["month_completed"] == "MAR" ? "selected" : "" ?>>Mar</option>
+                            <option value="Apr" <?= $pre_uni_rec[0]["month_completed"] == "APR" ? "selected" : "" ?>>Apr</option>
+                            <option value="May" <?= $pre_uni_rec[0]["month_completed"] == "MAY" ? "selected" : "" ?>>May</option>
+                            <option value="Jun" <?= $pre_uni_rec[0]["month_completed"] == "JUN" ? "selected" : "" ?>>Jun</option>
+                            <option value="Jul" <?= $pre_uni_rec[0]["month_completed"] == "JUL" ? "selected" : "" ?>>Jul</option>
+                            <option value="Aug" <?= $pre_uni_rec[0]["month_completed"] == "AUG" ? "selected" : "" ?>>Aug</option>
+                            <option value="Sep" <?= $pre_uni_rec[0]["month_completed"] == "SEP" ? "selected" : "" ?>>Sep</option>
+                            <option value="Oct" <?= $pre_uni_rec[0]["month_completed"] == "OCT" ? "selected" : "" ?>>Oct</option>
+                            <option value="Nov" <?= $pre_uni_rec[0]["month_completed"] == "NOV" ? "selected" : "" ?>>Nov</option>
+                            <option value="Dec" <?= $pre_uni_rec[0]["month_completed"] == "DEC" ? "selected" : "" ?>>Dec</option>
                         </select>
-                        <select class="form-select form-select-sm" name="year-completed" id="year-completed" class="yearList">
+                        <select class="form-select-option form-select form-select-sm" name="year-completed" id="year-completed" class="yearList">
                             <option hidden>Year</option>
                             <option value="2022" <?= $pre_uni_rec[0]["year_completed"] == "2022" ? "selected" : "" ?>>2022</option>
                             <option value="2021" <?= $pre_uni_rec[0]["year_completed"] == "2021" ? "selected" : "" ?>>2021</option>
@@ -458,7 +483,7 @@ $edu = 10;
                 <div class="mb-4 <?= $pre_uni_rec[0]["completed"] == 0 ? "" : "hide" ?>" id="uni-not-completed">
                     <div>
                         <label class="form-label" for="state">Why did you not complete? <span class="input-required">*</span></label>
-                        <select class="form-select form-select-sm mb-3" name="state" id="state">
+                        <select class="form-select-option form-select form-select-sm mb-3" name="state" id="state">
                             <option hidden>Choose </option>
                             <option value="Deferred">Deferred</option>
                             <option value="Withdrawn">Withdrawn</option>
@@ -467,7 +492,7 @@ $edu = 10;
                     </div>
                     <div class="mb-4">
                         <label class="form-label" for="reasons">Explain reasons <span class="input-required">*</span></label>
-                        <textarea class="form-control" rows="5" style="max-width: 280px; width: 280px;" name="reasons" id="reasons" value="<?= $pre_uni_rec[0]["reasons"] ?>"></textarea>
+                        <textarea class="form-control form-text-input" rows="5" style="max-width: 280px; width: 280px;" name="reasons" id="reasons" value="<?= $pre_uni_rec[0]["reasons"] ?>"></textarea>
                     </div>
                 </div>
             </div>

@@ -447,19 +447,57 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			$errors['elective_sbj_grp4'] = 'Subject\'s grade is ' . $elective_sbj_grd4['message'] . '.';
 		}
 
-		$response = "";
-
 		if (!empty($errors)) {
 			$data['success'] = false;
 			$data['errors'] = $errors;
 		} else {
-			$data['success'] = true;
-			$data['message'] = 'Success!';
+			$education_info = array();
+			$subjects = array(
+				"core" => array(
+					array("subject" => $core_sbj1["message"], "grade" => $core_sbj_grd1["message"]),
+					array("subject" => $core_sbj2["message"], "grade" => $core_sbj_grd2["message"]),
+					array("subject" => $core_sbj3["message"], "grade" => $core_sbj_grd3["message"]),
+					array("subject" => $core_sbj4["message"], "grade" => $core_sbj_grd4["message"])
+				),
+				"elective" => array(
+					array("subject" => $elective_sbj1["message"], "grade" => $elective_sbj_grd1["message"]),
+					array("subject" => $elective_sbj2["message"], "grade" => $elective_sbj_grd2["message"]),
+					array("subject" => $elective_sbj3["message"], "grade" => $elective_sbj_grd3["message"]),
+					array("subject" => $elective_sbj4["message"], "grade" => $elective_sbj_grd4["message"])
+				)
+			);
+			$result = $user->saveEducation(
+				$sch_name["message"],
+				$sch_country["message"],
+				$sch_region["message"],
+				$sch_city["message"],
+				$cert_type["message"],
+				$index_number["message"],
+				$month_started["message"],
+				$year_started["message"],
+				$month_completed["message"],
+				$year_completed["message"],
+				$course_studied["message"],
+				$_SESSION['ghApplicant']
+			);
 
-			$response = json_encode($user->saveEducation());
+			if ($result) {
+
+				if ($user->saveSubjectAndGrades($subjects, $result)) {
+					$data['success'] = true;
+					$data['message'] = 'Education added successfully!';
+				}
+				/*if ($user->saveCoreSubjectGrades($core_sbj_grd1, $core_sbj_grd2, $core_sbj_grd3, $core_sbj_grd4)) {
+					if ($user->saveElectiveSubjectGrades($elective_sbj1, $elective_sbj_grd1, $elective_sbj2, $elective_sbj_grd2, $elective_sbj3, $elective_sbj_grd3, $elective_sbj4, $elective_sbj_grd4)) {
+						$data['success'] = true;
+						$data['message'] = 'Education added successfully!';
+					}
+				}*/
+			}
 		}
 
 		echo json_encode($data);
+		exit();
 	}
 } else if ($_SERVER['REQUEST_METHOD'] == "PUT") {
 	parse_str(file_get_contents("php://input"), $_PUT);
@@ -467,7 +505,13 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	if ($_GET["url"] == "personal") {
 
 		$what = $_PUT["what"];
-		$value = strtoupper($user->validateInput($_PUT['value']));
+		$value = $_PUT['value'];
+		if ($what == "other-number-code" || $what == "phone-number1-code" || $what == "gd-phone-number-code") {
+			$code = str_replace("+", "", $value);
+			$value = "+" . strtoupper($user->validatePhone($code));
+		} else {
+			$value = strtoupper($user->validateInput($value));
+		}
 
 		if (isset($what) && !empty($what)) {
 			$column = str_replace("-", "_", $what);
@@ -475,19 +519,24 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			if ($column == "dob") {
 				$value = str_replace("/", "-", $value);
 			}
-			if ($column == "disability_descript") {
-				$column = 'disability';
+			//English Language and disability check
+			if ($column == "disability" || $column == "english_native") {
+				if ($value == "YES") {
+					$value = 1;
+				} else if ($value == "NO") {
+					$value = 0;
+				}
 			}
 
 			//Place of birth 
 			if ($column == "region_birth") {
 				$column = 'spr_birth';
 			}
+
 			if ($column == "home_town") {
 				$column = 'city_birth';
 			}
 
-			//Language
 			if ($column == "english_native") {
 				if ($value == "Yes") {
 					$value = 1;
@@ -517,10 +566,16 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			}
 
 			//Contact
-			if ($column == "app_phone_number") {
+			if ($column == "phone_number1_code") {
+				$column = 'phone_no1_code';
+			}
+			if ($column == "other_number_code") {
+				$column = 'phone_no2_code';
+			}
+			if ($column == "phone_number1") {
 				$column = 'phone_no1';
 			}
-			if ($column == "app_other_number") {
+			if ($column == "other_number") {
 				$column = 'phone_no2';
 			}
 			if ($column == "app_email_address") {
@@ -540,19 +595,23 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			if ($column == "gd_occupation") {
 				$column = 'p_occupation';
 			}
+			if ($column == "gd_phone_number_code") {
+				$column = 'p_phone_no_code';
+			}
 			if ($column == "gd_phone_number") {
 				$column = 'p_phone_no';
-			} else if ($column == "gd_email_address") {
+			}
+			if ($column == "gd_email_address") {
 				$column = 'p_email_addr';
 			}
 
 			echo $user->updateApplicantInfo($column, $value, $_SESSION['ghApplicant']);
-			exit(1);
+			exit();
 		}
 	} elseif ($_GET["url"] == "education") {
 
 		$what = $_PUT["what"];
-		$value = $_PUT['value'];
+		$value = strtoupper($_PUT['value']);
 
 		if (isset($what) && !empty($what)) {
 			$column = str_replace("-", "_", $what);
@@ -567,11 +626,32 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 			//$column = substr_replace($column, "", -1);
 			echo $user->updatePrevUniInfo($column, $value, $_SESSION['ghApplicant']);
-			exit(1);
+			exit();
 		}
 	}
 } else if ($_SERVER['REQUEST_METHOD'] == "DELETE") {
-	//code
+	parse_str(file_get_contents("php://input"), $_DELETE);
+
+	if ($_GET["url"] == "education") {
+
+		$data = [];
+
+		if ($_DELETE["what"] == "delete-edu-history") {
+			$what = $_DELETE["what"];
+			$value = substr($_DELETE['value'], 6); // serial number
+
+			if ($user->deleteEducationHistory($value, $_SESSION['ghApplicant'])) {
+				$data['success'] = true;
+				$data['message'] = 'Successfully deleted!';
+			} else {
+				$data['success'] = false;
+				$data['message'] = 'Deletion failed!';
+			}
+		}
+
+		echo json_encode($data);
+		exit();
+	}
 } else {
 	http_response_code(405);
 }

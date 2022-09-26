@@ -89,7 +89,7 @@ $page = array("id" => 2, "name" => "Education Background");
                 }
             });
 
-            $(".form-select").change("blur", function() {
+            $(".form-select-option").change("blur", function() {
                 $.ajax({
                     type: "PUT",
                     url: "../../api/education",
@@ -106,7 +106,7 @@ $page = array("id" => 2, "name" => "Education Background");
                 });
             });
 
-            $(".form-control").on("blur", function() {
+            $(".form-text-input").on("blur", function() {
                 $.ajax({
                     type: "PUT",
                     url: "../../api/education",
@@ -123,7 +123,7 @@ $page = array("id" => 2, "name" => "Education Background");
                 });
             });
 
-            $(".form-radio").on("click", function() {
+            $(".form-radio-btn").on("click", function() {
                 $.ajax({
                     type: "PUT",
                     url: "../../api/education",
@@ -133,6 +133,29 @@ $page = array("id" => 2, "name" => "Education Background");
                     },
                     success: function(result) {
                         console.log(result);
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            });
+
+            $(".delete-edu-btn").on("click", function() {
+                let data = {
+                    what: "delete-edu-history",
+                    value: $(this).attr("id"),
+                };
+                $.ajax({
+                    type: "DELETE",
+                    url: "../../api/education",
+                    data: data,
+                    success: function(result) {
+                        console.log(result);
+
+                        if (result["success"]) {
+                            alert(result["message"])
+                            alert(data.value.substr(11));
+                        }
                     },
                     error: function(error) {
                         console.log(error);

@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    let end = 3;
+    let end = 4;
     let next = 1;
 
     $("#nextStep").click(function() {

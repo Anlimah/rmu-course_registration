@@ -103,10 +103,7 @@ class UsersController extends DatabaseMethods
     public function updateApplicantInfo($what, $value, $user_id)
     {
         $sql = "UPDATE `personal_information` SET `$what` = :v WHERE `app_login` = :a";
-        if ($this->inputData($sql, array(':v' => $value, ':a' => $user_id))) {
-            return 1;
-        }
-        return 0;
+        $this->inputData($sql, array(':v' => $value, ':a' => $user_id));
     }
 
     public function updateAcademicInfo($what, $value, $user_id)
@@ -142,7 +139,7 @@ class UsersController extends DatabaseMethods
 
     public function fetchApplicantAcaB($user_id)
     {
-        $sql = "SELECT `school_name`, `country`, `region`, `city`, `cert_type`, 
+        $sql = "SELECT `school_name`, `s_number`, `country`, `region`, `city`, `cert_type`, 
                 `month_started`, `year_started`, `month_completed`, `year_completed`, 
                 `index_number`, `course_of_study` 
                 FROM `academic_background` WHERE `app_login` = :a";
@@ -174,8 +171,91 @@ class UsersController extends DatabaseMethods
     {
     }
 
-    public function saveEducation()
+    private function doesCodeExists($code)
     {
-        return json_encode(array("response" => "ok"));
+        $sql = "SELECT `id` FROM `academic_background` WHERE `s_number`=:s";
+        if ($this->getID($sql, array(':s' => sha1($code)))) {
+            return 1;
+        }
+        return 0;
+    }
+
+    public function saveEducation($sn, $cn, $rg, $ci, $ct, $im, $ms, $ys, $mc, $yc, $cs, $al)
+    {
+        $rslt = 1;
+        while ($rslt) {
+            $serial_number = $this->genCode();
+            $rslt = $this->doesCodeExists($serial_number);
+        }
+
+        $sql = "INSERT INTO `academic_background` (`s_number`, `school_name`, `country`, 
+                `region`, `city`, `cert_type`, `index_number`, `month_started`, `year_started`, 
+                `month_completed`, `year_completed`, `course_of_study`,`app_login`) 
+                VALUES (:sr, :sn, :cn, :rg, :ci, :ct, :im, :ms, :ys, :mc, :yc, :cs, :al)";
+
+        $params = array(
+            ":sr" => $serial_number, ":sn" => $sn, ":cn" => $cn, ":rg" => $rg,
+            ":ci" => $ci, ":ct" => $ct, ":im" => $im,
+            ":ms" => $ms, ":ys" => $ys, ":mc" => $mc, ":yc" => $yc, ":cs" => $cs, ":al" => $al
+        );
+
+        if ($this->inputData($sql, $params)) {
+            $sql = "SELECT `id` FROM `academic_background` WHERE `s_number`=:s";
+            return $this->getID($sql, array(':s' => $serial_number));
+        }
+
+        return 0;
+    }
+
+    public function saveCoreSubjectGrades($math, $english, $science, $social)
+    {
+        $sql = "INSERT INTO `core_subjects_grades` (`school_name`, `country`, 
+                `region`, `city`, `cert_type`, `index_number`, `month_started`, `year_started`, 
+                `month_completed`, `year_completed`, `course_of_study`,`app_login`) 
+                VALUES (:m, :e, :i, :s)";
+        $params = array(":m" => $math, ":e" => $english, ":i" => $science, ":s" => $social);
+        return $this->inputData($sql, $params);
+    }
+
+    public function saveElectiveSubjectGrades($ej1, $ejg1, $ej2, $ejg2, $ej3, $ejg3, $ej4, $ejg4)
+    {
+        $sql = "INSERT INTO `elective_subjects_grades` (`school_name`, `country`, 
+                `region`, `city`, `cert_type`, `index_number`, `month_started`, `year_started`, 
+                `month_completed`, `year_completed`, `course_of_study`,`app_login`) 
+                VALUES (:s1, :g1, :s2, :g2, :s3, :g3, :s4, :g4)";
+        $params = array(
+            ":s1" => $ej1, ":g1" => $ejg1, ":s2" => $ej2, ":g2" => $ejg2,
+            ":s3" => $ej3, ":g3" => $ejg3, ":s4" => $ej4, ":g4" => $ejg4
+        );
+        return $this->inputData($sql, $params);
+    }
+
+    public function saveSubjectAndGrades($subjects = array(), $aca_id)
+    {
+        if (!empty($subjects)) {
+            $sql = "INSERT INTO `high_school_results` (`type`, `subject`, `grade`, `acad_back_id`) VALUES (:t, :s, :g, :ai)";
+
+            // add core subjects
+            for ($i = 0; $i < count($subjects["core"]); $i++) {
+                $params = array(":t" => "core", ":s" => $subjects["core"][$i]["subject"], ":g" => $subjects["core"][$i]["grade"], ":ai" =>  $aca_id);
+                $this->inputData($sql, $params);
+            }
+
+            // add elective subjects
+            for ($i = 0; $i < count($subjects["elective"]); $i++) {
+                $params = array(":t" => "elective", ":s" => $subjects["elective"][$i]["subject"], ":g" => $subjects["elective"][$i]["grade"], ":ai" =>  $aca_id);
+                $this->inputData($sql, $params);
+            }
+
+            return 1;
+        }
+        return 0;
+    }
+
+    public function deleteEducationHistory($serial_number, $education_id)
+    {
+        $sql = "DELETE FROM `academic_background` WHERE `s_number` = :sn AND `app_login` = :id";
+        $params = array(":sn" => $serial_number, ":id" => $education_id);
+        return $this->inputData($sql, $params);
     }
 }

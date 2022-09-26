@@ -110,7 +110,7 @@ require_once('../../inc/page-data.php');
             <div class="mb-4">
                 <label class="form-label" for="country-res">Country of Residence <span class="input-required">*</span></label>
                 <input class="form-control form-control-sm mb-3" list="country-res-list" name="country-res" id="country-res" value="<?= $personal[0]["country_res"] ?>">
-                <datalist id=" country-res-list">
+                <datalist id="country-res-list">
                     <?php
                     foreach (COUNTRIES as $cn) {
                         echo '<option value="' . $cn["name"] . '">';
@@ -121,10 +121,10 @@ require_once('../../inc/page-data.php');
             <div class="mb-4">
                 <label class="form-label">Any Disability <span class="input-required">*</span></label>
                 <label class="form-label radio-btn" for="disability-yes">
-                    <input class="disability form-radio" style="margin: 0 !important; padding: 0 !important;" type="radio" name="disability" id="disability-yes" value="1" <?= $personal[0]["disability"] == 1 ? "checked" : "" ?>> Yes
+                    <input class="disability form-radio" style="margin: 0 !important; padding: 0 !important;" type="radio" name="disability" id="disability-yes" value="yes" <?= $personal[0]["disability"] == 1 ? "checked" : "" ?>> Yes
                 </label>
                 <label class="form-label radio-btn" for="disability-no">
-                    <input class="disability form-radio" style="margin: 0 !important; padding: 0 !important;" type="radio" name="disability" id="disability-no" value="0" <?= $personal[0]["disability"] == 0 ? "checked" : "" ?>> No
+                    <input class="disability form-radio" style="margin: 0 !important; padding: 0 !important;" type="radio" name="disability" id="disability-no" value="no" <?= $personal[0]["disability"] == 0 ? "checked" : "" ?>> No
                 </label>
             </div>
             <div class="mb-4 <?= $personal[0]["disability"] == 1 ? "" : "hide" ?>" id="disability-list">
@@ -179,20 +179,20 @@ require_once('../../inc/page-data.php');
         <div class="mb-3">
             <label class="form-label" for="english-native">English Native <span class="input-required">*</span></label>
             <label class="form-label radio-btn" for="english-native-yes">
-                <input style="margin: 0 !important; padding: 0 !important;" class="english-native form-radio" type="radio" name="english-native" id="english-native-yes" value="1" <?= $personal[0]["english_native"] == 1 ? "checked" : "" ?>> Yes
+                <input style="margin: 0 !important; padding: 0 !important;" class="english-native form-radio" type="radio" name="english-native" id="english-native-yes" value="yes" <?= $personal[0]["english_native"] == 1 ? "checked" : "" ?>> Yes
             </label>
             <label class="form-label radio-btn" for="english-native-no">
-                <input style="margin: 0 !important; padding: 0 !important;" class="english-native form-radio" type="radio" name="english-native" id="english-native-no" value="0" <?= $personal[0]["english_native"] == 0 ? "checked" : "" ?>> No
+                <input style="margin: 0 !important; padding: 0 !important;" class="english-native form-radio" type="radio" name="english-native" id="english-native-no" value="no" <?= $personal[0]["english_native"] == 0 ? "checked" : "" ?>> No
             </label>
         </div>
 
-        <div class="mt-3 hide" id="english-native-list">
+        <div class="mt-3 <?= $personal[0]["english_native"] == 1 ? "hide" : "" ?>" id="english-native-list">
             <label class="form-label" for="english-native">Do you understand and speak some english? <span class="input-required">*</span></label>
             <label for="speak-some-eng-yes" class="form-label radio-btn">
-                <input class="english-native form-radio" style="margin: 0 !important; padding: 0 !important;" type="radio" name="speak-some-eng" id="speak-some-eng-yes" value="Yes" <?= $personal[0]["english_native"] == 1 ? "checked" : "" ?>> Yes
+                <input class="english-native" style="margin: 0 !important; padding: 0 !important;" type="radio" name="speak-some-eng" id="speak-some-eng-yes" value="Yes" <?= $personal[0]["english_native"] == 1 ? "checked" : "" ?>> Yes
             </label>
             <label for="speak-some-eng-no" class="form-label radio-btn">
-                <input class="english-native form-radio" style="margin: 0 !important; padding: 0 !important;" type="radio" name="speak-some-eng" id="speak-some-eng-no" value="No" <?= $personal[0]["english_native"] == 0 ? "checked" : "" ?>> No
+                <input class="english-native" style="margin: 0 !important; padding: 0 !important;" type="radio" name="speak-some-eng" id="speak-some-eng-no" value="No" <?= $personal[0]["english_native"] == 0 ? "checked" : "" ?>> No
             </label>
             <div class="mt-3">
                 <label class="form-label" for="language-spoken">Speicfy Language</label>
@@ -256,7 +256,7 @@ require_once('../../inc/page-data.php');
         <div class="mb-4">
             <label class="form-label" for="app-phone-number">Primary Phone Number <span class="input-required">*</span></label>
             <div style="max-width: 280px !important; display:flex !important; flex-direction:row !important; justify-content: space-between !important">
-                <select class="form-select form-select-sm  country-code" name="app-phone-number-code" id="app-phone-number-code" style="margin-right: 10px; width: 45%">
+                <select class="form-select form-select-sm  country-code" name="phone-number1-code" id="app-phone-number-code" style="margin-right: 10px; width: 45%">
                     <option value="" hidden>Select</option>
                     <?php
                     foreach (COUNTRIES as $cn) {
@@ -264,13 +264,13 @@ require_once('../../inc/page-data.php');
                     }
                     ?>
                 </select>
-                <input class="form-control form-control-sm" style="width: 70%" type="text" name="app-phone-number" id="app-phone-number" value="<?= $personal[0]["phone_no1"] ?>">
+                <input class="form-control form-control-sm" style="width: 70%" type="text" name="phone-number1" id="app-phone-number" value="<?= $personal[0]["phone_no1"] ?>">
             </div>
         </div>
         <div class="mb-4">
             <label class="form-label" for="app-other-number"> Other Phone Number <span>(Optional)</span></label>
             <div style="max-width: 280px !important; display:flex !important; flex-direction:row !important; justify-content: space-between !important">
-                <select class="form-select form-select-sm  country-code" name="app-other-number-code" id="app-other-number-code" style="margin-right: 10px; width: 45%">
+                <select class="form-select form-select-sm  country-code" name="other-number-code" id="app-other-number-code" style="margin-right: 10px; width: 45%">
                     <option value="" hidden>Select</option>
                     <?php
                     foreach (COUNTRIES as $cn) {
@@ -278,7 +278,7 @@ require_once('../../inc/page-data.php');
                     }
                     ?>
                 </select>
-                <input class="form-control form-control-sm" style="width: 70%" type="text" name="app-other-number" id="app-other-number" value="<?= $personal[0]["phone_no2"] ?>">
+                <input class="form-control form-control-sm" style="width: 70%" type="text" name="other-number" id="app-other-number" value="<?= $personal[0]["phone_no2"] ?>">
             </div>
         </div>
         <div class="mb-4">

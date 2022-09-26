@@ -180,7 +180,9 @@ CREATE TABLE `personal_information` (
     `postal_country` VARCHAR(50),
 
     -- Contact
+    `phone_no1_code` VARCHAR(5),
     `phone_no1` VARCHAR(13),
+    `phone_no2_code` VARCHAR(5),
     `phone_no2` VARCHAR(13),
     `email_addr` VARCHAR(50),
     
@@ -191,8 +193,7 @@ CREATE TABLE `personal_information` (
     `p_first_name` VARCHAR(100),
     `p_last_name` VARCHAR(100),
     `p_occupation` VARCHAR(50),
-
-    -- Contact
+    `p_phone_no_code` VARCHAR(5),
     `p_phone_no` VARCHAR(13),
     `p_email_addr` VARCHAR(50),
 
@@ -211,12 +212,12 @@ CREATE TABLE `awaiting_certs` (
     
     `app_login` INT NOT NULL,
     CONSTRAINT `fk_app_a_certs` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE
-
 );
 
 DROP TABLE IF EXISTS `academic_background`;
 CREATE TABLE `academic_background` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
+    `s_number` INT(11) UNIQUE NOT NULL,
 
     -- Certificate info
     `school_name` VARCHAR(100),
@@ -249,7 +250,7 @@ CREATE TABLE `high_school_results` (
     `type` VARCHAR(10) DEFAULT 'core',
     `subject` VARCHAR(100) NOT NULL,
     `grade` VARCHAR(2) NOT NULL,
-    `acad_back_id` INT NOT NULL -- Referencing academic background
+    `acad_back_id` INT NOT NULL, -- Referencing academic background
     CONSTRAINT `fk_grades_aca_bac` FOREIGN KEY (`acad_back_id`) REFERENCES `academic_background`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
@@ -288,8 +289,6 @@ CREATE TABLE `previous_uni_records` (
     `app_login` INT NOT NULL,   
     CONSTRAINT `fk_app_prev_uni` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE
 );
-
-ALTER TABLE `previous_uni_records` ADD COLUMN `pre_uni_rec` TINYINT DEFAULT 0 AFTER `id`;
 
 SELECT `purchase_detail`.`form_type` FROM `purchase_detail`, `applicants_login`
 WHERE `applicants_login`.`purchase_id` = `purchase_detail`.`id` AND `applicants_login`.`id` = 1;
