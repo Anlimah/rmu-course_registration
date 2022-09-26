@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 	// verify applicant provided details
 	if ($_GET["url"] == "verifyStep1") {
-		$message = array("response" => "error", "msg" => "Invalid request!");
+		$message = array("response" => "error", "message" => "Invalid request!");
 
 		if (isset($_SESSION["_step1Token"]) && !empty($_SESSION["_step1Token"])) {
 			if (isset($_POST["_v1Token"]) && !empty($_POST["_v1Token"])) {
@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			die(json_encode($message));
 		}
 	} elseif ($_GET["url"] == "verifyStep2") {
-		$message = array("response" => "error", "msg" => "Invalid request!");
+		$message = array("response" => "error", "message" => "Invalid request!");
 
 		if (isset($_SESSION["_step2Token"]) && !empty($_SESSION["_step2Token"])) {
 			if (isset($_POST["_v2Token"]) && !empty($_POST["_v2Token"])) {
@@ -94,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			die(json_encode($message));
 		}
 	} elseif ($_GET["url"] == "verifyStep3") {
-		$message = array("response" => "error", "msg" => "Invalid request!");
+		$message = array("response" => "error", "message" => "Invalid request!");
 
 		if (isset($_SESSION["_step3Token"]) && !empty($_SESSION["_step3Token"])) {
 			if (isset($_POST["_v3Token"]) && !empty($_POST["_v3Token"])) {
@@ -117,7 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			die(json_encode($message));
 		}
 	} elseif ($_GET["url"] == "verifyStep4") {
-		$message = array("response" => "error", "msg" => "Invalid request!");
+		$message = array("response" => "error", "message" => "Invalid request!");
 
 		if (isset($_SESSION["_step4Token"]) && !empty($_SESSION["_step4Token"])) {
 			if (isset($_POST["_v4Token"]) && !empty($_POST["_v4Token"])) {
@@ -139,7 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			die(json_encode($message));
 		}
 	} elseif ($_GET["url"] == "verifyStep5") {
-		$message = array("response" => "error", "msg" => "Invalid request!");
+		$message = array("response" => "error", "message" => "Invalid request!");
 
 		if (isset($_SESSION["_step5Token"]) && !empty($_SESSION["_step5Token"])) {
 			if (isset($_POST["_v5Token"]) && !empty($_POST["_v5Token"])) {
@@ -166,7 +166,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			die(json_encode($message));
 		}
 	} elseif ($_GET["url"] == "verifyStep6") {
-		$message = array("response" => "error", "msg" => "Invalid request!");
+		$message = array("response" => "error", "message" => "Invalid request!");
 
 		if (isset($_SESSION["_step6Token"]) && !empty($_SESSION["_step6Token"])) {
 			if (isset($_POST["_v6Token"]) && !empty($_POST["_v6Token"])) {
@@ -206,7 +206,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			die(json_encode($message));
 		}
 	} elseif ($_GET["url"] == "verifyStep7Momo") {
-		$message = array("response" => "error", "msg" => "Invalid request!");
+		$message = array("response" => "error", "message" => "Invalid request!");
 
 		if (isset($_SESSION["_step7MomoToken"]) && !empty($_SESSION["_step7MomoToken"])) {
 			if (isset($_POST["_v7MomoToken"]) && !empty($_POST["_v7MomoToken"])) {
@@ -228,7 +228,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			die(json_encode($message));
 		}
 	} elseif ($_GET["url"] == "verifyStep7Bank") {
-		$message = array("response" => "error", "msg" => "Invalid request!");
+		$message = array("response" => "error", "message" => "Invalid request!");
 
 		if (isset($_SESSION["_step7BankToken"]) && !empty($_SESSION["_step7BankToken"])) {
 			if (isset($_POST["_v7BankToken"]) && !empty($_POST["_v7BankToken"])) {
@@ -251,11 +251,11 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			die(json_encode($message));
 		}
 	} elseif ($_GET["url"] == "appLogin") {
-		$message = array("response" => "error", "msg" => "Invalid request!");
+		$message = array("response" => "error", "message" => "Invalid request!");
 
 		if (isset($_SESSION["_start"]) && !empty($_SESSION["_start"])) {
 			if ($_POST["_logToken"] != $_SESSION["_start"]) {
-				die(json_encode(array("response" => "error", "msg" => "Invalid request!")));
+				die(json_encode(array("response" => "error", "message" => "Invalid request!")));
 			} else {
 				$app_number = "RMU-" . $user->validateInput($_POST["app_number"]);
 				$pin_code = $user->validateInput($_POST["pin_code"]);
@@ -263,7 +263,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 				$result = $user->verifyLoginDetails($app_number, $pin_code);
 
 				if (!$result) {
-					die(json_encode(array("response" => "error", "msg" => "Incorrect application number or PIN! " . $user_id)));
+					die(json_encode(array("response" => "error", "message" => "Incorrect application number or PIN! ")));
 				} else {
 					$_SESSION['ghApplicant'] = $result["id"];
 					$_SESSION['ghAppLogin'] = true;
@@ -281,7 +281,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 							$type = 'none';
 							break;
 					}
-					echo json_encode(array("response" => "success", "msg" => $type));
+					echo json_encode(array("response" => "success", "message" => $type));
 				}
 			}
 		} else {
@@ -297,7 +297,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 				break;
 
 			default:
-				echo json_encode(array("response" => "error", "msg" => "Invalid Request!"));
+				echo json_encode(array("response" => "error", "message" => "Invalid Request!"));
 				break;
 		}
 
@@ -557,8 +557,16 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		if (isset($what) && !empty($what)) {
 			$column = str_replace("-", "_", $what);
 
-			$column = substr_replace($column, "", -1);
-			echo $user->updateAcademicInfo($column, $value, $_SESSION['ghApplicant']);
+			if ($column == "completed_prev_uni") {
+				$column = 'completed';
+			}
+
+			if ($column == "prev_uni_rec") {
+				$column = 'pre_uni_rec';
+			}
+
+			//$column = substr_replace($column, "", -1);
+			echo $user->updatePrevUniInfo($column, $value, $_SESSION['ghApplicant']);
 			exit(1);
 		}
 	}

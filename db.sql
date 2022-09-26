@@ -270,6 +270,7 @@ CREATE TABLE `program_info` (
 DROP TABLE IF EXISTS `previous_uni_records`;
 CREATE TABLE `previous_uni_records` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
+    `pre_uni_rec` TINYINT DEFAULT 0,   
     `name_of_uni` VARCHAR(150),   
     `program` VARCHAR(150),  
 
@@ -287,6 +288,8 @@ CREATE TABLE `previous_uni_records` (
     `app_login` INT NOT NULL,   
     CONSTRAINT `fk_app_prev_uni` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE
 );
+
+ALTER TABLE `previous_uni_records` ADD COLUMN `pre_uni_rec` TINYINT DEFAULT 0 AFTER `id`;
 
 SELECT `purchase_detail`.`form_type` FROM `purchase_detail`, `applicants_login`
 WHERE `applicants_login`.`purchase_id` = `purchase_detail`.`id` AND `applicants_login`.`id` = 1;

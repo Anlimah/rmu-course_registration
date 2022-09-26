@@ -114,12 +114,17 @@ class VoucherPurchase
 
         if ($this->dm->inputData($sql, $params)) {
             $user_id = $this->getApplicantLoginID($app_number);
+
             //register in Personal information table in db
             $this->registerApplicantPersI($user_id);
+
             //register in Acaedmic backgorund
-            $this->registerApplicantAcaB($user_id);
+            // Removed this education background because data will be bulk bulk saved and also user can add more than 1
+            //$this->registerApplicantAcaB($user_id);
+
             //register in Programs information
             $this->registerApplicantProgI($user_id);
+
             //register in Previous university information
             $this->registerApplicantPreUni($user_id);
 

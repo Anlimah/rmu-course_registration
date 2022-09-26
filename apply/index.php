@@ -89,8 +89,11 @@ if (!isset($_SESSION["_start"])) {
     <script>
         $(document).ready(function() {
 
+            $("input").on("click", function() {
+                $(this).select();
+            });
+
             $("#appLoginForm").on("submit", function(e) {
-                e.preventDefault();
 
                 /**
                  *  Pregmatch: 
@@ -123,12 +126,15 @@ if (!isset($_SESSION["_start"])) {
                     processData: false,
                     success: function(result) {
                         console.log(result);
+                        alert(result['message']);
                         if (result['response'] == 'success') {
-                            window.location.href = result['msg'] + '/welcome.php';
+                            window.location.href = result['message'] + '/welcome.php';
                         }
                     },
                     error: function(error) {}
                 });
+
+                e.preventDefault();
             });
         });
     </script>

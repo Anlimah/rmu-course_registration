@@ -4,8 +4,8 @@ require_once('../../bootstrap.php');
 use Src\Controller\UsersController;
 
 $user = new UsersController();
-$personal_PU = $user->fetchApplicantPreUni($user_id);
-$data = $user->fetchApplicantAcaB($user_id);
+$pre_uni_rec = $user->fetchApplicantPreUni($user_id);
+$academic_BG = $user->fetchApplicantAcaB($user_id);
 $app_type = $user->getApplicationType($user_id);
 
 require_once('../../inc/page-data.php');
@@ -20,12 +20,11 @@ $edu = 10;
 
 <fieldset class="fieldset" id="graduate">
     <div class="field-header">
-        <legend>Education</legend>
+        <legend>Which Secondary/High Schools have you attended?</legend>
     </div>
 
     <div class="field-content">
         <div class="mb-4">
-            <label class="form-label" for="cert-type">Education History <span class="input-required">*</span></label>
             <p>
                 Please list all colleges, universities, or other secondary institutions in which you attended classes. If you went to multiple institutions, please enter each separately. </br>
             </p>
@@ -37,6 +36,10 @@ $edu = 10;
         </div>
 
         <div class="mb-4" id="education-list">
+
+            <label class="form-label" for="cert-type">Education History</label>
+
+            <!--Education List Display Area-->
             <div class="mb-4 edu-history">
                 <div class="edu-history-header">
                     <div class="edu-history-header-info">
@@ -56,6 +59,8 @@ $edu = 10;
                     <a>Upload a scan copy of Certificate</a>
                 </div>-->
             </div>
+            <!--Education List Display Area End-->
+
         </div>
 
         <button type="button" id="add-education-btn" class="mb-4 btn btn-primary" data-bs-toggle="modal" data-bs-target="#addSchoolModal">Add School</button>
@@ -294,6 +299,179 @@ $edu = 10;
                     </div>
                 </div>
             </div>
+        </div>
+        <!--End of Modal-->
+    </div>
+</fieldset>
+
+<fieldset class="fieldset">
+    <div class="field-header">
+        <legend>Previous University Enrollment Information</legend>
+    </div>
+
+    <div class="field-content">
+        <div class="mb-4">
+            <div class="mb-4">
+                <label class="form-label">Do you have any previous University records? <span class="input-required">*</span></label>
+                <div>
+                    <label class="form-label radio-btn" for="prev-uni-rec-yes">
+                        <input class="prev-uni-rec form-radio" style="margin: 0 !important; padding: 0 !important;" type="radio" name="prev-uni-rec" id="prev-uni-rec-yes" value="1" <?= $pre_uni_rec[0]["pre_uni_rec"] == 1 ? "checked" : "" ?>> Yes
+                    </label>
+                    <label class="form-label radio-btn" for="prev-uni-rec-no">
+                        <input class="prev-uni-rec form-radio" style="margin: 0 !important; padding: 0 !important;" type="radio" name="prev-uni-rec" id="prev-uni-rec-no" value="0" <?= $pre_uni_rec[0]["pre_uni_rec"] == 0 ? "checked" : "" ?>> No
+                    </label>
+                </div>
+            </div>
+
+            <!--Previous university record information-->
+            <div class="<?= $pre_uni_rec[0]["pre_uni_rec"] == 1 ? "" : "hide" ?>" id="prev-uni-rec-list">
+                <div class="mb-4">
+                    <label class="form-label" for="name_of_uni">Name of University <span class="input-required">*</span></label>
+                    <input class="form-control" type="text" name="name_of_uni" id="name_of_uni" value="<?= $pre_uni_rec[0]["name_of_uni"] ?>">
+                </div>
+                <div class="mb-4">
+                    <label class="form-label" for="program">Program Pursued <span class="input-required">*</span></label>
+                    <input class="form-control" type="text" name="program" id="program" value="<?= $pre_uni_rec[0]["program"] ?>">
+                </div>
+                <div class="mb-4" id="date-enrolled-uni">
+                    <label class="form-label" for="completion-date">Date Enrolled <span class="input-required">*</span></label>
+                    <div style="max-width: 280px !important; display:flex; flex-direction:row; justify-content: space-between">
+                        <select class="form-select form-select-sm" style="margin-right: 10px;" name="month-enrolled" id="month-enrolled" class="form-select form-select-lg mb-3">
+                            <option hidden>Month</option>
+                            <option value="Jan" <?= $pre_uni_rec[0]["month_enrolled"] == "Jan" ? "selected" : "" ?>>Jan</option>
+                            <option value="Feb" <?= $pre_uni_rec[0]["month_enrolled"] == "Feb" ? "selected" : "" ?>>Feb</option>
+                            <option value="Mar" <?= $pre_uni_rec[0]["month_enrolled"] == "Mar" ? "selected" : "" ?>>Mar</option>
+                            <option value="Apr" <?= $pre_uni_rec[0]["month_enrolled"] == "Apr" ? "selected" : "" ?>>Apr</option>
+                            <option value="May" <?= $pre_uni_rec[0]["month_enrolled"] == "May" ? "selected" : "" ?>>May</option>
+                            <option value="Jun" <?= $pre_uni_rec[0]["month_enrolled"] == "Jun" ? "selected" : "" ?>>Jun</option>
+                            <option value="Jul" <?= $pre_uni_rec[0]["month_enrolled"] == "Jul" ? "selected" : "" ?>>Jul</option>
+                            <option value="Aug" <?= $pre_uni_rec[0]["month_enrolled"] == "Aug" ? "selected" : "" ?>>Aug</option>
+                            <option value="Sep" <?= $pre_uni_rec[0]["month_enrolled"] == "Sep" ? "selected" : "" ?>>Sep</option>
+                            <option value="Oct" <?= $pre_uni_rec[0]["month_enrolled"] == "Oct" ? "selected" : "" ?>>Oct</option>
+                            <option value="Nov" <?= $pre_uni_rec[0]["month_enrolled"] == "Nov" ? "selected" : "" ?>>Nov</option>
+                            <option value="Dec" <?= $pre_uni_rec[0]["month_enrolled"] == "Dec" ? "selected" : "" ?>>Dec</option>
+                        </select>
+                        <select class="form-select form-select-sm" name="year-enrolled" id="year-enrolled" class="yearList">
+                            <option hidden>Year</option>
+                            <option value="2022" <?= $pre_uni_rec[0]["year_enrolled"] == "2022" ? "selected" : "" ?>>2022</option>
+                            <option value="2021" <?= $pre_uni_rec[0]["year_enrolled"] == "2021" ? "selected" : "" ?>>2021</option>
+                            <option value="2020" <?= $pre_uni_rec[0]["year_enrolled"] == "2020" ? "selected" : "" ?>>2020</option>
+                            <option value="2019" <?= $pre_uni_rec[0]["year_enrolled"] == "2019" ? "selected" : "" ?>>2019</option>
+                            <option value="2018" <?= $pre_uni_rec[0]["year_enrolled"] == "2018" ? "selected" : "" ?>>2018</option>
+                            <option value="2017" <?= $pre_uni_rec[0]["year_enrolled"] == "2017" ? "selected" : "" ?>>2017</option>
+                            <option value="2016" <?= $pre_uni_rec[0]["year_enrolled"] == "2016" ? "selected" : "" ?>>2016</option>
+                            <option value="2015" <?= $pre_uni_rec[0]["year_enrolled"] == "2015" ? "selected" : "" ?>>2015</option>
+                            <option value="2014" <?= $pre_uni_rec[0]["year_enrolled"] == "2014" ? "selected" : "" ?>>2014</option>
+                            <option value="2013" <?= $pre_uni_rec[0]["year_enrolled"] == "2013" ? "selected" : "" ?>>2013</option>
+                            <option value="2012" <?= $pre_uni_rec[0]["year_enrolled"] == "2012" ? "selected" : "" ?>>2012</option>
+                            <option value="2011" <?= $pre_uni_rec[0]["year_enrolled"] == "2011" ? "selected" : "" ?>>2011</option>
+                            <option value="2010" <?= $pre_uni_rec[0]["year_enrolled"] == "2010" ? "selected" : "" ?>>2010</option>
+                            <option value="2009" <?= $pre_uni_rec[0]["year_enrolled"] == "2009" ? "selected" : "" ?>>2009</option>
+                            <option value="2008" <?= $pre_uni_rec[0]["year_enrolled"] == "2008" ? "selected" : "" ?>>2008</option>
+                            <option value="2007" <?= $pre_uni_rec[0]["year_enrolled"] == "2007" ? "selected" : "" ?>>2007</option>
+                            <option value="2006" <?= $pre_uni_rec[0]["year_enrolled"] == "2006" ? "selected" : "" ?>>2006</option>
+                            <option value="2005" <?= $pre_uni_rec[0]["year_enrolled"] == "2005" ? "selected" : "" ?>>2005</option>
+                            <option value="2004" <?= $pre_uni_rec[0]["year_enrolled"] == "2004" ? "selected" : "" ?>>2004</option>
+                            <option value="2003" <?= $pre_uni_rec[0]["year_enrolled"] == "2003" ? "selected" : "" ?>>2003</option>
+                            <option value="2002" <?= $pre_uni_rec[0]["year_enrolled"] == "2002" ? "selected" : "" ?>>2002</option>
+                            <option value="2001" <?= $pre_uni_rec[0]["year_enrolled"] == "2001" ? "selected" : "" ?>>2001</option>
+                            <option value="2000" <?= $pre_uni_rec[0]["year_enrolled"] == "2000" ? "selected" : "" ?>>2000</option>
+                            <option value="1999" <?= $pre_uni_rec[0]["year_enrolled"] == "1999" ? "selected" : "" ?>>1999</option>
+                            <option value="1998" <?= $pre_uni_rec[0]["year_enrolled"] == "1998" ? "selected" : "" ?>>1998</option>
+                            <option value="1997" <?= $pre_uni_rec[0]["year_enrolled"] == "1997" ? "selected" : "" ?>>1997</option>
+                            <option value="1996" <?= $pre_uni_rec[0]["year_enrolled"] == "1996" ? "selected" : "" ?>>1996</option>
+                            <option value="1995" <?= $pre_uni_rec[0]["year_enrolled"] == "1995" ? "selected" : "" ?>>1995</option>
+                            <option value="1994" <?= $pre_uni_rec[0]["year_enrolled"] == "1994" ? "selected" : "" ?>>1994</option>
+                            <option value="1993" <?= $pre_uni_rec[0]["year_enrolled"] == "1993" ? "selected" : "" ?>>1993</option>
+                            <option value="1992" <?= $pre_uni_rec[0]["year_enrolled"] == "1992" ? "selected" : "" ?>>1992</option>
+                            <option value="1991" <?= $pre_uni_rec[0]["year_enrolled"] == "1991" ? "selected" : "" ?>>1991</option>
+                            <option value="1990" <?= $pre_uni_rec[0]["year_enrolled"] == "1990" ? "selected" : "" ?>>1990</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label class="form-label">Did you complete? <span class="input-required">*</span></label>
+                    <label class="form-label radio-btn" for="completed-prev-uni-yes">
+                        <input class="completed-prev-uni form-radio" style="margin: 0 !important; padding: 0 !important;" type="radio" name="completed-prev-uni" id="completed-prev-uni-yes" value="1" <?= $pre_uni_rec[0]["completed"] == 1 ? "checked" : "" ?>> Yes
+                    </label>
+                    <label class="form-label radio-btn" for="completed-prev-uni-no">
+                        <input class="completed-prev-uni form-radio" style="margin: 0 !important; padding: 0 !important;" type="radio" name="completed-prev-uni" id="completed-prev-uni-no" value="0" <?= $pre_uni_rec[0]["completed"] == 0 ? "checked" : "" ?>> No
+                    </label>
+                </div>
+                <div class="mb-4 <?= $pre_uni_rec[0]["completed"] == 1 ? "" : "hide" ?>" id="date-completed-uni">
+                    <label class="form-label" for="completion-date">Date Completed <span class="input-required">*</span></label>
+                    <div style="max-width: 280px !important; display:flex; flex-direction:row; justify-content: space-between">
+                        <select class="form-select form-select-sm" style="margin-right: 10px;" name="month-completed" id="month-completed" class="form-select form-select-lg mb-3">
+                            <option hidden>Month</option>
+                            <option value="Jan" <?= $pre_uni_rec[0]["month_completed"] == "Jan" ? "selected" : "" ?>>Jan</option>
+                            <option value="Feb" <?= $pre_uni_rec[0]["month_completed"] == "Feb" ? "selected" : "" ?>>Feb</option>
+                            <option value="Mar" <?= $pre_uni_rec[0]["month_completed"] == "Mar" ? "selected" : "" ?>>Mar</option>
+                            <option value="Apr" <?= $pre_uni_rec[0]["month_completed"] == "Apr" ? "selected" : "" ?>>Apr</option>
+                            <option value="May" <?= $pre_uni_rec[0]["month_completed"] == "May" ? "selected" : "" ?>>May</option>
+                            <option value="Jun" <?= $pre_uni_rec[0]["month_completed"] == "Jun" ? "selected" : "" ?>>Jun</option>
+                            <option value="Jul" <?= $pre_uni_rec[0]["month_completed"] == "Jul" ? "selected" : "" ?>>Jul</option>
+                            <option value="Aug" <?= $pre_uni_rec[0]["month_completed"] == "Aug" ? "selected" : "" ?>>Aug</option>
+                            <option value="Sep" <?= $pre_uni_rec[0]["month_completed"] == "Sep" ? "selected" : "" ?>>Sep</option>
+                            <option value="Oct" <?= $pre_uni_rec[0]["month_completed"] == "Oct" ? "selected" : "" ?>>Oct</option>
+                            <option value="Nov" <?= $pre_uni_rec[0]["month_completed"] == "Nov" ? "selected" : "" ?>>Nov</option>
+                            <option value="Dec" <?= $pre_uni_rec[0]["month_completed"] == "Dec" ? "selected" : "" ?>>Dec</option>
+                        </select>
+                        <select class="form-select form-select-sm" name="year-completed" id="year-completed" class="yearList">
+                            <option hidden>Year</option>
+                            <option value="2022" <?= $pre_uni_rec[0]["year_completed"] == "2022" ? "selected" : "" ?>>2022</option>
+                            <option value="2021" <?= $pre_uni_rec[0]["year_completed"] == "2021" ? "selected" : "" ?>>2021</option>
+                            <option value="2020" <?= $pre_uni_rec[0]["year_completed"] == "2020" ? "selected" : "" ?>>2020</option>
+                            <option value="2019" <?= $pre_uni_rec[0]["year_completed"] == "2019" ? "selected" : "" ?>>2019</option>
+                            <option value="2018" <?= $pre_uni_rec[0]["year_completed"] == "2018" ? "selected" : "" ?>>2018</option>
+                            <option value="2017" <?= $pre_uni_rec[0]["year_completed"] == "2017" ? "selected" : "" ?>>2017</option>
+                            <option value="2016" <?= $pre_uni_rec[0]["year_completed"] == "2016" ? "selected" : "" ?>>2016</option>
+                            <option value="2015" <?= $pre_uni_rec[0]["year_completed"] == "2015" ? "selected" : "" ?>>2015</option>
+                            <option value="2014" <?= $pre_uni_rec[0]["year_completed"] == "2014" ? "selected" : "" ?>>2014</option>
+                            <option value="2013" <?= $pre_uni_rec[0]["year_completed"] == "2013" ? "selected" : "" ?>>2013</option>
+                            <option value="2012" <?= $pre_uni_rec[0]["year_completed"] == "2012" ? "selected" : "" ?>>2012</option>
+                            <option value="2011" <?= $pre_uni_rec[0]["year_completed"] == "2011" ? "selected" : "" ?>>2011</option>
+                            <option value="2010" <?= $pre_uni_rec[0]["year_completed"] == "2010" ? "selected" : "" ?>>2010</option>
+                            <option value="2009" <?= $pre_uni_rec[0]["year_completed"] == "2009" ? "selected" : "" ?>>2009</option>
+                            <option value="2008" <?= $pre_uni_rec[0]["year_completed"] == "2008" ? "selected" : "" ?>>2008</option>
+                            <option value="2007" <?= $pre_uni_rec[0]["year_completed"] == "2007" ? "selected" : "" ?>>2007</option>
+                            <option value="2006" <?= $pre_uni_rec[0]["year_completed"] == "2006" ? "selected" : "" ?>>2006</option>
+                            <option value="2005" <?= $pre_uni_rec[0]["year_completed"] == "2005" ? "selected" : "" ?>>2005</option>
+                            <option value="2004" <?= $pre_uni_rec[0]["year_completed"] == "2004" ? "selected" : "" ?>>2004</option>
+                            <option value="2003" <?= $pre_uni_rec[0]["year_completed"] == "2003" ? "selected" : "" ?>>2003</option>
+                            <option value="2002" <?= $pre_uni_rec[0]["year_completed"] == "2002" ? "selected" : "" ?>>2002</option>
+                            <option value="2001" <?= $pre_uni_rec[0]["year_completed"] == "2001" ? "selected" : "" ?>>2001</option>
+                            <option value="2000" <?= $pre_uni_rec[0]["year_completed"] == "2000" ? "selected" : "" ?>>2000</option>
+                            <option value="1999" <?= $pre_uni_rec[0]["year_completed"] == "1999" ? "selected" : "" ?>>1999</option>
+                            <option value="1998" <?= $pre_uni_rec[0]["year_completed"] == "1998" ? "selected" : "" ?>>1998</option>
+                            <option value="1997" <?= $pre_uni_rec[0]["year_completed"] == "1997" ? "selected" : "" ?>>1997</option>
+                            <option value="1996" <?= $pre_uni_rec[0]["year_completed"] == "1996" ? "selected" : "" ?>>1996</option>
+                            <option value="1995" <?= $pre_uni_rec[0]["year_completed"] == "1995" ? "selected" : "" ?>>1995</option>
+                            <option value="1994" <?= $pre_uni_rec[0]["year_completed"] == "1994" ? "selected" : "" ?>>1994</option>
+                            <option value="1993" <?= $pre_uni_rec[0]["year_completed"] == "1993" ? "selected" : "" ?>>1993</option>
+                            <option value="1992" <?= $pre_uni_rec[0]["year_completed"] == "1992" ? "selected" : "" ?>>1992</option>
+                            <option value="1991" <?= $pre_uni_rec[0]["year_completed"] == "1991" ? "selected" : "" ?>>1991</option>
+                            <option value="1990" <?= $pre_uni_rec[0]["year_completed"] == "1990" ? "selected" : "" ?>>1990</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-4 <?= $pre_uni_rec[0]["completed"] == 0 ? "" : "hide" ?>" id="uni-not-completed">
+                    <div>
+                        <label class="form-label" for="state">Why did you not complete? <span class="input-required">*</span></label>
+                        <select class="form-select form-select-sm mb-3" name="state" id="state">
+                            <option hidden>Choose </option>
+                            <option value="Deferred">Deferred</option>
+                            <option value="Withdrawn">Withdrawn</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label" for="reasons">Explain reasons <span class="input-required">*</span></label>
+                        <textarea class="form-control" rows="5" style="max-width: 280px; width: 280px;" name="reasons" id="reasons" value="<?= $pre_uni_rec[0]["reasons"] ?>"></textarea>
+                    </div>
+                </div>
+            </div>
+            <!--End of Previous univeristy record information-->
         </div>
     </div>
 </fieldset>

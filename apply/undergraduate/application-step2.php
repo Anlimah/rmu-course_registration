@@ -74,10 +74,70 @@ $page = array("id" => 2, "name" => "Education Background");
         $(document).ready(function() {
             $(".prev-uni-rec").click(function() {
                 if ($('#prev-uni-rec-yes').is(':checked')) {
-                    $("#prev-uni-yes").removeClass("yes-disability");
-                } else if ($('#prev-uni-rec-yes').is(':checked')) {
-                    $("#prev-uni-yes").addClass("yes-disability");
+                    $("#prev-uni-rec-list").removeClass("hide");
+                } else if ($('#prev-uni-rec-no').is(':checked')) {
+                    $("#prev-uni-rec-list").addClass("hide");
                 }
+            });
+            $(".completed-prev-uni").click(function() {
+                if ($('#completed-prev-uni-yes').is(':checked')) {
+                    $("#date-completed-uni").removeClass("hide");
+                    $("#uni-not-completed").addClass("hide");
+                } else if ($('#completed-prev-uni-no').is(':checked')) {
+                    $("#uni-not-completed").removeClass("hide");
+                    $("#date-completed-uni").addClass("hide");
+                }
+            });
+
+            $(".form-select").change("blur", function() {
+                $.ajax({
+                    type: "PUT",
+                    url: "../../api/education",
+                    data: {
+                        what: this.name,
+                        value: this.value,
+                    },
+                    success: function(result) {
+                        console.log(result);
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            });
+
+            $(".form-control").on("blur", function() {
+                $.ajax({
+                    type: "PUT",
+                    url: "../../api/education",
+                    data: {
+                        what: this.name,
+                        value: this.value,
+                    },
+                    success: function(result) {
+                        console.log(result);
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            });
+
+            $(".form-radio").on("click", function() {
+                $.ajax({
+                    type: "PUT",
+                    url: "../../api/education",
+                    data: {
+                        what: this.name,
+                        value: this.value,
+                    },
+                    success: function(result) {
+                        console.log(result);
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
             });
         });
     </script>

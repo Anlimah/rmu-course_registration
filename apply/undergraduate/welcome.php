@@ -71,8 +71,8 @@ $page = array("id" => -1, "name" => "Personal Information");
                                         </a>
                                     </p>
                                 </div>
-                                <div class="page-control" style="margin-top:5px !important; display: flex; flex-direction: row-reverse; padding: 0; margin: 0;">
-                                    <a style="width: 150px; padding: 5px 10px !important;" href="application-step0.php" id="prevPage" class="m-3 btn btn-primary text-white">Begin Application</a>
+                                <div class="page-control" style="margin-top:30px !important; display: flex; flex-direction: row-reverse; padding: 0; margin: 0;">
+                                    <a style="width: 150px; padding: 5px 10px !important;" href="application-step0.php" id="prevPage" class="btn btn-primary text-white">Begin Application</a>
                                 </div>
                             </div>
                         </main>

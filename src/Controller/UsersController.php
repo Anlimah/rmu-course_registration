@@ -115,6 +115,12 @@ class UsersController extends DatabaseMethods
         $this->inputData($sql, array(':v' => $value, ':a' => $user_id));
     }
 
+    public function updatePrevUniInfo($what, $value, $user_id)
+    {
+        $sql = "UPDATE `previous_uni_records` SET `$what` = :v WHERE `app_login` = :a";
+        $this->inputData($sql, array(':v' => $value, ':a' => $user_id));
+    }
+
     public function updateProgramInfo($what, $value, $user_id)
     {
         $sql = "UPDATE `program_info` SET `$what` = :v WHERE `app_login` = :a";
@@ -136,8 +142,9 @@ class UsersController extends DatabaseMethods
 
     public function fetchApplicantAcaB($user_id)
     {
-        $sql = "SELECT `school`, `cert_type`, `month_completed`, `year_completed`, 
-                `index_number`, `certificate`, `transcript` 
+        $sql = "SELECT `school_name`, `country`, `region`, `city`, `cert_type`, 
+                `month_started`, `year_started`, `month_completed`, `year_completed`, 
+                `index_number`, `course_of_study` 
                 FROM `academic_background` WHERE `app_login` = :a";
         return $this->getData($sql, array(':a' => $user_id));
     }
@@ -150,7 +157,7 @@ class UsersController extends DatabaseMethods
 
     public function fetchApplicantPreUni($user_id)
     {
-        $sql = "SELECT `name_of_uni`, `program`, `month_enrolled`, `year_enrolled`, 
+        $sql = "SELECT `pre_uni_rec`, `name_of_uni`, `program`, `month_enrolled`, `year_enrolled`, 
                 `completed`, `month_completed`, `year_completed`, `state`, `reasons` 
                 FROM `previous_uni_records` WHERE `app_login` = :a";
         return $this->getData($sql, array(':a' => $user_id));
