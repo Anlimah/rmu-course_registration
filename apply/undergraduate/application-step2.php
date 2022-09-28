@@ -140,28 +140,6 @@ $page = array("id" => 2, "name" => "Education Background");
                 });
             });
 
-            $(".delete-edu-btn").on("click", function() {
-                let data = {
-                    what: "delete-edu-history",
-                    value: $(this).attr("id"),
-                };
-                $.ajax({
-                    type: "DELETE",
-                    url: "../../api/education",
-                    data: data,
-                    success: function(result) {
-                        console.log(result);
-
-                        if (result["success"]) {
-                            alert(result["message"])
-                            alert(data.value.substr(11));
-                        }
-                    },
-                    error: function(error) {
-                        console.log(error);
-                    }
-                });
-            });
         });
     </script>
     <script src="../../js/add-education-form.js"></script>

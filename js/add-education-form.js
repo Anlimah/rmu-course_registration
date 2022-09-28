@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    let end = 4;
+    let end = 3;
     let next = 1;
 
     $("#nextStep").click(function() {
@@ -49,10 +49,40 @@ $(document).ready(function () {
         $(".help-block").remove();
     });
 
+    $(".editUser").click(function() {
+        var user = $(this).attr("id");
+        $("#addOrEditUser").modal()
+        $("#addOrEditUserLabel").text("Edit Student Details");
+        $.ajax({
+            type: "POST",
+            url: "api/getUser?user=" + user,
+            data: "",
+            success: function(result) {
+                console.log(result);
+                var r = JSON.parse(result);
+                console.log(r);
+
+                $("#inputUserFname").attr("value", r[0]["fname"]);
+                $("#inputUserMname").attr("value", r[0]["mname"]);
+                $("#inputUserLname").attr("value", r[0]["lname"]);
+                $("#inputUserEmail").attr("value", r[0]["email"]);
+                $("#inputUserCompany").attr("value", r[0]["company"]);
+                $("#inputUserDepartment").attr("value", r[0]["department"]);
+
+                editUserData = true;
+                $("#user").attr("value", user);
+
+            },
+            error: function(result) {
+                console.log(result);
+            }
+        });
+    });
+
     //Edit button on each added education item
     $(".edit-edu-btn").click(function(e) {
-        $("#addSchoolModal").modal("toggle");
-        /*$.ajax({
+        
+        $.ajax({
             type: "GET",
             url: "../../api/education",
             data: {
@@ -63,18 +93,70 @@ $(document).ready(function () {
             encode: true,
         }).done(function (data) {
             console.log(data);
+
+            $("#sch-name").attr("value", data["aca"][0]["school_name"]);
+            $("#sch-country").attr("value", data["aca"][0]["country"]);
+            $("#sch-region").attr("value", data["aca"][0]["region"]);
+            $("#sch-city").attr("value", data["aca"][0]["city"]);
             
-            if (!data.success) {
+            $("#cert-type").val(data["aca"][0]["cert_type"]);
+            $("#index-number").val(data["aca"][0]["index_number"]);
+            $("#month-started" + " option[value='" + data["aca"][0]["month_started"] +"']").attr('selected','selected');
+            $("#year-started" + " option[value='" + data["aca"][0]["year_started"] +"']").attr('selected','selected');
+            $("#month-completed" + " option[value='" + data["aca"][0]["month_completed"] +"']").attr('selected','selected');
+            $("#year-completed" + " option[value='" + data["aca"][0]["year_completed"] +"']").attr('selected','selected');
+            
+            $("#course-studied").val(data["aca"][0]["course_of_study"]);
 
+            for (let index = 0; index < 4; index++) {
+                if (data["courses"][index]["type"] == "core") {
+                    $("#core-sbj-grd"+(index + 1)+" option[value='"+data["courses"][index]["grade"]+"']").attr('selected','selected');
+                }
             }
-            if (data.success) {
 
+            for (let index = 3; index < 8; index++) {
+                if (data["courses"][index]["type"] == "elective") {
+                    $("#elective-sbj"+(index - 3)+" option[value='"+data["courses"][index]["subject"]+"']").attr('selected','selected');
+                    $("#elective-sbj-grd"+(index - 3)+" option[value='"+data["courses"][index]["grade"]+"']").attr('selected','selected');
+                }
             }
+
+            $(".steps").addClass("hide");
+            $(".steps").removeClass("display");
+            $("#step-1").removeClass("hide");
+            $("#step-1").addClass("display");
+            next = 2;
+
+            $("#addSchoolModal").modal("toggle");
+            
         }).fail(function () {
             alert("Could not reach server, please try again later.")
-        });*/
+        });
 
         e.preventDefault();
+    });
+
+    $(".delete-edu-btn").on("click", function() {
+        let answer = confirm("Are sure you want to delete this?");
+        if (answer == true) {
+            $.ajax({
+                type: "DELETE",
+                url: "../../api/education",
+                data: {
+                    what: "delete-edu-history",
+                    value: $(this).attr("id"),
+                },
+                success: function(result) {
+                    if (result["success"]) {
+                        console.log(result);
+                        window.location.reload();
+                    }
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        }
     });
 
     $("#save-education-btn").click(function (event) {
@@ -267,22 +349,24 @@ $(document).ready(function () {
                 }
 
             } else {
-                let school = formData.sch_name.toLowerCase().replace(/\b[a-z]/g, function(letter) {
+                window.location.reload();
+                /*let school = formData.sch_name.toLowerCase().replace(/\b[a-z]/g, function(letter) {
                     return letter.toUpperCase();
                 });
+
                 let period = formData.month_started + ' ' + formData.year_started + ' - ' + formData.month_completed + ' ' + formData.year_completed;
                 $("#education-list").append(
-                    '<div class="mb-4 edu-history">' +
+                    '<div class="mb-4 edu-history" id="'+ formData.edu_id +'">' +
                         '<div class="edu-history-header">' +
                             '<div class="edu-history-header-info">' +
                                 '<p style="font-size: 17px; font-weight: 600;margin:0;padding:0">' + school +'</p>'+
                                 '<p style="font-size: 16px; font-weight: 500; color:#8c8c8c;margin:0;padding:0">' + period + '</p>'+
                             '</div>' +
                             '<div class="edu-history-control">' +
-                                '<button type="button" class="btn edit-edu-btn" id="'+ formData.edu_id +'" data-bs-toggle="modal" data-bs-target="#addSchool">' +
+                                '<button type="button" class="btn edit-edu-btn" id="edit'+ formData.edu_id +'" data-bs-toggle="modal" data-bs-target="#addSchool">' +
                                     '<span class="bi bi-pencil-fill" style="font-size: 20px !important;"></span>'+
                                 '</button>' +
-                                '<button type="button" class="btn delete-edu-btn" id="'+ formData.edu_id +'">' +
+                                '<button type="button" class="btn delete-edu-btn" id="delete'+ formData.edu_id +'">' +
                                     '<span class="bi bi-trash-fill" style="font-size: 20px !important;"></span>' +
                                 '</button>' +
                             '</div>' +
@@ -292,7 +376,8 @@ $(document).ready(function () {
                         '</div>-->' +
                     '</div>'
                 );
-                $("#addSchoolModal").modal("toggle");
+                $("#addSchoolModal").modal("toggle");*/
+
             }
         }).fail(function () {
             $("education-form").html('<div class="alert alert-danger">Could not reach server, please try again later.</div>');
@@ -300,4 +385,5 @@ $(document).ready(function () {
 
         event.preventDefault();
     });
+
   });

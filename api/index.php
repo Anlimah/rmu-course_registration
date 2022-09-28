@@ -39,8 +39,17 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		echo json_encode($user->fetchApplicantPreUni($user_id));
 	} elseif ($_GET["url"] == "") {
 		//fetch in Previous university information
-		echo json_encode($user->fetchApplicantPreUni($user_id));
+		//echo json_encode($user->fetchEducationHistory($user_id));
 	}
+
+	if ($_GET["url"] == "education") {
+		if ($_GET["what"] == "edit-edu-btn") {
+			$value = substr($_GET['value'], 4); // serial number
+			echo json_encode($user->fetchEducationHistory($value, $_SESSION['ghApplicant']));
+		}
+	}
+
+
 	// All POST request will be sent here
 } elseif ($_SERVER['REQUEST_METHOD'] == "POST") {
 
