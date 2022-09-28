@@ -47,36 +47,14 @@ $(document).ready(function () {
     $("#add-education-btn").click(function() {
         $(".mb-4").removeClass("has-error");
         $(".help-block").remove();
-    });
+        $(".edu-mod").val("");
 
-    $(".editUser").click(function() {
-        var user = $(this).attr("id");
-        $("#addOrEditUser").modal()
-        $("#addOrEditUserLabel").text("Edit Student Details");
-        $.ajax({
-            type: "POST",
-            url: "api/getUser?user=" + user,
-            data: "",
-            success: function(result) {
-                console.log(result);
-                var r = JSON.parse(result);
-                console.log(r);
-
-                $("#inputUserFname").attr("value", r[0]["fname"]);
-                $("#inputUserMname").attr("value", r[0]["mname"]);
-                $("#inputUserLname").attr("value", r[0]["lname"]);
-                $("#inputUserEmail").attr("value", r[0]["email"]);
-                $("#inputUserCompany").attr("value", r[0]["company"]);
-                $("#inputUserDepartment").attr("value", r[0]["department"]);
-
-                editUserData = true;
-                $("#user").attr("value", user);
-
-            },
-            error: function(result) {
-                console.log(result);
-            }
-        });
+        $(".steps").addClass("hide");
+        $(".steps").removeClass("display");
+        $("#step-1").removeClass("hide");
+        $("#step-1").addClass("display");
+        next = 1;
+        $("#addSchoolModal").modal("toggle");
     });
 
     //Edit button on each added education item
@@ -94,10 +72,10 @@ $(document).ready(function () {
         }).done(function (data) {
             console.log(data);
 
-            $("#sch-name").attr("value", data["aca"][0]["school_name"]);
-            $("#sch-country").attr("value", data["aca"][0]["country"]);
-            $("#sch-region").attr("value", data["aca"][0]["region"]);
-            $("#sch-city").attr("value", data["aca"][0]["city"]);
+            $("#sch-name").val(data["aca"][0]["school_name"]);
+            $("#sch-country").val(data["aca"][0]["country"]);
+            $("#sch-region").val(data["aca"][0]["region"]);
+            $("#sch-city").val(data["aca"][0]["city"]);
             
             $("#cert-type").val(data["aca"][0]["cert_type"]);
             $("#index-number").val(data["aca"][0]["index_number"]);
@@ -125,7 +103,7 @@ $(document).ready(function () {
             $(".steps").removeClass("display");
             $("#step-1").removeClass("hide");
             $("#step-1").addClass("display");
-            next = 2;
+            next = 1;
 
             $("#addSchoolModal").modal("toggle");
             
