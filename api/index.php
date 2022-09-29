@@ -621,20 +621,33 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 		$what = $_PUT["what"];
 		$value = strtoupper($_PUT['value']);
+		$s_number = $_PUT["snum"];
 
 		if (isset($what) && !empty($what)) {
 			$column = str_replace("-", "_", $what);
 
-			if ($column == "completed_prev_uni") {
-				$column = 'completed';
+			if ($column == "sch_name") {
+				$column = 'school_name';
 			}
 
-			if ($column == "prev_uni_rec") {
-				$column = 'pre_uni_rec';
+			if ($column == "sch_country") {
+				$column = 'country';
+			}
+
+			if ($column == "sch_region") {
+				$column = 'region';
+			}
+
+			if ($column == "sch_city") {
+				$column = 'city';
+			}
+
+			if ($column == "course_studied") {
+				$column = 'course_of_study';
 			}
 
 			//$column = substr_replace($column, "", -1);
-			echo $user->updatePrevUniInfo($column, $value, $_SESSION['ghApplicant']);
+			echo $user->updateAcademicInfo($column, $value, $s_number, $_SESSION['ghApplicant']);
 			exit();
 		}
 	} elseif ($_GET["url"] == "programmes") {

@@ -50,12 +50,12 @@ $page = array("id" => 2, "name" => "Education Background");
                         </div>
 
                         <!-- Page form -->
-                        <form id="appForm" method="#" style="margin-top: 15px !important;">
-                            <?php require_once("forms/education-background.php") ?>
+                        <!--<form id="appForm" method="#" style="margin-top: 15px !important;">-->
+                        <?php require_once("forms/education-background.php") ?>
 
-                            <!-- Bottom page navigation -->
-                            <?php require_once("../../inc/bottom-page-section.php"); ?>
-                        </form>
+                        <!-- Bottom page navigation -->
+                        <?php require_once("../../inc/bottom-page-section.php"); ?>
+                        <!--</form>-->
 
                     </main>
                 </div>

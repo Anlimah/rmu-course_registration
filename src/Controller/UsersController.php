@@ -106,10 +106,10 @@ class UsersController extends DatabaseMethods
         $this->inputData($sql, array(':v' => $value, ':a' => $user_id));
     }
 
-    public function updateAcademicInfo($what, $value, $user_id)
+    public function updateAcademicInfo($what, $value, $s_number, $user_id)
     {
-        $sql = "UPDATE `academic_background` SET `$what` = :v WHERE `app_login` = :a";
-        $this->inputData($sql, array(':v' => $value, ':a' => $user_id));
+        $sql = "UPDATE `academic_background` SET `$what` = :v WHERE `s_number` = :s AND  `app_login` = :a";
+        $this->inputData($sql, array(':v' => $value, ':s' => $s_number, ':a' => $user_id));
     }
 
     public function updatePrevUniInfo($what, $value, $user_id)

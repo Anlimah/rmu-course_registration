@@ -268,7 +268,7 @@ $edu = 10;
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="education-form">
+                <form id="education-form" name="education-form">
                     <div id="step-1" class="steps" style="margin: auto 20%;">
                         <div class="mb-4" id="sch-name-group">
                             <label class="form-label" for="sch-name">School Name <span class="input-required">*</span></label>
@@ -306,7 +306,7 @@ $edu = 10;
                             <label class="form-label" for="completion-date">Date Started <span class="input-required">*</span></label>
                             <div style="max-width: 280px !important; display:flex; flex-direction:row; justify-content: space-between">
                                 <select class="edu-mod-date-m form-select form-select-sm" style="margin-right: 10px;" name="month-started" id="month-started">
-                                    <option hidden>Month</option>
+                                    <option value="Month" hidden>Month</option>
                                     <option value="Jan">Jan</option>
                                     <option value="Feb">Feb</option>
                                     <option value="Mar">Mar</option>
@@ -321,7 +321,7 @@ $edu = 10;
                                     <option value="Dec">Dec</option>
                                 </select>
                                 <select class="edu-mod-date-y form-select form-select-sm" name="year-started" id="year-started">
-                                    <option hidden>Year</option>
+                                    <option value="Year" hidden>Year</option>
                                     <option value="2022">2022</option>
                                     <option value="2021">2021</option>
                                     <option value="2020">2020</option>
@@ -362,7 +362,7 @@ $edu = 10;
                             <label class="form-label" for="completion-date">Date Completed <span class="input-required">*</span></label>
                             <div style="max-width: 280px !important; display:flex; flex-direction:row; justify-content: space-between">
                                 <select class="edu-mod-date-m form-select form-select-sm" style="margin-right: 10px;" name="month-completed" id="month-completed">
-                                    <option hidden>Month</option>
+                                    <option value="Month" hidden>Month</option>
                                     <option value="Jan">Jan</option>
                                     <option value="Feb">Feb</option>
                                     <option value="Mar">Mar</option>
@@ -377,7 +377,7 @@ $edu = 10;
                                     <option value="Dec">Dec</option>
                                 </select>
                                 <select class="edu-mod-date-y form-select form-select-sm" name="year-completed" id="year-completed">
-                                    <option hidden>Year</option>
+                                    <option value="Year" hidden>Year</option>
                                     <option value="2022">2022</option>
                                     <option value="2021">2021</option>
                                     <option value="2020">2020</option>
@@ -489,6 +489,7 @@ $edu = 10;
                                 </div>
                             </div>-->
                     <input type="hidden" name="20eh29v1Tf" id="20eh29v1Tf" value="1">
+                    <input type="reset" name="reset" id="reset" style="display: none;">
                 </form>
             </div>
             <div class="modal-footer" style="display: flex !important; flex-direction: row-reverse !important; justify-content: space-between !important;">

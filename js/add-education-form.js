@@ -47,11 +47,20 @@ $(document).ready(function () {
     $("#add-education-btn").click(function() {
         $(".mb-4").removeClass("has-error");
         $(".help-block").remove();
-        $(".edu-mod-text").val("");
+        /*$(".edu-mod-text").val("");
         $(".edu-mod-date-m").val("Month");
         $(".edu-mod-date-y").val("Year");
         $(".edu-mod-select").val("Select");
-        $(".edu-mod-grade").val("Grade");
+        $(".edu-mod-grade").val("Grade");*/
+
+        
+
+        $(".steps").addClass("display");
+        $(".steps").removeClass("hide");
+        $("#reset").click();
+        $(".edu-mod-date-m > option[value='Select']").attr('selected','true');
+        /*$(".edu-mod-grade" + " option[value='Grade']").attr('selected','selected');*/
+        
 
         $(".steps").addClass("hide");
         $(".steps").removeClass("display");
@@ -134,65 +143,58 @@ $(document).ready(function () {
         e.preventDefault();
     });
 
-        $(".form-select").change("blur", function() {
-            if ($("#20eh29v1Tf").val() != 1) {
+    function updateData(data, url) {
+        $.ajax({
+            type: "PUT",
+            url: "../../api/"+url,
+            data: data,
+            success: function(result) {
+                console.log(result);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    }
+
+    $(".form-select").change("blur", function() {
+        if ($("#20eh29v1Tf").val() != 1) {
             alert(1)
-            }
-            /*$.ajax({
-                type: "PUT",
-                url: "../../api/personal",
-                data: {
-                    what: this.name,
-                    value: this.value,
-                },
-                success: function(result) {
-                    console.log(result);
-                },
-                error: function(error) {
-                    console.log(error);
-                }
-            });*/
-        });
+            let data = {
+                what: this.name,
+                value: this.value,
+                snum: $("#20eh29v1Tf").val(),
+            };
+            let url = "education"
+            updateData(data, url);
+        }
+    });
 
-        $(".form-control").on("blur", function() {
-            if ($("#20eh29v1Tf").val() != 1) {
-                alert(1)
-                }
-            /*$.ajax({
-                type: "PUT",
-                url: "../../api/personal",
-                data: {
-                    what: this.name,
-                    value: this.value,
-                },
-                success: function(result) {
-                    console.log(result);
-                },
-                error: function(error) {
-                    console.log(error);
-                }
-            });*/
-        });
+    $(".form-control").on("blur", function() {
+        if ($("#20eh29v1Tf").val() != 1) {
+            alert(1)
+            let data = {
+                what: this.name,
+                value: this.value,
+                snum: $("#20eh29v1Tf").val(),
+            };
+            let url = "education"
+            updateData(data, url);
+        }
+    });
 
-        $(".form-radio").on("click", function() {
-            if ($("#20eh29v1Tf").val() != 1) {
-                alert(1)
-            }
-            /*$.ajax({
-                type: "PUT",
-                url: "../../api/personal",
-                data: {
-                    what: this.name,
-                    value: this.value,
-                },
-                success: function(result) {
-                    console.log(result);
-                },
-                error: function(error) {
-                    console.log(error);
-                }
-            });*/
-        });
+    $(".form-radio").on("click", function() {
+        if ($("#20eh29v1Tf").val() != 1) {
+            alert(1)
+            let data = {
+                what: this.name,
+                value: this.value,
+                snum: $("#20eh29v1Tf").val(),
+            };
+            let url = "education"
+            updateData(data, url);
+        }
+    });
 
     $(".delete-edu-btn").on("click", function() {
         let answer = confirm("Are sure you want to delete this?");

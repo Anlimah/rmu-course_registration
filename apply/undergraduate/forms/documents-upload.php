@@ -32,34 +32,40 @@ $user = new UsersController();
     </div>
     <div class="field-content">
         <div class="mb-4">
-            <p ">Upload scanned copies of certificates related to the education information you provide in the education background section.</p>
+            <p>Upload scanned copies of certificates related to the education information you provide in the education background section.</p>
             <p><b><span style=" color: brown">Allowed file types:</span></b> .pdf, .docx, .doc</p>
         </div>
         <div>
             <h5 style="font-size: 16px;" class="form-label"><b>Certificates <span class="input-required">*</b></span></h5>
             <div class="certificates mb-4"></div>
             <div></div>
-            <label for="docs" class="form-label upload-photo-label btn btn-primary">Upload certificate</label>
-            <input type="file" name="docs" id="docs" style="display: none;">
+            <label for="certificate" class="form-label upload-photo-label btn btn-primary">Upload certificate</label>
+            <input type="file" name="certificate" id="certificate" style="display: none;">
         </div>
     </div>
 </fieldset>
 
-<fieldset class="fieldset">
-    <div class="field-header">
-        <legend>Transcripts</legend>
-    </div>
-    <div class="field-content">
-        <div class="mb-4">
-            <p>Upload scanned copies of transcipts related to the education information you provide in the education background section.</p>
-            <p><b><span style="color: brown">Allowed file types:</span></b> .pdf, .docx, .doc</p>
+<?php
+if ($user->getApplicationType($_SESSION["ghApplicant"]) == 1) {
+?>
+    <fieldset class="fieldset">
+        <div class="field-header">
+            <legend>Transcripts</legend>
         </div>
-        <div>
-            <h5 style="font-size: 16px;"><b>Transcripts <span class="input-required">*</span></b></h5>
-            <div class="transcripts mb-4"></div>
-            <div></div>
-            <label for="docs" class="form-label upload-photo-label btn btn-primary">Upload Transcript</label>
-            <input type="file" name="docs" id="docs" style="display: none;">
+        <div class="field-content">
+            <div class="mb-4">
+                <p>Upload scanned copies of transcipts related to the education information you provide in the education background section.</p>
+                <p><b><span style="color: brown">Allowed file types:</span></b> .pdf, .docx, .doc</p>
+            </div>
+            <div>
+                <h5 style="font-size: 16px;"><b>Transcripts <span class="input-required">*</span></b></h5>
+                <div class="transcripts mb-4"></div>
+                <div></div>
+                <label for="transcript" class="form-label upload-photo-label btn btn-primary">Upload Transcript</label>
+                <input type="file" name="transcript" id="transcript" style="display: none;">
+            </div>
         </div>
-    </div>
-</fieldset>
+    </fieldset>
+<?php
+}
+?>
