@@ -272,26 +272,26 @@ $edu = 10;
                     <div id="step-1" class="steps" style="margin: auto 20%;">
                         <div class="mb-4" id="sch-name-group">
                             <label class="form-label" for="sch-name">School Name <span class="input-required">*</span></label>
-                            <input class="edu-mod form-control" type="text" name="sch-name" id="sch-name">
+                            <input placeholder="School" class="edu-mod-text form-control" type="text" name="sch-name" id="sch-name">
                         </div>
                         <div class="mb-4" id="sch-country-group">
                             <label class="form-label" for="sch-country">School Country <span class="input-required">*</span></label>
-                            <input class="edu-mod form-control" type="text" name="sch-country" id="sch-country">
+                            <input placeholder="Country" class="edu-mod-text form-control" type="text" name="sch-country" id="sch-country">
                         </div>
                         <div class="mb-4" id="sch-region-group">
                             <label class="form-label" for="sch-region">School Province/Region <span class="input-required">*</span></label>
-                            <input class="edu-mod form-control" type="text" name="sch-region" id="sch-region">
+                            <input placeholder="Province/Region" class="edu-mod-text form-control" type="text" name="sch-region" id="sch-region">
                         </div>
                         <div class="mb-4" id="sch-city-group">
                             <label class="form-label" for="sch-city">School City <span class="input-required">*</span></label>
-                            <input class="edu-mod form-control" type="text" name="sch-city" id="sch-city">
+                            <input placeholder="City" class="edu-mod-text form-control" type="text" name="sch-city" id="sch-city">
                         </div>
                     </div>
                     <div id="step-2" class="steps hide" style="display:none; margin: auto 20%;">
                         <div class="mb-4" id="cert-type-group">
                             <label class="form-label" for="cert-type">Certificate/Degree Earned <span class="input-required">*</span></label>
-                            <select class="edu-mod form-select form-select-sm" name="cert-type" id="cert-type">
-                                <option value="" hidden>Select</option>
+                            <select class="edu-mod-select form-select form-select-sm" name="cert-type" id="cert-type">
+                                <option value="Select" hidden>Select</option>
                                 <option value="WASSCE">WASSCE</option>
                                 <option value="SSCE">SSCE</option>
                                 <option value="DIPLOMA">DIPLOMA</option>
@@ -300,12 +300,12 @@ $edu = 10;
                         </div>
                         <div class="mb-4" id="index-number-group">
                             <label class="form-label" for="index-number">Index Number <span class="input-required">*</span></label>
-                            <input class="edu-mod form-control" type="text" name="index-number" id="index-number" placeholder="Index Number">
+                            <input placeholder="Index Number" class="edu-mod-text form-control" type="text" name="index-number" id="index-number" placeholder="Index Number">
                         </div>
                         <div class="mb-4" id="date-started-group">
                             <label class="form-label" for="completion-date">Date Started <span class="input-required">*</span></label>
                             <div style="max-width: 280px !important; display:flex; flex-direction:row; justify-content: space-between">
-                                <select class="edu-mod form-select form-select-sm" style="margin-right: 10px;" name="month-started" id="month-started">
+                                <select class="edu-mod-date-m form-select form-select-sm" style="margin-right: 10px;" name="month-started" id="month-started">
                                     <option hidden>Month</option>
                                     <option value="Jan">Jan</option>
                                     <option value="Feb">Feb</option>
@@ -320,7 +320,7 @@ $edu = 10;
                                     <option value="Nov">Nov</option>
                                     <option value="Dec">Dec</option>
                                 </select>
-                                <select class="edu-mod form-select form-select-sm" name="year-started" id="year-started">
+                                <select class="edu-mod-date-y form-select form-select-sm" name="year-started" id="year-started">
                                     <option hidden>Year</option>
                                     <option value="2022">2022</option>
                                     <option value="2021">2021</option>
@@ -361,7 +361,7 @@ $edu = 10;
                         <div class="mb-4" id="date-completed-group">
                             <label class="form-label" for="completion-date">Date Completed <span class="input-required">*</span></label>
                             <div style="max-width: 280px !important; display:flex; flex-direction:row; justify-content: space-between">
-                                <select class="edu-mod form-select form-select-sm" style="margin-right: 10px;" name="month-completed" id="month-completed">
+                                <select class="edu-mod-date-m form-select form-select-sm" style="margin-right: 10px;" name="month-completed" id="month-completed">
                                     <option hidden>Month</option>
                                     <option value="Jan">Jan</option>
                                     <option value="Feb">Feb</option>
@@ -376,7 +376,7 @@ $edu = 10;
                                     <option value="Nov">Nov</option>
                                     <option value="Dec">Dec</option>
                                 </select>
-                                <select class="edu-mod form-select form-select-sm" name="year-completed" id="year-completed">
+                                <select class="edu-mod-date-y form-select form-select-sm" name="year-completed" id="year-completed">
                                     <option hidden>Year</option>
                                     <option value="2022">2022</option>
                                     <option value="2021">2021</option>
@@ -418,8 +418,8 @@ $edu = 10;
                     <div id="step-3" class="steps hide" style="display:none; margin: auto 20%;">
                         <div class="mb-4" id="course-studied-group">
                             <label class="form-label" for="course-studied">Course/Program of Study <span class="input-required">*</span></label>
-                            <select class="edu-mod form-select form-select-sm" name="course-studied" id="course-studied">
-                                <option hidden>Select</option>
+                            <select class="edu-mod-select form-select form-select-sm" name="course-studied" id="course-studied">
+                                <option value="Select" hidden>Select</option>
                                 <?php
                                 for ($a = 0; $a < count(SHSCOURSES["elective"]); $a++) {
                                     echo '<option value="' . SHSCOURSES["elective"][$a]["name"] . '">' . SHSCOURSES["elective"][$a]["name"] . '</option>';
@@ -435,7 +435,7 @@ $edu = 10;
                                 <div id="core-sbj<?= ($i + 1) ?>-group" class="mb-2">
                                     <div style="display:flex !important; flex-direction:row !important; justify-content: space-between !important">
                                         <input style="margin-right: 10px; width: 75%" class="form-control" type="text" name="core-sbj<?= ($i + 1) ?>" id="core-sbj<?= ($i + 1) ?>" value="<?= SHSCOURSES["core"][$i] ?>" disabled>
-                                        <select style="width: 25%" class="edu-mod form-select form-select-sm subject-grade" name="core-sbj-grd<?= ($i + 1) ?>" id="core-sbj-grd<?= ($i + 1) ?>">
+                                        <select style="width: 25%" class="edu-mod-grade form-select form-select-sm subject-grade" name="core-sbj-grd<?= ($i + 1) ?>" id="core-sbj-grd<?= ($i + 1) ?>">
                                             <option value="Grade" hidden>Grade</option>
                                             <option value="A">A</option>
                                             <option value="B">B</option>
@@ -457,7 +457,7 @@ $edu = 10;
                             ?>
                                 <div id="elective-sbj<?= ($i + 1) ?>-group" class="mb-2">
                                     <div style="display:flex !important; flex-direction:row !important; justify-content: space-between !important">
-                                        <select style="margin-right: 10px; width: 75%" class="edu-mod form-select form-select-sm" name="elective-sbj<?= ($i + 1) ?>" id="elective-sbj<?= ($i + 1) ?>">
+                                        <select style="margin-right: 10px; width: 75%" class="edu-mod-select form-select form-select-sm" name="elective-sbj<?= ($i + 1) ?>" id="elective-sbj<?= ($i + 1) ?>">
                                             <option value="Select" hidden>Select</option>
 
                                             <?php
@@ -466,7 +466,7 @@ $edu = 10;
                                             }
                                             ?>
                                         </select>
-                                        <select style="width: 25%" class="edu-mod form-select form-select-sm" name="elective-sbj-grd<?= ($i + 1) ?>" id="elective-sbj-grd<?= ($i + 1) ?>">
+                                        <select style="width: 25%" class="edu-mod-grade form-select form-select-sm" name="elective-sbj-grd<?= ($i + 1) ?>" id="elective-sbj-grd<?= ($i + 1) ?>">
                                             <option value="Grade" hidden>Grade</option>
                                             <option value="A">A</option>
                                             <option value="B">B</option>
@@ -488,6 +488,7 @@ $edu = 10;
 
                                 </div>
                             </div>-->
+                    <input type="hidden" name="20eh29v1Tf" id="20eh29v1Tf" value="1">
                 </form>
             </div>
             <div class="modal-footer" style="display: flex !important; flex-direction: row-reverse !important; justify-content: space-between !important;">

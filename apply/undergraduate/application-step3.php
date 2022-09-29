@@ -74,6 +74,22 @@ $page = array("id" => 3, "name" => "Programmes Information");
     <script>
         $(document).ready(function() {
 
+            $(".form-select-option").change("blur", function() {
+                $.ajax({
+                    type: "PUT",
+                    url: "../../api/programmes",
+                    data: {
+                        what: this.name,
+                        value: this.value,
+                    },
+                    success: function(result) {
+                        console.log(result);
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            });
         });
     </script>
 </body>

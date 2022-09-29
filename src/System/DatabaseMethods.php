@@ -144,11 +144,14 @@ class DatabaseMethods
         if (empty($input)) {
             return array("status" => "error", "message" => "required");
         }
+
         $user_input = htmlentities(htmlspecialchars($input));
         $validated_input = (bool) preg_match('/^[A-Za-z]/', $user_input);
+
         if ($validated_input) {
             return array("status" => "success", "message" => $user_input);
         }
+
         return array("status" => "error", "message" => "invalid");
     }
 
@@ -157,11 +160,14 @@ class DatabaseMethods
         if (empty($input)) {
             return array("status" => "error", "message" => "required");
         }
+
         $user_input = htmlentities(htmlspecialchars($input));
         $validated_input = (bool) preg_match('/^[A-Za-z0-9]/', $user_input);
+
         if ($validated_input) {
             return array("status" => "success", "message" => $user_input);
         }
+
         return array("status" => "error", "message" => "invalid");
     }
 
@@ -177,9 +183,11 @@ class DatabaseMethods
 
         $user_input = htmlentities(htmlspecialchars($input));
         $validated_input = (bool) preg_match('/^[0-9]/', $user_input);
+
         if ($validated_input) {
             return array("status" => "success", "message" => $user_input);
         }
+
         return array("status" => "error", "message" => "invalid");
     }
 

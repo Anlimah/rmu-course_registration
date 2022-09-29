@@ -359,22 +359,22 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 		$month_started = $user->validateInputTextOnly($_POST["month_started"]);
 		if ($month_started['status'] == "error" || $_POST['month_started'] == "Month") {
-			$errors['date_started'] = 'Date Started is invalid.';
+			$errors['date_started'] = 'Month started is invalid.';
 		}
 
 		$year_started = $user->validateYearData($_POST["year_started"]);
 		if ($year_started['status'] == "error" || $_POST['year_started'] == "Year") {
-			$errors['date_started'] = 'Date Started is invalid.';
+			$errors['date_started'] = 'Year started is invalid.';
 		}
 
 		$month_completed = $user->validateInputTextOnly($_POST["month_completed"]);
 		if ($month_completed['status'] == "error" || $_POST['month_completed'] == "Month") {
-			$errors['date_completed'] = 'Date Completed is invalid.';
+			$errors['date_completed'] = 'Month completed is invalid.';
 		}
 
 		$year_completed = $user->validateYearData($_POST["year_completed"]);
 		if ($year_completed['status'] == "error" || $_POST['year_completed'] == "Year") {
-			$errors['date_completed'] = 'Date Completed is invalid.';
+			$errors['date_completed'] = 'Year completed is invalid.';
 		}
 
 		//step 3
@@ -494,7 +494,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 				if ($user->saveSubjectAndGrades($subjects, $result)) {
 					$data['success'] = true;
-					$data['message'] = 'Education added successfully!';
+					$data['message'] = 'Data saved successfully!';
 				}
 				/*if ($user->saveCoreSubjectGrades($core_sbj_grd1, $core_sbj_grd2, $core_sbj_grd3, $core_sbj_grd4)) {
 					if ($user->saveElectiveSubjectGrades($elective_sbj1, $elective_sbj_grd1, $elective_sbj2, $elective_sbj_grd2, $elective_sbj3, $elective_sbj_grd3, $elective_sbj4, $elective_sbj_grd4)) {
@@ -637,6 +637,29 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			echo $user->updatePrevUniInfo($column, $value, $_SESSION['ghApplicant']);
 			exit();
 		}
+	} elseif ($_GET["url"] == "programmes") {
+		$what = $_PUT["what"];
+		$data = $user->validateInputTextOnly(strtoupper($_PUT['value']));
+
+		if ($data['status'] == "success") {
+			if (isset($what)) {
+				$column = str_replace("-", "_", $what);
+
+				if ($column == "app_prog_first") {
+					$column = 'first_prog';
+				}
+
+				if ($column == "app_prog_second") {
+					$column = 'second_prog';
+				}
+
+				echo $user->updateProgramInfo($column, $data["message"], $_SESSION['ghApplicant']);
+				exit();
+			}
+		}
+
+		echo json_encode($_PUT['value']);
+		exit();
 	}
 } else if ($_SERVER['REQUEST_METHOD'] == "DELETE") {
 	parse_str(file_get_contents("php://input"), $_DELETE);
