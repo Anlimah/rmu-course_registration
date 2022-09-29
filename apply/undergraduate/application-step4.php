@@ -50,12 +50,12 @@ $page = array("id" => 4, "name" => "Uploads");
                         </div>
 
                         <!-- Page form -->
-                        <form id="appForm" method="POST" style="margin-top: 15px !important;">
-                            <?php require_once("forms/documents-upload.php") ?>
+                        <!--<form id="appForm" method="POST" style="margin-top: 15px !important;">-->
+                        <?php require_once("forms/documents-upload.php") ?>
 
-                            <!-- Bottom page navigation -->
-                            <?php require_once("../../inc/bottom-page-section.php"); ?>
-                        </form>
+                        <!-- Bottom page navigation -->
+                        <?php require_once("../../inc/bottom-page-section.php"); ?>
+                        <!--</form>-->
 
                     </main>
                 </div>
@@ -72,7 +72,45 @@ $page = array("id" => 4, "name" => "Uploads");
     <script src="../../js/myjs.js"></script>
     <script>
         $(document).ready(function() {
+            $("#user-doc").change("blur", function(e) {
+                $("#20eh29v1Tf").val(this.value);
+                $(".upload-doc").addClass("display");
+                $(".upload-doc").removeClass("hide");
+                /*$.ajax({
+                    type: "GET",
+                    url: "../../api/education",
+                    data: {
+                        what: this.name,
+                        value: this.id,
+                    },
+                    dataType: "json",
+                    encode: true,
+                }).done(function(data) {
+                    console.log(data);
 
+                    $("#20eh29v1Tf").val(data["aca"][0]["s_number"])
+                });*/
+
+                e.preventDefault();
+            });
+
+            //function to display selected image
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        $('#imag').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                    $('#photoViewerModal').modal("toggle");
+                }
+            }
+
+            //displays image when URL of file input changes
+            $("#certificate").change(function() {
+                $("#fileUploadSuccess").text("File uploaded!")
+                //readURL(this);
+            });
         });
     </script>
 </body>

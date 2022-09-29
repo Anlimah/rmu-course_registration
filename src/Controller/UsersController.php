@@ -148,8 +148,8 @@ class UsersController extends DatabaseMethods
 
     public function fetchApplicantProgI($user_id)
     {
-        $sql = "SELECT * FROM `program_info` WHERE 1";
-        return $this->getData($sql, array());
+        $sql = "SELECT * FROM `program_info` WHERE `app_login` = :a";
+        return $this->getData($sql, array(':a' => $user_id));
     }
 
     public function fetchApplicantPreUni($user_id)
