@@ -7,10 +7,8 @@ use Src\Controller\ExposeDataController;
 
 $data = new ExposeDataController();
 $user = new UsersController();
-$program_info = $user->fetchApplicantProgI($user_id);
+//$program_info = $user->fetchApplicantProgI($user_id);
 $academic_BG = $user->fetchApplicantAcaB($user_id);
-
-echo json_encode($academic_BG);
 ?>
 <fieldset class="fieldset">
     <div class="field-header">
@@ -40,44 +38,32 @@ echo json_encode($academic_BG);
         <div>
             <h5 style="font-size: 16px;" class="form-label"><b>Certificates <span class="input-required">*</b></span></h5>
             <div class="certificates mb-4"></div>
-            <div></div>
-            <button type="button" id="add-education-btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDocumentModal">Upload</button>
+            <button type="button" id="attach-cert-btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDocumentModal">Upload</button>
         </div>
     </div>
 </fieldset>
 
 <?php
-if ($user->getApplicationType($_SESSION["ghApplicant"]) == 1) {
+//if ($user->getApplicationType($_SESSION["ghApplicant"]) == 1) {
 ?>
-    <fieldset class="fieldset">
-        <div class="field-header">
-            <legend>Transcripts</legend>
+<fieldset class="fieldset">
+    <div class="field-header">
+        <legend>Transcripts</legend>
+    </div>
+    <div class="field-content">
+        <div class="mb-4">
+            <p>Upload scanned copies of transcipts related to the education information you provide in the education background section.</p>
+            <p><b><span style="color: brown">Allowed file types:</span></b> .pdf, .docx, .doc</p>
         </div>
-        <div class="field-content">
-            <div class="mb-4">
-                <p>Upload scanned copies of transcipts related to the education information you provide in the education background section.</p>
-                <p><b><span style="color: brown">Allowed file types:</span></b> .pdf, .docx, .doc</p>
-            </div>
-            <div>
-                <h5 style="font-size: 16px;"><b>Transcripts <span class="input-required">*</span></b></h5>
-                <div class="transcripts mb-4"></div>
-
-                <?php
-                if (!empty($academic_BG)) {
-                ?>
-                    <button type="button" id="add-education-btn" class="mb-4 btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Upload</button>
-                <?php
-                } else {
-                ?>
-                    <p>Please add acadamic information in order to upload certificates</p>
-                <?php
-                }
-                ?>
-            </div>
+        <div>
+            <h5 style="font-size: 16px;"><b>Transcripts <span class="input-required">*</span></b></h5>
+            <div class="transcripts mb-4"></div>
+            <button type="button" id="attach-tscript-btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDocumentModal">Upload</button>
         </div>
-    </fieldset>
+    </div>
+</fieldset>
 <?php
-}
+//}
 ?>
 
 <div class="modal fade" id="addDocumentModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -87,10 +73,10 @@ if ($user->getApplicationType($_SESSION["ghApplicant"]) == 1) {
                 <h5 class="modal-title" id="staticBackdropLabel">Upload <span class="doc-type">Certificate</span></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <form id="education-form" name="education-form">
+            <form id="doc-upload-form" name="doc-upload-form">
+                <div class="modal-body">
                     <div class="mb-4" id="course-studied-group">
-                        <label class="form-label" for="course-studied">Which of the education records you entered does this <span class="doc-type">certificate</span> belong to? <span class="input-required">*</span></label>
+                        <label class="form-label" for="course-studied">Which of the education records you entered does this <span class="doc-type">certificate</span> applies to? <span class="input-required">*</span></label>
                         <select class="edu-mod-select form-select form-select-sm" name="user-doc" id="user-doc">
                             <option value="Select" hidden>Select</option>
                             <?php
@@ -106,16 +92,16 @@ if ($user->getApplicationType($_SESSION["ghApplicant"]) == 1) {
                     </div>
                     <div class="mb-4 upload-doc hide">
                         <p id="fileUploadSuccess"></p>
-                        <label for="certificate" class="form-label upload-photo-label btn btn-primary">Upload certificate</label>
+                        <label for="certificate" class="form-label upload-photo-label btn btn-primary">Upload <span class="doc-type">certificate</span></label>
                         <input type="file" name="certificate" id="certificate" style="display: none;">
                     </div>
                     <input type="hidden" name="20eh29v1Tf" id="20eh29v1Tf" value="1">
                     <input type="reset" name="reset" id="reset" style="display: none;">
-                </form>
-            </div>
-            <div class="modal-footer" style="display: flex !important; flex-direction: row-reverse !important; justify-content: space-between !important;">
-                <button class="btn btn-primary" id="save-education-btn" style="width: 120px;">Save and Close</button>
-            </div>
+                </div>
+                <div class="modal-footer" style="display: flex !important; flex-direction: row-reverse !important; justify-content: space-between !important;">
+                    <button type="submit" class="btn btn-primary" id="save-doc-btn" style="width: 120px;">Save and Close</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

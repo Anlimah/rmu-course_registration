@@ -72,6 +72,26 @@ $page = array("id" => 4, "name" => "Uploads");
     <script src="../../js/myjs.js"></script>
     <script>
         $(document).ready(function() {
+            $("#attach-cert-btn").click(function() {
+                $(".mb-4").removeClass("has-error");
+                $(".help-block").remove();
+                $("#reset").click();
+                $(".doc-type").text("Certificate");
+                $(".upload-doc").addClass("hide");
+                $(".upload-doc").removeClass("display");
+                $("#fileUploadSuccess").text("");
+            });
+            $("#attach-tscript-btn").click(function() {
+                $(".mb-4").removeClass("has-error");
+                $(".help-block").remove();
+                $("#reset").click();
+                $(".doc-type").text("Transcript");
+                $(".upload-doc").addClass("hide");
+                $(".upload-doc").removeClass("display");
+                $("#fileUploadSuccess").text("");
+            });
+            $("#add-education-btn").click(function() {});
+
             $("#user-doc").change("blur", function(e) {
                 $("#20eh29v1Tf").val(this.value);
                 $(".upload-doc").addClass("display");
@@ -106,11 +126,38 @@ $page = array("id" => 4, "name" => "Uploads");
                 }
             }
 
+            function fileInfo() {
+                var fileName = document.getElementById('certificate').files[0].name;
+                var fileSize = document.getElementById('certificate').files[0].size;
+                var fileType = document.getElementById('certificate').files[0].type;
+                var fileModifiedDate = document.getElementById('certificate').files[0].lastModifiedDate;
+
+                var file_info = fileName + "\n" + fileSize + "\n" + fileType + "\n" + fileModifiedDate;
+                alert(file_info);
+            }
+
             //displays image when URL of file input changes
             $("#certificate").change(function() {
-                $("#fileUploadSuccess").text("File uploaded!")
+                $("#fileUploadSuccess").text("File uploaded!");
+
+                //fileInfo();
                 //readURL(this);
             });
+
+            $("#doc-upload-form").on("submit", function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: "POST",
+                    url: "../../api/certificates",
+                    data: new FormData(this),
+                    dataType: "json",
+                    encode: true,
+                }).done(function(data) {
+                    console.log(data);
+
+                    //$("#20eh29v1Tf").val(data["aca"][0]["s_number"])
+                });
+            })
         });
     </script>
 </body>

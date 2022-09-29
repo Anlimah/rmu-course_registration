@@ -507,6 +507,12 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 		echo json_encode($data);
 		exit();
+	} elseif ($_GET["url"] == "certificates") {
+		if ($_FILES["certificate"]["name"]) {
+			echo "okay";
+		} else {
+			echo "No";
+		}
 	}
 } else if ($_SERVER['REQUEST_METHOD'] == "PUT") {
 	parse_str(file_get_contents("php://input"), $_PUT);
