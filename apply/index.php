@@ -126,7 +126,7 @@ if (!isset($_SESSION["_start"])) {
                     processData: false,
                     success: function(result) {
                         console.log(result);
-                        alert(result['message']);
+                        //alert(result['message']);
                         if (result['response'] == 'success') {
                             window.location.href = result['message'] + '/welcome.php';
                         }

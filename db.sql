@@ -143,6 +143,8 @@ CREATE TABLE `applicant_uploads` (
     CONSTRAINT `fk_uploaded_files` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE
 );
 
+ALTER TABLE `applicant_uploads` ADD COLUMN `edu_code` INT(11) AFTER `type`;
+
 DROP TABLE IF EXISTS `personal_information`;
 CREATE TABLE `personal_information` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,

@@ -491,28 +491,68 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			);
 
 			if ($result) {
-
 				if ($user->saveSubjectAndGrades($subjects, $result)) {
 					$data['success'] = true;
 					$data['message'] = 'Data saved successfully!';
 				}
-				/*if ($user->saveCoreSubjectGrades($core_sbj_grd1, $core_sbj_grd2, $core_sbj_grd3, $core_sbj_grd4)) {
-					if ($user->saveElectiveSubjectGrades($elective_sbj1, $elective_sbj_grd1, $elective_sbj2, $elective_sbj_grd2, $elective_sbj3, $elective_sbj_grd3, $elective_sbj4, $elective_sbj_grd4)) {
-						$data['success'] = true;
-						$data['message'] = 'Education added successfully!';
-					}
-				}*/
 			}
 		}
 
 		echo json_encode($data);
 		exit();
 	} elseif ($_GET["url"] == "certificates") {
-		if ($_FILES["certificate"]["name"]) {
-			echo "okay";
+		$data = [];
+		$errors = [];
+		if (isset($_FILES["upload-file"]["name"]) && !empty($_FILES["upload-file"]["name"])) {
+			if (isset($_POST["20eh29v1Tf"]) && !empty($_POST["20eh29v1Tf"])) {
+				if (isset($_POST["file-type"]) && !empty($_POST["file-type"])) {
+
+					$type = $user->validateInputTextOnly($_POST["file-type"]);
+					$edu_code = $user->validatePhone($_POST["20eh29v1Tf"]);
+
+					$allowedFileType = [
+						"application/pdf",
+						"application/doc",
+						"application/docx",
+						"application/msword",
+						"application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+					];
+
+					$check = filesize($_FILES["upload-file"]["tmp_name"]);
+
+					if ($check !== false && in_array($_FILES["upload-file"]["type"], $allowedFileType)) {
+						$temp = explode(".", $_FILES["upload-file"]["name"]);
+						$newname = microtime(true) . '.' . end($temp);
+						if (move_uploaded_file($_FILES['upload-file']['tmp_name'], "../apply/docs/" . $newname)) {
+							if ($user->saveDocuments($type["message"], $edu_code, $newname, $_SESSION['ghApplicant'])) {
+								$data["success"] = true;
+								$data["message"] = "File saved successfully!";
+							} else {
+								$data["success"] = false;
+								$data["error"] = "Internal server error";
+							}
+						} else {
+							$data["success"] = false;
+							$data["error"] = "Server error";
+						}
+					} else {
+						$data["success"] = false;
+						$data["error"] = "Invalid file type";
+					}
+				} else {
+					$data["success"] = false;
+					$data["error"] = "Invalid or empty file entry";
+				}
+			} else {
+				$data["success"] = false;
+				$data["error"] = "Trying to upload an invalid file";
+			}
 		} else {
-			echo "No";
+			$data["success"] = false;
+			$data["error"] = "Invalid or empty file";
 		}
+		echo json_encode($data);
+		exit();
 	}
 } else if ($_SERVER['REQUEST_METHOD'] == "PUT") {
 	parse_str(file_get_contents("php://input"), $_PUT);
@@ -521,6 +561,11 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 		$what = $_PUT["what"];
 		$value = $_PUT['value'];
+
+		if (isset($what) && !empty($value)) {
+			exit();
+		}
+
 		if ($what == "other-number-code" || $what == "phone-number1-code" || $what == "gd-phone-number-code") {
 			$code = str_replace("+", "", $value);
 			$value = "+" . strtoupper($user->validatePhone($code));

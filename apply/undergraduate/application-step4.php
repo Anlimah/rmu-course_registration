@@ -73,22 +73,28 @@ $page = array("id" => 4, "name" => "Uploads");
     <script>
         $(document).ready(function() {
             $("#attach-cert-btn").click(function() {
+                $("#reset-upload").click();
                 $(".mb-4").removeClass("has-error");
                 $(".help-block").remove();
-                $("#reset").click();
+                $("#file-type").val("Certificate");
                 $(".doc-type").text("Certificate");
                 $(".upload-doc").addClass("hide");
                 $(".upload-doc").removeClass("display");
+                $(".feedback").removeClass("text-danger").text("");
                 $("#fileUploadSuccess").text("");
+                $("#20eh29v1Tf").val("");
             });
             $("#attach-tscript-btn").click(function() {
+                $("#reset-upload").click();
                 $(".mb-4").removeClass("has-error");
                 $(".help-block").remove();
-                $("#reset").click();
+                $("#file-type").val("Transcript");
                 $(".doc-type").text("Transcript");
                 $(".upload-doc").addClass("hide");
                 $(".upload-doc").removeClass("display");
+                $(".feedback").removeClass("text-danger").text("");
                 $("#fileUploadSuccess").text("");
+                $("#20eh29v1Tf").val("");
             });
             $("#add-education-btn").click(function() {});
 
@@ -96,22 +102,40 @@ $page = array("id" => 4, "name" => "Uploads");
                 $("#20eh29v1Tf").val(this.value);
                 $(".upload-doc").addClass("display");
                 $(".upload-doc").removeClass("hide");
-                /*$.ajax({
-                    type: "GET",
-                    url: "../../api/education",
-                    data: {
-                        what: this.name,
-                        value: this.id,
-                    },
-                    dataType: "json",
-                    encode: true,
+                e.preventDefault();
+            });
+
+            function fileInfo() {
+                var fileName = document.getElementById('upload-file').files[0].name;
+                var fileSize = document.getElementById('upload-file').files[0].size;
+                var fileType = document.getElementById('upload-file').files[0].type;
+                var fileModifiedDate = document.getElementById('upload-file').files[0].lastModifiedDate;
+
+                var file_info = fileName + "\n" + fileSize + "\n" + fileType + "\n" + fileModifiedDate;
+                alert(file_info);
+            }
+
+            //when URL of file input changes
+            $("#upload-file").change(function() {
+                $("#fileUploadSuccess").text("Uploading File: " + document.getElementById('upload-file').files[0].name);
+            });
+
+            $("#doc-upload-form").on("submit", function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: "POST",
+                    url: "../../api/certificates",
+                    data: new FormData(this),
+                    contentType: false,
+                    processData: false,
                 }).done(function(data) {
                     console.log(data);
-
-                    $("#20eh29v1Tf").val(data["aca"][0]["s_number"])
-                });*/
-
-                e.preventDefault();
+                    if (!data.success) {
+                        $('.feedback').addClass("text-danger").html('').text(data.error);
+                        return;
+                    }
+                    window.location.reload();
+                });
             });
 
             //function to display selected image
@@ -126,38 +150,10 @@ $page = array("id" => 4, "name" => "Uploads");
                 }
             }
 
-            function fileInfo() {
-                var fileName = document.getElementById('certificate').files[0].name;
-                var fileSize = document.getElementById('certificate').files[0].size;
-                var fileType = document.getElementById('certificate').files[0].type;
-                var fileModifiedDate = document.getElementById('certificate').files[0].lastModifiedDate;
-
-                var file_info = fileName + "\n" + fileSize + "\n" + fileType + "\n" + fileModifiedDate;
-                alert(file_info);
-            }
-
             //displays image when URL of file input changes
-            $("#certificate").change(function() {
-                $("#fileUploadSuccess").text("File uploaded!");
-
-                //fileInfo();
-                //readURL(this);
+            $("#photo-upload").change(function() {
+                readURL(this);
             });
-
-            $("#doc-upload-form").on("submit", function(e) {
-                e.preventDefault();
-                $.ajax({
-                    type: "POST",
-                    url: "../../api/certificates",
-                    data: new FormData(this),
-                    dataType: "json",
-                    encode: true,
-                }).done(function(data) {
-                    console.log(data);
-
-                    //$("#20eh29v1Tf").val(data["aca"][0]["s_number"])
-                });
-            })
         });
     </script>
 </body>

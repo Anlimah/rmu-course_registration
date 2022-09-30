@@ -282,4 +282,30 @@ class UsersController extends DatabaseMethods
         $params = array(":sn" => $serial_number, ":id" => $education_id);
         return $this->inputData($sql, $params);
     }
+
+    public function saveDocuments($type, $edu_code, $filename, $user_id)
+    {
+        $sql = "INSERT INTO `applicant_uploads`(`type`, `edu_code`, `file_name`, `app_login`) VALUES (:t, :e, :f, :a)";
+        $params = array(":t" => $type, ":e" => $edu_code, ":f" => $filename, ":a" => $user_id);
+        return $this->inputData($sql, $params);
+    }
+
+    public function fetchUploadedDocs($user_id)
+    {
+        $sql = "SELECT u.*, a.school_name FROM `applicant_uploads` AS u, `academic_background` AS a 
+                WHERE a.`app_login` = :a AND a.app_login = u.app_login AND a.s_number = u.edu_code; ";
+        return $this->getData($sql, array(':a' => $user_id));
+    }
+
+    public function fetchTotalUploadByApp($type, $user_id)
+    {
+        $sql = "SELECT COUNT(`edu_code`) AS total FROM `applicant_uploads` WHERE `type` = :c AND `app_login` = :a";
+        return $this->getData($sql, array(':c' => $type, ':a' => $user_id));
+    }
+
+    public function fetchTotalEducationByApp($user_id)
+    {
+        $sql = "SELECT COUNT(`s_number`) AS total_edu FROM `academic_background` WHERE `app_login` = :a";
+        return $this->getData($sql, array(':a' => $user_id));
+    }
 }
