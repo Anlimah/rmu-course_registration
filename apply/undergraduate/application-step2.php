@@ -92,7 +92,7 @@ $page = array("id" => 2, "name" => "Education Background");
             $(".form-select-option").change("blur", function() {
                 $.ajax({
                     type: "PUT",
-                    url: "../../api/education",
+                    url: "../../api/prev-uni-recs",
                     data: {
                         what: this.name,
                         value: this.value,
@@ -109,7 +109,7 @@ $page = array("id" => 2, "name" => "Education Background");
             $(".form-text-input").on("blur", function() {
                 $.ajax({
                     type: "PUT",
-                    url: "../../api/education",
+                    url: "../../api/prev-uni-recs",
                     data: {
                         what: this.name,
                         value: this.value,
@@ -126,7 +126,7 @@ $page = array("id" => 2, "name" => "Education Background");
             $(".form-radio-btn").on("click", function() {
                 $.ajax({
                     type: "PUT",
-                    url: "../../api/education",
+                    url: "../../api/prev-uni-recs",
                     data: {
                         what: this.name,
                         value: this.value,

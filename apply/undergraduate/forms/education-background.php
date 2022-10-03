@@ -179,7 +179,7 @@ $edu = 10;
                 <div class="mb-4 <?= $pre_uni_rec[0]["completed"] == 1 ? "" : "hide" ?>" id="date-completed-uni">
                     <label class="form-label" for="completion-date">Date Completed <span class="input-required">*</span></label>
                     <div style="max-width: 280px !important; display:flex; flex-direction:row; justify-content: space-between">
-                        <select class="form-select-option form-select form-select-sm" style="margin-right: 10px;" name="month-completed" id="month-completed">
+                        <select class="form-select-option form-select form-select-sm" style="margin-right: 10px;" name="month-completed-uni" id="month-completed-uni">
                             <option hidden>Month</option>
                             <option value="Jan" <?= $pre_uni_rec[0]["month_completed"] == "JAN" ? "selected" : "" ?>>Jan</option>
                             <option value="Feb" <?= $pre_uni_rec[0]["month_completed"] == "FEB" ? "selected" : "" ?>>Feb</option>
@@ -194,7 +194,7 @@ $edu = 10;
                             <option value="Nov" <?= $pre_uni_rec[0]["month_completed"] == "NOV" ? "selected" : "" ?>>Nov</option>
                             <option value="Dec" <?= $pre_uni_rec[0]["month_completed"] == "DEC" ? "selected" : "" ?>>Dec</option>
                         </select>
-                        <select class="form-select-option form-select form-select-sm" name="year-completed" id="year-completed">
+                        <select class="form-select-option form-select form-select-sm" name="year-completed-uni" id="year-completed-uni">
                             <option hidden>Year</option>
                             <option value="2022" <?= $pre_uni_rec[0]["year_completed"] == "2022" ? "selected" : "" ?>>2022</option>
                             <option value="2021" <?= $pre_uni_rec[0]["year_completed"] == "2021" ? "selected" : "" ?>>2021</option>

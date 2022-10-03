@@ -47,21 +47,19 @@ $(document).ready(function () {
     $("#add-education-btn").click(function() {
         $(".mb-4").removeClass("has-error");
         $(".help-block").remove();
-        /*$(".edu-mod-text").val("");
-        $(".edu-mod-date-m").val("Month");
+        $(".edu-mod-text").val("");
+        /*$(".edu-mod-date-m").val("Month");
         $(".edu-mod-date-y").val("Year");
-        $(".edu-mod-select").val("Select");
         $(".edu-mod-grade").val("Grade");*/
-
-        
+        //$("#reset").click();
 
         $(".steps").addClass("display");
         $(".steps").removeClass("hide");
-        $("#reset").click();
-        $(".edu-mod-date-m > option[value='Select']").attr('selected','true');
-        /*$(".edu-mod-grade" + " option[value='Grade']").attr('selected','selected');*/
+        $(".edu-mod-date-m option[value='Month']").attr('selected','true');
+        $(".edu-mod-date-y option[value='Year']").attr('selected','true');
+        $(".edu-mod-grade option[value='Grade']").attr('selected','true');
+        $(".edu-mod-select option[value='Select']").attr('selected','true');
         
-
         $(".steps").addClass("hide");
         $(".steps").removeClass("display");
         $("#step-1").removeClass("hide");
@@ -90,6 +88,7 @@ $(document).ready(function () {
             },
             dataType: "json",
             encode: true,
+
         }).done(function (data) {
             console.log(data);
 
@@ -159,7 +158,6 @@ $(document).ready(function () {
 
     $(".form-select").change("blur", function() {
         if ($("#20eh29v1Tf").val() != 1) {
-            alert(1)
             let data = {
                 what: this.name,
                 value: this.value,
@@ -172,7 +170,6 @@ $(document).ready(function () {
 
     $(".form-control").on("blur", function() {
         if ($("#20eh29v1Tf").val() != 1) {
-            alert(1)
             let data = {
                 what: this.name,
                 value: this.value,
@@ -185,7 +182,6 @@ $(document).ready(function () {
 
     $(".form-radio").on("click", function() {
         if ($("#20eh29v1Tf").val() != 1) {
-            alert(1)
             let data = {
                 what: this.name,
                 value: this.value,

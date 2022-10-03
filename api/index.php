@@ -701,6 +701,34 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			echo $user->updateAcademicInfo($column, $value, $s_number, $_SESSION['ghApplicant']);
 			exit();
 		}
+	} elseif ($_GET["url"] == "prev-uni-recs") {
+
+		$what = $_PUT["what"];
+		$value = $_PUT['value'];
+
+		if (isset($what) && !empty($what)) {
+			$column = str_replace("-", "_", $what);
+
+			if ($column == "prev_uni_rec") {
+				$column = 'pre_uni_rec';
+			}
+
+			if ($column == "month_completed_uni") {
+				$column = 'month_completed';
+			}
+
+			if ($column == "year_completed_uni") {
+				$column = 'year_completed';
+			}
+
+			if ($column == "completed_prev_uni") {
+				$column = 'completed';
+			}
+
+			//$column = substr_replace($column, "", -1);
+			echo $user->updatePrevUniInfo($column, $value, $_SESSION['ghApplicant']);
+			exit();
+		}
 	} elseif ($_GET["url"] == "programmes") {
 		$what = $_PUT["what"];
 		$data = $user->validateInputTextOnly(strtoupper($_PUT['value']));
