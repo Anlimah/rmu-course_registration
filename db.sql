@@ -10,7 +10,7 @@ CREATE TABLE `admission_period` (
     `end_date` DATE NOT NULL,
     `info` TEXT,
     `active` TINYINT DEFAULT 0,
-    `added_at` DATETIME DEFAULT CURRENT_TIMESTAMP
+    `added_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP()
 );
 INSERT INTO `admission_period`(`start_date`,`end_date`, `active`) 
 VALUES('2022-07-01', '2022-10-01', 1);
@@ -40,7 +40,7 @@ CREATE TABLE `verify_phone_number` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
     `phone_number` VARCHAR(16) NOT NULL,
     `code` VARCHAR(255) NOT NULL,
-    `submitted_at` DATETIME DEFAULT CURRENT_TIMESTAMP
+    `submitted_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP()
 );
 
 DROP TABLE IF EXISTS `verify_email_address`;
@@ -48,7 +48,7 @@ CREATE TABLE `verify_email_address` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
     `email_address` VARCHAR(255) NOT NULL,
     `code` VARCHAR(255) NOT NULL,
-    `submitted_at` DATETIME DEFAULT CURRENT_TIMESTAMP
+    `submitted_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP()
 );
 
 DROP TABLE IF EXISTS `purchase_detail`; 
@@ -72,7 +72,7 @@ CREATE TABLE `purchase_detail` (
     CONSTRAINT `fk_purchase_admission_period` FOREIGN KEY (`admission_period`) 
     REFERENCES `admission_period`(`id`) ON UPDATE CASCADE,
     
-    `submitted_at` DATETIME DEFAULT CURRENT_TIMESTAMP
+    `submitted_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP()
 );
 
 DROP TABLE IF EXISTS `applicants_login`;
@@ -80,7 +80,7 @@ CREATE TABLE `applicants_login` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
     `app_number` VARCHAR(255) UNIQUE NOT NULL,
     `pin` VARCHAR(255) NOT NULL,
-    `added_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `added_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
     
     `purchase_id` INT NOT NULL,
     CONSTRAINT `fk_purchase_id` FOREIGN KEY (`purchase_id`) 
@@ -96,8 +96,8 @@ CREATE TABLE `programs` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
     `name` VARCHAR(255) NOT NULL,
     `type` INT NOT NULL,
-    `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
-    `added_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
+    `added_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
     CONSTRAINT `fk_prog_form_type` FOREIGN KEY (`type`) REFERENCES `form_type`(`id`) ON UPDATE CASCADE
 );
 INSERT INTO `programs`(`type`, `name`) VALUES 
@@ -110,17 +110,18 @@ DROP TABLE IF EXISTS `halls`;
 CREATE TABLE `halls` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
     `name` VARCHAR(255) NOT NULL,
-    `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
-    `added_at` DATETIME DEFAULT CURRENT_TIMESTAMP
+    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
+    `added_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP()
 );
 INSERT INTO `halls`(`name`) VALUES ('Cadet Hostel'), ('Non-cadet Hostel');
 
-DROP TABLE IF EXISTS `wassce_grades`;
-CREATE TABLE `wassce_grades` (
+DROP TABLE IF EXISTS `grades`;
+CREATE TABLE `grades` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
-    `grade` VARCHAR(2) NOT NULL
+    `grade` VARCHAR(2) NOT NULL,
+    `type` VARCHAR(15)
 );
-INSERT INTO `wassce_grades`(`grade`) 
+INSERT INTO `grades`(`grade`) 
 VALUES('A1'), ('B2'), ('B3'), ('C4'), ('C5'), ('C6'), ('D7'), ('E8'), ('F9');
 
 DROP TABLE IF EXISTS `ssce_grades`;
@@ -139,7 +140,7 @@ CREATE TABLE `applicant_uploads` (
     `type` VARCHAR(25), -- photo, certificate, transcript
     `file_name` VARCHAR(50),
     `app_login` INT NOT NULL,
-    `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
     CONSTRAINT `fk_uploaded_files` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE
 );
 
@@ -199,7 +200,7 @@ CREATE TABLE `personal_information` (
     `p_phone_no` VARCHAR(13),
     `p_email_addr` VARCHAR(50),
 
-    `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
 
     `app_login` INT NOT NULL,
     CONSTRAINT `fk_app_pf` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE
@@ -210,7 +211,7 @@ CREATE TABLE `awaiting_certs` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
 
     `awaiting` TINYINT DEFAULT 0,
-    `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
     
     `app_login` INT NOT NULL,
     CONSTRAINT `fk_app_a_certs` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE
@@ -240,7 +241,7 @@ CREATE TABLE `academic_background` (
     `certificate` VARCHAR(50),
     `transcript` VARCHAR(50),
 
-    `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
 
     `app_login` INT NOT NULL,
     CONSTRAINT `fk_app_aca_bac` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE
@@ -264,7 +265,7 @@ CREATE TABLE `program_info` (
     `first_prog` VARCHAR(100),
     `second_prog` VARCHAR(100),
 
-    `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
 
     `app_login` INT NOT NULL,   
     CONSTRAINT `fk_app_prog_info` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE
@@ -286,7 +287,7 @@ CREATE TABLE `previous_uni_records` (
     `state` VARCHAR(25),
     `reasons` TEXT,
 
-    `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
 
     `app_login` INT NOT NULL,   
     CONSTRAINT `fk_app_prev_uni` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE
