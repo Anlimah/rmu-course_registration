@@ -5,14 +5,14 @@ session_start();
 * @Author: Francis A. Anlimah
 */
 
-require_once("../bootstrap.php");
+require "../bootstrap.php";
 
 use Src\Controller\UsersController;
 
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: GET,POST,PUT,DELETE");
-header("Access-Control-Max-Age: 7200");
+header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
 $user = new UsersController();
@@ -55,7 +55,6 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 	// verify applicant provided details
 	if ($_GET["url"] == "verifyStep1") {
-		echo "1";
 		$message = array("response" => "error", "message" => "Invalid request!");
 
 		if (isset($_SESSION["_step1Token"]) && !empty($_SESSION["_step1Token"])) {
