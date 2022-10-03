@@ -97,7 +97,6 @@ CREATE TABLE `programs` (
     `name` VARCHAR(255) NOT NULL,
     `type` INT NOT NULL,
     `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
-    `added_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
     CONSTRAINT `fk_prog_form_type` FOREIGN KEY (`type`) REFERENCES `form_type`(`id`) ON UPDATE CASCADE
 );
 INSERT INTO `programs`(`type`, `name`) VALUES 
@@ -110,8 +109,7 @@ DROP TABLE IF EXISTS `halls`;
 CREATE TABLE `halls` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
     `name` VARCHAR(255) NOT NULL,
-    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
-    `added_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP()
+    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP()
 );
 INSERT INTO `halls`(`name`) VALUES ('Cadet Hostel'), ('Non-cadet Hostel');
 
@@ -121,8 +119,10 @@ CREATE TABLE `grades` (
     `grade` VARCHAR(2) NOT NULL,
     `type` VARCHAR(15)
 );
-INSERT INTO `grades`(`grade`) 
-VALUES('A1'), ('B2'), ('B3'), ('C4'), ('C5'), ('C6'), ('D7'), ('E8'), ('F9');
+INSERT INTO `grades`(`grade`, `type`) 
+VALUES ('A1', 'WASSCE'), ('B2', 'WASSCE'), ('B3', 'WASSCE'), ('C4', 'WASSCE'), ('C5', 'WASSCE'), 
+        ('C6', 'WASSCE'), ('D7', 'WASSCE'), ('E8', 'WASSCE'), ('F9', 'WASSCE'),
+        ('A', 'SSCE'), ('B', 'SSCE'), ('C', 'SSCE'), ('D', 'SSCE'), ('E', 'SSCE'), ('F', 'SSCE');
 
 DROP TABLE IF EXISTS `ssce_grades`;
 CREATE TABLE `ssce_grades` (

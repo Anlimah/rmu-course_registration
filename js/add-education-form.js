@@ -48,17 +48,14 @@ $(document).ready(function () {
         $(".mb-4").removeClass("has-error");
         $(".help-block").remove();
         $(".edu-mod-text").val("");
-        /*$(".edu-mod-date-m").val("Month");
-        $(".edu-mod-date-y").val("Year");
-        $(".edu-mod-grade").val("Grade");*/
-        //$("#reset").click();
 
         $(".steps").addClass("display");
         $(".steps").removeClass("hide");
-        $(".edu-mod-date-m option[value='Month']").attr('selected','true');
-        $(".edu-mod-date-y option[value='Year']").attr('selected','true');
-        $(".edu-mod-grade option[value='Grade']").attr('selected','true');
-        $(".edu-mod-select option[value='Select']").attr('selected','true');
+
+        $(".edu-mod-date-m option[value='Month']").attr('selected','selected');
+        $(".edu-mod-date-y option[value='Year']").attr('selected','selected');
+        $(".edu-mod-grade option[value='Grade']").attr('selected','selected');
+        $(".edu-mod-select option[value='Select']").attr('selected','selected');
         
         $(".steps").addClass("hide");
         $(".steps").removeClass("display");

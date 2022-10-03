@@ -562,7 +562,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		$what = $_PUT["what"];
 		$value = $_PUT['value'];
 
-		if (isset($what) && !empty($value)) {
+		if (isset($what) && empty($value)) {
 			exit();
 		}
 
