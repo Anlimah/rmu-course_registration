@@ -103,7 +103,7 @@ class UsersController extends DatabaseMethods
     public function updateApplicantPhoto($value, $user_id)
     {
         $sql = "UPDATE `personal_information` SET `photo` = :v WHERE `app_login` = :a";
-        $this->inputData($sql, array(':v' => $value, ':a' => $user_id));
+        return $this->inputData($sql, array(':v' => $value, ':a' => $user_id));
     }
 
     public function updateApplicantInfo($what, $value, $user_id)
@@ -346,7 +346,9 @@ class UsersController extends DatabaseMethods
         return $data;
     }
 
-    public function saveAppPhoto()
+    public function fetchApplicantPhoto($user_id)
     {
+        $sql = "SELECT `photo` FROM `personal_information` WHERE `app_login` = :a";
+        return $this->getData($sql, array(':a' => $user_id));
     }
 }

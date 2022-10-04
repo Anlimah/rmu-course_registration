@@ -7,7 +7,7 @@ use Src\Controller\ExposeDataController;
 
 $data = new ExposeDataController();
 $user = new UsersController();
-//$program_info = $user->fetchApplicantProgI($user_id);
+$photo = $user->fetchApplicantPhoto($user_id);
 $academic_BG = $user->fetchApplicantAcaB($user_id);
 $uploads = $user->fetchUploadedDocs($user_id);
 $totalCertUploaded = $user->fetchTotalUploadByApp("Certificate", $user_id);
@@ -23,7 +23,7 @@ $totalEduAdded = $user->fetchTotalEducationByApp($user_id);
             <p>Please upload a passport size photo of yourself. The size of the image should not be more than 100KB. The background color of your image should be white.</p>
             <p style="color: brown"><b>NB: The image you use will not be changed. So use a most recent passport sized picture of yourself.</b></p>
 
-            <form id="picture-upload-form" method="post">
+            <form id="picture-upload-form">
                 <label for="photo-upload" class="upload-photo-label btn btn-primary">Upload photo</label>
                 <input type="file" class="hide" name="photo-upload" id="photo-upload" accept=".jpg, .png">
                 <input type="submit" class="hide" id="sbmit__enetere">
@@ -31,7 +31,7 @@ $totalEduAdded = $user->fetchTotalEducationByApp($user_id);
             </form>
         </div>
         <div class="photo-display" style="padding: 5px;">
-            <img id="app-photo" src="" alt="" style="width: 100%;">
+            <img id="app-photo" src="../photos/<?= $photo[0]["photo"] ?>" alt="" style="width: 100%;">
         </div>
     </div>
 </fieldset>

@@ -578,7 +578,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 						$data["message"] = "File saved successfully!";
 					} else {
 						$data["success"] = false;
-						$data["message"] = "Internal server error" . $newname;
+						$data["message"] = "Internal server error";
 					}
 				} else {
 					$data["success"] = false;

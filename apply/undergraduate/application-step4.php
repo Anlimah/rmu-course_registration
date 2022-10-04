@@ -167,7 +167,6 @@ $page = array("id" => 4, "name" => "Uploads");
                 }).done(function(data) {
                     console.log(data);
                     alert(data.message);
-                    window.location.reload();
                 });
             })
 
