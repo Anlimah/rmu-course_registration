@@ -100,6 +100,12 @@ class UsersController extends DatabaseMethods
         return 0;
     }
 
+    public function updateApplicantPhoto($value, $user_id)
+    {
+        $sql = "UPDATE `personal_information` SET `photo` = :v WHERE `app_login` = :a";
+        $this->inputData($sql, array(':v' => $value, ':a' => $user_id));
+    }
+
     public function updateApplicantInfo($what, $value, $user_id)
     {
         $sql = "UPDATE `personal_information` SET `$what` = :v WHERE `app_login` = :a";
@@ -307,5 +313,40 @@ class UsersController extends DatabaseMethods
     {
         $sql = "SELECT COUNT(`s_number`) AS total_edu FROM `academic_background` WHERE `app_login` = :a";
         return $this->getData($sql, array(':a' => $user_id));
+    }
+
+    public function deleteUploadedFile($serial_number, $type, $user_id)
+    {
+        $data = [];
+        $sql1 = "SELECT `file_name` FROM `applicant_uploads` WHERE `edu_code` = :sn AND `type` = :t AND `app_login` = :id";
+        $params = array(":sn" => $serial_number, ":t" => $type, ":id" => $user_id);
+        $file_name = $this->getData($sql1, $params);
+
+        if (!empty($file_name))
+            $file = "../apply/docs/" . $file_name[0]["file_name"];
+
+        if (file_exists($file)) {
+            $sql2 = "DELETE FROM `applicant_uploads` WHERE `edu_code` = :sn AND `type` = :t AND `app_login` = :id";
+            if ($this->inputData($sql2, $params)) {
+                if (unlink($file)) {
+                    $data["success"] = true;
+                    $data["message"] = "The file was deleted successfully!";
+                } else {
+                    $data["success"] = false;
+                    $data["message"] = "An error occurred in file deletion";
+                }
+            } else {
+                $data["success"] = false;
+                $data["message"] = "An error occurred in file deletion";
+            }
+        } else {
+            $data["success"] = false;
+            $data["message"] = "The file you are trying to delete does not exist";
+        }
+        return $data;
+    }
+
+    public function saveAppPhoto()
+    {
     }
 }

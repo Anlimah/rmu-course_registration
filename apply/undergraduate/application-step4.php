@@ -28,7 +28,7 @@ $page = array("id" => 4, "name" => "Uploads");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../../assets/css/main.css">
-    <link rel="stylesheet" href="../../assets/css/bootstrap.css">
+    <!--<link rel="stylesheet" href="../../assets/css/bootstrap.css">-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
@@ -143,17 +143,51 @@ $page = array("id" => 4, "name" => "Uploads");
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
                     reader.onload = function(e) {
-                        $('#imag').attr('src', e.target.result);
+                        $('#app-photo').attr('src', e.target.result);
                     }
                     reader.readAsDataURL(input.files[0]);
-                    $('#photoViewerModal').modal("toggle");
                 }
             }
 
             //displays image when URL of file input changes
             $("#photo-upload").change(function() {
                 readURL(this);
+                $("#____entered___").val(1);
+                $("#sbmit__enetere").click();
             });
+
+            $("#picture-upload-form").on("submit", function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: "POST",
+                    url: "../../api/upload-photo",
+                    data: new FormData(this),
+                    contentType: false,
+                    processData: false,
+                }).done(function(data) {
+                    console.log(data);
+                    alert(data.message);
+                    window.location.reload();
+                });
+            })
+
+            $(".delete-file").click(function() {
+                $.ajax({
+                    type: "DELETE",
+                    url: "../../api/upload-file",
+                    data: {
+                        what: this.id
+                    },
+                    dataType: "json",
+                    encode: true,
+                }).done(function(data) {
+                    console.log(data);
+                    if (data.success) {
+                        alert(data.message);
+                        window.location.reload();
+                    }
+                });
+            })
         });
     </script>
 </body>

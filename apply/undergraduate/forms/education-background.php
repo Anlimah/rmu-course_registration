@@ -82,10 +82,6 @@ $edu = 10;
         <legend>Previous University Enrollment Information</legend>
     </div>
 
-    <!--
-
-    -->
-
     <!--Previous university record-->
     <div class="field-content">
         <div class="mb-4">

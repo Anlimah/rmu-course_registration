@@ -553,6 +553,46 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		}
 		echo json_encode($data);
 		exit();
+
+		/** */
+	} elseif ($_GET["url"] == "upload-photo") {
+		$data = [];
+		$errors = [];
+
+		if (isset($_FILES["photo-upload"]["name"]) && !empty($_FILES["photo-upload"]["name"])) {
+
+			$allowedFileType = [
+				'image/jpeg',
+				'image/png',
+				'image/jpg'
+			];
+
+			$check = filesize($_FILES["photo-upload"]["tmp_name"]);
+
+			if ($check !== false && in_array($_FILES["photo-upload"]["type"], $allowedFileType)) {
+				$temp = explode(".", $_FILES["photo-upload"]["name"]);
+				$newname = microtime(true) . '.' . end($temp);
+				if (move_uploaded_file($_FILES['photo-upload']['tmp_name'], "../apply/photos/" . $newname)) {
+					if ($user->updateApplicantPhoto($newname, $_SESSION['ghApplicant'])) {
+						$data["success"] = true;
+						$data["message"] = "File saved successfully!";
+					} else {
+						$data["success"] = false;
+						$data["message"] = "Internal server error" . $newname;
+					}
+				} else {
+					$data["success"] = false;
+					$data["message"] = "Server error";
+				}
+			} else {
+				$data["success"] = false;
+				$data["message"] = "Invalid file type";
+			}
+		} else {
+			$data["success"] = false;
+			$data["message"] = "Invalid or empty file";
+		}
+		echo json_encode($data);
 	}
 } else if ($_SERVER['REQUEST_METHOD'] == "PUT") {
 	parse_str(file_get_contents("php://input"), $_PUT);
@@ -774,6 +814,19 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		}
 
 		echo json_encode($data);
+		exit();
+	} elseif ($_GET["url"] == "upload-file") {
+		$what = $_DELETE["what"];
+		$type = substr($_DELETE['what'], 0, 11);
+		$value = substr($_DELETE['what'], 12); // serial number
+
+		if ($type == "tran-delete") {
+			$result = $user->deleteUploadedFile($value, "Transcript", $_SESSION['ghApplicant']);
+		} else if ($type == "cert-delete") {
+			$result = $user->deleteUploadedFile($value, "Certificate", $_SESSION['ghApplicant']);
+		}
+
+		echo json_encode($result);
 		exit();
 	}
 } else {
