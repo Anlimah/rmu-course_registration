@@ -7,14 +7,11 @@ $user = new UsersController();
 $pre_uni_rec = $user->fetchApplicantPreUni($user_id);
 $academic_BG = $user->fetchApplicantAcaB($user_id);
 $app_type = $user->getApplicationType($user_id);
+$courses = $user->fetchCourses();
+
+//echo json_encode($courses);
 
 require_once('../../inc/page-data.php');
-//echo json_encode(SHSCOURSES["elective"][]);
-/*for ($i = 0; $i < count(SHSCOURSES["elective"]); $i++) {
-    echo json_encode(SHSCOURSES["elective"][$i]['subjects']);
-}*/
-
-$edu = 10;
 
 ?>
 
@@ -417,8 +414,10 @@ $edu = 10;
                             <select class="edu-mod-select form-select form-select-sm" name="course-studied" id="course-studied">
                                 <option value="Select" hidden>Select</option>
                                 <?php
-                                for ($a = 0; $a < count(SHSCOURSES["elective"]); $a++) {
-                                    echo '<option value="' . SHSCOURSES["elective"][$a]["name"] . '">' . SHSCOURSES["elective"][$a]["name"] . '</option>';
+                                foreach ($courses as $course) {
+                                ?>
+                                    <option value="<?= $course["course"] ?>"><?= $course["course"] ?></option>
+                                <?php
                                 }
                                 ?>
                             </select>
@@ -453,13 +452,13 @@ $edu = 10;
                             ?>
                                 <div id="elective-sbj<?= ($i + 1) ?>-group" class="mb-2">
                                     <div style="display:flex !important; flex-direction:row !important; justify-content: space-between !important">
-                                        <select style="margin-right: 10px; width: 75%" class="edu-mod-select form-select form-select-sm" name="elective-sbj<?= ($i + 1) ?>" id="elective-sbj<?= ($i + 1) ?>">
+                                        <select style="margin-right: 10px; width: 75%" class="edu-mod-select elective-subjects form-select form-select-sm" name="elective-sbj<?= ($i + 1) ?>" id="elective-sbj<?= ($i + 1) ?>">
                                             <option value="Select" hidden>Select</option>
 
                                             <?php
-                                            for ($j = 0; $j < count(SHSCOURSES["elective"][0]["subjects"]); $j++) {
+                                            /*for ($j = 0; $j < count(SHSCOURSES["elective"][0]["subjects"]); $j++) {
                                                 echo '<option value="' . SHSCOURSES["elective"][0]["subjects"][$j] . '">' . SHSCOURSES["elective"][0]["subjects"][$j] . '</option>';
-                                            }
+                                            }*/
                                             ?>
                                         </select>
                                         <select style="width: 25%" class="edu-mod-grade form-select form-select-sm" name="elective-sbj-grd<?= ($i + 1) ?>" id="elective-sbj-grd<?= ($i + 1) ?>">

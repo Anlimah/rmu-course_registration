@@ -37,9 +37,20 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	} elseif ($_GET["url"] == "") {
 		//fetch in Previous university information
 		echo json_encode($user->fetchApplicantPreUni($user_id));
-	} elseif ($_GET["url"] == "") {
-		//fetch in Previous university information
-		//echo json_encode($user->fetchEducationHistory($user_id));
+	} elseif ($_GET["url"] == "grades") {
+		//fetch in grades per the certificate type
+		if (isset($_GET["value"]) && !empty($_GET["value"])) {
+			$type = $user->validateInputTextOnly($_GET["value"]);
+			echo json_encode($user->fetchGrades($type["message"]));
+		}
+		exit();
+	} elseif ($_GET["url"] == "elective-subjects") {
+		//fetch in grades per the certificate type
+		if (isset($_GET["value"]) && !empty($_GET["value"])) {
+			$type = $user->validateInputTextOnly($_GET["value"]);
+			echo json_encode($user->fetchElectiveSubjects($type["message"]));
+		}
+		exit();
 	}
 
 	if ($_GET["url"] == "education") {

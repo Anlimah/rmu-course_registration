@@ -190,6 +190,25 @@ class UsersController extends DatabaseMethods
         return 0;
     }
 
+    public function fetchGrades($cert_type)
+    {
+        $sql = "SELECT `grade` FROM `grades` WHERE `type`=:t";
+        return $this->getData($sql, array(':t' => $cert_type));
+    }
+
+    public function fetchCourses()
+    {
+        $sql = "SELECT `id`, `course` FROM `high_shcool_courses` WHERE `type`= 'elective'";
+        return $this->getData($sql);
+    }
+
+    public function fetchElectiveSubjects($course_name)
+    {
+        $sql = "SELECT s.`id`, s.`subject` FROM `high_shcool_courses` AS c, `high_sch_elective_subjects` AS s 
+                WHERE c.`id`= s.`course` AND c.`course` = :c";
+        return $this->getData($sql, array(':c' => $course_name));
+    }
+
     public function getApplicationType($user_id)
     {
         $sql = "SELECT `purchase_detail`.`form_type` FROM `purchase_detail`, `applicants_login`

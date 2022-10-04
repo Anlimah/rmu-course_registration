@@ -123,14 +123,39 @@ INSERT INTO `grades`(`grade`, `type`)
 VALUES ('A1', 'WASSCE'), ('B2', 'WASSCE'), ('B3', 'WASSCE'), ('C4', 'WASSCE'), ('C5', 'WASSCE'), 
         ('C6', 'WASSCE'), ('D7', 'WASSCE'), ('E8', 'WASSCE'), ('F9', 'WASSCE'),
         ('A', 'SSCE'), ('B', 'SSCE'), ('C', 'SSCE'), ('D', 'SSCE'), ('E', 'SSCE'), ('F', 'SSCE');
+        
 
-DROP TABLE IF EXISTS `ssce_grades`;
-CREATE TABLE `ssce_grades` (
+DROP TABLE IF EXISTS `high_shcool_courses`;
+CREATE TABLE `high_shcool_courses` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
-    `grade` VARCHAR(1) NOT NULL
+    `course` VARCHAR(25) NOT NULL,
+    `type` VARCHAR(15)
 );
-INSERT INTO `ssce_grades`(`grade`) 
-VALUES('A'), ('B'), ('C'), ('D'), ('E'), ('F');
+
+INSERT INTO `high_shcool_courses`(`type`, `course`) VALUES 
+("core", "CORE MATHEMATICS"), ("core", "ENGLISH LANGUAGE"), ("core", "INTEGRATED SCIENCE"), 
+("core", "SOCIAL STUDIES"), ("elective", "BUSINESS"), ("elective", "GENERAL ARTS"), 
+("elective", "GENERAL SCIENCE"), ("elective", "HOME ECONOMICS"), ("elective", "VISUAL ARTS"), ("elective", "TECHNICAL") ;
+
+DROP TABLE IF EXISTS `high_sch_elective_subjects`;
+CREATE TABLE `high_sch_elective_subjects` (
+    `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
+    `subject` VARCHAR(25) NOT NULL,
+    `course` INT NOT NULL,
+    CONSTRAINT `fk_elective_sbjs` FOREIGN KEY (`course`) REFERENCES `high_shcool_courses`(`id`) ON UPDATE CASCADE
+);
+
+INSERT INTO `high_sch_elective_subjects`(`course`, `subject`) VALUES 
+(5, 'ACCOUNTING'), (5, 'BUSINESS MANAGEMENT'), (5, 'ECONOMICS'), (5, 'PRINCIPLE OF COSTING'), (5, 'ELECTIVE MATHS'), (5, 'FRENCH'),
+(6, 'LITERATURE IN ENGLISH'), (6, 'FRENCH'), (6, 'ECONOMICS'), (6, 'GEOGRAPHY'), (6, 'HISTORY'), (6, 'GOVERNMENT'), (6, 'RELIGIOUS STUDIES'),
+(7, 'PHYSICS'), (7, 'CHEMISTRY'), (7, 'CHEMISTRY'), (7, 'ELECTIVE MATHS'), (7, 'BIOLOGY'), (7, 'GEOGRAPHY'),
+(8, 'MANAGEMENT IN LIVING'), (8, 'FOOD AND NUTRITION'), (8, 'GENERAL KNOWLEDGE IN ARTS'), (8, 'TEXTILE'), (8, 'FRENCH'), (8, 'ECONOMICS'),
+(9, 'Building Construction Technology'), (9, 'Carpentry And Joinery'), (9, 'Catering'), 
+(9, 'Electrical Installation Work'), (9, 'Electronics'), (9, 'Fashion And Design'), 
+(9, 'General Textiles'), (9, 'Industrial Mechanics'), (9, 'Mechanical Engineering Craft Practice'), 
+(9, 'Metal Work'), (9, 'Photography'), (9, 'Plumbing Craft'), (9, 'Printing Craft'), (9, 'Welding And Fabrication'), (9, 'Wood Work'),
+(10, 'GENERAL KNOWLEDGE IN ARTS'), (10, 'TEXTILE'), (10, 'GRAPHIC DESIGN'), (10, 'LITERATURE IN ENGLISH'), (10, 'FRENCH'), (10, 'FRENCH'),
+(10, 'ECONOMICS'), (10, 'BASKETRY'), (10, 'TEXTILE'), (10, 'LEATHER WORK'), (10, 'PICTURE MAKING'), (10, 'CERAMICS AND SCULPTURE');
 
 /*Application Data*/
 

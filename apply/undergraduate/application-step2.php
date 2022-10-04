@@ -140,6 +140,48 @@ $page = array("id" => 2, "name" => "Education Background");
                 });
             });
 
+            $("#cert-type").change("blur", function() {
+                $.ajax({
+                    type: "GET",
+                    url: "../../api/grades",
+                    data: {
+                        what: this.name,
+                        value: this.value,
+                    },
+                    success: function(result) {
+                        console.log(result);
+                        $(".edu-mod-grade").html('<option value="Grade" hidden>Grade</option>');
+                        $.each(result, function(index, value) {
+                            $(".edu-mod-grade").append('<option value="' + value.grade + '">' + value.grade + '</option>');
+                        });
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            });
+
+            $("#course-studied").change("blur", function() {
+                $.ajax({
+                    type: "GET",
+                    url: "../../api/elective-subjects",
+                    data: {
+                        what: this.name,
+                        value: this.value,
+                    },
+                    success: function(result) {
+                        console.log(result);
+                        $(".elective-subjects").html('<option value="Select" hidden>Select</option>');
+                        $.each(result, function(index, value) {
+                            $(".elective-subjects").append('<option value="' + value.subject + '">' + value.subject + '</option>');
+                        });
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            });
+
         });
     </script>
     <script src="../../js/add-education-form.js"></script>
