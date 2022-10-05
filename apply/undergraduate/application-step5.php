@@ -72,7 +72,19 @@ $page = array("id" => 5, "name" => "Declaration");
     <script src="../../js/myjs.js"></script>
     <script>
         $(document).ready(function() {
-
+            $("#declaration-form").on("submit", function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: "POST",
+                    url: "../../api/declaration",
+                    data: new FormData(this),
+                    contentType: false,
+                    processData: false,
+                }).done(function(data) {
+                    console.log(data);
+                    alert(data.message);
+                });
+            })
         });
     </script>
 </body>

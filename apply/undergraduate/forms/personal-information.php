@@ -187,7 +187,7 @@ require_once('../../inc/page-data.php');
         </div>
 
         <div class="mt-3 <?= $personal[0]["english_native"] == 1 ? "hide" : "" ?>" id="english-native-list">
-            <label class="form-label" for="english-native">Do you understand and speak some english? <span class="input-required">*</span></label>
+            <label class="form-label">Do you understand and speak some english? <span class="input-required">*</span></label>
             <label for="speak-some-eng-yes" class="form-label radio-btn">
                 <input class="english-native" style="margin: 0 !important; padding: 0 !important;" type="radio" name="speak-some-eng" id="speak-some-eng-yes" value="Yes" <?= $personal[0]["english_native"] == 1 ? "checked" : "" ?>> Yes
             </label>

@@ -13,6 +13,7 @@ $uploads = $user->fetchUploadedDocs($user_id);
 $totalCertUploaded = $user->fetchTotalUploadByApp("Certificate", $user_id);
 $totalTransUploaded = $user->fetchTotalUploadByApp("Transcript", $user_id);
 $totalEduAdded = $user->fetchTotalEducationByApp($user_id);
+
 ?>
 <fieldset class="fieldset">
     <div class="field-header">

@@ -74,7 +74,8 @@ $expose = new ExposeDataController();
                     success: function(result) {
                         console.log(result);
                         if (result) {
-                            window.location.href = "../src/Controller/PaymentController.php";
+                            //window.location.href = "../src/Controller/PaymentController.php";
+                            window.location.href = "purchase_step7_momo.php";
                         }
                     },
                     error: function(error) {}

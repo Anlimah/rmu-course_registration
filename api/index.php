@@ -51,12 +51,15 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			echo json_encode($user->fetchElectiveSubjects($type["message"]));
 		}
 		exit();
-	}
-
-	if ($_GET["url"] == "education") {
+	} elseif ($_GET["url"] == "education") {
 		if ($_GET["what"] == "edit-edu-btn") {
 			$value = substr($_GET['value'], 4); // serial number
-			echo json_encode($user->fetchEducationHistory($value, $_SESSION['ghApplicant']));
+			$education_details = $user->fetchEducationHistory($value, $_SESSION['ghApplicant']);
+			$grades = $user->fetchGrades($education_details["aca"][0]["cert_type"]);
+			$elective_subjects = $user->fetchElectiveSubjects($education_details["aca"][0]["course_of_study"]);
+			$education_details["elective_subjects"] = $elective_subjects;
+			$education_details["grades"] = $grades;
+			echo json_encode($education_details);
 		}
 	}
 
@@ -215,6 +218,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 							"app_type" => $app_type,
 							"app_year" => $app_year,
 						);
+						//echo json_encode(array("status" => "success"));
 						echo json_encode($_SESSION["step6"]);
 						$_SESSION['step6Done'] = true;
 					}
@@ -234,19 +238,18 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 					die(json_encode($message));
 				} else {
 					$momo_agent = $user->validateInput($_POST["momo_agent"]);
-					$momo_number = $user->validateInput($_POST["momo_number"]);
+					$momo_number = $user->validatePhone($_POST["momo_number"]);
 					$_SESSION["step7"] = array("momo_agent" => $momo_agent, "momo_number" => $momo_number);
-					echo json_encode($_SESSION["step7"]);
 					$_SESSION['step7Done'] = true;
-					//if ($_SESSION['step7Done']) header('Location: ../src/Controller/PaymentController.php');
-					//$user->payViaMomo();
+					echo json_encode(array("status" => "success"));
 				}
 			} else {
-				die(json_encode($message));
+				die(json_encode(array("response" => "error", "message" => "Invalid request2!")));
 			}
 		} else {
-			die(json_encode($message));
+			die(json_encode(array("response" => "error", "message" => "Invalid request1!")));
 		}
+		exit();
 	} elseif ($_GET["url"] == "verifyStep7Bank") {
 		$message = array("response" => "error", "message" => "Invalid request!");
 
@@ -270,6 +273,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		} else {
 			die(json_encode($message));
 		}
+		exit();
 	} elseif ($_GET["url"] == "appLogin") {
 		$message = array("response" => "error", "message" => "Invalid request!");
 
@@ -307,6 +311,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		} else {
 			echo 'NO';
 		}
+		exit();
 	} elseif ($_GET["url"] == "verify") {
 		$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 		$uri = explode('/', $uri);
@@ -328,6 +333,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			$message = array("response" => "success");
 			echo json_encode($message);
 		}*/
+		exit();
 	}
 	/*
 	adding Education
@@ -604,6 +610,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			$data["message"] = "Invalid or empty file";
 		}
 		echo json_encode($data);
+		exit();
 	}
 } else if ($_SERVER['REQUEST_METHOD'] == "PUT") {
 	parse_str(file_get_contents("php://input"), $_PUT);
@@ -655,6 +662,17 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 					$value = 0;
 				}
 			}
+
+			if ($column == "speak_some_eng") {
+				if ($value == "Yes") {
+					$value = 1;
+				} else if ($value == "No") {
+					$value = 0;
+				}
+				$column = 'speaks_english';
+				echo 1;
+			}
+
 			if ($column == "language_spoken") {
 				$column = 'other_language';
 			}
@@ -717,16 +735,16 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			}
 
 			echo $user->updateApplicantInfo($column, $value, $_SESSION['ghApplicant']);
-			exit();
 		}
+		exit();
 	} elseif ($_GET["url"] == "education") {
 
 		$what = $_PUT["what"];
-		$value = strtoupper($_PUT['value']);
+		$value = $_PUT['value'];
 		$s_number = $_PUT["snum"];
 
 		if (isset($what) && !empty($what)) {
-			$column = str_replace("-", "_", $what);
+			$column = substr(str_replace("-", "_", $what), 5);
 
 			if ($column == "sch_name") {
 				$column = 'school_name';
@@ -750,8 +768,8 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 			//$column = substr_replace($column, "", -1);
 			echo $user->updateAcademicInfo($column, $value, $s_number, $_SESSION['ghApplicant']);
-			exit();
 		}
+		exit();
 	} elseif ($_GET["url"] == "prev-uni-recs") {
 
 		$what = $_PUT["what"];
@@ -778,8 +796,8 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 			//$column = substr_replace($column, "", -1);
 			echo $user->updatePrevUniInfo($column, $value, $_SESSION['ghApplicant']);
-			exit();
 		}
+		exit();
 	} elseif ($_GET["url"] == "programmes") {
 		$what = $_PUT["what"];
 		$data = $user->validateInputTextOnly(strtoupper($_PUT['value']));

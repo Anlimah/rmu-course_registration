@@ -104,7 +104,7 @@ class DatabaseMethods
     public function validatePhone($input)
     {
         if (empty($input)) {
-            die("Invalid phone number!");
+            die("Provide a phone number!");
         }
         $user_input = htmlentities(htmlspecialchars($input));
         $validated_input = (bool) preg_match('/^[0-9]/', $user_input);

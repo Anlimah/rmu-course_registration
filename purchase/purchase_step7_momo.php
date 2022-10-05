@@ -8,7 +8,6 @@ if (isset($_SESSION['step6Done']) && $_SESSION['step6Done'] == true) {
 } else {
     header('Location: purchase_step6.php');
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,34 +21,35 @@ if (isset($_SESSION['step6Done']) && $_SESSION['step6Done'] == true) {
 </head>
 
 <body>
-    <img src="../images/RMU-LOG.png" alt="RMU LOG">
+    <img src="../assets/images/RMU-LOG.png" alt="RMU LOG">
     <h1>Step 7</h1>
-    <form action="../src/Controller/PaymentController.php" id="step1Form" method="post" enctype="multipart/form-data">
+    <form id="step7MoMoForm" method="post" enctype="multipart/form-data">
         <p>
-            Paying <b>
-                <span><?= $_SESSION["step6"]["amount"] ?></span>
-            </b> for
-            <b><span><?= $_SESSION["step6"]["form_type"] ?></span></b> application forms.
+            Forms for <b><span><?= $_SESSION["step6"]["form_type"] ?></span></b>
+            cost <b> GHS<span><?= $_SESSION["step6"]["amount"] ?></span></b>.
+        </p>
+        <p>
+            Choose your network to continue.
         </p>
         <div>
             <label for="momo_agent">MoMo Number</label>
             <select name="momo_agent" id="momo_agent">
-                <option value="AIRTELTIGO">AIRTELTIGO</option>
+                <option value="AIR">AIRTEL</option>
                 <option value="MTN" selected>MTN</option>
-                <option value="VODAFONE">VODAFONE</option>
+                <option value="TIG">TIGO</option>
+                <option value="VOD">VODAFONE</option>
             </select>
-            <input type="tel" name="momo_number" id="momo_number" placeholder="0244123123">
+            <input type="tel" name="momo_number" id="momo_number" value="<?= $_SESSION['step4']['phone_number'] ?>" readonly>
         </div>
         <button type="submit">Pay</button>
         <input type="hidden" name="_v7MomoToken" value="<?php echo $_SESSION["_step7MomoToken"]; ?>">
         <input type="hidden" name="country" value="GH">
     </form>
 
-
     <script src="../js/jquery-3.6.0.min.js"></script>
     <script>
-        /*$(document).ready(function() {
-            $("#step1Form").on("submit", function(e) {
+        $(document).ready(function() {
+            $("#step7MoMoForm").on("submit", function(e) {
                 e.preventDefault();
                 $.ajax({
                     type: "POST",
@@ -60,20 +60,16 @@ if (isset($_SESSION['step6Done']) && $_SESSION['step6Done'] == true) {
                     processData: false,
                     success: function(result) {
                         console.log(result);
-                        if (result) {
-                            window.location.href = 'purchase_confirm.php';
-                        }
-                        if (res["response"] == "success") {
-                            console.log(res['msg']);
-                            window.location.href = 'verify-code.php'
+                        if (result['status'] == 'success') {
+                            window.location.href = "../src/Controller/PaymentController.php";
                         } else {
-                            console.log(res['msg']);
+                            alert(result.message)
                         }
                     },
                     error: function(error) {}
                 });
             });
-        });*/
+        });
     </script>
 </body>
 

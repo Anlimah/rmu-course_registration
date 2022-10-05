@@ -148,14 +148,14 @@ CREATE TABLE `high_sch_elective_subjects` (
 INSERT INTO `high_sch_elective_subjects`(`course`, `subject`) VALUES 
 (5, 'ACCOUNTING'), (5, 'BUSINESS MANAGEMENT'), (5, 'ECONOMICS'), (5, 'PRINCIPLE OF COSTING'), (5, 'ELECTIVE MATHS'), (5, 'FRENCH'),
 (6, 'LITERATURE IN ENGLISH'), (6, 'FRENCH'), (6, 'ECONOMICS'), (6, 'GEOGRAPHY'), (6, 'HISTORY'), (6, 'GOVERNMENT'), (6, 'RELIGIOUS STUDIES'),
-(7, 'PHYSICS'), (7, 'CHEMISTRY'), (7, 'CHEMISTRY'), (7, 'ELECTIVE MATHS'), (7, 'BIOLOGY'), (7, 'GEOGRAPHY'),
+(7, 'PHYSICS'), (7, 'CHEMISTRY'), (7, 'ELECTIVE MATHS'), (7, 'BIOLOGY'), (7, 'GEOGRAPHY'),
 (8, 'MANAGEMENT IN LIVING'), (8, 'FOOD AND NUTRITION'), (8, 'GENERAL KNOWLEDGE IN ARTS'), (8, 'TEXTILE'), (8, 'FRENCH'), (8, 'ECONOMICS'),
-(9, 'Building Construction Technology'), (9, 'Carpentry And Joinery'), (9, 'Catering'), 
-(9, 'Electrical Installation Work'), (9, 'Electronics'), (9, 'Fashion And Design'), 
-(9, 'General Textiles'), (9, 'Industrial Mechanics'), (9, 'Mechanical Engineering Craft Practice'), 
-(9, 'Metal Work'), (9, 'Photography'), (9, 'Plumbing Craft'), (9, 'Printing Craft'), (9, 'Welding And Fabrication'), (9, 'Wood Work'),
-(10, 'GENERAL KNOWLEDGE IN ARTS'), (10, 'TEXTILE'), (10, 'GRAPHIC DESIGN'), (10, 'LITERATURE IN ENGLISH'), (10, 'FRENCH'), (10, 'FRENCH'),
-(10, 'ECONOMICS'), (10, 'BASKETRY'), (10, 'TEXTILE'), (10, 'LEATHER WORK'), (10, 'PICTURE MAKING'), (10, 'CERAMICS AND SCULPTURE');
+(9, 'GENERAL KNOWLEDGE IN ARTS'), (9, 'TEXTILE'), (9, 'GRAPHIC DESIGN'), (9, 'LITERATURE IN ENGLISH'), (9, 'FRENCH'),
+(9, 'ECONOMICS'), (9, 'BASKETRY'), (9, 'LEATHER WORK'), (9, 'PICTURE MAKING'), (9, 'CERAMICS AND SCULPTURE'),
+(10, 'Building Construction Technology'), (10, 'Carpentry And Joinery'), (10, 'Catering'), 
+(10, 'Electrical Installation Work'), (10, 'Electronics'), (10, 'Fashion And Design'), 
+(10, 'General Textiles'), (10, 'Industrial Mechanics'), (10, 'Mechanical Engineering Craft Practice'), 
+(10, 'Metal Work'), (10, 'Photography'), (10, 'Plumbing Craft'), (10, 'Printing Craft'), (10, 'Welding And Fabrication'), (10, 'Wood Work');
 
 /*Application Data*/
 
@@ -230,6 +230,8 @@ CREATE TABLE `personal_information` (
     `app_login` INT NOT NULL,
     CONSTRAINT `fk_app_pf` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE
 );
+
+ALTER TABLE `personal_information` ADD COLUMN `speaks_english` TINYINT;
 
 DROP TABLE IF EXISTS `awaiting_certs`;
 CREATE TABLE `awaiting_certs` (
