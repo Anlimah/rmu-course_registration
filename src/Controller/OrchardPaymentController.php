@@ -15,19 +15,25 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
         $network = $_SESSION["step7"]["momo_agent"];
         $landing_page = "https://admissions.rmuictonline.com/purchase/payment-checkpoint.php";
         $service_id = 2216;
-
-        $payload = json_encode(array(
-            "amount" => $form_price,
-            "exttrid" => $trans_id,
-            "reference" => "Test payment",
-            "callback_url" => $callback_url,
-            "service_id" => $service_id,
-            "ts" => date("Y-m-d h:i:s"),
-            "nickname" => "RMU Admissions",
+        /*
+        
             "landing_page" => $landing_page,
             "payment_mode" => "CRM",
             "currency_code" => "GHS",
             "currency_val" => "233"
+        */
+
+        $payload = json_encode(array(
+            "customer_number" => "233554603299",
+            "amount" => $form_price,
+            "exttrid" => $trans_id,
+            "reference" => "Test payment",
+            "trans_type" => "CTM",
+            "nw" => $network,
+            "callback_url" => $callback_url,
+            "service_id" => $service_id,
+            "ts" => date("Y-m-d h:i:s"),
+            "nickname" => "RMU Admissions"
         ));
 
         $client_id = getenv('ORCHARD_CLIENT');
