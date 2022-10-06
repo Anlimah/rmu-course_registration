@@ -23,7 +23,7 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
             "currency_val" => "233"
         */
 
-        $date = date("Y-m-d h:i:s");
+        $date = date("Y-m-d H:i:s");
         echo $date . "<br>";
         $payload = json_encode(array(
             "customer_number" => "233554603299",
@@ -43,12 +43,12 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
         $signature = hash_hmac("sha256", $payload, $client_secret);
 
         $secretKey = $client_id . ":" . $signature;
-        $payUrl = "https://orchard-api.anmgw.com/third_party_request";
+        $payUrl = "https://orchard-api.anmgw.com/sendRequest";
         $request_verb = 'POST';
 
         $pay = new OrchardPaymentGateway($secretKey, $payUrl, $request_verb, $payload);
-        echo $pay . "<br>";
-        echo json_decode($payload)->ts;
+        //echo $pay . "<br>";
+        //echo json_decode($payload)->ts;
         $response = $pay->initiatePayment();/**/
         echo $response . "<br>";
         /*if ($response["resp_code"] == "015") {

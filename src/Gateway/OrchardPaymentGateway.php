@@ -22,7 +22,7 @@ class OrchardPaymentGateway
 
     private function setCURL_Array()
     {
-        if ($this->request == 'GET') $this->payload = array();
+        //if ($this->request == 'GET') $this->payload = array();
 
         $this->curl_array = array(
             CURLOPT_URL => $this->url,
@@ -35,7 +35,7 @@ class OrchardPaymentGateway
             CURLOPT_CUSTOMREQUEST => $this->request,
             CURLOPT_POSTFIELDS => $this->payload,
             CURLOPT_HTTPHEADER => array(
-                "Authorization: " . $this->secret_key . "",
+                "Authorization: " . $this->secret_key,
                 "Content-Type: application/json"
             ),
         );
