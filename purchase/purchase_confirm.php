@@ -46,7 +46,7 @@ if (isset($_GET['status']) && !empty($_GET['status']) && isset($_GET['transactio
         }
 
         if (isset($response->resp_code)) {
-            if ($response->trans_status == '084') {
+            if ($response->resp_code == '084') {
                 echo 'Transaction is still pending. Complete payment process!<br>';
                 echo 'Process will be cancelled within a minute.<br>';
             } else {
