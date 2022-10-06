@@ -10,13 +10,13 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
     if ($_SESSION['step1Done'] == true && $_SESSION['step2Done'] == true && $_SESSION['step3Done'] == true && $_SESSION['step4Done'] == true && $_SESSION['step5Done'] == true && $_SESSION['step6Done'] == true && $_SESSION['step7Done'] == true) {
 
         $form_price = $_SESSION["step6"]["amount"];
+        $form_price = $_SESSION["step7"]["momo_number"];
         $callback_url = "https://admissions.rmuictonline.com/purchase/purchase_confirm.php";
         $trans_id = time();
         $network = $_SESSION["step7"]["momo_agent"];
         $landing_page = "https://admissions.rmuictonline.com/purchase/payment-checkpoint.php";
         $service_id = 2216;
         /*
-        
             "landing_page" => $landing_page,
             "payment_mode" => "CRM",
             "currency_code" => "GHS",
@@ -27,7 +27,7 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
         echo $date . "<br>";
         $payload = json_encode(array(
             "customer_number" => "233554603299",
-            "amount" => $form_price,
+            "amount" => 1,
             "exttrid" => $trans_id,
             "reference" => "Test payment",
             "trans_type" => "CTM",
