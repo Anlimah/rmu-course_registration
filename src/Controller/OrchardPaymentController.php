@@ -26,7 +26,7 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
         $date = date("Y-m-d H:i:s");
         $payload = json_encode(array(
             "customer_number" => "233554603299",
-            "amount" => 40,
+            "amount" => 1,
             "exttrid" => $trans_id,
             "reference" => "Test payment",
             "trans_type" => "CTM",
