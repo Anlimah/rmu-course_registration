@@ -49,9 +49,9 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
         $response = json_decode($pay->initiatePayment());
 
         if ($response->resp_code == "015") {
-            header("Location: " . $callback_url . "?status=" . $response->resp_code . "&msg=" . $response->resp_desc);
+            header("Location: " . $callback_url . "?status=" . $response->resp_code . "&msg=" . $response->resp_desc . "&transaction_id=" . $trans_id);
         } else {
             echo $response->resp_desc;
-        }/**/
+        }
     }
 }

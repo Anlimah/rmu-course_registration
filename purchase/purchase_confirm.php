@@ -8,21 +8,30 @@ require_once('../src/Controller/VoucherPurchase.php');
 use Src\Controller\OrchardPaymentGateway;
 use Src\Controller\VoucherPurchase;
 
-if (isset($_GET['status']) && !empty($_GET['status']) && $_GET['status'] == '015') {
-    echo 'Payment processing was cancelled';
-    //header('Location: purchase_step1.php?status=cancelled');
-} /*elseif (isset($_GET['status']) && !empty($_GET['status']) && $_GET['status'] == 'successful') {
-    $transRef = $_GET['tx_ref'];
-    $transID = $_GET['transaction_id'];
+if (isset($_GET['status']) && !empty($_GET['status']) && isset($_GET['transaction_id']) && !empty($_GET['transaction_id']) && $_GET['status'] == '015') {
+    $trans_id = $_GET['transaction_id'];
+    $service_id = getenv('ORCHARD_SERVID');
 
-    $secretKey = getenv('SECRET_KEY');
-    $payUrl = "https://api.flutterwave.com/v3/transactions/{$transID}/verify";
-    $request = 'GET';
+    $payload = json_encode(array(
+        "exttrid" => $trans_id,
+        "trans_type" => "TSC",
+        "service_id" => $service_id
+    ));
+
+    $client_id = getenv('ORCHARD_CLIENT');
+    $client_secret = getenv('ORCHARD_SECRET');
+    $signature = hash_hmac("sha256", $payload, $client_secret);
+
+    $secretKey = $client_id . ":" . $signature;
+    $payUrl = "https://orchard-api.anmgw.com/checkTransaction";
+    $request_verb = 'POST';
 
     try {
-        $pay = new OrchardPaymentGateway($secretKey, $payUrl, $request, array());
-        $response = json_decode($pay->initiatePayment());
-        if ($response->status == 'success') {
+        $pay = new OrchardPaymentGateway($secretKey, $payUrl, $request_verb, $payload);
+        //$response = json_decode($pay->initiatePayment());
+        $response = $pay->initiatePayment();
+        echo $response;
+        /*if ($response->status == 'success') {
             if ($response->data->meta->price >= $response->data->charged_amount && $response->data->processor_response == 'successful') {
                 echo 'Payment was successful!<br><hr><br>';
 
@@ -37,12 +46,15 @@ if (isset($_GET['status']) && !empty($_GET['status']) && $_GET['status'] == '015
             }
         } else {
             //code
-        }
+        }*/
 
         //print_r(json_encode($response));
     } catch (\Exception $e) {
         throw $e;
     }
-}*/
+} else {
+    echo 'Payment processing failed!';
+    //header('Location: purchase_step1.php?status=cancelled');
+}
 
 //OrchardPaymentGateway::destroyAllSessions(); //Kill all sessions

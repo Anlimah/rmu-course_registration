@@ -51,6 +51,13 @@ CREATE TABLE `verify_email_address` (
     `submitted_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP()
 );
 
+DROP TABLE IF EXISTS `payment_transctions`;
+CREATE TABLE `payment_transctions` (
+    `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
+    `trans_id` VARCHAR(255) UNIQUE NOT NULL,
+    `added_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP()
+);
+
 DROP TABLE IF EXISTS `purchase_detail`; 
 CREATE TABLE `purchase_detail` (
     `id` INT(11) PRIMARY KEY,
