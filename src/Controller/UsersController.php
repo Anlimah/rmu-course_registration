@@ -46,7 +46,7 @@ class UsersController extends DatabaseMethods
 
         //prepare SMS message
         $to = $ISD . $recipient_number;
-        $account_phone = '19785232220';
+        $account_phone = getenv('TWILIO_PNM');
         $from = array('from' => $account_phone, 'body' => $message . ' ' . $otp_code);
 
         //send SMS

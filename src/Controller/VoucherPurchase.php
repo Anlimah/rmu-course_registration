@@ -20,7 +20,7 @@ class VoucherPurchase
 
     private function genPin(int $length_pin = 9)
     {
-        $str_result = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+        $str_result = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         return substr(str_shuffle($str_result), 0, $length_pin);
     }
 
