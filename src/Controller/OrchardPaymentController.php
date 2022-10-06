@@ -15,7 +15,7 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
         $trans_id = time();
         $network = $_SESSION["step7"]["momo_agent"];
         $landing_page = "https://admissions.rmuictonline.com/purchase/payment-checkpoint.php";
-        $service_id = getenv('ORCHARD_CLIENT');
+        $service_id = getenv('ORCHARD_SERVID');
         /*
             "landing_page" => $landing_page,
             "payment_mode" => "CRM",
@@ -23,7 +23,6 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
             "currency_val" => "233"
         */
 
-        $date = date("Y-m-d H:i:s");
         $payload = json_encode(array(
             "customer_number" => $momo_number,
             "amount" => $form_price,
@@ -31,9 +30,9 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
             "reference" => "Test payment",
             "trans_type" => "CTM",
             "nw" => $network,
-            "callback_url" => "https://admissions.rmuictonline.com/purchase/purchase_confirm.php",
+            "callback_url" => "$callback_url",
             "service_id" => $service_id,
-            "ts" => $date,
+            "ts" => date("Y-m-d H:i:s"),
             "nickname" => "RMU Admissions"
         ));
 
@@ -46,21 +45,12 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
         $request_verb = 'POST';
 
         $pay = new OrchardPaymentGateway($secretKey, $payUrl, $request_verb, $payload);
-        //echo $pay . "<br>";
-        //echo json_decode($payload)->ts;
-        $response = json_decode($pay->initiatePayment());/**/
+        $response = json_decode($pay->initiatePayment());
         echo $response . "<br>";
         /*if ($response["resp_code"] == "015") {
-            //$_SESSION['processing'] = true;
             header("Location: " . $callback_url);
         } else {
             echo 'Payment processing failed!';
-            //5531886652142950  09/32   564     3310    12345
-            //5399838383838381	470	3310	10/31	12345
-            //4187427415564246	828	3310	09/32	12345
-
-            // Insufficient funds: 5258585922666506	883	3310	09/31	12345
-            // Incorrect PIN	5399834697894723	883	3310	09/31	12345
         }*/
     }
 }
