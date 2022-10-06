@@ -45,8 +45,8 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
         $request_verb = 'POST';
 
         $pay = new OrchardPaymentGateway($secretKey, $payUrl, $request_verb, $payload);
-        $response = json_decode($pay->initiatePayment());
-        echo $response . "<br>";
+        $response = $pay->initiatePayment();
+        echo $response;
         /*if ($response["resp_code"] == "015") {
             header("Location: " . $callback_url);
         } else {
