@@ -24,7 +24,7 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
         */
 
         $date = date("Y-m-d h:i:s");
-        echo $date;
+        echo $date . "<br>";
         $payload = json_encode(array(
             "customer_number" => "233554603299",
             "amount" => $form_price,
@@ -47,10 +47,10 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
         $request_verb = 'POST';
 
         $pay = new OrchardPaymentGateway($secretKey, $payUrl, $request_verb, $payload);
-        echo $pay;
+        echo $pay . "<br>";
         echo json_decode($payload)->ts;
         $response = $pay->initiatePayment();/**/
-        echo $response;
+        echo $response . "<br>";
         /*if ($response["resp_code"] == "015") {
             //$_SESSION['processing'] = true;
             header("Location: " . $callback_url);
