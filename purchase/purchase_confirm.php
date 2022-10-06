@@ -29,7 +29,6 @@ if (isset($_GET['status']) && !empty($_GET['status']) && isset($_GET['transactio
     try {
         $pay = new OrchardPaymentGateway($secretKey, $payUrl, $request_verb, $payload);
         $response = json_decode($pay->initiatePayment());
-        echo $response;
         if ($response->trans_status == '000/01' && $response->trans_ref == $trans_id && !empty($response->trans_id)) {
             echo 'Payment was successful!<br><hr><br>';
 
