@@ -31,9 +31,9 @@ if (isset($_GET['status']) && !empty($_GET['status']) && isset($_GET['transactio
         $response = json_decode($pay->initiatePayment());
         if (isset($response->trans_status)) {
             if ($response->trans_status == '000/01') {
-                echo 'Payment was successful!<br><hr><br>';
                 $voucher = new VoucherPurchase();
                 if ($voucher->createApplicant($_SESSION)) {
+                    echo 'Payment was successful!<br><hr><br>';
                     echo '<span style="color:red;"><b>Please do not close this page yet.</b></span><br><br>';
                     echo 'An email with your <b>Application Number</b> and <b>PIN Code</b> and has been sent to you!<br>';
                     echo 'Please confirm and proceed to the <a href="../apply"><b>online applicatioin portal</b></a> to complete your application process.<br>';
