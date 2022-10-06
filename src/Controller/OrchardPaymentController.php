@@ -24,7 +24,6 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
         */
 
         $date = date("Y-m-d H:i:s");
-        echo $date . "<br>";
         $payload = json_encode(array(
             "customer_number" => "233554603299",
             "amount" => 1,
