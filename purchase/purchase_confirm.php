@@ -8,7 +8,7 @@ require_once('../src/Controller/VoucherPurchase.php');
 use Src\Controller\PaymentGateway;
 use Src\Controller\VoucherPurchase;
 
-if (isset($_GET['status']) && !empty($_GET['status']) && $_GET['status'] == 'cancelled') {
+/*if (isset($_GET['status']) && !empty($_GET['status']) && $_GET['status'] == 'cancelled') {
     echo 'Payment processing was cancelled';
     //header('Location: purchase_step1.php?status=cancelled');
 } elseif (isset($_GET['status']) && !empty($_GET['status']) && $_GET['status'] == 'successful') {
@@ -37,12 +37,12 @@ if (isset($_GET['status']) && !empty($_GET['status']) && $_GET['status'] == 'can
             }
         } else {
             //code
-        }/**/
+        }
 
         //print_r(json_encode($response));
     } catch (\Exception $e) {
         throw $e;
     }
-}
+}*/
 
 //PaymentGateway::destroyAllSessions(); //Kill all sessions
