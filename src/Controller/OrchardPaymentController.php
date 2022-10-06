@@ -27,7 +27,7 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
             "trans_type" => "CTM",
             "nickname" => "RMU Admissions",
             "landing_page" => $landing_page,
-            "ts" => "2022-10-05 07:21:43",
+            "ts" => date("Y-m-d h:i:s"),
             "payment_mode" => "CRM",
             "currency_code" => "GHS",
             "currency_val" => "233"
@@ -39,7 +39,7 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
         $signature = hash_hmac("sha256", $payload, $client_secret);
 
         $secretKey = $client_id . ":" . $signature;/**/
-        $payUrl = "https://orchard-api.anmgw.com/third_party_request";
+        $payUrl = "https://orchard-api.anmgw.com/sendRequest";
         $request = 'POST';
 
         $pay = new OrchardPaymentGateway($secretKey, $payUrl, $request, $payload);
