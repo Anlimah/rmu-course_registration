@@ -10,13 +10,13 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
     if ($_SESSION['step1Done'] == true && $_SESSION['step2Done'] == true && $_SESSION['step3Done'] == true && $_SESSION['step4Done'] == true && $_SESSION['step5Done'] == true && $_SESSION['step6Done'] == true && $_SESSION['step7Done'] == true) {
 
         $form_price = $_SESSION["step6"]["amount"];
-        $callback_url = "https://admissions.rmuictonline.com/purchase/purchase_confirm.php";
+        $callback_url = "https://localhost/rmu_admissions/purchase/purchase_confirm.php";
         $trans_id = time();
         $network = $_SESSION["step7"]["momo_agent"];
-        $landing_page = "https://admissions.rmuictonline.com/purchase/payment-checkpoint.php";
+        $landing_page = "https://localhost/rmu_admissions/purchase/payment-checkpoint.php";
         $service_id = 2216;
 
-        $payload = json_encode(array(
+        $payload = array(
             "amount" => $form_price,
             "callback_url" => $callback_url,
             "customer_number" => "0554603299",
@@ -31,23 +31,23 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
             "payment_mode" => "CRM",
             "currency_code" => "GHS",
             "currency_val" => "233"
-        ));
+        );
 
-        /*$client_id = getenv('ORCHARD_CLIENT');
+        $payload = json_encode($payload);
+        $client_id = getenv('ORCHARD_CLIENT');
         $client_secret = getenv('ORCHARD_SECRET');
         $signature = hash_hmac("sha256", $payload, $client_secret);
 
-        $secretKey = $client_id . ":" . $signature;
+        $secretKey = $client_id . ":" . $signature;/**/
         $payUrl = "https://orchard-api.anmgw.com/sendRequest";
         $request = 'POST';
 
         $pay = new OrchardPaymentGateway($secretKey, $payUrl, $request, $payload);
-        $response = $pay->initiatePayment();*/
-        $pay = json_decode($payload);
-        echo $pay->ts;
-        /*if ($response["resp_code"] == "015") {
+        $response = $pay->initiatePayment();
+        echo $response;
+        /*if ($response->status == 'success') {
             //$_SESSION['processing'] = true;
-            header("Location: " . $callback_url);
+            header("Location: " . $response->data->link);
         } else {
             echo 'Payment processing failed!';
             //5531886652142950  09/32   564     3310    12345
