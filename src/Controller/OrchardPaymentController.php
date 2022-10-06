@@ -43,7 +43,7 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
         $request = 'POST';
 
         $pay = new OrchardPaymentGateway($secretKey, $payUrl, $request, $payload);
-        $response = json_encode($pay->initiatePayment());
+        /*$response = json_encode($pay->initiatePayment());
         if ($response["resp_code"] == "015") {
             //$_SESSION['processing'] = true;
             header("Location: " . $callback_url);
@@ -55,6 +55,6 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
 
             // Insufficient funds: 5258585922666506	883	3310	09/31	12345
             // Incorrect PIN	5399834697894723	883	3310	09/31	12345
-        }/**/
+        }*/
     }
 }
