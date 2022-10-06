@@ -16,6 +16,7 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
         $network = $_SESSION["step7"]["momo_agent"];
         $landing_page = "https://admissions.rmuictonline.com/purchase/payment-checkpoint.php";
         $service_id = getenv('ORCHARD_SERVID');
+
         /*
             "landing_page" => $landing_page,
             "payment_mode" => "CRM",
@@ -45,12 +46,12 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
         $request_verb = 'POST';
 
         $pay = new OrchardPaymentGateway($secretKey, $payUrl, $request_verb, $payload);
-        $response = $pay->initiatePayment();
-        echo $response;
-        /*if ($response->resp_code == "015") {
-            header("Location: " . $callback_url . "?status=" . $response->resp_code . "&msg=" . $response->resp_code);
+        $response = json_decode($pay->initiatePayment());
+
+        if ($response->resp_code == "015") {
+            header("Location: " . $callback_url . "?status=" . $response->resp_code . "&msg=" . $response->resp_desc);
         } else {
-            echo 'Payment processing failed!';
-        }*/
+            echo $response->resp_desc;
+        }/**/
     }
 }
