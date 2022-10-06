@@ -51,7 +51,7 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
         //echo json_decode($payload)->ts;
         $response = json_decode($pay->initiatePayment());/**/
         echo $response . "<br>";
-        if ($response["resp_code"] == "015") {
+        if ($response->resp_code == "015") {
             //$_SESSION['processing'] = true;
             header("Location: " . $callback_url);
         } else {
