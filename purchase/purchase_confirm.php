@@ -41,6 +41,7 @@ if (isset($_GET['status']) && !empty($_GET['status']) && isset($_GET['transactio
                 echo 'Server error!<br>';
             }*/
         } else {
+            echo json_encode($response);
             echo 'Payment processing failed!';
         }
     } catch (\Exception $e) {
