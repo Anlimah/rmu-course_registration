@@ -30,10 +30,10 @@ if (isset($_GET['status']) && !empty($_GET['status']) && isset($_GET['transactio
         $pay = new OrchardPaymentGateway($secretKey, $payUrl, $request_verb, $payload);
         $response = json_decode($pay->initiatePayment());
         var_dump($response);
-        if (array_key_exists("trans_status", $response)) {
+        if (isset($response->trans_status)) {
             echo "Success";
         }
-        if (array_key_exists("resp_code", $response)) {
+        if (isset($response->resp_code)) {
             echo "Failed";
         }
         /*if ($response->trans_status == '000/01' && $response->trans_ref == $trans_id && !empty($response->trans_id)) {
