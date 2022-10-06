@@ -41,12 +41,11 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
 
         //Orchid
 
-        $form_price = $_SESSION["step6"]["amount"];
+        /*$form_price = $_SESSION["step6"]["amount"];
         $callback_url = "https://localhost/rmu_admissions/purchase/purchase_confirm.php";
         $trans_id = time();
         $network = $_SESSION["step7"]["momo_agent"];
         $landing_page = "https://localhost/rmu_admissions/purchase/purchase_confirm.php";
-        $service_id = 2216;
 
         $payload = array(
             "amount" => $form_price,
@@ -69,12 +68,12 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
         $client_id = "";
         $client_secret = "";
         $signature = hash_hmac("sha256", $payload, $client_secret);
-        $secretKey = $client_id . ":" . $signature;/**/
+        $secretKey = $client_id . ":" . $signature;*/
 
         $pay = new PaymentGateway($secretKey, $payUrl, $request, $payload);
         $response = json_decode($pay->initiatePayment());
-        echo $response;
-        /*if ($response->status == 'success') {
+
+        if ($response->status == 'success') {
             //$_SESSION['processing'] = true;
             header("Location: " . $response->data->link);
         } else {
@@ -85,6 +84,6 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
 
             // Insufficient funds: 5258585922666506	883	3310	09/31	12345
             // Incorrect PIN	5399834697894723	883	3310	09/31	12345
-        }*/
+        }
     }
 }
