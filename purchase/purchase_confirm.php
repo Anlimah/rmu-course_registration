@@ -40,9 +40,11 @@ if (isset($_GET['status']) && !empty($_GET['status']) && isset($_GET['transactio
             } else {
                 echo 'Server error!<br>';
             }*/
-        } else {
-            echo json_encode($response);
-            echo 'Payment processing failed!';
+        } else if ($response->trans_status == "001\/FAILED") {
+            echo 'Payment processing failed!<br>';
+        } else if ($response->resp_code == "084") {
+            echo 'Transaction is pending!<br>';
+            echo 'Process will be cancelled within a minute.<br>';
         }
     } catch (\Exception $e) {
         throw $e;
