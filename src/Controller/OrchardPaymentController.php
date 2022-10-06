@@ -9,14 +9,13 @@ use Src\Controller\OrchardPaymentGateway;
 if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SESSION['step3Done']) && isset($_SESSION['step4Done']) && isset($_SESSION['step5Done']) && isset($_SESSION['step6Done']) && isset($_SESSION['step7Done'])) {
     if ($_SESSION['step1Done'] == true && $_SESSION['step2Done'] == true && $_SESSION['step3Done'] == true && $_SESSION['step4Done'] == true && $_SESSION['step5Done'] == true && $_SESSION['step6Done'] == true && $_SESSION['step7Done'] == true) {
 
-        //$form_price = $_SESSION["step6"]["amount"];
-        //$momo_number = $_SESSION["step7"]["momo_number"];
+        $form_price = $_SESSION["step6"]["amount"];
+        $momo_number = $_SESSION["step7"]["momo_number"];
         $callback_url = "https://admissions.rmuictonline.com/purchase/purchase_confirm.php";
         $trans_id = time();
         $network = $_SESSION["step7"]["momo_agent"];
-        //$landing_page = "https://admissions.rmuictonline.com/purchase/payment-checkpoint.php";
-        //$service_id = getenv('ORCHARD_SERVID');
-
+        $landing_page = "https://admissions.rmuictonline.com/purchase/payment-checkpoint.php";
+        $service_id = getenv('ORCHARD_CLIENT');
         /*
             "landing_page" => $landing_page,
             "payment_mode" => "CRM",
@@ -24,17 +23,17 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
             "currency_val" => "233"
         */
 
-        //$date = date("Y-m-d H:i:s");
+        $date = date("Y-m-d H:i:s");
         $payload = json_encode(array(
-            "customer_number" => $_SESSION["step7"]["momo_number"],
-            "amount" => $_SESSION["step6"]["amount"],
+            "customer_number" => $momo_number,
+            "amount" => $form_price,
             "exttrid" => $trans_id,
             "reference" => "Test payment",
             "trans_type" => "CTM",
             "nw" => $network,
-            "callback_url" => $callback_url,
-            "service_id" => getenv('ORCHARD_SERVID'),
-            "ts" => date("Y-m-d H:i:s"),
+            "callback_url" => "https://admissions.rmuictonline.com/purchase/purchase_confirm.php",
+            "service_id" => $service_id,
+            "ts" => $date,
             "nickname" => "RMU Admissions"
         ));
 
@@ -50,8 +49,8 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
         //echo $pay . "<br>";
         //echo json_decode($payload)->ts;
         $response = json_decode($pay->initiatePayment());/**/
-        echo $response;
-        /*if ($response->resp_code == "015") {
+        echo $response . "<br>";
+        /*if ($response["resp_code"] == "015") {
             //$_SESSION['processing'] = true;
             header("Location: " . $callback_url);
         } else {
