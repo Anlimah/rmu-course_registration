@@ -39,7 +39,7 @@ if (isset($_SESSION['step6Done']) && $_SESSION['step6Done'] == true) {
                 <option value="TIG">TIGO</option>
                 <option value="VOD">VODAFONE</option>
             </select>
-            <input type="tel" name="momo_number" id="momo_number" value="<?= $_SESSION['step4']['phone_number'] ?>" readonly>
+            <input type="tel" name="momo_number" id="momo_number" value="<?= $_SESSION['step4']['phone_number'] ?>">
         </div>
         <button type="submit">Pay</button>
         <input type="hidden" name="_v7MomoToken" value="<?php echo $_SESSION["_step7MomoToken"]; ?>">
