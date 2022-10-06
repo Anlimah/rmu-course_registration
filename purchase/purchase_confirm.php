@@ -28,27 +28,25 @@ if (isset($_GET['status']) && !empty($_GET['status']) && isset($_GET['transactio
 
     try {
         $pay = new OrchardPaymentGateway($secretKey, $payUrl, $request_verb, $payload);
-        //$response = json_decode($pay->initiatePayment());
-        $response = $pay->initiatePayment();
+        $response = json_decode($pay->initiatePayment());
         echo $response;
-        /*if ($response->status == 'success') {
-            if ($response->data->meta->price >= $response->data->charged_amount && $response->data->processor_response == 'successful') {
-                echo 'Payment was successful!<br><hr><br>';
+        if (isset($response->trans_status)) {
+            echo 1;
+        }
+        /*if ($response->trans_status == '000/01' && $response->trans_ref == $trans_id && !empty($response->trans_id)) {
+            echo 'Payment was successful!<br><hr><br>';
 
-                $voucher = new VoucherPurchase();
-                if ($voucher->createApplicant($_SESSION)) {
-                    echo '<span style="color:red;"><b>Please do not close this page yet.</b></span><br><br>';
-                    echo 'An email with your <b>Application Number</b> and <b>PIN Code</b> and has been sent to you!<br>';
-                    echo 'Please confirm and proceed to the <a href="../apply"><b>online applicatioin portal</b></a> to complete your application process.<br>';
-                    //echo 'Or <a href="resend.php?link=' . sha1(md5($url)) . '">Resend</a> <b>Application Number</b> and <b>PIN Code</b> if not received.';
-                    //header('Location: purchase_step1.php?status=success');
-                }
+            $voucher = new VoucherPurchase();
+            if ($voucher->createApplicant($_SESSION)) {
+                echo '<span style="color:red;"><b>Please do not close this page yet.</b></span><br><br>';
+                echo 'An email with your <b>Application Number</b> and <b>PIN Code</b> and has been sent to you!<br>';
+                echo 'Please confirm and proceed to the <a href="../apply"><b>online applicatioin portal</b></a> to complete your application process.<br>';
+            } else {
+                echo 'Server error!<br>';
             }
         } else {
-            //code
+            echo 'Payment processing failed!';
         }*/
-
-        //print_r(json_encode($response));
     } catch (\Exception $e) {
         throw $e;
     }
