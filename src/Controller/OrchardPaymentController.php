@@ -18,16 +18,13 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
 
         $payload = json_encode(array(
             "amount" => $form_price,
-            "callback_url" => $callback_url,
-            "customer_number" => "0554603299",
             "exttrid" => $trans_id,
-            "nw" => $network,
             "reference" => "Test payment",
+            "callback_url" => $callback_url,
             "service_id" => $service_id,
-            "trans_type" => "CTM",
+            "ts" => date("Y-m-d h:i:s"),
             "nickname" => "RMU Admissions",
             "landing_page" => $landing_page,
-            "ts" => date("Y-m-d h:i:s"),
             "payment_mode" => "CRM",
             "currency_code" => "GHS",
             "currency_val" => "233"
