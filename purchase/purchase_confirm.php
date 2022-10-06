@@ -2,16 +2,16 @@
 session_start();
 
 require_once('../bootstrap.php');
-require_once('../src/Gateway/PaymentGateway.php');
+require_once('../src/Gateway/OrchardPaymentGateway.php');
 require_once('../src/Controller/VoucherPurchase.php');
 
-use Src\Controller\PaymentGateway;
+use Src\Controller\OrchardPaymentGateway;
 use Src\Controller\VoucherPurchase;
 
-/*if (isset($_GET['status']) && !empty($_GET['status']) && $_GET['status'] == 'cancelled') {
+if (isset($_GET['status']) && !empty($_GET['status']) && $_GET['status'] == '015') {
     echo 'Payment processing was cancelled';
     //header('Location: purchase_step1.php?status=cancelled');
-} elseif (isset($_GET['status']) && !empty($_GET['status']) && $_GET['status'] == 'successful') {
+} /*elseif (isset($_GET['status']) && !empty($_GET['status']) && $_GET['status'] == 'successful') {
     $transRef = $_GET['tx_ref'];
     $transID = $_GET['transaction_id'];
 
@@ -20,7 +20,7 @@ use Src\Controller\VoucherPurchase;
     $request = 'GET';
 
     try {
-        $pay = new PaymentGateway($secretKey, $payUrl, $request, array());
+        $pay = new OrchardPaymentGateway($secretKey, $payUrl, $request, array());
         $response = json_decode($pay->initiatePayment());
         if ($response->status == 'success') {
             if ($response->data->meta->price >= $response->data->charged_amount && $response->data->processor_response == 'successful') {
@@ -45,4 +45,4 @@ use Src\Controller\VoucherPurchase;
     }
 }*/
 
-//PaymentGateway::destroyAllSessions(); //Kill all sessions
+//OrchardPaymentGateway::destroyAllSessions(); //Kill all sessions

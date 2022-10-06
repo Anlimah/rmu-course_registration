@@ -45,12 +45,12 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
         $request_verb = 'POST';
 
         $pay = new OrchardPaymentGateway($secretKey, $payUrl, $request_verb, $payload);
-        $response = json_decode($pay->initiatePayment());
-        echo $response->resp_code;
-        if ($response->resp_code == "015") {
-            header("Location: " . $callback_url);
+        $response = $pay->initiatePayment();
+        echo $response;
+        /*if ($response->resp_code == "015") {
+            header("Location: " . $callback_url . "?status=" . $response->resp_code . "&msg=" . $response->resp_code);
         } else {
             echo 'Payment processing failed!';
-        }/**/
+        }*/
     }
 }
