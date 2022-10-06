@@ -48,6 +48,7 @@ class OrchardPaymentGateway
         curl_setopt_array($curl, $this->curl_array);
         $response = curl_exec($curl);
         curl_close($curl);
+        echo $response;
         return $response;
     }
 
