@@ -10,7 +10,7 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
     if ($_SESSION['step1Done'] == true && $_SESSION['step2Done'] == true && $_SESSION['step3Done'] == true && $_SESSION['step4Done'] == true && $_SESSION['step5Done'] == true && $_SESSION['step6Done'] == true && $_SESSION['step7Done'] == true) {
 
         $form_price = $_SESSION["step6"]["amount"];
-        $form_price = $_SESSION["step7"]["momo_number"];
+        $momo_number = $_SESSION["step7"]["momo_number"];
         $callback_url = "https://admissions.rmuictonline.com/purchase/purchase_confirm.php";
         $trans_id = time();
         $network = $_SESSION["step7"]["momo_agent"];
@@ -25,8 +25,8 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
 
         $date = date("Y-m-d H:i:s");
         $payload = json_encode(array(
-            "customer_number" => "233554603299",
-            "amount" => 1,
+            "customer_number" => $momo_number,
+            "amount" => $form_price,
             "exttrid" => $trans_id,
             "reference" => "Test payment",
             "trans_type" => "CTM",
@@ -49,10 +49,10 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
         //echo $pay . "<br>";
         //echo json_decode($payload)->ts;
         $response = json_decode($pay->initiatePayment());/**/
-        //echo $response . "<br>";
+        echo $response . "<br>";
         /*if ($response["resp_code"] == "015") {*/
         //$_SESSION['processing'] = true;
-        header("Location: " . $callback_url . "?status_code=" . $response["resp_code"]);
+        //header("Location: " . $callback_url . "?status_code=" . $response["resp_code"]);
         /*} else {
             echo 'Payment processing failed!';
             //5531886652142950  09/32   564     3310    12345
