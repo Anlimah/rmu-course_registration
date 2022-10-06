@@ -26,7 +26,8 @@ if (isset($_SESSION['step6Done']) && $_SESSION['step6Done'] == true) {
     <form id="step7MoMoForm" method="post" enctype="multipart/form-data">
         <p>
             Forms for <b><span><?= $_SESSION["step6"]["form_type"] ?></span></b>
-            cost <b> GHS<span><?= $_SESSION["step6"]["amount"] ?></span></b>.
+            cost <b> GHS<span><?= $_SESSION["step6"]["amount"] ?></span></b>. <br>
+            <span>Make sure you have enough fund in you MoMo account.</span>
         </p>
         <p>
             Choose your network to continue.
