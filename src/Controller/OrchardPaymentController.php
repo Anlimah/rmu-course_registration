@@ -50,8 +50,8 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
         //echo $pay . "<br>";
         //echo json_decode($payload)->ts;
         $response = json_decode($pay->initiatePayment());/**/
-        echo $response . "<br>";
-        if ($response->resp_code == "015") {
+        echo $response;
+        /*if ($response->resp_code == "015") {
             //$_SESSION['processing'] = true;
             header("Location: " . $callback_url);
         } else {
@@ -62,6 +62,6 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
 
             // Insufficient funds: 5258585922666506	883	3310	09/31	12345
             // Incorrect PIN	5399834697894723	883	3310	09/31	12345
-        }/**/
+        }*/
     }
 }
