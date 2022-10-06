@@ -34,6 +34,7 @@ class OrchardPaymentGateway
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => $this->request,
             CURLOPT_POSTFIELDS => $this->payload,
+            CURLOPT_HEADER => true,
             CURLOPT_HTTPHEADER => array(
                 "Authorization: " . $this->secret_key,
                 "Content-Type: application/json"
