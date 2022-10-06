@@ -2,59 +2,28 @@
 session_start();
 
 require_once('../../bootstrap.php');
-require_once('../Gateway/PaymentGateway.php');
+require_once('../Gateway/OrchardPaymentGateway.php');
 
-use Src\Controller\PaymentGateway;
+use Src\Controller\OrchardPaymentGateway;
 
 if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SESSION['step3Done']) && isset($_SESSION['step4Done']) && isset($_SESSION['step5Done']) && isset($_SESSION['step6Done']) && isset($_SESSION['step7Done'])) {
     if ($_SESSION['step1Done'] == true && $_SESSION['step2Done'] == true && $_SESSION['step3Done'] == true && $_SESSION['step4Done'] == true && $_SESSION['step5Done'] == true && $_SESSION['step6Done'] == true && $_SESSION['step7Done'] == true) {
-
-        $payload = array(
-            'tx_ref' => time(),
-            'amount' => $_SESSION["step6"]['amount'],
-            'country' => 'GH',
-            'currency' => 'GHS',
-            'payment_options' => 'mobilemoneyghana',
-            'redirect_url' => 'https://localhost/rmu_admissions/purchase/purchase_confirm.php',
-            'customer' => array(
-                'name' => $_SESSION["step1"]['first_name'] . " " . $_SESSION["step1"]['last_name'],
-                'email' => $_SESSION["step2"]['email_address'],
-                'phone_number' => $_SESSION["step4"]['phone_number'],
-            ),
-            'meta' => array(
-                'user' => $_SESSION["step6"]['user'],
-                'price' => $_SESSION["step6"]['amount'],
-                'app_type' => $_SESSION["step6"]['app_type'],
-                'app_year' => $_SESSION["step6"]['app_year'],
-            ),
-            'customizations' => array(
-                'title' => 'RMU admission form',
-                'logo' => 'https://i0.wp.com/galexgh.com/wp-content/uploads/2020/05/download-3.jpeg?fit=225%2C225&ssl=1',
-                'pay_button_text' => 'Pay for forms',
-                'description' => 'Paying ' . $_SESSION["step6"]["amount"] . ' for ' . $_SESSION["step6"]["form_type"] . ' application forms.',
-            ),
-        );
-
-        $secretKey = getenv('SECRET_KEY');
-        $payUrl = 'https://api.flutterwave.com/v3/payments';
-        $request = 'POST';
-
-        //Orchid
 
         $form_price = $_SESSION["step6"]["amount"];
         $callback_url = "https://localhost/rmu_admissions/purchase/purchase_confirm.php";
         $trans_id = time();
         $network = $_SESSION["step7"]["momo_agent"];
-        $landing_page = "https://localhost/rmu_admissions/purchase/purchase_confirm.php";
+        $landing_page = "https://localhost/rmu_admissions/purchase/payment-checkpoint.php";
         $service_id = 2216;
 
         $payload = array(
             "amount" => $form_price,
             "callback_url" => $callback_url,
+            "customer_number" => "0554603299",
             "exttrid" => $trans_id,
             "nw" => $network,
             "reference" => "Test payment",
-            "service_id" => "XYZ",
+            "service_id" => $service_id,
             "trans_type" => "CTM",
             "nickname" => "RMU Admissions",
             "landing_page" => $landing_page,
@@ -64,15 +33,17 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
             "currency_val" => "233"
         );
 
-        $payUrl = "https://orchard-api.anmgw.com/third_party_request";
         $payload = json_encode($payload);
-        $client_id = "";
-        $client_secret = "";
+        $client_id = getenv('ORCHARD_CLIENT');
+        $client_secret = getenv('ORCHARD_SECRET');
         $signature = hash_hmac("sha256", $payload, $client_secret);
-        $secretKey = $client_id . ":" . $signature;/**/
 
-        $pay = new PaymentGateway($secretKey, $payUrl, $request, $payload);
-        $response = json_decode($pay->initiatePayment());
+        $secretKey = $client_id . ":" . $signature;/**/
+        $payUrl = "https://orchard-api.anmgw.com/third_party_request";
+        $request = 'POST';
+
+        $pay = new OrchardPaymentGateway($secretKey, $payUrl, $request, $payload);
+        $response = $pay->initiatePayment();
         echo $response;
         /*if ($response->status == 'success') {
             //$_SESSION['processing'] = true;
