@@ -23,6 +23,8 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
             "currency_val" => "233"
         */
 
+        $date = date("Y-m-d h:i:s");
+
         $payload = json_encode(array(
             "customer_number" => "233554603299",
             "amount" => $form_price,
@@ -32,7 +34,7 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
             "nw" => $network,
             "callback_url" => $callback_url,
             "service_id" => $service_id,
-            "ts" => date("Y-m-d h:i:s"),
+            "ts" => $date,
             "nickname" => "RMU Admissions"
         ));
 
@@ -42,9 +44,9 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
 
         $secretKey = $client_id . ":" . $signature;
         $payUrl = "https://orchard-api.anmgw.com/third_party_request";
-        $request = 'POST';
+        $request_verb = 'POST';
 
-        $pay = new OrchardPaymentGateway($secretKey, $payUrl, $request, $payload);
+        $pay = new OrchardPaymentGateway($secretKey, $payUrl, $request_verb, $payload);
         $response = $pay->initiatePayment();/**/
         echo $response;
         /*if ($response["resp_code"] == "015") {
