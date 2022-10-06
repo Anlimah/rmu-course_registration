@@ -16,7 +16,7 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
         $landing_page = "https://admissions.rmuictonline.com/purchase/payment-checkpoint.php";
         $service_id = 2216;
 
-        /*$payload = json_encode(array(
+        $payload = json_encode(array(
             "amount" => $form_price,
             "callback_url" => $callback_url,
             "customer_number" => "0554603299",
@@ -27,7 +27,7 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
             "trans_type" => "CTM",
             "nickname" => "RMU Admissions",
             "landing_page" => $landing_page,
-            "ts" => date("YYYY-mm-dd h:i:s"),
+            "ts" => date("Y-m-d h:i:s"),
             "payment_mode" => "CRM",
             "currency_code" => "GHS",
             "currency_val" => "233"
@@ -42,8 +42,8 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
         $request = 'POST';
 
         $pay = new OrchardPaymentGateway($secretKey, $payUrl, $request, $payload);
-        $response = json_decode($pay->initiatePayment());*/
-        echo date("Y-m-d h:i:s");
+        $response = json_decode($pay->initiatePayment());/**/
+        echo $response->ts;
         /*if ($response["resp_code"] == "015") {
             //$_SESSION['processing'] = true;
             header("Location: " . $callback_url);
