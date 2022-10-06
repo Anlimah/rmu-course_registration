@@ -26,7 +26,7 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
         $date = date("Y-m-d H:i:s");
         $payload = json_encode(array(
             "customer_number" => "233554603299",
-            "amount" => 1,
+            "amount" => $form_price,
             "exttrid" => $trans_id,
             "reference" => "Test payment",
             "trans_type" => "CTM",
@@ -48,12 +48,12 @@ if (isset($_SESSION['step1Done']) && isset($_SESSION['step2Done']) && isset($_SE
         $pay = new OrchardPaymentGateway($secretKey, $payUrl, $request_verb, $payload);
         //echo $pay . "<br>";
         //echo json_decode($payload)->ts;
-        $response = $pay->initiatePayment();/**/
-        echo $response . "<br>";
-        /*if ($response["resp_code"] == "015") {
-            //$_SESSION['processing'] = true;
-            header("Location: " . $callback_url);
-        } else {
+        $response = json_decode($pay->initiatePayment());/**/
+        //echo $response . "<br>";
+        /*if ($response["resp_code"] == "015") {*/
+        //$_SESSION['processing'] = true;
+        header("Location: " . $callback_url . "?status_code=" . $response["resp_code"]);
+        /*} else {
             echo 'Payment processing failed!';
             //5531886652142950  09/32   564     3310    12345
             //5399838383838381	470	3310	10/31	12345
