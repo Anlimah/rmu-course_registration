@@ -63,6 +63,7 @@ if (isset($_GET['status']) && !empty($_GET['status']) && isset($_GET['transactio
                 echo "Hello30<br>";
                 $response = json_decode($pay->initiatePayment());
                 echo 1;
+                echo json_encode($response);
                 if (isset($response->trans_status)) {
                     if ($response->trans_status == '000/01') {
                         $voucher = new VoucherPurchase();
