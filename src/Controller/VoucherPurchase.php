@@ -119,7 +119,7 @@ class VoucherPurchase
             $this->registerApplicantPersI($user_id);
 
             //register in Acaedmic backgorund
-            // Removed this education background because data will be bulk bulk saved and also user can add more than 1
+            // Removed this education background because data will be bulk saved and also user can add more than 1
             //$this->registerApplicantAcaB($user_id);
 
             //register in Programs information
@@ -180,6 +180,9 @@ class VoucherPurchase
             $at = $data['step6']['app_type'];
             $ay = $data['step6']['app_year'];
             $pi = (int) $data['step6']['user'];
+
+            $ma = $data['step7']['momo_agent'];
+            $mn = $data['step7']['momo_number'];
 
             $ap_id = $this->getAdmissionPeriodID();
             $ft_id = $this->getFormTypeID($ft);
