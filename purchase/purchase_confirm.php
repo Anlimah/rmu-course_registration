@@ -48,7 +48,7 @@ if (isset($_GET['status']) && !empty($_GET['status']) && isset($_GET['transactio
         if (isset($response->resp_code)) {
             if ($response->resp_code == '084') {
                 echo 'Transaction is still pending. Complete payment process!<br>';
-                echo 'Process will be cancelled within 30 seconds.<br>';
+                echo 'Process will be cancelled within 30 seconds.<br><br>';
                 sleep(30);
                 $response = json_decode($pay->initiatePayment());
                 if (isset($response->trans_status)) {
@@ -74,8 +74,8 @@ if (isset($_GET['status']) && !empty($_GET['status']) && isset($_GET['transactio
         throw $e;
     }
 } else {
-    echo 'Payment processing failed!';
-    //header('Location: purchase_step1.php?status=cancelled');
+    //echo 'Payment processing failed!';
+    header('Location: purchase_step1.php?status=cancelled');
 }
 
 //OrchardPaymentGateway::destroyAllSessions(); //Kill all sessions
