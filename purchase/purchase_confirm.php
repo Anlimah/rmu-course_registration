@@ -31,8 +31,7 @@ if (isset($_GET['status']) && !empty($_GET['status']) && isset($_GET['transactio
         $response = json_decode($pay->initiatePayment());
         if (isset($response->trans_status)) {
             if ($response->trans_status == '000/01') {
-                echo json_encode($response);
-                /*$voucher = new VoucherPurchase();
+                $voucher = new VoucherPurchase();
                 if ($voucher->createApplicant($_SESSION)) {
                     echo 'Payment was successful!<br><hr><br>';
                     echo '<span style="color:red;"><b>Please do not close this page yet.</b></span><br><br>';
@@ -40,7 +39,7 @@ if (isset($_GET['status']) && !empty($_GET['status']) && isset($_GET['transactio
                     echo 'Please confirm and proceed to the <a href="../apply"><b>online applicatioin portal</b></a> to complete your application process.<br>';
                 } else {
                     echo 'Server error!<br>';
-                }*/
+                }
             } else {
                 echo 'Payment processing failed!<br>';
             }
