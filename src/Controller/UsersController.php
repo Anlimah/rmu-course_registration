@@ -2,12 +2,19 @@
 
 namespace Src\Controller;
 
-use Twilio\Rest\Client;
-
 use Src\System\DatabaseMethods;
+use Src\Controller\ExposeDataController;
 
-class UsersController extends DatabaseMethods
+class UsersController
 {
+    private $dm;
+    private $expose;
+
+    public function __construct()
+    {
+        $this->dm = new DatabaseMethods();
+        $this->expose = new ExposeDataController();
+    }
 
     public function verifyEmailAddress($email, $code)
     {
@@ -21,54 +28,145 @@ class UsersController extends DatabaseMethods
         return $this->dm->getID($sql, array(':p' => $number, ':c' => $code));
     }
 
-    public function sendEmail($recipient_email, $user_id)
+    public function validateEmail($input)
     {
-        //generate code and store hash version of code
-        $v_code = $this->genCode($user_id);
-        if ($v_code) {
-            //prepare mail info
-            $headers = 'From: ' . 'y.m.ratty7@gmail.com';
-            $subject = 'RMU Admmisions Form Purchase: Code Verification';
-            $message = 'Hi, <br> your verification code is <b>' . $v_code . '</b>';
-
-            //send mail
-            return mail($recipient_email, $subject, $message, $headers);
+        if (empty($input)) {
+            die("Invalid email address!");
         }
-        return 0;
+        $user_email = htmlentities(htmlspecialchars($input));
+        $sanitized_email = filter_var($user_email, FILTER_SANITIZE_EMAIL);
+        if (!filter_var($sanitized_email, FILTER_VALIDATE_EMAIL)) {
+            die("Invalid email address!" . $sanitized_email);
+        }
+        return $user_email;
     }
 
-    public function sendSMS($recipient_number, $otp_code, $message, $ISD = '+233')
+    public function validateInput($input)
     {
-
-        $sid = getenv('TWILIO_SID');
-        $token = getenv('TWILIO_TKN');
-        $client = new Client($sid, $token);
-
-        //prepare SMS message
-        $to = $ISD . $recipient_number;
-        $account_phone = getenv('TWILIO_PNM');
-        $from = array('from' => $account_phone, 'body' => $message . ' ' . $otp_code);
-
-        //send SMS
-        $response = $client->messages->create($to, $from);
-        if ($response->sid) {
-            $_SESSION['sms_code'] = $otp_code;
-            $_SESSION['sms_sid'] = $response->sid;
-            if (isset($_SESSION['sms_code']) && !empty($_SESSION['sms_code']) && isset($_SESSION['sms_sid']) && !empty($_SESSION['sms_sid'])) return 1;
-        } else {
-            return 0;
+        if (empty($input)) {
+            die("Invalid input!");
         }
+        $user_input = htmlentities(htmlspecialchars($input));
+        $validated_input = (bool) preg_match('/^[A-Za-z0-9]/', $user_input);
+        if ($validated_input) {
+            return $user_input;
+        }
+        die("Invalid input!");
+    }
+
+    public function validatePhone($input)
+    {
+        if (empty($input)) {
+            die("Provide a phone number!");
+        }
+        $user_input = htmlentities(htmlspecialchars($input));
+        $validated_input = (bool) preg_match('/^[0-9]/', $user_input);
+        if ($validated_input) {
+            return $user_input;
+        }
+        die("Invalid phone number!");
+    }
+
+    public function validateDate($date)
+    {
+        if (strtotime($date) === false) {
+            die("Invalid date!");
+        }
+        list($year, $month, $day) = explode('-', $date);
+        if (checkdate($month, $day, $year)) {
+            return $date;
+        }
+    }
+
+    public function validateImage($files)
+    {
+        if (!isset($files['file']['error']) || !empty($files["pics"]["name"])) {
+            $allowedFileType = ['image/jpeg', 'image/png', 'image/jpg'];
+            for ($i = 0; $i < count($files["pics"]["name"]); $i++) {
+                $check = getimagesize($files["pics"]["tmp_name"][$i]);
+                if ($check !== false && in_array($files["pics"]["type"][$i], $allowedFileType)) {
+                    return $files;
+                }
+            }
+        }
+        die("Invalid file uploaded!");
+    }
+
+    public function validateInputTextOnly($input)
+    {
+        if (empty($input)) {
+            return array("status" => "error", "message" => "required");
+        }
+
+        $user_input = htmlentities(htmlspecialchars($input));
+        $validated_input = (bool) preg_match('/^[A-Za-z]/', $user_input);
+
+        if ($validated_input) {
+            return array("status" => "success", "message" => $user_input);
+        }
+
+        return array("status" => "error", "message" => "invalid");
+    }
+
+    public function validateInputTextNumber($input)
+    {
+        if (empty($input)) {
+            return array("status" => "error", "message" => "required");
+        }
+
+        $user_input = htmlentities(htmlspecialchars($input));
+        $validated_input = (bool) preg_match('/^[A-Za-z0-9]/', $user_input);
+
+        if ($validated_input) {
+            return array("status" => "success", "message" => $user_input);
+        }
+
+        return array("status" => "error", "message" => "invalid");
+    }
+
+    public function validateYearData($input)
+    {
+        if (empty($input) || strtoupper($input) == "YEAR") {
+            return array("status" => "error", "message" => "required");
+        }
+
+        if ($input < 1990 || $input > 2022) {
+            return array("status" => "error", "message" => "invalid");
+        }
+
+        $user_input = htmlentities(htmlspecialchars($input));
+        $validated_input = (bool) preg_match('/^[0-9]/', $user_input);
+
+        if ($validated_input) {
+            return array("status" => "success", "message" => $user_input);
+        }
+
+        return array("status" => "error", "message" => "invalid");
+    }
+
+    public function validateGrade($input)
+    {
+        if (empty($input) || strtoupper($input) == "GRADE") {
+            return array("status" => "error", "message" => "required");
+        }
+
+        if (strlen($input) < 1 || strlen($input) > 2) {
+            return array("status" => "error", "message" => "invalid");
+        }
+
+        $user_input = htmlentities(htmlspecialchars($input));
+        return array("status" => "success", "message" => $user_input);
     }
 
     public function getFormPrice(string $form_type)
     {
-        return $this->getData("SELECT `amount` FROM `form_type` WHERE `name` LIKE '%$form_type%'");
+        return $this->dm->getData("SELECT `amount` FROM `form_type` WHERE `name` LIKE '%$form_type%'");
     }
 
     public function getAdminYearCode()
     {
         $sql = "SELECT EXTRACT(YEAR FROM (SELECT `start_date` FROM admission_period)) AS 'year'";
-        $year = (string) $this->getData($sql)[0]['year'];
+        $year = (string) $this->dm->getData($sql)[0]['year'];
         return (int) substr($year, 2, 2);
     }
 
@@ -81,7 +179,7 @@ class UsersController extends DatabaseMethods
     public function verifyLoginDetails($app_number, $pin)
     {
         $sql = "SELECT `pin`, `id`, `purchase_id` FROM `applicants_login` WHERE `app_number` = :a";
-        $data = $this->getData($sql, array(':a' => sha1($app_number)));
+        $data = $this->dm->getData($sql, array(':a' => sha1($app_number)));
 
         if ($data) {
             if (!empty($data[0]["pin"])) {
@@ -89,7 +187,7 @@ class UsersController extends DatabaseMethods
 
                     // Get application form type
                     $sql2 = "SELECT `form_type` FROM `purchase_detail` WHERE `id` = :a";
-                    $data2 = $this->getData($sql2, array(':a' => $data[0]["purchase_id"]));
+                    $data2 = $this->dm->getData($sql2, array(':a' => $data[0]["purchase_id"]));
 
                     if ($data2) {
                         return array("id" => $data[0]["id"], "type" => $data2[0]["form_type"]);
@@ -103,31 +201,31 @@ class UsersController extends DatabaseMethods
     public function updateApplicantPhoto($value, $user_id)
     {
         $sql = "UPDATE `personal_information` SET `photo` = :v WHERE `app_login` = :a";
-        return $this->inputData($sql, array(':v' => $value, ':a' => $user_id));
+        return $this->dm->inputData($sql, array(':v' => $value, ':a' => $user_id));
     }
 
     public function updateApplicantInfo($what, $value, $user_id)
     {
         $sql = "UPDATE `personal_information` SET `$what` = :v WHERE `app_login` = :a";
-        $this->inputData($sql, array(':v' => $value, ':a' => $user_id));
+        $this->dm->inputData($sql, array(':v' => $value, ':a' => $user_id));
     }
 
     public function updateAcademicInfo($what, $value, $s_number, $user_id)
     {
         $sql = "UPDATE `academic_background` SET `$what` = :v WHERE `s_number` = :s AND  `app_login` = :a";
-        $this->inputData($sql, array(':v' => $value, ':s' => $s_number, ':a' => $user_id));
+        $this->dm->inputData($sql, array(':v' => $value, ':s' => $s_number, ':a' => $user_id));
     }
 
     public function updatePrevUniInfo($what, $value, $user_id)
     {
         $sql = "UPDATE `previous_uni_records` SET `$what` = :v WHERE `app_login` = :a";
-        $this->inputData($sql, array(':v' => $value, ':a' => $user_id));
+        $this->dm->inputData($sql, array(':v' => $value, ':a' => $user_id));
     }
 
     public function updateProgramInfo($what, $value, $user_id)
     {
         $sql = "UPDATE `program_info` SET `$what` = :v WHERE `app_login` = :a";
-        $this->inputData($sql, array(':v' => $value, ':a' => $user_id));
+        $this->dm->inputData($sql, array(':v' => $value, ':a' => $user_id));
     }
 
     //GET
@@ -140,7 +238,7 @@ class UsersController extends DatabaseMethods
                 `postal_spr`, `postal_country`, `phone_no1`, `phone_no2`, `email_addr`, 
                 `p_prefix`, `p_first_name`, `p_last_name`, `p_occupation`, `p_phone_no`, 
                 `p_email_addr` FROM `personal_information` WHERE `app_login` = :a";
-        return $this->getData($sql, array(':a' => $user_id));
+        return $this->dm->getData($sql, array(':a' => $user_id));
     }
 
     public function fetchApplicantAcaB($user_id)
@@ -149,13 +247,13 @@ class UsersController extends DatabaseMethods
                 `month_started`, `year_started`, `month_completed`, `year_completed`, 
                 `index_number`, `course_of_study` 
                 FROM `academic_background` WHERE `app_login` = :a";
-        return $this->getData($sql, array(':a' => $user_id));
+        return $this->dm->getData($sql, array(':a' => $user_id));
     }
 
     public function fetchApplicantProgI($user_id)
     {
         $sql = "SELECT * FROM `program_info` WHERE `app_login` = :a";
-        return $this->getData($sql, array(':a' => $user_id));
+        return $this->dm->getData($sql, array(':a' => $user_id));
     }
 
     public function fetchApplicantPreUni($user_id)
@@ -163,7 +261,7 @@ class UsersController extends DatabaseMethods
         $sql = "SELECT `pre_uni_rec`, `name_of_uni`, `program`, `month_enrolled`, `year_enrolled`, 
                 `completed`, `month_completed`, `year_completed`, `state`, `reasons` 
                 FROM `previous_uni_records` WHERE `app_login` = :a";
-        return $this->getData($sql, array(':a' => $user_id));
+        return $this->dm->getData($sql, array(':a' => $user_id));
     }
 
     public function fetchEducationHistory($serial_number, $user_id)
@@ -173,14 +271,14 @@ class UsersController extends DatabaseMethods
                 `month_completed`, `year_completed`, `course_of_study` 
                 FROM `academic_background` WHERE `s_number` = :sn AND `app_login` = :id";
         $params = array(":sn" => $serial_number, ":id" => $user_id);
-        $aca_data = $this->getData($sql1, $params);
+        $aca_data = $this->dm->getData($sql1, $params);
 
         if (!empty($aca_data)) {
             $sql2 = "SELECT h.`id`, h.`type`, h.`subject`, h.`grade` 
                     FROM `academic_background` AS a, `high_school_results` AS h 
                     WHERE h.`acad_back_id` = a.`id` AND a.`s_number` = :sn";
             $params = array(":sn" => $serial_number);
-            $grade_data = $this->getData($sql2, $params);
+            $grade_data = $this->dm->getData($sql2, $params);
 
             if (!empty($aca_data)) {
                 return array("aca" => $aca_data, "courses" => $grade_data);
@@ -193,27 +291,27 @@ class UsersController extends DatabaseMethods
     public function fetchGrades($cert_type)
     {
         $sql = "SELECT `grade` FROM `grades` WHERE `type`=:t";
-        return $this->getData($sql, array(':t' => $cert_type));
+        return $this->dm->getData($sql, array(':t' => $cert_type));
     }
 
     public function fetchCourses($type)
     {
         $sql = "SELECT `id`, `course` FROM `high_shcool_courses` WHERE `type`= :t";
-        return $this->getData($sql, array(':t' => $type));
+        return $this->dm->getData($sql, array(':t' => $type));
     }
 
     public function fetchElectiveSubjects($course_name)
     {
         $sql = "SELECT s.`id`, s.`subject` FROM `high_shcool_courses` AS c, `high_sch_elective_subjects` AS s 
                 WHERE c.`id`= s.`course` AND c.`course` = :c";
-        return $this->getData($sql, array(':c' => $course_name));
+        return $this->dm->getData($sql, array(':c' => $course_name));
     }
 
     public function getApplicationType($user_id)
     {
         $sql = "SELECT `purchase_detail`.`form_type` FROM `purchase_detail`, `applicants_login`
         WHERE `applicants_login`.`purchase_id` = `purchase_detail`.`id` AND `applicants_login`.`id` = :a";
-        return $this->getData($sql, array(':a' => $user_id));
+        return $this->dm->getData($sql, array(':a' => $user_id));
     }
 
     public function verify_form($uri)
@@ -223,7 +321,7 @@ class UsersController extends DatabaseMethods
     private function doesCodeExists($code)
     {
         $sql = "SELECT `id` FROM `academic_background` WHERE `s_number`=:s";
-        if ($this->getID($sql, array(':s' => sha1($code)))) {
+        if ($this->dm->getID($sql, array(':s' => sha1($code)))) {
             return 1;
         }
         return 0;
@@ -233,7 +331,7 @@ class UsersController extends DatabaseMethods
     {
         $rslt = 1;
         while ($rslt) {
-            $serial_number = $this->genCode();
+            $serial_number = $this->expose->genCode();
             $rslt = $this->doesCodeExists($serial_number);
         }
 
@@ -248,9 +346,9 @@ class UsersController extends DatabaseMethods
             ":ms" => $ms, ":ys" => $ys, ":mc" => $mc, ":yc" => $yc, ":cs" => $cs, ":al" => $al
         );
 
-        if ($this->inputData($sql, $params)) {
+        if ($this->dm->inputData($sql, $params)) {
             $sql = "SELECT `id` FROM `academic_background` WHERE `s_number`=:s";
-            return $this->getID($sql, array(':s' => $serial_number));
+            return $this->dm->getID($sql, array(':s' => $serial_number));
         }
 
         return 0;
@@ -263,7 +361,7 @@ class UsersController extends DatabaseMethods
                 `month_completed`, `year_completed`, `course_of_study`,`app_login`) 
                 VALUES (:m, :e, :i, :s)";
         $params = array(":m" => $math, ":e" => $english, ":i" => $science, ":s" => $social);
-        return $this->inputData($sql, $params);
+        return $this->dm->inputData($sql, $params);
     }
 
     public function saveElectiveSubjectGrades($ej1, $ejg1, $ej2, $ejg2, $ej3, $ejg3, $ej4, $ejg4)
@@ -276,7 +374,7 @@ class UsersController extends DatabaseMethods
             ":s1" => $ej1, ":g1" => $ejg1, ":s2" => $ej2, ":g2" => $ejg2,
             ":s3" => $ej3, ":g3" => $ejg3, ":s4" => $ej4, ":g4" => $ejg4
         );
-        return $this->inputData($sql, $params);
+        return $this->dm->inputData($sql, $params);
     }
 
     public function saveSubjectAndGrades($subjects = array(), $aca_id)
@@ -287,13 +385,13 @@ class UsersController extends DatabaseMethods
             // add core subjects
             for ($i = 0; $i < count($subjects["core"]); $i++) {
                 $params = array(":t" => "core", ":s" => $subjects["core"][$i]["subject"], ":g" => $subjects["core"][$i]["grade"], ":ai" =>  $aca_id);
-                $this->inputData($sql, $params);
+                $this->dm->inputData($sql, $params);
             }
 
             // add elective subjects
             for ($i = 0; $i < count($subjects["elective"]); $i++) {
                 $params = array(":t" => "elective", ":s" => $subjects["elective"][$i]["subject"], ":g" => $subjects["elective"][$i]["grade"], ":ai" =>  $aca_id);
-                $this->inputData($sql, $params);
+                $this->dm->inputData($sql, $params);
             }
 
             return 1;
@@ -305,33 +403,33 @@ class UsersController extends DatabaseMethods
     {
         $sql = "DELETE FROM `academic_background` WHERE `s_number` = :sn AND `app_login` = :id";
         $params = array(":sn" => $serial_number, ":id" => $education_id);
-        return $this->inputData($sql, $params);
+        return $this->dm->inputData($sql, $params);
     }
 
     public function saveDocuments($type, $edu_code, $filename, $user_id)
     {
         $sql = "INSERT INTO `applicant_uploads`(`type`, `edu_code`, `file_name`, `app_login`) VALUES (:t, :e, :f, :a)";
         $params = array(":t" => $type, ":e" => $edu_code, ":f" => $filename, ":a" => $user_id);
-        return $this->inputData($sql, $params);
+        return $this->dm->inputData($sql, $params);
     }
 
     public function fetchUploadedDocs($user_id)
     {
         $sql = "SELECT u.*, a.school_name FROM `applicant_uploads` AS u, `academic_background` AS a 
                 WHERE a.`app_login` = :a AND a.app_login = u.app_login AND a.s_number = u.edu_code; ";
-        return $this->getData($sql, array(':a' => $user_id));
+        return $this->dm->getData($sql, array(':a' => $user_id));
     }
 
     public function fetchTotalUploadByApp($type, $user_id)
     {
         $sql = "SELECT COUNT(`edu_code`) AS total FROM `applicant_uploads` WHERE `type` = :c AND `app_login` = :a";
-        return $this->getData($sql, array(':c' => $type, ':a' => $user_id));
+        return $this->dm->getData($sql, array(':c' => $type, ':a' => $user_id));
     }
 
     public function fetchTotalEducationByApp($user_id)
     {
         $sql = "SELECT COUNT(`s_number`) AS total_edu FROM `academic_background` WHERE `app_login` = :a";
-        return $this->getData($sql, array(':a' => $user_id));
+        return $this->dm->getData($sql, array(':a' => $user_id));
     }
 
     public function deleteUploadedFile($serial_number, $type, $user_id)
@@ -339,14 +437,14 @@ class UsersController extends DatabaseMethods
         $data = [];
         $sql1 = "SELECT `file_name` FROM `applicant_uploads` WHERE `edu_code` = :sn AND `type` = :t AND `app_login` = :id";
         $params = array(":sn" => $serial_number, ":t" => $type, ":id" => $user_id);
-        $file_name = $this->getData($sql1, $params);
+        $file_name = $this->dm->getData($sql1, $params);
 
         if (!empty($file_name))
             $file = "../apply/docs/" . $file_name[0]["file_name"];
 
         if (file_exists($file)) {
             $sql2 = "DELETE FROM `applicant_uploads` WHERE `edu_code` = :sn AND `type` = :t AND `app_login` = :id";
-            if ($this->inputData($sql2, $params)) {
+            if ($this->dm->inputData($sql2, $params)) {
                 if (unlink($file)) {
                     $data["success"] = true;
                     $data["message"] = "The file was deleted successfully!";
@@ -368,6 +466,6 @@ class UsersController extends DatabaseMethods
     public function fetchApplicantPhoto($user_id)
     {
         $sql = "SELECT `photo` FROM `personal_information` WHERE `app_login` = :a";
-        return $this->getData($sql, array(':a' => $user_id));
+        return $this->dm->getData($sql, array(':a' => $user_id));
     }
 }

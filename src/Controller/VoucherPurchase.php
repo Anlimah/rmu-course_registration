@@ -26,7 +26,7 @@ class VoucherPurchase
 
     private function genAppNumber(int $type, int $year)
     {
-        $user_code = $this->dm->genCode(5);
+        $user_code = $this->expose->genCode(5);
         $app_number = 'RMU-' . (($type * 10000000) + ($year * 100000) + $user_code);
         return $app_number;
     }

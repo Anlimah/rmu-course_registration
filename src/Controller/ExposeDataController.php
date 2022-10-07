@@ -36,10 +36,16 @@ class ExposeDataController
         return $this->dm->getData("SELECT * FROM `halls`");
     }
 
+    public function genCode($length = 6)
+    {
+        $digits = $length;
+        return rand(pow(10, $digits - 1), pow(10, $digits) - 1);
+    }
+
     public function sendEmail($recipient_email, $user_id)
     {
         //generate code and store hash version of code
-        $v_code = $this->dm->genCode($user_id);
+        $v_code = $this->genCode($user_id);
         if ($v_code) {
             //prepare mail info
             $headers = 'From: ' . 'y.m.ratty7@gmail.com';
@@ -61,7 +67,7 @@ class ExposeDataController
 
         //prepare SMS message
         $to = $ISD . $recipient_number;
-        $account_phone = '19785232220';
+        $account_phone = getenv('TWILIO_PNM');
         $from = array('from' => $account_phone, 'body' => $message . ' ' . $otp_code);
 
         //send SMS

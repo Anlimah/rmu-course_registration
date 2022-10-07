@@ -8,6 +8,7 @@ session_start();
 require "../bootstrap.php";
 
 use Src\Controller\UsersController;
+use Src\Controller\ExposeDataController;
 
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
@@ -16,6 +17,7 @@ header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
 $user = new UsersController();
+$expose = new ExposeDataController();
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	if ($_GET["url"] == "verifyStepFinal") {
@@ -150,9 +152,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 					$phone_number = $user->validateInput($_POST["phone_number"]);
 					$_SESSION["step4"] = array("phone_number" => $phone_number);
 					//echo json_encode($_SESSION["step4"]);
-					$otp_code = $user->genCode(4);
+					$otp_code = $expose->genCode(4);
 					$message = 'Your OTP verification code is';
-					echo $user->sendSMS($phone_number, $otp_code, $message);
+					echo $expose->sendSMS($phone_number, $otp_code, $message);
 					$_SESSION['step4Done'] = true;
 				}
 			} else {
