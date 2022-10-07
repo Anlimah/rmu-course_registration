@@ -49,7 +49,18 @@ if (isset($_GET['status']) && !empty($_GET['status']) && isset($_GET['transactio
             if ($response->resp_code == '084') {
                 echo 'Transaction is still pending. Complete payment process!<br>';
                 echo 'Process will be cancelled within 30 seconds.<br><br>';
-                sleep(30);
+                sleep(5);
+                echo "Hello05<br>";
+                sleep(5);
+                echo "Hello10<br>";
+                sleep(5);
+                echo "Hello15<br>";
+                sleep(5);
+                echo "Hello20<br>";
+                sleep(5);
+                echo "Hello25<br>";
+                sleep(5);
+                echo "Hello30<br>";
                 $response = json_decode($pay->initiatePayment());
                 if (isset($response->trans_status)) {
                     if ($response->trans_status == '000/01') {
