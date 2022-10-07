@@ -76,8 +76,10 @@ if (isset($_GET['status']) && !empty($_GET['status']) && isset($_GET['transactio
                             echo 'Server error!<br>';
                         }
                     } else {
-                        echo 'Payment processing failed!<br>';
+                        echo 'Payment processing failed! 1<br>';
                     }
+                } else {
+                    echo 'Payment processing failed! 2<br>';
                 }
             } else {
                 echo "Failed";
