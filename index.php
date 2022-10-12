@@ -78,12 +78,9 @@
         <div class="container-sm app-proecess-info">
             <h1>Application Process</h1>
             <p style="font-size: medium;">
-                Click <a href="purchase/purchase_step1.php" title="Buy voucher online via Mobile Money and Credit Card"><b>here</b></a> to buy voucher or see our <a href=""><b>vendors listed here</b></a>.
+                Click <a href="https://forms.purchase.rmuictonline.com" title="Buy voucher online via Mobile Money and Credit Card"><b>here</b></a> to buy voucher or see our <a href=""><b>vendors listed here</b></a>.
             </p>
             <div style="width: 100%; display:flex; flex-direction:column;justify-content: space-between; margin-top: 10px">
-                <!--<a href="purchase/purchase_step1.php" class="btn-card btn">
-                    <span>Purchase PIN CODE</span>
-                </a>-->
                 <a href="apply/" class="btn-card btn">
                     <span>APPLY FOR A PROGRAMME</span>
                 </a>
