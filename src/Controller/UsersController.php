@@ -180,7 +180,6 @@ class UsersController
     {
         $sql = "SELECT `pin`, `id`, `purchase_id` FROM `applicants_login` WHERE `app_number` = :a";
         $data = $this->dm->getData($sql, array(':a' => sha1($app_number)));
-
         if ($data) {
             if (!empty($data[0]["pin"])) {
                 if (password_verify($pin, $data[0]["pin"])) {
