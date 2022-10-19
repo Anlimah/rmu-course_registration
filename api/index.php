@@ -96,6 +96,8 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 							$type = 'postgraduate';
 							break;
 						case 2:
+						case 3:
+						case 4:
 							$type = 'undergraduate';
 							break;
 
