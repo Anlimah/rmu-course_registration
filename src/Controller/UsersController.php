@@ -313,8 +313,10 @@ class UsersController
         return $this->dm->getData($sql, array(':a' => $user_id));
     }
 
-    public function verify_form($uri)
+    public function verifyForm($column)
     {
+        $str = "UPDATE `form_sections_chek` SET $column = 1 WHERE `id` = :i";
+        $this->dm->inputData($str);
     }
 
     private function doesCodeExists($code)

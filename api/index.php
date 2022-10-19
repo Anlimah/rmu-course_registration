@@ -83,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 				$pin_code = $user->validateInput($_POST["pin_code"]);
 
 				$result = $user->verifyLoginDetails($app_number, $pin_code);
-				
+
 				if (!$result) {
 					die(json_encode(array("response" => "error", "message" => "Incorrect application number or PIN! ")));
 				} else {
@@ -116,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 		switch ($uri[4]) {
 			case 'personal-info':
-				echo json_encode($user->verify_form($uri[4]));
+				echo json_encode($user->verifyForm($uri[4]));
 				break;
 
 			default:
