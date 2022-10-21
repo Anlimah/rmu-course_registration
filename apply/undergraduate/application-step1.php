@@ -50,7 +50,7 @@ $page = array("id" => 1, "name" => "Personal Information");
                         </div>
 
                         <!-- Page form -->
-                        <form id="personal-info" method="POST" style="margin-top: 15px !important;">
+                        <form class="needs-validation" id="personal-info" method="POST" style="margin-top: 15px !important;" novalidate>
                             <?php require_once("forms/personal-information.php") ?>
 
                             <!-- Bottom page navigation -->
@@ -72,6 +72,40 @@ $page = array("id" => 1, "name" => "Personal Information");
     <script src="../../js/myjs.js"></script>
     <script>
         $(document).ready(function() {
+
+            (() => {
+                'use strict'
+
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                const forms = document.querySelectorAll('.needs-validation')
+
+                // Loop over them and prevent submission
+                Array.from(forms).forEach(form => {
+                    form.addEventListener('submit', event => {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+
+
+                        } else {
+                            let formID = $(this).attr("id");
+                            $.ajax({
+                                type: "POST",
+                                url: "../../api/verify/" + formID,
+                                success: function(result) {
+                                    console.log(result);
+                                },
+                                error: function(error) {
+                                    console.log(error);
+                                }
+                            });
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+
+            })();
 
             $(".disability").click(function() {
                 if ($('#disability-yes').is(':checked')) {
@@ -144,7 +178,7 @@ $page = array("id" => 1, "name" => "Personal Information");
                 });
             });
 
-            $("form").on("submit", function(e) {
+            /*$("form").on("submit", function(e) {
                 e.preventDefault();
                 let form = $(this).attr("id");
                 $.ajax({
@@ -158,7 +192,7 @@ $page = array("id" => 1, "name" => "Personal Information");
                     }
                 });
 
-            });
+            });*/
         });
     </script>
 </body>
