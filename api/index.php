@@ -19,7 +19,7 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 $user = new UsersController();
 $expose = new ExposeDataController();
 
-//$data = [];
+$data = [];
 //$errors = [];
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
@@ -411,6 +411,33 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		}
 		echo json_encode($data);
 		exit();
+	} elseif ($_GET["url"] == "validateForm") {
+		if (isset($_POST["form"]) && !empty($_POST["form"])) {
+			$form = $user->validatePhone($_POST["form"]);
+
+			if ($form == 1) {
+				$column = "use_of_info";
+			}
+			if ($form == 2) {
+				$column = "personal";
+			}
+			if ($form == 3) {
+				$column = "education";
+			}
+			if ($form == 4) {
+				$column = "programme";
+			}
+			if ($form == 5) {
+				$column = "uploads";
+			}
+			if ($form == 6) {
+				$column = "declaration";
+			}
+			if ($user->updateApplicationStatus($column, $_SESSION['ghApplicant'])) {
+				$data["success"] = true;
+			}
+		}
+		die(json_encode($data));
 	}
 } else if ($_SERVER['REQUEST_METHOD'] == "PUT") {
 	parse_str(file_get_contents("php://input"), $_PUT);

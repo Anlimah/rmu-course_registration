@@ -92,6 +92,17 @@ class UsersController
         die("Invalid file uploaded!");
     }
 
+    public function validateText($input)
+    {
+        if (empty($input)) die("Input required!");
+
+        $user_input = htmlentities(htmlspecialchars($input));
+        $validated_input = (bool) preg_match('/^[A-Za-z]/', $user_input);
+
+        if ($validated_input) return $user_input;
+        die("Invalid Input!");
+    }
+
     public function validateInputTextOnly($input)
     {
         if (empty($input)) {
@@ -230,7 +241,7 @@ class UsersController
     public function updateApplicationStatus($what, $user_id)
     {
         $sql = "UPDATE `form_sections_chek` SET `$what` = 1 WHERE `app_login` = :a";
-        $this->dm->inputData($sql, array(':a' => $user_id));
+        return $this->dm->inputData($sql, array(':a' => $user_id));
     }
 
     //GET

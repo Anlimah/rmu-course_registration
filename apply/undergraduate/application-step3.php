@@ -36,7 +36,7 @@ $page = array("id" => 3, "name" => "Programmes Information");
     </style>
 </head>
 
-<body>
+<body id="body">
 
     <?php require_once("../../inc/top-page-section.php") ?>
 
@@ -45,12 +45,16 @@ $page = array("id" => 3, "name" => "Programmes Information");
             <div class="row">
                 <div class="col-9">
                     <main>
-                        <div class="page_info" style="margin-bottom: 0px !important;">
+                        <div id="page_info" style="margin-bottom: 0px !important;">
                             <h1 style="font-size: 40px; padding-bottom: 15px !important">Programmes Information</h1>
+                            <div class="alert alert-danger text-danger hide" id="page_info_text" style="width: 100%; border: none !important">
+                                <label class="text-danger">This form has errors:</label>
+                                <p>Provide values for all <b>required *</b> fields in the form.</p>
+                            </div>
                         </div>
 
                         <!-- Page form -->
-                        <form class="needs-validation" id="appForm" method="POST" style="margin-top: 15px !important;" novalidate>
+                        <form class="needs-validation" id="appForm" name="4" method="POST" style="margin-top: 15px !important;" novalidate>
                             <?php require_once("forms/programmes-information.php") ?>
 
                             <!-- Bottom page navigation -->
@@ -73,7 +77,7 @@ $page = array("id" => 3, "name" => "Programmes Information");
     <script src="../../js/myjs.js"></script>
     <script>
         $(document).ready(function() {
-
+            var incompleteForm = false;
             (() => {
                 'use strict'
 
@@ -86,21 +90,14 @@ $page = array("id" => 3, "name" => "Programmes Information");
                         event.preventDefault()
                         if (!form.checkValidity()) {
                             event.stopPropagation()
-
-
+                            incompleteForm = true;
+                            $("#page_info_text").removeClass("hide");
+                            $("#page_info_text").addClass("display");
+                            window.location.href = "#body";
                         } else {
-                            alert("Success");
-                            /*let formID = $(this).attr("id");
-                            $.ajax({
-                                type: "POST",
-                                url: "../../api/verify/" + formID,
-                                success: function(result) {
-                                    console.log(result);
-                                },
-                                error: function(error) {
-                                    console.log(error);
-                                }
-                            });*/
+                            incompleteForm = false;
+                            $("#page_info_text").removeClass("display");
+                            $("#page_info_text").addClass("hide");
                         }
 
                         form.classList.add('was-validated')
@@ -124,6 +121,24 @@ $page = array("id" => 3, "name" => "Programmes Information");
                         console.log(error);
                     }
                 });
+            });
+
+            $("#appForm").on("submit", function() {
+                if (!incompleteForm) {
+                    $.ajax({
+                        type: "POST",
+                        url: "../../api/validateForm/",
+                        data: {
+                            form: this.name,
+                        },
+                        success: function(result) {
+                            console.log(result);
+                        },
+                        error: function(error) {
+                            console.log(error);
+                        }
+                    });
+                }
             });
         });
     </script>

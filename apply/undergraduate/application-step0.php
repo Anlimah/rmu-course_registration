@@ -57,12 +57,16 @@ $page = array("id" => 0, "name" => "Use of Information");
             <div class="row">
                 <div class="col-9">
                     <main>
-                        <div class="page_info" style="margin-bottom: 0px !important;">
+                        <div id="page_info" style="margin-bottom: 0px !important;">
                             <h1 style="font-size: 40px; padding-bottom: 15px !important">Use of Information</h1>
+                            <div class="alert alert-danger text-danger hide" id="page_info_text" style="width: 100%; border: none !important">
+                                <label class="text-danger">This form has errors:</label>
+                                <p>Provide values for all <b>required *</b> fields in the form.</p>
+                            </div>
                         </div>
 
                         <!-- Page form -->
-                        <form class="needs-validation" id="use-of-info" method="POST" style="margin-top: 15px !important;" novalidate>
+                        <form class="needs-validation" id="appForm" name="1" method="POST" style="margin-top: 15px !important;" novalidate>
                             <?php require_once("forms/use-of-info.php") ?>
 
                             <!-- Bottom page navigation -->
@@ -84,7 +88,7 @@ $page = array("id" => 0, "name" => "Use of Information");
     <script src="../../js/myjs.js"></script>
     <script>
         $(document).ready(function() {
-
+            var incompleteForm = false;
             (() => {
                 'use strict'
 
@@ -97,21 +101,14 @@ $page = array("id" => 0, "name" => "Use of Information");
                         event.preventDefault()
                         if (!form.checkValidity()) {
                             event.stopPropagation()
-
-
+                            incompleteForm = true;
+                            $("#page_info_text").removeClass("hide");
+                            $("#page_info_text").addClass("display");
+                            window.location.href = "#body";
                         } else {
-                            alert("Success");
-                            /*let formID = $(this).attr("id");
-                            $.ajax({
-                                type: "POST",
-                                url: "../../api/verify/" + formID,
-                                success: function(result) {
-                                    console.log(result);
-                                },
-                                error: function(error) {
-                                    console.log(error);
-                                }
-                            });*/
+                            incompleteForm = false;
+                            $("#page_info_text").removeClass("display");
+                            $("#page_info_text").addClass("hide");
                         }
 
                         form.classList.add('was-validated')
@@ -136,6 +133,24 @@ $page = array("id" => 0, "name" => "Use of Information");
                     }
                 });
 
+            });
+
+            $("#appForm").on("submit", function() {
+                if (!incompleteForm) {
+                    $.ajax({
+                        type: "POST",
+                        url: "../../api/validateForm/",
+                        data: {
+                            form: this.name,
+                        },
+                        success: function(result) {
+                            console.log(result);
+                        },
+                        error: function(error) {
+                            console.log(error);
+                        }
+                    });
+                }
             });
         });
     </script>
