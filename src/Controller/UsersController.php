@@ -227,7 +227,20 @@ class UsersController
         $this->dm->inputData($sql, array(':v' => $value, ':a' => $user_id));
     }
 
+    public function updateApplicationStatus($what, $user_id)
+    {
+        $sql = "UPDATE `form_sections_chek` SET `$what` = 1 WHERE `app_login` = :a";
+        $this->dm->inputData($sql, array(':a' => $user_id));
+    }
+
     //GET
+    public function getApplicationStatus($user_id)
+    {
+        $sql = "SELECT `use_of_info`, `personal`, `education`, `programme`, `uploads`  
+                FROM `form_sections_chek` WHERE `app_login` = :a";
+        return $this->dm->getData($sql, array(':a' => $user_id));
+    }
+
     public function fetchApplicantPersI($user_id)
     {
         $sql = "SELECT `prefix`, `first_name`, `middle_name`, `last_name`, `suffix`, 

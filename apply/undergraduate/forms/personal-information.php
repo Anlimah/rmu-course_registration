@@ -6,6 +6,7 @@ use Src\Controller\UsersController;
 
 $user = new UsersController();
 $personal = $user->fetchApplicantPersI($user_id);
+$appStatus = $user->getApplicationStatus($user_id);
 require_once('../../inc/page-data.php');
 
 ?>
@@ -129,7 +130,7 @@ require_once('../../inc/page-data.php');
             </div>
             <div class="mb-4 <?= $personal[0]["disability"] == 1 ? "" : "hide" ?>" id="disability-list">
                 <label class="form-label" for="disability">Select Disability <span class="input-required">*</span></label>
-                <select required class="form-select form-select-sm mb-3" name="disability-descript" id="disability-descript">
+                <select class="form-select form-select-sm mb-3" name="disability-descript" id="disability-descript">
                     <option value="" hidden>Select</option>
                 </select>
             </div>
@@ -189,14 +190,14 @@ require_once('../../inc/page-data.php');
         <div class="mt-3 <?= $personal[0]["english_native"] == 1 ? "hide" : "" ?>" id="english-native-list">
             <label class="form-label">Do you understand and speak some english? <span class="input-required">*</span></label>
             <label for="speak-some-eng-yes" class="form-label radio-btn">
-                <input required class="english-native" style="margin: 0 !important; padding: 0 !important;" type="radio" name="speak-some-eng" id="speak-some-eng-yes" value="Yes" <?= $personal[0]["english_native"] == 1 ? "checked" : "" ?>> Yes
+                <input class="english-native" style="margin: 0 !important; padding: 0 !important;" type="radio" name="speak-some-eng" id="speak-some-eng-yes" value="Yes" <?= $personal[0]["english_native"] == 1 ? "checked" : "" ?>> Yes
             </label>
             <label for="speak-some-eng-no" class="form-label radio-btn">
-                <input required class="english-native" style="margin: 0 !important; padding: 0 !important;" type="radio" name="speak-some-eng" id="speak-some-eng-no" value="No" <?= $personal[0]["english_native"] == 0 ? "checked" : "" ?>> No
+                <input class="english-native" style="margin: 0 !important; padding: 0 !important;" type="radio" name="speak-some-eng" id="speak-some-eng-no" value="No" <?= $personal[0]["english_native"] == 0 ? "checked" : "" ?>> No
             </label>
             <div class="mt-3">
                 <label class="form-label" for="language-spoken">Speicfy Language</label>
-                <select required class="form-select form-select-sm mb-3" name="language-spoken" id="language-spoken">
+                <select class="form-select form-select-sm mb-3" name="language-spoken" id="language-spoken">
                     <option value="" hidden>Select</option>
                     <option value="Arabic" <?= $personal[0]["other_language"] == strtoupper("Arabic") ? "selected" : "" ?>>Arabic</option>
                     <option value="Bengali" <?= $personal[0]["other_language"] == strtoupper("Bengali") ? "selected" : "" ?>>Bengali</option>
@@ -278,7 +279,7 @@ require_once('../../inc/page-data.php');
                     }
                     ?>
                 </select>
-                <input required class="form-control form-control-sm" style="width: 70%" type="text" name="other-number" id="app-other-number" value="<?= $personal[0]["phone_no2"] ?>">
+                <input class="form-control form-control-sm" style="width: 70%" type="text" name="other-number" id="app-other-number" value="<?= $personal[0]["phone_no2"] ?>">
             </div>
         </div>
         <div class="mb-4">

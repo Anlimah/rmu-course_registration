@@ -50,13 +50,13 @@ $page = array("id" => 4, "name" => "Uploads");
                         </div>
 
                         <!-- Page form -->
-                        <!--<form id="appForm" method="POST" style="margin-top: 15px !important;">-->
-                        <?php require_once("forms/documents-upload.php") ?>
+                        <form class="needs-validation" id="appForm" method="POST" style="margin-top: 15px !important;" novalidate>
+                            <?php require_once("forms/documents-upload.php") ?>
 
-                        <!-- Bottom page navigation -->
-                        <?php require_once("../../inc/bottom-page-section.php"); ?>
-                        <!--</form>-->
-
+                            <!-- Bottom page navigation -->
+                            <?php require_once("../../inc/bottom-page-section.php"); ?>
+                        </form>
+                        <?php require_once("../../inc/document-upload.php") ?>;
                     </main>
                 </div>
 
@@ -72,6 +72,42 @@ $page = array("id" => 4, "name" => "Uploads");
     <script src="../../js/myjs.js"></script>
     <script>
         $(document).ready(function() {
+
+            (() => {
+                'use strict'
+
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                const forms = document.querySelectorAll('.needs-validation')
+
+                // Loop over them and prevent submission
+                Array.from(forms).forEach(form => {
+                    form.addEventListener('submit', event => {
+                        event.preventDefault()
+                        if (!form.checkValidity()) {
+                            event.stopPropagation()
+
+
+                        } else {
+                            alert("Success");
+                            /*let formID = $(this).attr("id");
+                            $.ajax({
+                                type: "POST",
+                                url: "../../api/verify/" + formID,
+                                success: function(result) {
+                                    console.log(result);
+                                },
+                                error: function(error) {
+                                    console.log(error);
+                                }
+                            });*/
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+
+            })();
+
             $("#attach-cert-btn").click(function() {
                 $("#reset-upload").click();
                 $(".mb-4").removeClass("has-error");

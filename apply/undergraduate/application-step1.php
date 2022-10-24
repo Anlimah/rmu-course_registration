@@ -82,13 +82,14 @@ $page = array("id" => 1, "name" => "Personal Information");
                 // Loop over them and prevent submission
                 Array.from(forms).forEach(form => {
                     form.addEventListener('submit', event => {
+                        event.preventDefault()
                         if (!form.checkValidity()) {
-                            event.preventDefault()
                             event.stopPropagation()
 
 
                         } else {
-                            let formID = $(this).attr("id");
+                            alert("Success");
+                            /*let formID = $(this).attr("id");
                             $.ajax({
                                 type: "POST",
                                 url: "../../api/verify/" + formID,
@@ -98,7 +99,7 @@ $page = array("id" => 1, "name" => "Personal Information");
                                 error: function(error) {
                                     console.log(error);
                                 }
-                            });
+                            });*/
                         }
 
                         form.classList.add('was-validated')

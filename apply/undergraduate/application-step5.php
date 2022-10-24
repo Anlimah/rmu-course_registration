@@ -50,12 +50,13 @@ $page = array("id" => 5, "name" => "Declaration");
                         </div>
 
                         <!-- Page form -->
-                        <form id="appForm" method="POST" style="margin-top: 15px !important;">
-                            <?php require_once("forms/declaration.php") ?>
+                        <!--<form class="needs-validation" id="appForm" method="POST" style="margin-top: 15px !important;" novalidate>-->
+                        <?php require_once("forms/declaration.php") ?>
 
-                            <!-- Bottom page navigation -->
-                            <?php require_once("../../inc/bottom-page-section.php"); ?>
-                        </form>
+                        <!-- Bottom page navigation -->
+                        <?php //require_once("../../inc/bottom-page-section.php"); 
+                        ?>
+                        <!--</form>-->
 
                     </main>
                 </div>
@@ -72,19 +73,42 @@ $page = array("id" => 5, "name" => "Declaration");
     <script src="../../js/myjs.js"></script>
     <script>
         $(document).ready(function() {
-            $("#declaration-form").on("submit", function(e) {
-                e.preventDefault();
-                $.ajax({
-                    type: "POST",
-                    url: "../../api/declaration",
-                    data: new FormData(this),
-                    contentType: false,
-                    processData: false,
-                }).done(function(data) {
-                    console.log(data);
-                    alert(data.message);
-                });
-            })
+
+            (() => {
+                'use strict'
+
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                const forms = document.querySelectorAll('.needs-validation')
+
+                // Loop over them and prevent submission
+                Array.from(forms).forEach(form => {
+                    form.addEventListener('submit', event => {
+                        event.preventDefault()
+
+                        const agree = document.querySelector('#accept-declared:checked') !== null;
+                        if (agree == false) {
+                            event.stopPropagation()
+
+                        } else {
+                            alert("Success");
+                            /*let formID = $(this).attr("id");
+                            $.ajax({
+                                type: "POST",
+                                url: "../../api/declaration",
+                                data: new FormData(this),
+                                contentType: false,
+                                processData: false,
+                            }).done(function(data) {
+                                console.log(data);
+                                alert(data.message);
+                            });*/
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+
+            })();
         });
     </script>
 </body>

@@ -62,7 +62,7 @@ $page = array("id" => 0, "name" => "Use of Information");
                         </div>
 
                         <!-- Page form -->
-                        <form id="use-of-info" method="POST" style="margin-top: 15px !important;">
+                        <form class="needs-validation" id="use-of-info" method="POST" style="margin-top: 15px !important;" novalidate>
                             <?php require_once("forms/use-of-info.php") ?>
 
                             <!-- Bottom page navigation -->
@@ -84,6 +84,41 @@ $page = array("id" => 0, "name" => "Use of Information");
     <script src="../../js/myjs.js"></script>
     <script>
         $(document).ready(function() {
+
+            (() => {
+                'use strict'
+
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                const forms = document.querySelectorAll('.needs-validation')
+
+                // Loop over them and prevent submission
+                Array.from(forms).forEach(form => {
+                    form.addEventListener('submit', event => {
+                        event.preventDefault()
+                        if (!form.checkValidity()) {
+                            event.stopPropagation()
+
+
+                        } else {
+                            alert("Success");
+                            /*let formID = $(this).attr("id");
+                            $.ajax({
+                                type: "POST",
+                                url: "../../api/verify/" + formID,
+                                success: function(result) {
+                                    console.log(result);
+                                },
+                                error: function(error) {
+                                    console.log(error);
+                                }
+                            });*/
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+
+            })();
 
             $(".form-control").on("blur", function() {
                 $.ajax({

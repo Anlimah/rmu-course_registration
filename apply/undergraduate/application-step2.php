@@ -50,13 +50,13 @@ $page = array("id" => 2, "name" => "Education Background");
                         </div>
 
                         <!-- Page form -->
-                        <!--<form id="appForm" method="#" style="margin-top: 15px !important;">-->
-                        <?php require_once("forms/education-background.php") ?>
+                        <form class="needs-validation" id="appForm" method="#" style="margin-top: 15px !important;" novalidate>
+                            <?php require_once("forms/education-background.php") ?>
 
-                        <!-- Bottom page navigation -->
-                        <?php require_once("../../inc/bottom-page-section.php"); ?>
-                        <!--</form>-->
-
+                            <!-- Bottom page navigation -->
+                            <?php require_once("../../inc/bottom-page-section.php"); ?>
+                        </form>
+                        <?php require_once("../../inc/education-bg.php") ?>;
                     </main>
                 </div>
 
@@ -72,6 +72,42 @@ $page = array("id" => 2, "name" => "Education Background");
     <!--<script src="../../js/myjs.js"></script>-->
     <script>
         $(document).ready(function() {
+
+            (() => {
+                'use strict'
+
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                const forms = document.querySelectorAll('.needs-validation')
+
+                // Loop over them and prevent submission
+                Array.from(forms).forEach(form => {
+                    form.addEventListener('submit', event => {
+                        event.preventDefault()
+                        if (!form.checkValidity()) {
+                            event.stopPropagation()
+
+
+                        } else {
+                            alert("Success");
+                            /*let formID = $(this).attr("id");
+                            $.ajax({
+                                type: "POST",
+                                url: "../../api/verify/" + formID,
+                                success: function(result) {
+                                    console.log(result);
+                                },
+                                error: function(error) {
+                                    console.log(error);
+                                }
+                            });*/
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+
+            })();
+
             $(".prev-uni-rec").click(function() {
                 if ($('#prev-uni-rec-yes').is(':checked')) {
                     $("#prev-uni-rec-list").removeClass("hide");

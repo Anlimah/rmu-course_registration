@@ -509,6 +509,13 @@ select {
 	border-top-right-radius: 5px !important;
 }
 
+.form-checked::after {
+	content: url("../images/icons8-checkmark-24.png");
+	position: relative;
+	width: 5px;
+	height: 5px;
+}
+
 @media only screen and (max-width: 768px) {
 	/* For mobile phones: */
 	main {
