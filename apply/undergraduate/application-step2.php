@@ -161,6 +161,8 @@ $page = array("id" => 2, "name" => "Education Background");
             $(".form-radio-btn").on("click", function() {
 
                 const inputs = document.querySelectorAll('.required-field');
+                const completed = document.querySelectorAll('.completed-uni');
+                const not_completed = document.querySelectorAll('.not-completed-uni');
 
                 if (this.id == "prev-uni-rec-yes") {
                     for (const input of inputs) {
@@ -170,10 +172,14 @@ $page = array("id" => 2, "name" => "Education Background");
                     for (const input of inputs) {
                         input.removeAttribute('required');
                     }
+                    for (const inp of completed) {
+                        inp.removeAttribute('required', '');
+                    }
+                    for (const inp of not_completed) {
+                        inp.removeAttribute('required', '');
+                    }
                 }
 
-                const completed = document.querySelectorAll('.completed-uni');
-                const not_completed = document.querySelectorAll('.not-completed-uni');
                 if (this.id == "completed-prev-uni-yes") {
                     for (const inp of completed) {
                         inp.setAttribute('required', '');
