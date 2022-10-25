@@ -1,8 +1,7 @@
 {
     "require": {
         "vlucas/phpdotenv": "^2.4",
-        "twilio/sdk": "^6.37",
-        "flutterwavedev/flutterwave-v3": "^1.0"
+        "twilio/sdk": "^6.37"
     },
     "autoload": {
         "psr-4": {

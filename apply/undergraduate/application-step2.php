@@ -60,7 +60,7 @@ $page = array("id" => 2, "name" => "Education Background");
                             <!-- Bottom page navigation -->
                             <?php require_once("../../inc/bottom-page-section.php"); ?>
                         </form>
-                        <?php require_once("../../inc/education-bg.php") ?>;
+                        <?php require_once("../../inc/education-bg.php") ?>
                     </main>
                 </div>
 
@@ -230,6 +230,15 @@ $page = array("id" => 2, "name" => "Education Background");
                             console.log(error);
                         }
                     });
+                }
+            });
+
+            $(document).on({
+                ajaxStart: function() {
+                    $("#submitBtn").prop("disabled", true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...');
+                },
+                ajaxStop: function() {
+                    $("#submitBtn").prop("disabled", false).html('Check My Work and Continue');
                 }
             });
 

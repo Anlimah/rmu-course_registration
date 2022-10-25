@@ -20,12 +20,12 @@
                 <li class="list-group-item <?= $appStatus[0]["uploads"] == 1 ? "form-checked" : "" ?>" style="padding-left: 0 !important; border: none !important; display:flex; flex-direction:row;justify-content:space-between">
                     <a href="application-step4.php" class="<?= $page["id"] == 4 ? "active" : "" ?>">Uploads</a>
                 </li>
-                <li class="list-group-item <?= $appStatus[0]["use_of_info"] == 1 ? "form-checked" : "" ?>" style="padding-left: 0 !important; border: none !important; display:flex; flex-direction:row;justify-content:space-between">
+                <li class="list-group-item <?= $appStatus[0]["declaration"] == 1 ? "form-checked" : "" ?>" style="padding-left: 0 !important; border: none !important; display:flex; flex-direction:row;justify-content:space-between">
                     <a href="application-step5.php" class="<?= $page["id"] == 5 ? "active" : "" ?>">Declaration</a>
                 </li>
             </ul>
             <?php if ($page["id"] >= 0) { ?>
-                <span style="font-size: small;">All progress saved.</span>
+                <span style="font-size: small;" id="progressStatus">All progress saved.</span>
             <?php } ?>
         </fieldset>
     </div>

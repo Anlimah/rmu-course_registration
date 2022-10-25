@@ -247,7 +247,7 @@ class UsersController
     //GET
     public function getApplicationStatus($user_id)
     {
-        $sql = "SELECT `use_of_info`, `personal`, `education`, `programme`, `uploads`  
+        $sql = "SELECT `use_of_info`, `personal`, `education`, `programme`, `uploads`, `declaration` 
                 FROM `form_sections_chek` WHERE `app_login` = :a";
         return $this->dm->getData($sql, array(':a' => $user_id));
     }
@@ -258,8 +258,8 @@ class UsersController
                 `gender`, `dob`, `marital_status`, `nationality`, `country_res`, 
                 `disability`, `photo`, `country_birth`, `spr_birth`, `city_birth`, 
                 `english_native`, `other_language`, `postal_addr`, `postal_town`, 
-                `postal_spr`, `postal_country`, `phone_no1`, `phone_no2`, `email_addr`, 
-                `p_prefix`, `p_first_name`, `p_last_name`, `p_occupation`, `p_phone_no`, 
+                `postal_spr`, `postal_country`, `phone_no1_code`, `phone_no1`, `phone_no2_code`, `phone_no2`, `email_addr`, 
+                `p_prefix`, `p_first_name`, `p_last_name`, `p_occupation`, `p_phone_no_code`, `p_phone_no`, 
                 `p_email_addr` FROM `personal_information` WHERE `app_login` = :a";
         return $this->dm->getData($sql, array(':a' => $user_id));
     }

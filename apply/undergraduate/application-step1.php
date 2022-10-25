@@ -77,6 +77,7 @@ $page = array("id" => 1, "name" => "Personal Information");
     <script>
         $(document).ready(function() {
             var incompleteForm = false;
+            var itsForm = false;
             (() => {
                 'use strict'
 
@@ -95,6 +96,7 @@ $page = array("id" => 1, "name" => "Personal Information");
                             window.location.href = "#body";
                         } else {
                             incompleteForm = false;
+                            itsForm = true;
                             $("#page_info_text").removeClass("display");
                             $("#page_info_text").addClass("hide");
                         }
@@ -191,6 +193,21 @@ $page = array("id" => 1, "name" => "Personal Information");
                             console.log(error);
                         }
                     });
+                }
+            });
+
+            $(document).on({
+                ajaxStart: function() {
+                    if (itsForm == true)
+                        $("#submitBtn").prop("disabled", true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...');
+                    else
+                        $("#progressStatus").prop("disabled", true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Saving progress...');
+                },
+                ajaxStop: function() {
+                    if (itsForm)
+                        $("#submitBtn").prop("disabled", false).html('Check My Work and Continue');
+                    else
+                        $("#progressStatus").prop("disabled", false).html('All progress saved.');
                 }
             });
         });

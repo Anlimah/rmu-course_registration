@@ -261,7 +261,10 @@ require_once('../../inc/page-data.php');
                     <option value="" hidden>Select</option>
                     <?php
                     foreach (COUNTRIES as $cn) {
-                        echo '<option value="' . $cn["code"] . '">' . $cn["name"] . ' (' . $cn["code"] . ')</option>';
+                    ?>
+                        <option value="<?= $cn["code"] ?>" <?= $personal[0]["phone_no1_code"] == $cn["code"] ? "selected" : "" ?>><?= $cn["name"] . " " . ($cn["code"]) ?></option>';
+
+                    <?php
                     }
                     ?>
                 </select>
@@ -275,7 +278,9 @@ require_once('../../inc/page-data.php');
                     <option value="" hidden>Select</option>
                     <?php
                     foreach (COUNTRIES as $cn) {
-                        echo '<option value="' . $cn["code"] . '">' . $cn["name"] . ' (' . $cn["code"] . ')</option>';
+                    ?>
+                        <option value="<?= $cn["code"] ?>" <?= $personal[0]["phone_no2_code"] == $cn["code"] ? "selected" : "" ?>><?= $cn["name"] . " " . ($cn["code"]) ?></option>';
+                    <?php
                     }
                     ?>
                 </select>
@@ -327,7 +332,10 @@ require_once('../../inc/page-data.php');
                     <option value="" hidden>Select</option>
                     <?php
                     foreach (COUNTRIES as $cn) {
-                        echo '<option value="' . $cn["code"] . '">' . $cn["name"] . ' (' . $cn["code"] . ')</option>';
+                    ?>
+                        <option value="<?= $cn["code"] ?>" <?= $personal[0]["p_phone_no_code"] == $cn["code"] ? "selected" : "" ?>><?= $cn["name"] . " " . ($cn["code"]) ?></option>';
+
+                    <?php
                     }
                     ?>
                 </select>

@@ -140,6 +140,15 @@ $page = array("id" => 3, "name" => "Programmes Information");
                     });
                 }
             });
+
+            $(document).on({
+                ajaxStart: function() {
+                    $("#submitBtn").prop("disabled", true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...');
+                },
+                ajaxStop: function() {
+                    $("#submitBtn").prop("disabled", false).html('Check My Work and Continue');
+                }
+            });
         });
     </script>
 </body>

@@ -148,8 +148,23 @@ $page = array("id" => 0, "name" => "Use of Information");
                         },
                         error: function(error) {
                             console.log(error);
+                        },
+                        ajaxStart: function() {
+                            $("#submitBtn").prop("disabled", true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...');
+                        },
+                        ajaxStop: function() {
+                            $("#submitBtn").prop("disabled", false).html('Check My Work and Continue');
                         }
                     });
+                }
+            });
+
+            $(document).on({
+                ajaxStart: function() {
+                    $("#progressStatus").prop("disabled", true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Saving...');
+                },
+                ajaxStop: function() {
+                    $("#progressStatus").prop("disabled", false).html('All progress saved.');
                 }
             });
         });

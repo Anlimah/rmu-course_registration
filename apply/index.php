@@ -129,6 +129,8 @@ if (!isset($_SESSION["_start"])) {
                         //alert(result['message']);
                         if (result['response'] == 'success') {
                             window.location.href = result['message'] + '/welcome.php';
+                        } else {
+                            alert(result['message']);
                         }
                     },
                     error: function(error) {}
