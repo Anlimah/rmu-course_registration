@@ -230,7 +230,7 @@ require_once('../../inc/page-data.php');
                 <div class="mb-4 <?= $pre_uni_rec[0]["completed"] == 0 ? "" : "hide" ?>" id="uni-not-completed">
                     <div>
                         <label class="form-label" for="state">Why did you not complete? <span class="input-required">*</span></label>
-                        <select <?= $pre_uni_rec[0]["completed"] == 0 ? "required" : "" ?> class="not-completed-uni form-select-option form-select form-select-sm mb-3" name="state" id="state">
+                        <select <?= ($pre_uni_rec[0]["completed"] == 0 && $pre_uni_rec[0]["pre_uni_rec"] == 1) ? "required" : "" ?> class="not-completed-uni form-select-option form-select form-select-sm mb-3" name="state" id="state">
                             <option hidden value="">Choose </option>
                             <option value="Deferred">Deferred</option>
                             <option value="Withdrawn">Withdrawn</option>
@@ -239,7 +239,7 @@ require_once('../../inc/page-data.php');
                     </div>
                     <div class="mb-4">
                         <label class="form-label" for="reasons">Explain reasons <span class="input-required">*</span></label>
-                        <textarea <?= $pre_uni_rec[0]["completed"] == 0 ? "required" : "" ?> class="not-completed-uni form-control form-text-input" rows="5" style="max-width: 280px; width: 280px;" name="reasons" id="reasons" value="<?= $pre_uni_rec[0]["reasons"] ?>"></textarea>
+                        <textarea <?= ($pre_uni_rec[0]["completed"] == 0 && $pre_uni_rec[0]["pre_uni_rec"] == 1) ? "required" : "" ?> class="not-completed-uni form-control form-text-input" rows="5" style="max-width: 280px; width: 280px;" name="reasons" id="reasons" value="<?= $pre_uni_rec[0]["reasons"] ?>"></textarea>
                     </div>
                 </div>
             </div>
