@@ -99,17 +99,17 @@ require_once('../../inc/page-data.php');
             <div class="<?= $pre_uni_rec[0]["pre_uni_rec"] == 1 ? "" : "hide" ?>" id="prev-uni-rec-list">
                 <div class="mb-4">
                     <label class="form-label" for="name_of_uni">Name of University <span class="input-required">*</span></label>
-                    <input class="form-control form-text-input" type="text" name="name_of_uni" id="name_of_uni" value="<?= $pre_uni_rec[0]["name_of_uni"] ?>">
+                    <input class="required-field form-control form-text-input" type="text" name="name_of_uni" id="name_of_uni" value="<?= $pre_uni_rec[0]["name_of_uni"] ?>" <?= $pre_uni_rec[0]["pre_uni_rec"] == 1 ? "required" : "" ?>>
                 </div>
                 <div class="mb-4">
                     <label class="form-label" for="program">Program Pursued <span class="input-required">*</span></label>
-                    <input class="form-control form-text-input" type="text" name="program" id="program" value="<?= $pre_uni_rec[0]["program"] ?>">
+                    <input class="required-field form-control form-text-input" type="text" name="program" id="program" value="<?= $pre_uni_rec[0]["program"] ?>" <?= $pre_uni_rec[0]["pre_uni_rec"] == 1 ? "required" : "" ?>>
                 </div>
                 <div class="mb-4" id="date-enrolled-uni">
                     <label class="form-label" for="completion-date">Date Enrolled <span class="input-required">*</span></label>
                     <div style="max-width: 280px !important; display:flex; flex-direction:row; justify-content: space-between">
-                        <select class="form-select-option form-select form-select-sm" style="margin-right: 10px;" name="month-enrolled" id="month-enrolled">
-                            <option hidden>Month</option>
+                        <select class="required-field form-select-option form-select form-select-sm" style="margin-right: 10px;" name="month-enrolled" id="month-enrolled" <?= $pre_uni_rec[0]["pre_uni_rec"] == 1 ? "required" : "" ?>>
+                            <option hidden value="">Month</option>
                             <option value="Jan" <?= $pre_uni_rec[0]["month_enrolled"] == "JAN" ? "selected" : "" ?>>Jan</option>
                             <option value="Feb" <?= $pre_uni_rec[0]["month_enrolled"] == "FEB" ? "selected" : "" ?>>Feb</option>
                             <option value="Mar" <?= $pre_uni_rec[0]["month_enrolled"] == "MAR" ? "selected" : "" ?>>Mar</option>
@@ -123,8 +123,8 @@ require_once('../../inc/page-data.php');
                             <option value="Nov" <?= $pre_uni_rec[0]["month_enrolled"] == "NOV" ? "selected" : "" ?>>Nov</option>
                             <option value="Dec" <?= $pre_uni_rec[0]["month_enrolled"] == "DEC" ? "selected" : "" ?>>Dec</option>
                         </select>
-                        <select class="form-select-option form-select form-select-sm" name="year-enrolled" id="year-enrolled">
-                            <option hidden>Year</option>
+                        <select class="required-field form-select-option form-select form-select-sm" name="year-enrolled" id="year-enrolled" <?= $pre_uni_rec[0]["pre_uni_rec"] == 1 ? "required" : "" ?>>
+                            <option hidden value="">Year</option>
                             <option value="2022" <?= $pre_uni_rec[0]["year_enrolled"] == "2022" ? "selected" : "" ?>>2022</option>
                             <option value="2021" <?= $pre_uni_rec[0]["year_enrolled"] == "2021" ? "selected" : "" ?>>2021</option>
                             <option value="2020" <?= $pre_uni_rec[0]["year_enrolled"] == "2020" ? "selected" : "" ?>>2020</option>
@@ -164,17 +164,17 @@ require_once('../../inc/page-data.php');
                 <div class="mb-4">
                     <label class="form-label">Did you complete? <span class="input-required">*</span></label>
                     <label class="form-label radio-btn" for="completed-prev-uni-yes">
-                        <input class="completed-prev-uni form-radio form-radio-btn" style="margin: 0 !important; padding: 0 !important;" type="radio" name="completed-prev-uni" id="completed-prev-uni-yes" value="1" <?= $pre_uni_rec[0]["completed"] == 1 ? "checked" : "" ?>> Yes
+                        <input class="required-field completed-prev-uni form-radio form-radio-btn" style="margin: 0 !important; padding: 0 !important;" type="radio" name="completed-prev-uni" id="completed-prev-uni-yes" value="1" <?= $pre_uni_rec[0]["completed"] == 1 ? "checked" : "" ?>> Yes
                     </label>
                     <label class="form-label radio-btn" for="completed-prev-uni-no">
-                        <input class="completed-prev-uni form-radio form-radio-btn" style="margin: 0 !important; padding: 0 !important;" type="radio" name="completed-prev-uni" id="completed-prev-uni-no" value="0" <?= $pre_uni_rec[0]["completed"] == 0 ? "checked" : "" ?>> No
+                        <input class="required-field completed-prev-uni form-radio form-radio-btn" style="margin: 0 !important; padding: 0 !important;" type="radio" name="completed-prev-uni" id="completed-prev-uni-no" value="0" <?= $pre_uni_rec[0]["completed"] == 0 ? "checked" : "" ?>> No
                     </label>
                 </div>
                 <div class="mb-4 <?= $pre_uni_rec[0]["completed"] == 1 ? "" : "hide" ?>" id="date-completed-uni">
                     <label class="form-label" for="completion-date">Date Completed <span class="input-required">*</span></label>
                     <div style="max-width: 280px !important; display:flex; flex-direction:row; justify-content: space-between">
-                        <select class="form-select-option form-select form-select-sm" style="margin-right: 10px;" name="month-completed-uni" id="month-completed-uni">
-                            <option hidden>Month</option>
+                        <select <?= $pre_uni_rec[0]["completed"] == 1 ? "required" : "" ?> class="completed-uni form-select-option form-select form-select-sm" style="margin-right: 10px;" name="month-completed-uni" id="month-completed-uni">
+                            <option hidden value="">Month</option>
                             <option value="Jan" <?= $pre_uni_rec[0]["month_completed"] == "JAN" ? "selected" : "" ?>>Jan</option>
                             <option value="Feb" <?= $pre_uni_rec[0]["month_completed"] == "FEB" ? "selected" : "" ?>>Feb</option>
                             <option value="Mar" <?= $pre_uni_rec[0]["month_completed"] == "MAR" ? "selected" : "" ?>>Mar</option>
@@ -188,8 +188,8 @@ require_once('../../inc/page-data.php');
                             <option value="Nov" <?= $pre_uni_rec[0]["month_completed"] == "NOV" ? "selected" : "" ?>>Nov</option>
                             <option value="Dec" <?= $pre_uni_rec[0]["month_completed"] == "DEC" ? "selected" : "" ?>>Dec</option>
                         </select>
-                        <select class="form-select-option form-select form-select-sm" name="year-completed-uni" id="year-completed-uni">
-                            <option hidden>Year</option>
+                        <select <?= $pre_uni_rec[0]["completed"] == 1 ? "required" : "" ?> class="completed-uni form-select-option form-select form-select-sm" name="year-completed-uni" id="year-completed-uni">
+                            <option hidden value="">Year</option>
                             <option value="2022" <?= $pre_uni_rec[0]["year_completed"] == "2022" ? "selected" : "" ?>>2022</option>
                             <option value="2021" <?= $pre_uni_rec[0]["year_completed"] == "2021" ? "selected" : "" ?>>2021</option>
                             <option value="2020" <?= $pre_uni_rec[0]["year_completed"] == "2020" ? "selected" : "" ?>>2020</option>
@@ -230,8 +230,8 @@ require_once('../../inc/page-data.php');
                 <div class="mb-4 <?= $pre_uni_rec[0]["completed"] == 0 ? "" : "hide" ?>" id="uni-not-completed">
                     <div>
                         <label class="form-label" for="state">Why did you not complete? <span class="input-required">*</span></label>
-                        <select class="form-select-option form-select form-select-sm mb-3" name="state" id="state">
-                            <option hidden>Choose </option>
+                        <select <?= $pre_uni_rec[0]["completed"] == 0 ? "required" : "" ?> class="not-completed-uni form-select-option form-select form-select-sm mb-3" name="state" id="state">
+                            <option hidden value="">Choose </option>
                             <option value="Deferred">Deferred</option>
                             <option value="Withdrawn">Withdrawn</option>
                             <option value="Other">Other</option>
@@ -239,7 +239,7 @@ require_once('../../inc/page-data.php');
                     </div>
                     <div class="mb-4">
                         <label class="form-label" for="reasons">Explain reasons <span class="input-required">*</span></label>
-                        <textarea class="form-control form-text-input" rows="5" style="max-width: 280px; width: 280px;" name="reasons" id="reasons" value="<?= $pre_uni_rec[0]["reasons"] ?>"></textarea>
+                        <textarea <?= $pre_uni_rec[0]["completed"] == 0 ? "required" : "" ?> class="not-completed-uni form-control form-text-input" rows="5" style="max-width: 280px; width: 280px;" name="reasons" id="reasons" value="<?= $pre_uni_rec[0]["reasons"] ?>"></textarea>
                     </div>
                 </div>
             </div>

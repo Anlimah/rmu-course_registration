@@ -49,7 +49,7 @@ $page = array("id" => 2, "name" => "Education Background");
                             <h1 style="font-size: 40px; padding-bottom: 15px !important">Education Background</h1>
                             <div class="alert alert-danger text-danger hide" id="page_info_text" style="width: 100%; border: none !important">
                                 <label class="text-danger">This form has errors:</label>
-                                <p>Provide values for all <b>required *</b> fields in the form.</p>
+                                <p id="data_info">Provide values for all <b>required *</b> fields in the form.</p>
                             </div>
                         </div>
 
@@ -159,6 +159,37 @@ $page = array("id" => 2, "name" => "Education Background");
             });
 
             $(".form-radio-btn").on("click", function() {
+
+                const inputs = document.querySelectorAll('.required-field');
+
+                if (this.id == "prev-uni-rec-yes") {
+                    for (const input of inputs) {
+                        input.setAttribute('required', '');
+                    }
+                } else if (this.id == "prev-uni-rec-no") {
+                    for (const input of inputs) {
+                        input.removeAttribute('required');
+                    }
+                }
+
+                const completed = document.querySelectorAll('.completed-uni');
+                const not_completed = document.querySelectorAll('.not-completed-uni');
+                if (this.id == "completed-prev-uni-yes") {
+                    for (const inp of completed) {
+                        inp.setAttribute('required', '');
+                    }
+                    for (const inp of not_completed) {
+                        inp.removeAttribute('required', '');
+                    }
+                } else if (this.id == "completed-prev-uni-no") {
+                    for (const inp of completed) {
+                        inp.removeAttribute('required', '');
+                    }
+                    for (const inp of not_completed) {
+                        inp.setAttribute('required', '');
+                    }
+                }
+
                 $.ajax({
                     type: "PUT",
                     url: "../../api/prev-uni-recs",
@@ -229,6 +260,11 @@ $page = array("id" => 2, "name" => "Education Background");
                             console.log(result);
                             if (result.success) {
                                 window.location.href = "application-step3.php";
+                            } else {
+                                $("#page_info_text").removeClass("hide");
+                                $("#page_info_text").addClass("display");
+                                $("#data_info").html("").append(result.message);
+                                window.location.href = "#body";
                             }
                         },
                         error: function(error) {

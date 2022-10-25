@@ -1,7 +1,7 @@
 <!--image uploader-->
 <div>
     <form id="picture-upload-form">
-        <input type="file" class="hide" name="photo-upload" id="photo-upload" accept=".jpg, .png">
+        <input required type="file" class="hide" name="photo-upload" id="photo-upload" accept=".jpg, .png">
         <input type="submit" class="hide" id="sbmit__enetere">
         <input type="hidden" name="____entered___" id="____entered___">
     </form>

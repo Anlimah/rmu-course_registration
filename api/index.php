@@ -414,27 +414,45 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	} elseif ($_GET["url"] == "validateForm") {
 		if (isset($_POST["form"]) && !empty($_POST["form"])) {
 			$form = $user->validatePhone($_POST["form"]);
+			$go = false;
 
 			if ($form == 1) {
 				$column = "use_of_info";
+				$go = true;
 			}
 			if ($form == 2) {
 				$column = "personal";
+				$go = true;
 			}
 			if ($form == 3) {
 				$column = "education";
+				$total = $user->getTotalAppEduHist($_SESSION['ghApplicant']);
+				if ($total[0]["total"]) {
+					$go = true;
+				} else {
+					$go = false;
+					$data["message"] = "Add at least one education history.";
+				}
 			}
 			if ($form == 4) {
 				$column = "programme";
+				$go = true;
 			}
 			if ($form == 5) {
 				$column = "uploads";
+				$go = true;
 			}
 			if ($form == 6) {
 				$column = "declaration";
+				$go = true;
 			}
-			if ($user->updateApplicationStatus($column, $_SESSION['ghApplicant'])) {
-				$data["success"] = true;
+
+			if ($go) {
+				if ($user->updateApplicationStatus($column, $_SESSION['ghApplicant'])) {
+					$data["success"] = true;
+				}
+			} else {
+				$data["success"] = false;
 			}
 		}
 		die(json_encode($data));
