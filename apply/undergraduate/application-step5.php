@@ -118,6 +118,9 @@ $page = array("id" => 5, "name" => "Declaration");
                         },
                         success: function(result) {
                             console.log(result);
+                            if (result.success) {
+                                window.location.href = "../../application-status.php";
+                            }
                         },
                         error: function(error) {
                             console.log(error);

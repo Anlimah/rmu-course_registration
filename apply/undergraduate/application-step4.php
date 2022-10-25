@@ -233,6 +233,9 @@ $page = array("id" => 4, "name" => "Uploads");
                         },
                         success: function(result) {
                             console.log(result);
+                            if (result.success) {
+                                window.location.href = "application-step5.php";
+                            }
                         },
                         error: function(error) {
                             console.log(error);

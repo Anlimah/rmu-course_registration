@@ -227,6 +227,9 @@ $page = array("id" => 2, "name" => "Education Background");
                         },
                         success: function(result) {
                             console.log(result);
+                            if (result.success) {
+                                window.location.href = "application-step3.php";
+                            }
                         },
                         error: function(error) {
                             console.log(error);

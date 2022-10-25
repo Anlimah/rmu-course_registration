@@ -188,6 +188,9 @@ $page = array("id" => 1, "name" => "Personal Information");
                         },
                         success: function(result) {
                             console.log(result);
+                            if (result.success) {
+                                window.location.href = "application-step2.php";
+                            }
                         },
                         error: function(error) {
                             console.log(error);

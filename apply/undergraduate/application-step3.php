@@ -135,6 +135,9 @@ $page = array("id" => 3, "name" => "Programmes Information");
                         },
                         success: function(result) {
                             console.log(result);
+                            if (result.success) {
+                                window.location.href = "application-step4.php";
+                            }
                         },
                         error: function(error) {
                             console.log(error);

@@ -147,6 +147,9 @@ $page = array("id" => 0, "name" => "Use of Information");
                         },
                         success: function(result) {
                             console.log(result);
+                            if (result.success) {
+                                window.location.href = "application-step1.php";
+                            }
                         },
                         error: function(error) {
                             console.log(error);
