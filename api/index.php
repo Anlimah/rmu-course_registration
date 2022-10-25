@@ -618,7 +618,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	} elseif ($_GET["url"] == "prev-uni-recs") {
 
 		$what = $_PUT["what"];
-		$value = $_PUT['value'];
+		$value = strtoupper($_PUT['value']);
 
 		if (isset($what) && !empty($what)) {
 			$column = str_replace("-", "_", $what);
