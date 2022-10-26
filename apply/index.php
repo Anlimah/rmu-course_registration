@@ -127,8 +127,8 @@ if (!isset($_SESSION["_start"])) {
                     success: function(result) {
                         console.log(result);
                         //alert(result['message']);
-                        if (result['response'] == 'success') {
-                            window.location.href = result['message'] + '/welcome.php';
+                        if (result.response == 'success') {
+                            window.location.href = result.message;
                         } else {
                             alert(result['message']);
                         }

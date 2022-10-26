@@ -2,17 +2,17 @@
 session_start();
 if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
     if (!(isset($_SESSION["ghApplicant"]) && !empty($_SESSION['ghApplicant']))) {
-        header('Location: ./apply/index.php?status=error&message=Invalid access!');
+        header('Location: ./index.php?status=error&message=Invalid access!');
     }
 } else {
-    header('Location: ./apply/index.php?status=error&message=Invalid access!');
+    header('Location: ./index.php?status=error&message=Invalid access!');
 }
 
 if (isset($_GET['logout'])) {
     unset($_SESSION['ghAppLogin']);
     unset($_SESSION['ghApplicant']);
     session_destroy();
-    header('Location: ./apply/index.php');
+    header('Location: ./index.php');
 }
 
 $user_id = $_SESSION['ghApplicant'];

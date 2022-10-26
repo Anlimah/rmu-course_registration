@@ -93,19 +93,26 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 					switch ($result["type"]) {
 						case 1:
-							$type = 'postgraduate';
+							$type = 'postgraduate/welcome.php';
 							break;
 						case 2:
 						case 3:
 						case 4:
-							$type = 'undergraduate';
+							$type = 'undergraduate/welcome.php';
 							break;
 
 						default:
 							$type = 'none';
 							break;
 					}
-					echo json_encode(array("response" => "success", "message" => $type));
+					$status = $user->hasSubmittedForm($_SESSION['ghApplicant']);
+					if (!empty($status)) {
+						$state = 1;
+						$type = "application-status.php";
+					} else {
+						$state = 0;
+					}
+					die(json_encode(array("response" => "success", "message" => $type, "state" => $state)));
 				}
 			}
 		} else {

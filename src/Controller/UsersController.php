@@ -208,6 +208,14 @@ class UsersController
         return 0;
     }
 
+    public function hasSubmittedForm($user_id)
+    {
+        $sql = "SELECT `id` FROM `form_sections_chek` WHERE `app_login` = :a 
+                AND `use_of_info`=1 AND `personal`=1 AND `education`=1 
+                AND `programme`=1 AND `uploads`=1 AND `declaration`=1";
+        return $this->dm->getID($sql, array(':a' => $user_id));
+    }
+
     public function updateApplicantPhoto($value, $user_id)
     {
         $sql = "UPDATE `personal_information` SET `photo` = :v WHERE `app_login` = :a";
