@@ -27,8 +27,7 @@ $page = array("id" => 0, "name" => "Application Status");
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="assets/css/main.css">
-    <!--<link rel="stylesheet" href="assets/css/bootstrap.css">-->
+    <link rel="stylesheet" href="../assets/css/main.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
@@ -38,14 +37,17 @@ $page = array("id" => 0, "name" => "Application Status");
 
 <body id="body">
 
-    <?php require_once("inc/top-page-section.php") ?>
+    <?php require_once("../inc/top-page-section.php") ?>
 
-    <div class="main-content" style="z-index: 999;">
+    <div class="main-content" style="height: 100% !important;">
         <h1><?= $page["name"] ?></h1>
         <h4>Congratulations! Your application form was successfully submitted.</h4>
 
         <div class="mt-4">
-            <button type="button" class="btn btn-primary">Download copy of application form</button>
+            <label for="">
+                <span>You can download a copy of your application form</span>
+                <button type="button" class="btn btn-primary btn-sm">Download</button>
+            </label>
         </div>
         <!--<div class="help_area">
             <div class="help_chat_area"></div>
@@ -53,3 +55,5 @@ $page = array("id" => 0, "name" => "Application Status");
         </div>-->
     </div>
 </body>
+
+</html>

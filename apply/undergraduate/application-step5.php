@@ -119,7 +119,7 @@ $page = array("id" => 5, "name" => "Declaration");
                         success: function(result) {
                             console.log(result);
                             if (result.success) {
-                                window.location.href = "../../application-status.php";
+                                window.location.href = "../application-status.php";
                             } else {
                                 $("#page_info_text").removeClass("hide");
                                 $("#page_info_text").addClass("display");
