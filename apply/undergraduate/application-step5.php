@@ -49,18 +49,18 @@ $page = array("id" => 5, "name" => "Declaration");
                             <h1 style="font-size: 40px; padding-bottom: 15px !important">Declaration</h1>
                             <div class="alert alert-danger text-danger hide" id="page_info_text" style="width: 100%; border: none !important">
                                 <label class="text-danger">This form has errors:</label>
-                                <p>Provide values for all <b>required *</b> fields in the form.</p>
+                                <p id="data_info">Provide values for all <b>required *</b> fields in the form.</p>
                             </div>
                         </div>
 
                         <!-- Page form -->
-                        <!--<form class="needs-validation" id="appForm" name="6" method="POST" style="margin-top: 15px !important;" novalidate>-->
-                        <?php require_once("forms/declaration.php") ?>
+                        <form class="needs-validation" id="appForm" name="6" method="POST" style="margin-top: 15px !important;" novalidate>
+                            <?php require_once("forms/declaration.php") ?>
 
-                        <!-- Bottom page navigation -->
-                        <?php //require_once("../../inc/bottom-page-section.php"); 
-                        ?>
-                        <!--</form>-->
+                            <!-- Bottom page navigation -->
+                            <?php //require_once("../../inc/bottom-page-section.php"); 
+                            ?>
+                        </form>
 
                     </main>
                 </div>
@@ -120,6 +120,11 @@ $page = array("id" => 5, "name" => "Declaration");
                             console.log(result);
                             if (result.success) {
                                 window.location.href = "../../application-status.php";
+                            } else {
+                                $("#page_info_text").removeClass("hide");
+                                $("#page_info_text").addClass("display");
+                                $("#data_info").html("").append(result.message);
+                                window.location.href = "#body";
                             }
                         },
                         error: function(error) {

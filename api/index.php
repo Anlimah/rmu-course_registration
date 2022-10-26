@@ -444,7 +444,13 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			}
 			if ($form == 6) {
 				$column = "declaration";
-				$go = true;
+				$status = $user->getFormValidationStatus($_SESSION['ghApplicant']);
+				if (!empty($status)) {
+					$go = true;
+				} else {
+					$go = false;
+					$data["message"] = "You have uncompleted sections. Navigate through the application sections and make sure you provide all the required information.";
+				}
 			}
 
 			if ($go) {

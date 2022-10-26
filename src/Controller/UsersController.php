@@ -343,6 +343,13 @@ class UsersController
         return $this->dm->getData($sql, array(':a' => $user_id));
     }
 
+    public function getFormValidationStatus($user_id)
+    {
+        $sql = "SELECT `id` FROM `form_sections_chek` WHERE `app_login` = :a 
+                AND `use_of_info`=1 AND `personal`=1 AND `education`=1 AND `programme`=1 AND `uploads`=1";
+        return $this->dm->getID($sql, array(':a' => $user_id));
+    }
+
     public function verifyForm($column)
     {
         $str = "UPDATE `form_sections_chek` SET $column = 1 WHERE `id` = :i";
