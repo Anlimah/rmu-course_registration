@@ -2,17 +2,17 @@
 session_start();
 if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
     if (!(isset($_SESSION["ghApplicant"]) && !empty($_SESSION['ghApplicant']))) {
-        header('Location: ../../index.php?status=error&message=Invalid access!');
+        header('Location: ../index.php');
     }
 } else {
-    header('Location: ../../index.php?status=error&message=Invalid access!');
+    header('Location: ../index.php');
 }
 
 if (isset($_GET['logout'])) {
     unset($_SESSION['ghAppLogin']);
     unset($_SESSION['ghApplicant']);
     session_destroy();
-    header('Location: ../../index.php');
+    header('Location: ../index.php');
 }
 
 $user_id = $_SESSION['ghApplicant'];
@@ -60,6 +60,15 @@ $page = array("id" => 1, "name" => "Personal Information");
                             <!-- Bottom page navigation -->
                             <?php require_once("../../inc/bottom-page-section.php"); ?>
                         </form>
+
+                        <!--image uploader-->
+                        <div>
+                            <form id="picture-upload-form">
+                                <input required type="file" class="hide" name="photo-upload" id="photo-upload" accept=".jpg, .png">
+                                <input type="submit" class="hide" id="sbmit__enetere">
+                                <input type="hidden" name="____entered___" id="____entered___">
+                            </form>
+                        </div>
 
                     </main>
                 </div>
@@ -125,7 +134,39 @@ $page = array("id" => 1, "name" => "Personal Information");
 
             $(".country-code").on(":change", function() {
                 $(this).find("option:selected").text("+" + $(this).find("option:selected").text().match(/(\d+)/g));
-            })
+            });
+
+            //function to display selected image
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        $('#app-photo').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            //displays image when URL of file input changes
+            $("#photo-upload").change(function() {
+                readURL(this);
+                $("#____entered___").val(1);
+                $("#sbmit__enetere").click();
+            });
+
+            $("#picture-upload-form").on("submit", function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: "POST",
+                    url: "../../api/upload-photo",
+                    data: new FormData(this),
+                    contentType: false,
+                    processData: false,
+                }).done(function(data) {
+                    console.log(data);
+                    alert(data.message);
+                });
+            });
 
             $(".form-select").change("blur", function() {
                 $.ajax({

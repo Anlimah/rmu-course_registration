@@ -5,11 +5,30 @@ require_once('../../bootstrap.php');
 use Src\Controller\UsersController;
 
 $user = new UsersController();
+$photo = $user->fetchApplicantPhoto($user_id);
 $personal = $user->fetchApplicantPersI($user_id);
 $appStatus = $user->getApplicationStatus($user_id);
 require_once('../../inc/page-data.php');
 
 ?>
+
+<fieldset class="fieldset">
+    <div class="field-header">
+        <legend>Passport Picture</legend>
+    </div>
+    <div class="field-content" style="display: flex !important; flex-direction: row !important; justify-content: space-between !important;">
+        <div style="margin-right: 15px;">
+            <p>Please upload a passport size photo of yourself. The size of the image should not be more than 100KB. The background color of your image should be white.</p>
+            <p style="color: brown"><b>NB: The image you use will not be changed. So use a most recent passport sized picture of yourself.</b></p>
+
+            <label for="photo-upload" class="upload-photo-label btn btn-primary">Upload photo</label>
+
+        </div>
+        <div class="photo-display" style="padding: 5px;">
+            <img id="app-photo" src="../photos/<?= !empty($photo[0]["photo"]) ? $photo[0]["photo"] : "icons8-test-account-48.png" ?>" alt="" style="width: 100%;">
+        </div>
+    </div>
+</fieldset>
 
 <fieldset class="fieldset">
     <div class="field-header">

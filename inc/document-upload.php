@@ -1,12 +1,3 @@
-<!--image uploader-->
-<div>
-    <form id="picture-upload-form">
-        <input required type="file" class="hide" name="photo-upload" id="photo-upload" accept=".jpg, .png">
-        <input type="submit" class="hide" id="sbmit__enetere">
-        <input type="hidden" name="____entered___" id="____entered___">
-    </form>
-</div>
-
 <!--Add document form modal-->
 <div class="modal fade" id="addDocumentModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-2" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">

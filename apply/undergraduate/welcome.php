@@ -2,10 +2,10 @@
 session_start();
 if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
     if (!(isset($_SESSION["ghApplicant"]) && !empty($_SESSION['ghApplicant']))) {
-        header('Location: ../index.php?status=error&message=Invalid access!');
+        header('Location: ../index.php');
     }
 } else {
-    header('Location: ../index.php?status=error&message=Invalid access!');
+    header('Location: ../index.php');
 }
 
 if (isset($_GET['logout'])) {
@@ -17,7 +17,16 @@ if (isset($_GET['logout'])) {
 
 $user_id = $_SESSION['ghApplicant'];
 
-$page = array("id" => -1, "name" => "Personal Information");
+$page = array("id" => 0, "name" => "Personal Information");
+
+
+require_once('../../bootstrap.php');
+
+use Src\Controller\UsersController;
+
+$user = new UsersController();
+$appStatus = $user->getApplicationStatus($user_id);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -72,7 +81,7 @@ $page = array("id" => -1, "name" => "Personal Information");
                                     </p>
                                 </div>
                                 <div class="page-control" style="margin-top:30px !important; display: flex; flex-direction: row-reverse; padding: 0; margin: 0;">
-                                    <a style="width: 150px; padding: 5px 10px !important;" href="application-step0.php" id="prevPage" class="btn btn-primary text-white">Begin Application</a>
+                                    <a style="width: 150px; padding: 5px 10px !important;" href="application-step1.php" id="prevPage" class="btn btn-primary text-white">Begin Application</a>
                                 </div>
                             </div>
                         </main>

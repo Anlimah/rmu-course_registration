@@ -5,9 +5,6 @@
             <legend style="width:100%; text-align: center; font-size: 20px; font-weight:700; margin-bottom:0px">Application Sections</legend>
             <span style="font-size: small;">In progress</span>
             <ul class="list-group mt-4 mb-4" style="padding: 5px 0 !important; margin: 0 important; font-size:medium; font-weight:600">
-                <li class="list-group-item <?= $appStatus[0]["use_of_info"] == 1 ? "form-checked" : "" ?>" style="padding-left: 0 !important; border: none !important; display:flex; flex-direction:row;justify-content:space-between">
-                    <a href="application-step0.php" class="<?= $page["id"] == 0 ? "active" : "" ?>">Use of Information</a>
-                </li>
                 <li class="list-group-item <?= $appStatus[0]["personal"] == 1 ? "form-checked" : "" ?>" style="padding-left: 0 !important; border: none !important; display:flex; flex-direction:row;justify-content:space-between">
                     <a href="application-step1.php" class="<?= $page["id"] == 1 ? "active" : "" ?>">Personal Information</a>
                 </li>

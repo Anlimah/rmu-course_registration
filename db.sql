@@ -190,7 +190,9 @@ CREATE TABLE `applicant_uploads` (
     CONSTRAINT `fk_uploaded_files` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE
 );
 
-ALTER TABLE `applicant_uploads` ADD COLUMN `edu_code` INT(11) AFTER `type`;
+ALTER TABLE `applicant_uploads` 
+ADD COLUMN `edu_code` INT(11) AFTER `type`,
+ADD COLUMN `linked_to` INT(11) AFTER `file_name`;
 
 DROP TABLE IF EXISTS `personal_information`;
 CREATE TABLE `personal_information` (
