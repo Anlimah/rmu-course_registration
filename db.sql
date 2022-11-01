@@ -355,6 +355,14 @@ CREATE TABLE `form_sections_chek` (
     CONSTRAINT `fk_app_form_sec_check` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE
 );
 
+CREATE TABLE `heard_about_us` (
+    `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
+    `medium` VARCHAR(50) NOT NULL,
+    `description` VARCHAR(50),
+    `app_login` INT NOT NULL,   
+    CONSTRAINT `fk_heard_abt_us` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE
+);
+
 SELECT `purchase_detail`.`form_type` FROM `purchase_detail`, `applicants_login`
 WHERE `applicants_login`.`purchase_id` = `purchase_detail`.`id` AND `applicants_login`.`id` = 1;
 

@@ -9,18 +9,14 @@
             <form id="doc-upload-form" name="doc-upload-form" method="POST" action="" enctype="multipart/form-data">
                 <div class="modal-body">
                     <div class="mb-4" id="course-studied-group">
-                        <label class="form-label" for="course-studied">Which of the education records you entered does this <span class="doc-type">certificate</span> applies to? <span class="input-required">*</span></label>
-                        <select class="edu-mod-select form-select form-select-sm" name="user-doc" id="user-doc">
-                            <option value="Select" hidden>Select</option>
-                            <?php
-                            if (!empty($academic_BG)) {
-                                foreach ($academic_BG  as $academic) {
-                            ?>
-                                    <option value="<?= $academic["s_number"] ?>"><?= strtoupper($academic["school_name"]) ?></option>
-                            <?php
-                                }
-                            }
-                            ?>
+                        <label class="form-label" for="course-studied">
+                            Academic document type <span class="input-required">*</span>
+                        </label>
+                        <select class="edu-mod-select form-select form-select-sm" name="doc-type" id="doc-type">
+                            <option value="" hidden>Select</option>
+                            <option value="Certificate">Certificate</option>
+                            <option value="Transcript">Transcript</option>
+                            <option value="Other">Other</option>
                         </select>
                     </div>
                     <div class="upload-doc hide">
@@ -31,8 +27,6 @@
                             <p class="feedback" style="text-align: center; margin-left: 10px"></p>
                         </div>
                     </div>
-                    <input type="hidden" name="20eh29v1Tf" id="20eh29v1Tf">
-                    <input type="hidden" name="file-type" id="file-type">
                     <input type="reset" name="reset-upload" id="reset-upload" class="hide">
                 </div>
                 <div class="modal-footer" style="display: flex !important; flex-direction: row-reverse !important; justify-content: space-between !important;">

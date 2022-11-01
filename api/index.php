@@ -328,49 +328,49 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		$data = [];
 		$errors = [];
 		if (isset($_FILES["upload-file"]["name"]) && !empty($_FILES["upload-file"]["name"])) {
-			if (isset($_POST["20eh29v1Tf"]) && !empty($_POST["20eh29v1Tf"])) {
-				if (isset($_POST["file-type"]) && !empty($_POST["file-type"])) {
+			//if (isset($_POST["20eh29v1Tf"]) && !empty($_POST["20eh29v1Tf"])) {
+			if (isset($_POST["doc-type"]) && !empty($_POST["doc-type"])) {
 
-					$type = $user->validateInputTextOnly($_POST["file-type"]);
-					$edu_code = $user->validatePhone($_POST["20eh29v1Tf"]);
+				$type = $user->validateInputTextOnly($_POST["doc-type"]);
+				//$edu_code = $user->validatePhone($_POST["20eh29v1Tf"]);
 
-					$allowedFileType = [
-						"application/pdf",
-						"application/doc",
-						"application/docx",
-						"application/msword",
-						"application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-					];
+				$allowedFileType = [
+					"application/pdf",
+					"application/doc",
+					"application/docx",
+					"application/msword",
+					"application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+				];
 
-					$check = filesize($_FILES["upload-file"]["tmp_name"]);
+				$check = filesize($_FILES["upload-file"]["tmp_name"]);
 
-					if ($check !== false && in_array($_FILES["upload-file"]["type"], $allowedFileType)) {
-						$temp = explode(".", $_FILES["upload-file"]["name"]);
-						$newname = microtime(true) . '.' . end($temp);
-						if (move_uploaded_file($_FILES['upload-file']['tmp_name'], "../apply/docs/" . $newname)) {
-							if ($user->saveDocuments($type["message"], $edu_code, $newname, $_SESSION['ghApplicant'])) {
-								$data["success"] = true;
-								$data["message"] = "File saved successfully!";
-							} else {
-								$data["success"] = false;
-								$data["error"] = "Internal server error";
-							}
+				if ($check !== false && in_array($_FILES["upload-file"]["type"], $allowedFileType)) {
+					$temp = explode(".", $_FILES["upload-file"]["name"]);
+					$newname = microtime(true) . '.' . end($temp);
+					if (move_uploaded_file($_FILES['upload-file']['tmp_name'], "../apply/docs/" . $newname)) {
+						if ($user->saveDocuments($type["message"], $newname, $_SESSION['ghApplicant'])) {
+							$data["success"] = true;
+							$data["message"] = "File saved successfully!";
 						} else {
 							$data["success"] = false;
-							$data["error"] = "Server error";
+							$data["error"] = "Internal server error";
 						}
 					} else {
 						$data["success"] = false;
-						$data["error"] = "Invalid file type";
+						$data["error"] = "Server error";
 					}
 				} else {
 					$data["success"] = false;
-					$data["error"] = "Invalid or empty file entry";
+					$data["error"] = "Invalid file type";
 				}
 			} else {
 				$data["success"] = false;
-				$data["error"] = "Trying to upload an invalid file";
+				$data["error"] = "Invalid or empty file entry";
 			}
+			/*} else {
+				$data["success"] = false;
+				$data["error"] = "Trying to upload an invalid file";
+			}*/
 		} else {
 			$data["success"] = false;
 			$data["error"] = "Invalid or empty file";
@@ -424,14 +424,10 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			$go = false;
 
 			if ($form == 1) {
-				$column = "use_of_info";
-				$go = true;
-			}
-			if ($form == 2) {
 				$column = "personal";
 				$go = true;
 			}
-			if ($form == 3) {
+			if ($form == 2) {
 				$column = "education";
 				$total = $user->getTotalAppEduHist($_SESSION['ghApplicant']);
 				if ($total[0]["total"]) {
@@ -441,15 +437,15 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 					$data["message"] = "Add at least one education history.";
 				}
 			}
-			if ($form == 4) {
+			if ($form == 3) {
 				$column = "programme";
 				$go = true;
 			}
-			if ($form == 5) {
+			if ($form == 4) {
 				$column = "uploads";
 				$go = true;
 			}
-			if ($form == 6) {
+			if ($form == 5) {
 				$column = "declaration";
 				$status = $user->getFormValidationStatus($_SESSION['ghApplicant']);
 				if (!empty($status)) {
@@ -657,10 +653,11 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		}
 		exit();
 	} elseif ($_GET["url"] == "programmes") {
+		$data = [];
 		$what = $_PUT["what"];
-		$data = $user->validateInputTextOnly(strtoupper($_PUT['value']));
+		$value = $user->validateInputTextOnly(strtoupper($_PUT['value']));
 
-		if ($data['status'] == "success") {
+		if ($value['status'] == "success") {
 			if (isset($what)) {
 				$column = str_replace("-", "_", $what);
 
@@ -672,13 +669,21 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 					$column = 'second_prog';
 				}
 
-				echo $user->updateProgramInfo($column, $data["message"], $_SESSION['ghApplicant']);
-				exit();
+				if ($column == "medium") {
+					$result = $user->updateHowYouKnowUs($column, $value["message"], $_SESSION['ghApplicant']);
+				} else {
+					$result = $user->updateProgramInfo($column, $value["message"], $_SESSION['ghApplicant']);
+				}
+
+				if (!empty($result)) {
+					$data["success"] = true;
+				} else {
+					$data["success"] = false;
+				}
 			}
 		}
 
-		echo json_encode($_PUT['value']);
-		exit();
+		die(json_encode($data));
 	}
 } else if ($_SERVER['REQUEST_METHOD'] == "DELETE") {
 	parse_str(file_get_contents("php://input"), $_DELETE);
@@ -707,11 +712,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		$type = substr($_DELETE['what'], 0, 11);
 		$value = substr($_DELETE['what'], 12); // serial number
 
-		if ($type == "tran-delete") {
-			$result = $user->deleteUploadedFile($value, "Transcript", $_SESSION['ghApplicant']);
-		} else if ($type == "cert-delete") {
-			$result = $user->deleteUploadedFile($value, "Certificate", $_SESSION['ghApplicant']);
-		}
+		$result = $user->deleteUploadedFile($value, $_SESSION['ghApplicant']);
 
 		echo json_encode($result);
 		exit();

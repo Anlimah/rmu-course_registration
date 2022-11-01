@@ -133,8 +133,8 @@ $page = array("id" => 4, "name" => "Uploads");
             });
             $("#add-education-btn").click(function() {});
 
-            $("#user-doc").change("blur", function(e) {
-                $("#20eh29v1Tf").val(this.value);
+            $("#doc-type").change("blur", function(e) {
+                //$("#20eh29v1Tf").val(this.value);
                 $(".upload-doc").addClass("display");
                 $(".upload-doc").removeClass("hide");
                 e.preventDefault();

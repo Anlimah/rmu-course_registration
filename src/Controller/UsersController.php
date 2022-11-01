@@ -246,6 +246,12 @@ class UsersController
         $this->dm->inputData($sql, array(':v' => $value, ':a' => $user_id));
     }
 
+    public function updateHowYouKnowUs($what, $value, $user_id)
+    {
+        $sql = "UPDATE `heard_about_us` SET `$what` = :v WHERE `app_login` = :a";
+        return $this->dm->inputData($sql, array(':v' => $value, ':a' => $user_id));
+    }
+
     public function updateApplicationStatus($what, $user_id)
     {
         $sql = "UPDATE `form_sections_chek` SET `$what` = 1 WHERE `app_login` = :a";
@@ -292,6 +298,12 @@ class UsersController
         $sql = "SELECT `pre_uni_rec`, `name_of_uni`, `program`, `month_enrolled`, `year_enrolled`, 
                 `completed`, `month_completed`, `year_completed`, `state`, `reasons` 
                 FROM `previous_uni_records` WHERE `app_login` = :a";
+        return $this->dm->getData($sql, array(':a' => $user_id));
+    }
+
+    public function fetchHowYouKnowUs($user_id)
+    {
+        $sql = "SELECT `medium`, `description` FROM `heard_about_us` WHERE `app_login` = :a";
         return $this->dm->getData($sql, array(':a' => $user_id));
     }
 
@@ -452,44 +464,31 @@ class UsersController
         return $this->dm->inputData($sql, $params);
     }
 
-    public function saveDocuments($type, $edu_code, $filename, $user_id)
+    public function saveDocuments($type, $filename, $user_id)
     {
-        $sql = "INSERT INTO `applicant_uploads`(`type`, `edu_code`, `file_name`, `app_login`) VALUES (:t, :e, :f, :a)";
-        $params = array(":t" => $type, ":e" => $edu_code, ":f" => $filename, ":a" => $user_id);
+        $sql = "INSERT INTO `applicant_uploads`(`type`, `file_name`, `app_login`) VALUES (:t, :f, :a)";
+        $params = array(":t" => $type, ":f" => $filename, ":a" => $user_id);
         return $this->dm->inputData($sql, $params);
     }
 
     public function fetchUploadedDocs($user_id)
     {
-        $sql = "SELECT u.*, a.school_name FROM `applicant_uploads` AS u, `academic_background` AS a 
-                WHERE a.`app_login` = :a AND a.app_login = u.app_login AND a.s_number = u.edu_code; ";
+        $sql = "SELECT u.* FROM `applicant_uploads` AS u WHERE `app_login` = :a";
         return $this->dm->getData($sql, array(':a' => $user_id));
     }
 
-    public function fetchTotalUploadByApp($type, $user_id)
-    {
-        $sql = "SELECT COUNT(`edu_code`) AS total FROM `applicant_uploads` WHERE `type` = :c AND `app_login` = :a";
-        return $this->dm->getData($sql, array(':c' => $type, ':a' => $user_id));
-    }
-
-    public function fetchTotalEducationByApp($user_id)
-    {
-        $sql = "SELECT COUNT(`s_number`) AS total_edu FROM `academic_background` WHERE `app_login` = :a";
-        return $this->dm->getData($sql, array(':a' => $user_id));
-    }
-
-    public function deleteUploadedFile($serial_number, $type, $user_id)
+    public function deleteUploadedFile($serial_number, $user_id)
     {
         $data = [];
-        $sql1 = "SELECT `file_name` FROM `applicant_uploads` WHERE `edu_code` = :sn AND `type` = :t AND `app_login` = :id";
-        $params = array(":sn" => $serial_number, ":t" => $type, ":id" => $user_id);
+        $sql1 = "SELECT `file_name` FROM `applicant_uploads` WHERE `id` = :sn AND `app_login` = :id";
+        $params = array(":sn" => $serial_number, ":id" => $user_id);
         $file_name = $this->dm->getData($sql1, $params);
 
         if (!empty($file_name))
             $file = "../apply/docs/" . $file_name[0]["file_name"];
 
         if (file_exists($file)) {
-            $sql2 = "DELETE FROM `applicant_uploads` WHERE `edu_code` = :sn AND `type` = :t AND `app_login` = :id";
+            $sql2 = "DELETE FROM `applicant_uploads` WHERE `id` = :sn AND `app_login` = :id";
             if ($this->dm->inputData($sql2, $params)) {
                 if (unlink($file)) {
                     $data["success"] = true;
