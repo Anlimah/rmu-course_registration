@@ -35,6 +35,7 @@
                                 <option value="SSCE">SSCE</option>
                                 <option value="DIPLOMA">DIPLOMA</option>
                                 <option value="DEGREE">DEGREE</option>
+                                <option value="BACCALORATE">DEGREE</option>
                             </select>
                         </div>
                         <div class="mb-4" id="index-number-group">
@@ -167,43 +168,54 @@
                                 }
                                 ?>
                             </select>
+                            <input placeholder="Index Number" class="edu-mod-text form-control" type="text" name="bacc-course-studied" id="bacc-course-studied" style="display: none">
                         </div>
-                        <div class="mb-4" id="core-subjects">
-                            <label class="form-label">Core Subjects <span class="input-required">*</span></label>
-                            <?php
-                            for ($i = 0; $i < count(SHSCOURSES["core"]); $i++) {
-                            ?>
-                                <div id="core-sbj<?= ($i + 1) ?>-group" class="mb-2">
-                                    <div style="display:flex !important; flex-direction:row !important; justify-content: space-between !important">
-                                        <input style="margin-right: 10px; width: 75%" class="form-control" type="text" name="core-sbj<?= ($i + 1) ?>" id="core-sbj<?= ($i + 1) ?>" value="<?= SHSCOURSES["core"][$i] ?>" disabled>
-                                        <select style="width: 25%" class="edu-mod-grade form-select form-select-sm subject-grade" name="core-sbj-grd<?= ($i + 1) ?>" id="core-sbj-grd<?= ($i + 1) ?>">
-                                            <option value="Grade" hidden>Grade</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            <?php
-                            }
-                            ?>
+                        <div class="mb4">
+                            <label class="form-label" for="awaiting-cert">Are you waiting for exam result ? <span class="input-required">*</span></label>
+                            <label for="awaiting-result-yes" class="form-label radio-btn">
+                                <input class="awaiting-result" style="margin: 0 !important; padding: 0 !important;" type="radio" name="awaiting-result" id="awaiting-result-yes" value="Yes"> Yes
+                            </label>
+                            <label for="awaiting-result-no" class="form-label radio-btn">
+                                <input class="awaiting-result" style="margin: 0 !important; padding: 0 !important;" type="radio" name="awaiting-result" id="awaiting-result-no" value="No" checked> No
+                            </label>
                         </div>
-                        <div class="mb-4" id="elective-subjects">
-                            <label class="form-label">Elective Subjects <span class="input-required">*</span></label>
-                            <?php
-                            for ($i = 0; $i < 4; $i++) {
-                            ?>
-                                <div id="elective-sbj<?= ($i + 1) ?>-group" class="mb-2">
-                                    <div style="display:flex !important; flex-direction:row !important; justify-content: space-between !important">
-                                        <select style="margin-right: 10px; width: 75%" class="edu-mod-select elective-subjects form-select form-select-sm" name="elective-sbj<?= ($i + 1) ?>" id="elective-sbj<?= ($i + 1) ?>">
-                                            <option value="Select" hidden>Select</option>
-                                        </select>
-                                        <select style="width: 25%" class="edu-mod-grade form-select form-select-sm" name="elective-sbj-grd<?= ($i + 1) ?>" id="elective-sbj-grd<?= ($i + 1) ?>">
-                                            <option value="Grade" hidden>Grade</option>
-                                        </select>
+                        <div id="not-waiting" class="">
+                            <div class="mb-4 mt-4" id="core-subjects">
+                                <label class="form-label">Core Subjects <span class="input-required">*</span></label>
+                                <?php
+                                for ($i = 0; $i < count(SHSCOURSES["core"]); $i++) {
+                                ?>
+                                    <div id="core-sbj<?= ($i + 1) ?>-group" class="mb-2">
+                                        <div style="display:flex !important; flex-direction:row !important; justify-content: space-between !important">
+                                            <input style="margin-right: 10px; width: 75%" class="form-control" type="text" name="core-sbj<?= ($i + 1) ?>" id="core-sbj<?= ($i + 1) ?>" value="<?= SHSCOURSES["core"][$i] ?>" disabled>
+                                            <select style="width: 25%" class="edu-mod-grade form-select form-select-sm subject-grade" name="core-sbj-grd<?= ($i + 1) ?>" id="core-sbj-grd<?= ($i + 1) ?>">
+                                                <option value="Grade" hidden>Grade</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                            <?php
-                            }
-                            ?>
-
+                                <?php
+                                }
+                                ?>
+                            </div>
+                            <div class="mb-4" id="elective-subjects">
+                                <label class="form-label">Elective Subjects <span class="input-required">*</span></label>
+                                <?php
+                                for ($i = 0; $i < 4; $i++) {
+                                ?>
+                                    <div id="elective-sbj<?= ($i + 1) ?>-group" class="mb-2">
+                                        <div style="display:flex !important; flex-direction:row !important; justify-content: space-between !important">
+                                            <select style="margin-right: 10px; width: 75%" class="edu-mod-select elective-subjects form-select form-select-sm" name="elective-sbj<?= ($i + 1) ?>" id="elective-sbj<?= ($i + 1) ?>">
+                                                <option value="Select" hidden>Select</option>
+                                            </select>
+                                            <select style="width: 25%" class="edu-mod-grade form-select form-select-sm" name="elective-sbj-grd<?= ($i + 1) ?>" id="elective-sbj-grd<?= ($i + 1) ?>">
+                                                <option value="Grade" hidden>Grade</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                <?php
+                                }
+                                ?>
+                            </div>
                         </div>
                     </div>
                     <!--<div id="step-4" class="steps hide" style="display:none; margin: auto 20%;">
@@ -213,6 +225,7 @@
                             </div>-->
                     <!--<input type="hidden" name="20eh29v1Tf" id="20eh29v1Tf" value="1">-->
                     <input type="reset" name="reset" id="reset" style="display: none;">
+                    <input type="hidden" name="awaiting_result_value" id="awaiting_result_value" value="0">
                 </form>
             </div>
             <div class="modal-footer" style="display: flex !important; flex-direction: row-reverse !important; justify-content: space-between !important;">

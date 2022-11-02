@@ -124,6 +124,16 @@ $page = array("id" => 2, "name" => "Education Background");
                 }
             });
 
+            $(".awaiting-result").click(function() {
+                if ($('#awaiting-result-yes').is(':checked')) {
+                    $("#not-waiting").addClass("hide");
+                    $("#awaiting_result_value").attr("value", 1);
+                } else if ($('#awaiting-result-no').is(':checked')) {
+                    $("#not-waiting").removeClass("hide");
+                    $("#awaiting_result_value").attr("value", 0);
+                }
+            });
+
             $(".form-select-option").change("blur", function() {
                 $.ajax({
                     type: "PUT",

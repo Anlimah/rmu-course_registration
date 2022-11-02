@@ -279,6 +279,7 @@ $(document).ready(function () {
             year_completed: $("#year-completed").val(),
 
             course_studied: $("#course-studied").val(),
+            awaiting_result: $("#awaiting_result_value").val(),
 
             core_sbj1: $("#core-sbj1").val(),
             core_sbj2: $("#core-sbj2").val(),

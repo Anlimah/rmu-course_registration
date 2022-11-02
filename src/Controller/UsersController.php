@@ -385,7 +385,7 @@ class UsersController
         return 0;
     }
 
-    public function saveEducation($sn, $cn, $rg, $ci, $ct, $im, $ms, $ys, $mc, $yc, $cs, $al)
+    public function saveEducation($sn, $cn, $rg, $ci, $ct, $im, $ms, $ys, $mc, $yc, $cs, $ar, $al)
     {
         $rslt = 1;
         while ($rslt) {
@@ -395,13 +395,13 @@ class UsersController
 
         $sql = "INSERT INTO `academic_background` (`s_number`, `school_name`, `country`, 
                 `region`, `city`, `cert_type`, `index_number`, `month_started`, `year_started`, 
-                `month_completed`, `year_completed`, `course_of_study`,`app_login`) 
-                VALUES (:sr, :sn, :cn, :rg, :ci, :ct, :im, :ms, :ys, :mc, :yc, :cs, :al)";
+                `month_completed`, `year_completed`, `course_of_study`, `awaiting_result`, `app_login`) 
+                VALUES (:sr, :sn, :cn, :rg, :ci, :ct, :im, :ms, :ys, :mc, :yc, :cs, :ar, :al)";
 
         $params = array(
             ":sr" => $serial_number, ":sn" => $sn, ":cn" => $cn, ":rg" => $rg,
-            ":ci" => $ci, ":ct" => $ct, ":im" => $im,
-            ":ms" => $ms, ":ys" => $ys, ":mc" => $mc, ":yc" => $yc, ":cs" => $cs, ":al" => $al
+            ":ci" => $ci, ":ct" => $ct, ":im" => $im, ":ms" => $ms, ":ys" => $ys,
+            ":mc" => $mc, ":yc" => $yc, ":cs" => $cs, ":ar" => $ar, ":al" => $al
         );
 
         if ($this->dm->inputData($sql, $params)) {
