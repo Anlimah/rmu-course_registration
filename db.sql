@@ -293,7 +293,6 @@ CREATE TABLE `academic_background` (
     `app_login` INT NOT NULL,
     CONSTRAINT `fk_app_aca_bac` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE
 );
-ALTER TABLE `academic_background` ADD COLUMN `awaiting_result` TINYINT DEFAULT 0 AFTER `course_of_study`;
 
 DROP TABLE IF EXISTS `high_school_results`;
 CREATE TABLE `high_school_results` (
