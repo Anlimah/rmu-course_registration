@@ -668,7 +668,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	} elseif ($_GET["url"] == "programmes") {
 		$data = [];
 		$what = $_PUT["what"];
-		$value = $user->validateInputTextOnly(strtoupper($_PUT['value']));
+		$value = $user->validateInputTextOnly($_PUT['value']);
 
 		if ($value['status'] == "success") {
 			if (isset($what)) {
@@ -682,7 +682,11 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 					$column = 'second_prog';
 				}
 
-				if ($column == "medium") {
+				if ($column == "medium_descript") {
+					$column = 'description';
+				}
+
+				if ($column == "medium" || $column == "description") {
 					$result = $user->updateHowYouKnowUs($column, $value["message"], $_SESSION['ghApplicant']);
 				} else {
 					$result = $user->updateProgramInfo($column, $value["message"], $_SESSION['ghApplicant']);

@@ -108,7 +108,7 @@ $page = array("id" => 3, "name" => "Programmes Information");
 
             })();
 
-            $(".form-select-option").change("blur", function() {
+            $(".form-control").change("blur", function() {
                 $.ajax({
                     type: "PUT",
                     url: "../../api/programmes",
@@ -118,6 +118,49 @@ $page = array("id" => 3, "name" => "Programmes Information");
                     },
                     success: function(result) {
                         console.log(result);
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            });
+
+            $(".form-select-option").change("blur", function() {
+                var msg = "";
+                if (this.name == "medium") {
+                    if (this.value == "Social Media") {
+                        msg = "(e.g. Facebook, LinkedIn, etc)"
+                    }
+                    if (this.value == "Print Media") {
+                        msg = "(e.g. Daily Graphic, Ghanaian Times, etc)"
+                    }
+                    if (this.value == "Electronic Media - TV/Radio") {
+                        msg = "(e.g. GTV, TV3, Peace FM, Joy FM etc)"
+                    }
+                    if (this.value == "Outreach Program / Career Fair") {
+                        msg = "where"
+                    }
+                    if (this.value == "Other") {
+                        msg = " "
+                    }
+                }
+                $.ajax({
+                    type: "PUT",
+                    url: "../../api/programmes",
+                    data: {
+                        what: this.name,
+                        value: this.value,
+                    },
+                    success: function(result) {
+                        console.log(result);
+                        if (msg != "") {
+                            $("#state-where").text(msg);
+                            $("#medium-desc").removeClass("hide");
+                            $("#medium-desc").addClass("display");
+                        } else {
+                            $("#medium-desc").removeClass("display");
+                            $("#medium-desc").addClass("hide");
+                        }
                     },
                     error: function(error) {
                         console.log(error);
