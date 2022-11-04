@@ -26,7 +26,6 @@ use Src\Controller\UsersController;
 
 $user = new UsersController();
 $appStatus = $user->getApplicationStatus($user_id);
-echo json_encode($appStatus);
 
 ?>
 <!DOCTYPE html>
