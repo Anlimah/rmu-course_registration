@@ -54,7 +54,7 @@ $page = array("id" => 1, "name" => "Personal Information");
                         </div>
 
                         <!-- Page form -->
-                        <form class="needs-validation" id="appForm" name="2" method="POST" style="margin-top: 15px !important;" novalidate>
+                        <form class="needs-validation" id="appForm" name="1" method="POST" style="margin-top: 15px !important;" novalidate>
                             <?php require_once("forms/personal-information.php") ?>
 
                             <!-- Bottom page navigation -->

@@ -442,8 +442,8 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			}
 			if ($form == 2) {
 				$column = "education";
-				$total = $user->getTotalAppEduHist($_SESSION['ghApplicant']);
-				if ($total[0]["total"]) {
+				$total_edu = $user->getTotalAppEduHist($_SESSION['ghApplicant']);
+				if (!empty($total_edu[0]["total"])) {
 					$go = true;
 				} else {
 					$go = false;
@@ -456,7 +456,13 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			}
 			if ($form == 4) {
 				$column = "uploads";
-				$go = true;
+				$total_upl = $user->getTotalAppUploads($_SESSION['ghApplicant']);
+				if (!empty($total_upl[0]["total"])) {
+					$go = true;
+				} else {
+					$go = false;
+					$data["message"] = "Upload at least one education certificate and/or other relevant documents.";
+				}
 			}
 			if ($form == 5) {
 				$column = "declaration";

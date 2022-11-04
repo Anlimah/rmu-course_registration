@@ -363,6 +363,12 @@ class UsersController
         return $this->dm->getData($sql, array(':a' => $user_id));
     }
 
+    public function getTotalAppUploads($user_id)
+    {
+        $sql = "SELECT COUNT(`id`) AS total FROM `applicant_uploads` WHERE `app_login` = :a";
+        return $this->dm->getData($sql, array(':a' => $user_id));
+    }
+
     public function getFormValidationStatus($user_id)
     {
         $sql = "SELECT `id` FROM `form_sections_chek` WHERE `app_login` = :a 

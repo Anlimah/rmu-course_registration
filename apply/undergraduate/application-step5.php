@@ -54,7 +54,7 @@ $page = array("id" => 5, "name" => "Declaration");
                         </div>
 
                         <!-- Page form -->
-                        <form class="needs-validation" id="appForm" name="6" method="POST" style="margin-top: 15px !important;" novalidate>
+                        <form class="needs-validation" id="appForm" name="5" method="POST" style="margin-top: 15px !important;" novalidate>
                             <?php require_once("forms/declaration.php") ?>
 
                             <!-- Bottom page navigation -->

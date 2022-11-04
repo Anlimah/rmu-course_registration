@@ -54,7 +54,7 @@ $page = array("id" => 3, "name" => "Programmes Information");
                         </div>
 
                         <!-- Page form -->
-                        <form class="needs-validation" id="appForm" name="4" method="POST" style="margin-top: 15px !important;" novalidate>
+                        <form class="needs-validation" id="appForm" name="3" method="POST" style="margin-top: 15px !important;" novalidate>
                             <?php require_once("forms/programmes-information.php") ?>
 
                             <!-- Bottom page navigation -->
@@ -180,6 +180,11 @@ $page = array("id" => 3, "name" => "Programmes Information");
                             console.log(result);
                             if (result.success) {
                                 window.location.href = "application-step4.php";
+                            } else {
+                                $("#page_info_text").removeClass("hide");
+                                $("#page_info_text").addClass("display");
+                                $("#data_info").html("").append(result.message);
+                                window.location.href = "#body";
                             }
                         },
                         error: function(error) {

@@ -49,12 +49,12 @@ $page = array("id" => 4, "name" => "Uploads");
                             <h1 style="font-size: 40px; padding-bottom: 15px !important">Uploads</h1>
                             <div class="alert alert-danger text-danger hide" id="page_info_text" style="width: 100%; border: none !important">
                                 <label class="text-danger">This form has errors:</label>
-                                <p>Provide values for all <b>required *</b> fields in the form.</p>
+                                <p id="data_info">Provide values for all <b>required *</b> fields in the form.</p>
                             </div>
                         </div>
 
                         <!-- Page form -->
-                        <form class="needs-validation" id="appForm" name="5" method="POST" style="margin-top: 15px !important;" novalidate>
+                        <form class="needs-validation" id="appForm" name="4" method="POST" style="margin-top: 15px !important;" novalidate>
                             <?php require_once("forms/documents-upload.php") ?>
 
                             <!-- Bottom page navigation -->
@@ -203,6 +203,11 @@ $page = array("id" => 4, "name" => "Uploads");
                             console.log(result);
                             if (result.success) {
                                 window.location.href = "application-step5.php";
+                            } else {
+                                $("#page_info_text").removeClass("hide");
+                                $("#page_info_text").addClass("display");
+                                $("#data_info").html("").append(result.message);
+                                window.location.href = "#body";
                             }
                         },
                         error: function(error) {
