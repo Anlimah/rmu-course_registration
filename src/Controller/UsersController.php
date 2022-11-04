@@ -211,7 +211,7 @@ class UsersController
     public function hasSubmittedForm($user_id)
     {
         $sql = "SELECT `id` FROM `form_sections_chek` WHERE `app_login` = :a 
-                AND `use_of_info`=1 AND `personal`=1 AND `education`=1 
+                AND `personal`=1 AND `education`=1 
                 AND `programme`=1 AND `uploads`=1 AND `declaration`=1";
         return $this->dm->getID($sql, array(':a' => $user_id));
     }
@@ -261,7 +261,7 @@ class UsersController
     //GET
     public function getApplicationStatus($user_id)
     {
-        $sql = "SELECT `use_of_info`, `personal`, `education`, `programme`, `uploads`, `declaration` 
+        $sql = "SELECT `personal`, `education`, `programme`, `uploads`, `declaration` 
                 FROM `form_sections_chek` WHERE `app_login` = :a";
         return $this->dm->getData($sql, array(':a' => $user_id));
     }
@@ -366,7 +366,7 @@ class UsersController
     public function getFormValidationStatus($user_id)
     {
         $sql = "SELECT `id` FROM `form_sections_chek` WHERE `app_login` = :a 
-                AND `use_of_info`=1 AND `personal`=1 AND `education`=1 AND `programme`=1 AND `uploads`=1";
+                AND `personal`=1 AND `education`=1 AND `programme`=1 AND `uploads`=1";
         return $this->dm->getID($sql, array(':a' => $user_id));
     }
 

@@ -21,8 +21,8 @@ CREATE TABLE `form_type` (
     `amount` DECIMAL(6,2) NOT NULL
 );
 INSERT INTO `form_type`(`name`, `amount`) 
-VALUES ("Postgraduate", 250), ("Undergraduate (Degree)", 180), 
-("Undergraduate (Diploma)", 120), ("Short courses", 100);
+VALUES ("Postgraduate", 1), ("Undergraduate (Degree)", 1), 
+("Undergraduate (Diploma)", 1), ("Short courses", 1);
 
 DROP TABLE IF EXISTS `payment_method`;
 CREATE TABLE `payment_method` (
@@ -342,7 +342,6 @@ CREATE TABLE `previous_uni_records` (
 
 CREATE TABLE `form_sections_chek` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
-    `use_of_info` TINYINT DEFAULT 0,
     `personal` TINYINT DEFAULT 0,
     `education` TINYINT DEFAULT 0,
     `programme` TINYINT DEFAULT 0,
