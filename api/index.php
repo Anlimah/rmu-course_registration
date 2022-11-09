@@ -88,6 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 					die(json_encode(array("response" => "error", "message" => "Incorrect application number or PIN! ")));
 				} else {
 					$_SESSION['ghApplicant'] = $result["id"];
+					$_SESSION['applicantType'] = $result["type"];
 					$_SESSION['ghAppLogin'] = true;
 					$type = "";
 
