@@ -57,15 +57,28 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		}
 		exit();
 	} elseif ($_GET["url"] == "education") {
-		if ($_GET["what"] == "edit-edu-btn") {
-			$value = substr($_GET['value'], 4); // serial number
-			$education_details = $user->fetchEducationHistory($value, $_SESSION['ghApplicant']);
-			$grades = $user->fetchGrades($education_details["aca"][0]["cert_type"]);
-			$elective_subjects = $user->fetchElectiveSubjects($education_details["aca"][0]["course_of_study"]);
-			$education_details["elective_subjects"] = $elective_subjects;
-			$education_details["grades"] = $grades;
-			echo json_encode($education_details);
-		}
+		if (!isset($_GET["what"]) || !isset($_GET["value"])) die("Invalid input attributes");
+		if ($_GET["what"] != "edit-edu-btn" || empty($_GET["what"]) || empty($_GET["value"])) die("Invalid input values");
+
+		$value = substr($_GET['value'], 4); // serial number
+		$education_details = [];
+
+		$userEducation = $user->fetchEducationHistory($value, $_SESSION['ghApplicant']);
+		if (empty($userEducation)) die("Unable to fetch Education " . $userEducation);
+		$education_details["aca"] = $userEducation;
+
+		$userCourses = $user->fetchAppCourses($value, $userEducation[0]["id"]);
+		$education_details["courses"] = $userCourses;
+
+		$grades = $user->fetchGrades($userEducation[0]["cert_type"]);
+		$education_details["grades"] = $grades;
+
+		$elective_subjects = $user->fetchElectiveSubjects($userEducation[0]["course_of_study"]);
+		$education_details["elective_subjects"] = $elective_subjects;
+
+		$userEducation[0]["school_name"] = htmlspecialchars_decode(html_entity_decode(ucwords(strtolower($userEducation[0]["school_name"])), ENT_QUOTES), ENT_QUOTES);
+
+		die(json_encode($education_details));
 	}
 
 
@@ -641,7 +654,12 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			}
 
 			//$column = substr_replace($column, "", -1);
-			echo $user->updateAcademicInfo($column, $value, $s_number, $_SESSION['ghApplicant']);
+			$data = $user->updateAcademicInfo($column, $value, $s_number, $_SESSION['ghApplicant']);
+
+			if ($column == 'course_of_study') {
+				
+			}
+
 		}
 		exit();
 	} elseif ($_GET["url"] == "prev-uni-recs") {
