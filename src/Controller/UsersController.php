@@ -282,7 +282,7 @@ class UsersController
     {
         $sql = "SELECT `school_name`, `s_number`, `country`, `region`, `city`, `cert_type`, 
                 `month_started`, `year_started`, `month_completed`, `year_completed`, 
-                `index_number`, `course_of_study` 
+                `index_number`, `course_of_study`, `awaiting_result` 
                 FROM `academic_background` WHERE `app_login` = :a";
         return $this->dm->getData($sql, array(':a' => $user_id));
     }
@@ -309,26 +309,22 @@ class UsersController
 
     public function fetchEducationHistory($serial_number, $user_id)
     {
-        $sql1 = "SELECT `s_number`, `school_name`, `country`, `region`, `city`, 
+        $sql1 = "SELECT `id`, `s_number`, `school_name`, `country`, `region`, `city`, 
                 `cert_type`, `index_number`, `month_started`, `year_started`, 
-                `month_completed`, `year_completed`, `course_of_study` 
+                `month_completed`, `year_completed`, `course_of_study`,`awaiting_result` 
                 FROM `academic_background` WHERE `s_number` = :sn AND `app_login` = :id";
         $params = array(":sn" => $serial_number, ":id" => $user_id);
-        $aca_data = $this->dm->getData($sql1, $params);
+        return $this->dm->getData($sql1, $params);
+    }
 
-        if (!empty($aca_data)) {
-            $sql2 = "SELECT h.`id`, h.`type`, h.`subject`, h.`grade` 
+    public function fetchAppCourses($serial_number, $aca_back_id)
+    {
+        $sql2 = "SELECT h.`id`, h.`type`, h.`subject`, h.`grade` 
                     FROM `academic_background` AS a, `high_school_results` AS h 
-                    WHERE h.`acad_back_id` = a.`id` AND a.`s_number` = :sn";
-            $params = array(":sn" => $serial_number);
-            $grade_data = $this->dm->getData($sql2, $params);
-
-            if (!empty($aca_data)) {
-                return array("aca" => $aca_data, "courses" => $grade_data);
-            }
-            return 0;
-        }
-        return 0;
+                    WHERE h.`acad_back_id` = a.`id` AND a.`s_number` = :sn AND h.`acad_back_id` = :a";
+        $params = array(":sn" => $serial_number, ":a" => $aca_back_id);
+        $grade_data = $this->dm->getData($sql2, $params);
+        return $grade_data;
     }
 
     public function fetchGrades($cert_type)
@@ -337,17 +333,16 @@ class UsersController
         return $this->dm->getData($sql, array(':t' => $cert_type));
     }
 
-    public function fetchCourses($type)
+    public function fetchCourses()
     {
-        $sql = "SELECT `id`, `course` FROM `high_shcool_courses` WHERE `type`= :t";
-        return $this->dm->getData($sql, array(':t' => $type));
+        $sql = "SELECT `course` FROM `high_shcool_courses`";
+        return $this->dm->getData($sql);
     }
 
-    public function fetchElectiveSubjects($course_name)
+    public function fetchSubjects($type)
     {
-        $sql = "SELECT s.`id`, s.`subject` FROM `high_shcool_courses` AS c, `high_sch_elective_subjects` AS s 
-                WHERE c.`id`= s.`course` AND c.`course` = :c";
-        return $this->dm->getData($sql, array(':c' => $course_name));
+        $sql = "SELECT `subject` FROM `high_sch_subjects` WHERE `type` = :t";
+        return $this->dm->getData($sql, array(':t' => $type));
     }
 
     public function getApplicationType($user_id)

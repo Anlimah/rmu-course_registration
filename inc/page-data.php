@@ -12,43 +12,24 @@ for ($i = 0; $i < $total; $i++) {
 }*/
 
 $shs_courses = array(
-    "core" => array("CORE MATHEMATICS", "ENGLISH LANGUAGE", "INTEGRATED SCIENCE", "SOCIAL STUDIES"),
-    "elective" => array(
-        array(
-            "name" => "BUSINESS",
-            "subjects" => array("ACCOUNTING", "BUSINESS MANAGEMENT", "ECONOMICS", "PRINCIPLE OF COSTING", "ELECTIVE MATHS", "FRENCH")
+    "courses" => array("BUSINESS", "GENERAL ARTS", "GENERAL SCIENCE", "HOME ECONOMICS", "VISUAL ARTS", "TECHNICAL"),
+    "subjects" => array(
+        "core" => array("CORE MATHEMATICS", "ENGLISH LANGUAGE", "INTEGRATED SCIENCE", "SOCIAL STUDIES"),
+        "electives" => array(
+            "BUSINESS MANAGEMENT", "PRINCIPLE OF COSTING",
+            "ACCOUNTING", "BUSINESS MANAGEMENT", "PRINCIPLE OF COSTING", "ELECTIVE MATHS",
+            "LITERATURE IN ENGLISH", "GEOGRAPHY", "HISTORY", "GOVERNMENT", "RELIGIOUS STUDIES",
+            "PHYSICS", "CHEMISTRY", "BIOLOGY",
+            "MANAGEMENT IN LIVING", "FOOD AND NUTRITION", "GENERAL KNOWLEDGE IN ARTS", "TEXTILE",
+            "GRAPHIC DESIGN", "LITERATURE IN ENGLISH", "FRENCH",
+            "ECONOMICS", "BASKETRY", "LEATHER WORK", "PICTURE MAKING", "CERAMICS AND SCULPTURE"
         ),
-        array(
-            "name" => "GENERAL ARTS",
-            "subjects" => array("LITERATURE IN ENGLISH", "FRENCH", "ECONOMICS", "GEOGRAPHY", "HISTORY", "GOVERNMENT", "RELIGIOUS STUDIES")
-        ),
-        array(
-            "name" => "GENERAL SCIENCE",
-            "subjects" => array("PHYSICS", "CHEMISTRY", "ELECTIVE MATHS", "BIOLOGY")
-        ),
-        array(
-            "name" => "HOME ECONOMICS",
-            "subjects" => array("MANAGEMENT IN LIVING", "FOOD AND NUTRITION", "GENERAL KNOWLEDGE IN ARTS", "TEXTILE", "FRENCH", "ECONOMICS")
-        ),
-        array(
-            "name" => "VISUAL ARTS",
-            "subjects" => array(
-                "GENERAL KNOWLEDGE IN ARTS", "TEXTILE", "GRAPHIC DESIGN", "LITERATURE IN ENGLISH", "FRENCH",
-                "ECONOMICS", "BASKETRY", "LEATHER WORK", "PICTURE MAKING", "CERAMICS AND SCULPTURE"
-            )
-        ),
-        array(
-            "name" => "Technical",
-            "subjects" => array(
-                "Building Construction Technology", "Carpentry And Joinery", "Catering",
-
-                "Electrical Installation Work", "Electronics", "Fashion And Design",
-
-                "General Textiles", "Industrial Mechanics", "Mechanical Engineering Craft Practice",
-
-                "Metal Work", "Photography", "Plumbing Craft", "Printing Craft", "Welding And Fabrication", "Wood Work"
-            )
-        ),
+        "technical" => array(
+            "Building Construction Technology", "Carpentry And Joinery", "Catering",
+            "Electrical Installation Work", "Electronics", "Fashion And Design",
+            "General Textiles", "Industrial Mechanics", "Mechanical Engineering Craft Practice",
+            "Metal Work", "Photography", "Plumbing Craft", "Printing Craft", "Welding And Fabrication", "Wood Work"
+        )
     ),
 );
 

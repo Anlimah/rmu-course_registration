@@ -1,3 +1,8 @@
+<?php
+$appStatus = $user->getApplicationStatus($user_id);
+$courses = $user->fetchCourses();
+?>
+
 <!-- Modal -->
 <div class="modal fade" id="addSchoolModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -183,17 +188,20 @@
                             <div class="mb-4 mt-4" id="core-subjects">
                                 <label class="form-label">Core Subjects <span class="input-required">*</span></label>
                                 <?php
-                                for ($i = 0; $i < count(SHSCOURSES["core"]); $i++) {
+                                $core_sbjs = $user->fetchSubjects("core");
+                                $i = 0;
+                                foreach ($core_sbjs as $core_sbj) {
                                 ?>
                                     <div id="core-sbj<?= ($i + 1) ?>-group" class="mb-2">
                                         <div style="display:flex !important; flex-direction:row !important; justify-content: space-between !important">
-                                            <input style="margin-right: 10px; width: 75%" class="form-control" type="text" name="core-sbj<?= ($i + 1) ?>" id="core-sbj<?= ($i + 1) ?>" value="<?= SHSCOURSES["core"][$i] ?>" disabled>
+                                            <input style="margin-right: 10px; width: 75%" class="form-control" type="text" name="core-sbj<?= ($i + 1) ?>" id="core-sbj<?= ($i + 1) ?>" value="<?= $core_sbj["subject"] ?>" disabled>
                                             <select style="width: 25%" class="edu-mod-grade form-select form-select-sm subject-grade" name="core-sbj-grd<?= ($i + 1) ?>" id="core-sbj-grd<?= ($i + 1) ?>">
                                                 <option value="Grade" hidden>Grade</option>
                                             </select>
                                         </div>
                                     </div>
                                 <?php
+                                    $i++;
                                 }
                                 ?>
                             </div>
@@ -409,42 +417,60 @@
                                 ?>
                             </select>
                         </div>
-                        <div class="mb-4" id="edit-core-subjects">
-                            <label class="form-label">Core Subjects <span class="input-required">*</span></label>
-                            <?php
-                            for ($i = 0; $i < count(SHSCOURSES["core"]); $i++) {
-                            ?>
-                                <div id="edit-core-sbj<?= ($i + 1) ?>-group" class="mb-2">
-                                    <div style="display:flex !important; flex-direction:row !important; justify-content: space-between !important">
-                                        <input style="margin-right: 10px; width: 75%" class="form-control" type="text" name="edit-core-sbj<?= ($i + 1) ?>" id="edit-core-sbj<?= ($i + 1) ?>" value="<?= SHSCOURSES["core"][$i] ?>" disabled>
-                                        <select style="width: 25%" class="edu-mod-grade form-select form-select-sm subject-grade" name="edit-core-sbj-grd<?= ($i + 1) ?>" id="edit-core-sbj-grd<?= ($i + 1) ?>">
-                                            <option value="Grade" hidden>Grade</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            <?php
-                            }
-                            ?>
+                        <div class="mb4">
+                            <label class="form-label" for="awaiting-cert">Are you waiting for exam result ? <span class="input-required">*</span></label>
+                            <label for="edit-awaiting-result-yes" class="form-label radio-btn">
+                                <input class="awaiting-result" style="margin: 0 !important; padding: 0 !important;" type="radio" name="edit-awaiting-result" id="edit-awaiting-result-yes" value="Yes"> Yes
+                            </label>
+                            <label for="edit-awaiting-result-no" class="form-label radio-btn">
+                                <input class="awaiting-result" style="margin: 0 !important; padding: 0 !important;" type="radio" name="edit-awaiting-result" id="edit-awaiting-result-no" value="No" checked> No
+                            </label>
                         </div>
-                        <div class="mb-4" id="edit-elective-subjects">
-                            <label class="form-label">Elective Subjects <span class="input-required">*</span></label>
-                            <?php
-                            for ($i = 0; $i < 4; $i++) {
-                            ?>
-                                <div id="edit-elective-sbj<?= ($i + 1) ?>-group" class="mb-2">
-                                    <div style="display:flex !important; flex-direction:row !important; justify-content: space-between !important">
-                                        <select style="margin-right: 10px; width: 75%" class="edu-mod-select elective-subjects form-select form-select-sm" name="edit-elective-sbj<?= ($i + 1) ?>" id="edit-elective-sbj<?= ($i + 1) ?>">
-                                            <option value="Select" hidden>Select</option>
-                                        </select>
-                                        <select style="width: 25%" class="edu-mod-grade form-select form-select-sm subject-grade" name="edit-elective-sbj-grd<?= ($i + 1) ?>" id="edit-elective-sbj-grd<?= ($i + 1) ?>">
-                                            <option value="Grade" hidden>Grade</option>
-                                        </select>
+                        <div id="edit-not-waiting" class="">
+                            <div class="mb-4" id="edit-core-subjects">
+                                <label class="form-label">Core Subjects <span class="input-required">*</span></label>
+                                <?php
+                                for ($i = 0; $i < count(SHSCOURSES["subjects"]["core"]); $i++) {
+                                ?>
+                                    <div id="edit-core-sbj<?= ($i + 1) ?>-group" class="mb-2">
+                                        <div style="display:flex !important; flex-direction:row !important; justify-content: space-between !important">
+                                            <input style="margin-right: 10px; width: 75%" class="form-control" type="text" name="edit-core-sbj<?= ($i + 1) ?>" id="edit-core-sbj<?= ($i + 1) ?>" value="<?= SHSCOURSES["subjects"]["core"][$i] ?>" disabled>
+                                            <select style="width: 25%" class="edu-mod-grade form-select form-select-sm subject-grade" name="edit-core-sbj-grd<?= ($i + 1) ?>" id="edit-core-sbj-grd<?= ($i + 1) ?>">
+                                                <option value="Grade" hidden>Grade</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                            <?php
-                            }
-                            ?>
+                                <?php
+                                }
+                                ?>
+                            </div>
+                            <div class="mb-4" id="edit-elective-subjects">
+                                <label class="form-label">Elective Subjects <span class="input-required">*</span></label>
+                                <?php
+                                for ($i = 0; $i < 4; $i++) {
+                                ?>
+                                    <div id="edit-elective-sbj<?= ($i + 1) ?>-group" class="mb-2">
+                                        <div style="display:flex !important; flex-direction:row !important; justify-content: space-between !important">
+                                            <select style="margin-right: 10px; width: 75%" class="edu-mod-select elective-subjects form-select form-select-sm" name="edit-elective-sbj<?= ($i + 1) ?>" id="edit-elective-sbj<?= ($i + 1) ?>">
+                                                <option value="Select" hidden>Select</option>
+                                                <?php
+                                                for ($j = 0; $j < count(SHSCOURSES["subjects"]["electives"]); $j++) {
+                                                ?>
+                                                    <option value="<?= SHSCOURSES["subjects"]["electives"][$j] ?>"><?= SHSCOURSES["subjects"]["electives"][$j] ?></option>
+                                                <?php
+                                                }
+                                                ?>
+                                            </select>
+                                            <select style="width: 25%" class="edu-mod-grade form-select form-select-sm subject-grade" name="edit-elective-sbj-grd<?= ($i + 1) ?>" id="edit-elective-sbj-grd<?= ($i + 1) ?>">
+                                                <option value="Grade" hidden>Grade</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                <?php
+                                }
+                                ?>
 
+                            </div>
                         </div>
                     </div>
                     <!--<div id="edit-step-4" class="steps hide" style="display:none; margin: auto 20%;">

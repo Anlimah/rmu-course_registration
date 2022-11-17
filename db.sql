@@ -11,8 +11,7 @@ CREATE TABLE `admission_period` (
     `info` TEXT,
     `active` TINYINT DEFAULT 0
 );
-INSERT INTO `admission_period`(`start_date`,`end_date`, `active`) 
-VALUES('2022-07-01', '2022-10-01', 1);
+INSERT INTO `admission_period`(`start_date`,`end_date`, `active`) VALUES('2022-07-01', '2022-10-01', 1);
 
 DROP TABLE IF EXISTS `form_type`;
 CREATE TABLE `form_type` (
@@ -20,9 +19,11 @@ CREATE TABLE `form_type` (
     `name` VARCHAR(50) NOT NULL,
     `amount` DECIMAL(6,2) NOT NULL
 );
-INSERT INTO `form_type`(`name`, `amount`) 
-VALUES ("Postgraduate", 1), ("Undergraduate (Degree)", 1), 
-("Undergraduate (Diploma)", 1), ("Short courses", 1);
+INSERT INTO `form_type`(`name`, `amount`) VALUES 
+("Postgraduate", 1), 
+("Undergraduate (Degree)", 1), 
+("Undergraduate (Diploma)", 1), 
+("Short courses", 1);
 
 DROP TABLE IF EXISTS `payment_method`;
 CREATE TABLE `payment_method` (
@@ -56,8 +57,7 @@ CREATE TABLE `vendor_login` (
     `password` VARCHAR(255) NOT NULL,
     
     `vendor` INT(11) NOT NULL,
-    CONSTRAINT `fk_vendor_login` FOREIGN KEY (`vendor`) 
-    REFERENCES `vendor_details`(`id`) ON UPDATE CASCADE,
+    CONSTRAINT `fk_vendor_login` FOREIGN KEY (`vendor`) REFERENCES `vendor_details`(`id`) ON UPDATE CASCADE,
 
     `added_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP()
 );
@@ -121,10 +121,16 @@ CREATE TABLE `programs` (
     CONSTRAINT `fk_prog_form_type` FOREIGN KEY (`type`) REFERENCES `form_type`(`id`) ON UPDATE CASCADE
 );
 INSERT INTO `programs`(`type`, `name`) VALUES 
-(1, 'MSc. Environmental Engineering'), (1, 'MA. Ports and Shipping Administration'), 
-(2, 'BSc. Computer Science'), (2, 'BSc. Electrical Engineering'), (2, 'BSc. Marine Engineering'),
-(2, 'Diploma Computer Engineering'), (2, 'Diploma Electrical Engineering'), (2, 'Diploma Marine Engineering'),
-(3, 'Marine Engine Mechanic'), (3, 'Marine Refrigeration Mechanic');
+(1, 'MSc. Environmental Engineering'), 
+(1, 'MA. Ports and Shipping Administration'), 
+(2, 'BSc. Computer Science'), 
+(2, 'BSc. Electrical Engineering'), 
+(2, 'BSc. Marine Engineering'),
+(2, 'Diploma Computer Engineering'), 
+(2, 'Diploma Electrical Engineering'), 
+(2, 'Diploma Marine Engineering'),
+(3, 'Marine Engine Mechanic'), 
+(3, 'Marine Refrigeration Mechanic');
 
 DROP TABLE IF EXISTS `halls`;
 CREATE TABLE `halls` (
@@ -140,43 +146,91 @@ CREATE TABLE `grades` (
     `grade` VARCHAR(2) NOT NULL,
     `type` VARCHAR(15)
 );
-INSERT INTO `grades`(`grade`, `type`) 
-VALUES ('A1', 'WASSCE'), ('B2', 'WASSCE'), ('B3', 'WASSCE'), ('C4', 'WASSCE'), ('C5', 'WASSCE'), 
-        ('C6', 'WASSCE'), ('D7', 'WASSCE'), ('E8', 'WASSCE'), ('F9', 'WASSCE'),
-        ('A', 'SSCE'), ('B', 'SSCE'), ('C', 'SSCE'), ('D', 'SSCE'), ('E', 'SSCE'), ('F', 'SSCE');
-        
+INSERT INTO `grades`(`grade`, `type`) VALUES 
+('A1', 'WASSCE'), 
+('B2', 'WASSCE'), 
+('B3', 'WASSCE'), 
+('C4', 'WASSCE'), 
+('C5', 'WASSCE'), 
+('C6', 'WASSCE'), 
+('D7', 'WASSCE'), 
+('E8', 'WASSCE'), 
+('F9', 'WASSCE'),
+('A', 'SSCE'), 
+('B', 'SSCE'), 
+('C', 'SSCE'), 
+('D', 'SSCE'), 
+('E', 'SSCE'), 
+('F', 'SSCE');
 
 DROP TABLE IF EXISTS `high_shcool_courses`;
 CREATE TABLE `high_shcool_courses` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
-    `course` VARCHAR(25) NOT NULL,
-    `type` VARCHAR(15)
+    `type` VARCHAR(10),
+    `course` VARCHAR(25) NOT NULL
 );
 
 INSERT INTO `high_shcool_courses`(`type`, `course`) VALUES 
-("core", "CORE MATHEMATICS"), ("core", "ENGLISH LANGUAGE"), ("core", "INTEGRATED SCIENCE"), 
-("core", "SOCIAL STUDIES"), ("elective", "BUSINESS"), ("elective", "GENERAL ARTS"), 
-("elective", "GENERAL SCIENCE"), ("elective", "HOME ECONOMICS"), ("elective", "VISUAL ARTS"), ("elective", "TECHNICAL") ;
+("secondary", "BUSINESS"), 
+("secondary", "GENERAL ARTS"), 
+("secondary", "GENERAL SCIENCE"), 
+("secondary", "HOME ECONOMICS"), 
+("secondary", "VISUAL ARTS"), 
+("technical", "TECHNICAL");
 
-DROP TABLE IF EXISTS `high_sch_elective_subjects`;
-CREATE TABLE `high_sch_elective_subjects` (
+DROP TABLE IF EXISTS `high_sch_subjects`;
+CREATE TABLE `high_sch_subjects` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
-    `subject` VARCHAR(25) NOT NULL,
-    `course` INT NOT NULL,
-    CONSTRAINT `fk_elective_sbjs` FOREIGN KEY (`course`) REFERENCES `high_shcool_courses`(`id`) ON UPDATE CASCADE
+    `type` VARCHAR(10) NOT NULL,
+    `subject` VARCHAR(25) NOT NULL
 );
 
-INSERT INTO `high_sch_elective_subjects`(`course`, `subject`) VALUES 
-(5, 'ACCOUNTING'), (5, 'BUSINESS MANAGEMENT'), (5, 'ECONOMICS'), (5, 'PRINCIPLE OF COSTING'), (5, 'ELECTIVE MATHS'), (5, 'FRENCH'),
-(6, 'LITERATURE IN ENGLISH'), (6, 'FRENCH'), (6, 'ECONOMICS'), (6, 'GEOGRAPHY'), (6, 'HISTORY'), (6, 'GOVERNMENT'), (6, 'RELIGIOUS STUDIES'),
-(7, 'PHYSICS'), (7, 'CHEMISTRY'), (7, 'ELECTIVE MATHS'), (7, 'BIOLOGY'), (7, 'GEOGRAPHY'),
-(8, 'MANAGEMENT IN LIVING'), (8, 'FOOD AND NUTRITION'), (8, 'GENERAL KNOWLEDGE IN ARTS'), (8, 'TEXTILE'), (8, 'FRENCH'), (8, 'ECONOMICS'),
-(9, 'GENERAL KNOWLEDGE IN ARTS'), (9, 'TEXTILE'), (9, 'GRAPHIC DESIGN'), (9, 'LITERATURE IN ENGLISH'), (9, 'FRENCH'),
-(9, 'ECONOMICS'), (9, 'BASKETRY'), (9, 'LEATHER WORK'), (9, 'PICTURE MAKING'), (9, 'CERAMICS AND SCULPTURE'),
-(10, 'Building Construction Technology'), (10, 'Carpentry And Joinery'), (10, 'Catering'), 
-(10, 'Electrical Installation Work'), (10, 'Electronics'), (10, 'Fashion And Design'), 
-(10, 'General Textiles'), (10, 'Industrial Mechanics'), (10, 'Mechanical Engineering Craft Practice'), 
-(10, 'Metal Work'), (10, 'Photography'), (10, 'Plumbing Craft'), (10, 'Printing Craft'), (10, 'Welding And Fabrication'), (10, 'Wood Work');
+INSERT INTO `high_sch_subjects`(`type`, `subject`) VALUES 
+("core", "CORE MATHEMATICS"), 
+("core", "ENGLISH LANGUAGE"), 
+("core", "INTEGRATED SCIENCE"), 
+("core", "SOCIAL STUDIES"), 
+("secondary", "BUSINESS MANAGEMENT"), 
+("secondary", "PRINCIPLE OF COSTING"),
+("secondary", "ACCOUNTING"), 
+("secondary", "BUSINESS MANAGEMENT"), 
+("secondary", "PRINCIPLE OF COSTING"), 
+("secondary", "ELECTIVE MATHS"),
+("secondary", "LITERATURE IN ENGLISH"), 
+("secondary", "GEOGRAPHY"), 
+("secondary", "HISTORY"), 
+("secondary", "GOVERNMENT"), 
+("secondary", "RELIGIOUS STUDIES"),
+("secondary", "PHYSICS"), 
+("secondary", "CHEMISTRY"), 
+("secondary", "BIOLOGY"),
+("secondary", "MANAGEMENT IN LIVING"), 
+("secondary", "FOOD AND NUTRITION"), 
+("secondary", "GENERAL KNOWLEDGE IN ARTS"), 
+("secondary", "TEXTILE"),
+("secondary","GRAPHIC DESIGN"), 
+("secondary", "LITERATURE IN ENGLISH"), 
+("secondary", "FRENCH"),
+("secondary", "ECONOMICS"), 
+("secondary", "BASKETRY"), 
+("secondary", "LEATHER WORK"), 
+("secondary", "PICTURE MAKING"), 
+("secondary", "CERAMICS AND SCULPTURE"),
+("technical", 'Building Construction Technology'), 
+("technical", 'Carpentry And Joinery'), 
+("technical", 'Catering'), 
+("technical", 'Electrical Installation Work'), 
+("technical", 'Electronics'), 
+("technical", 'Fashion And Design'), 
+("technical", 'General Textiles'), 
+("technical", 'Industrial Mechanics'), 
+("technical", 'Mechanical Engineering Craft Practice'), 
+("technical", 'Metal Work'), 
+("technical", 'Photography'), 
+("technical", 'Plumbing Craft'), 
+("technical", 'Printing Craft'), 
+("technical", 'Welding And Fabrication'), 
+("technical", 'Wood Work');
 
 /*Application Data*/
 
@@ -389,11 +443,19 @@ CREATE TABLE `page_sections` (
     `page` INT NOT NULL,   
     CONSTRAINT `fk_page_section` FOREIGN KEY (`page`) REFERENCES `web_pages`(`id`) ON UPDATE CASCADE
 );
-INSERT INTO `page_sections`(`name`, `page`) VALUES
-('Use of Information Agreement', 1),                             
-('Legal Name', 2),('Personal Details', 2),('Place of Birth', 2),('Language', 2),
-('Address', 2),('Contact', 2),('Parent/Guardian', 2),('Education', 3),
-('Programmes', 4),('Passport Picture', 5),('Certificates', 5),('Transcripts', 5);
+INSERT INTO `page_sections`(`name`, `page`) VALUES   
+('Legal Name', 1),
+('Personal Details', 1),
+('Place of Birth', 1),
+('Language', 1),
+('Address', 1),
+('Contact', 1),
+('Parent/Guardian', 1),
+('Education', 2),
+('Programmes', 3),
+('Passport Picture', 4),
+('Certificates', 4),
+('Transcripts', 4);
 
 /*Section Questions*/
 DROP TABLE IF EXISTS `section_questions`;

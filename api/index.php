@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		//fetch in grades per the certificate type
 		if (isset($_GET["value"]) && !empty($_GET["value"])) {
 			$type = $user->validateInputTextOnly($_GET["value"]);
-			echo json_encode($user->fetchElectiveSubjects($type["message"]));
+			echo json_encode($user->fetchSubjects($type["message"]));
 		}
 		exit();
 	} elseif ($_GET["url"] == "education") {
@@ -73,7 +73,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		$grades = $user->fetchGrades($userEducation[0]["cert_type"]);
 		$education_details["grades"] = $grades;
 
-		$elective_subjects = $user->fetchElectiveSubjects($userEducation[0]["course_of_study"]);
+		$subject_type = "technical";
+		if (strtolower($userEducation[0]["course_of_study"]) != $subject_type) $subject_type = "secondary";
+		$elective_subjects = $user->fetchSubjects($subject_type);
 		$education_details["elective_subjects"] = $elective_subjects;
 
 		$userEducation[0]["school_name"] = htmlspecialchars_decode(html_entity_decode(ucwords(strtolower($userEducation[0]["school_name"])), ENT_QUOTES), ENT_QUOTES);
@@ -146,20 +148,12 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 				echo json_encode(array("response" => "error", "message" => "Invalid Request!"));
 				break;
 		}
-
-		/*if ($uri[4] == 1) {
-		} elseif ($uri[4] == 2) {
-		} elseif ($uri[4] == 3) {
-		} elseif ($uri[4] == 4) {
-			$message = array("response" => "success");
-			echo json_encode($message);
-		}*/
 		exit();
 	}
 	/*
 	adding Education
 	*/
-	if ($_GET["url"] == "addEducation") {
+	if ($_GET["url"] == "education") {
 		$errors = [];
 		$data = [];
 
@@ -657,9 +651,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			$data = $user->updateAcademicInfo($column, $value, $s_number, $_SESSION['ghApplicant']);
 
 			if ($column == 'course_of_study') {
-				
 			}
-
 		}
 		exit();
 	} elseif ($_GET["url"] == "prev-uni-recs") {

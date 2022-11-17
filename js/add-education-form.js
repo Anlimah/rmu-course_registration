@@ -1,8 +1,14 @@
 $(document).ready(function () {
+
+
+    /*
+        Add education modal form
+    */
     let end = 3;
     let add_next = 1;
     let edit_next = 1;
 
+    // When next button is clicked
     $("#nextStep").click(function() {
         if (add_next >= 1 && add_next < end) {
             add_next = add_next + 1;
@@ -22,27 +28,8 @@ $(document).ready(function () {
             }
         }
     });
-
-    $("#edit-nextStep").click(function() {
-        if (edit_next >= 1 && edit_next < end) {
-            edit_next = edit_next + 1;
-            $(".steps").addClass("hide");
-            $(".steps").removeClass("display");
-            $("#edit-step-" + edit_next).removeClass("hide");
-            $("#edit-step-" + edit_next).addClass("display");
-            $("#edit-prevStep").removeClass("hide");
-            $("#edit-prevStep").addClass("display");
-            $(this).blur();
-            if (edit_next == end) {
-                $(this).hide();
-                $("#edit-save-education-btn").removeClass("hide");
-                $("#edit-save-education-btn").addClass("display");
-                $(this).addClass("hide");
-                $(this).removeClass("display");
-            }
-        }
-    });
-
+    
+    // When the previous btn is clicked
     $("#prevStep").click(function() {
         if (add_next > 1 && add_next <= end) {
             add_next = add_next - 1;
@@ -59,26 +46,6 @@ $(document).ready(function () {
             if (add_next == 1) {
                 $("#prevStep").removeClass("display");
                 $("#prevStep").addClass("hide");
-            }
-        }
-    });
-
-    $("#edit-prevStep").click(function() {
-        if (edit_next > 1 && edit_next <= end) {
-            edit_next = edit_next - 1;
-            $(".steps").addClass("hide");
-            $(".steps").removeClass("display");
-            $("#edit-step-" + edit_next).removeClass("hide");
-            $("#edit-step-" + edit_next).addClass("display");
-            $("#edit-nextStep").removeClass("hide");
-            $("#edit-nextStep").addClass("display");
-            $("#edit-save-education-btn").addClass("hide");
-            $("#edit-save-education-btn").removeClass("display");
-            $("#edit-nextStep").show();
-            $(this).blur();
-            if (edit_next == 1) {
-                $("#edit-prevStep").removeClass("display");
-                $("#edit-prevStep").addClass("hide");
             }
         }
     });
@@ -107,164 +74,13 @@ $(document).ready(function () {
         $("#addSchoolModal").modal("toggle");
     });
 
-    //Edit button on each added education item
-    $(".edit-edu-btn").click(function(e) {
-        
-        $.ajax({
-            type: "GET",
-            url: "../../api/education",
-            data: {
-                what: this.name,
-                value: this.id,
-            },
-            dataType: "json",
-            encode: true,
-
-        }).done(function (data) {
-            console.log(data);
-
-            $("#edit-20eh29v1Tf").val(data["aca"][0]["s_number"])
-            $("#edit-sch-name").val(data["aca"][0]["school_name"]);
-            $("#edit-sch-country").val(data["aca"][0]["country"]);
-            $("#edit-sch-region").val(data["aca"][0]["region"]);
-            $("#edit-sch-city").val(data["aca"][0]["city"]);
-            
-            $("#edit-cert-type").val(data["aca"][0]["cert_type"]);
-            $("#edit-index-number").val(data["aca"][0]["index_number"]);
-            $("#edit-month-started" + " option[value='" + data["aca"][0]["month_started"] +"']").attr('selected','selected');
-            $("#edit-year-started" + " option[value='" + data["aca"][0]["year_started"] +"']").attr('selected','selected');
-            $("#edit-month-completed" + " option[value='" + data["aca"][0]["month_completed"] +"']").attr('selected','selected');
-            $("#edit-year-completed" + " option[value='" + data["aca"][0]["year_completed"] +"']").attr('selected','selected');
-            
-            $("#edit-course-studied").val(data["aca"][0]["course_of_study"]);
-
-            //Append the grades to the dropdown list
-            $(".subject-grade").html('<option value="Select" hidden>Select</option>');
-            $.each(data["grades"], function(index, value) {
-                $(".subject-grade").append('<option value="' + value.grade + '">' + value.grade + '</option>');
-            });
-
-            //Append the grades to the dropdown list
-            $(".elective-subjects").html('<option value="Select" hidden>Select</option>');
-            $.each(data["elective_subjects"], function(index, value) {
-                $(".elective-subjects").append('<option value="' + value.subject + '">' + value.subject + '</option>');
-            });
-
-            //core subjects
-            for (let index = 0; index < 4; index++) {
-                if (data["courses"][index]["type"] == "core") {
-                    $("#edit-core-sbj-grd"+(index + 1)+" option[value='"+data["courses"][index]["grade"]+"']").attr('selected','selected');
-                }
-            }
-
-            //elective subjects
-            for (let index = 3; index < 8; index++) {
-                if (data["courses"][index]["type"] == "elective") {
-                    $("#edit-elective-sbj"+(index - 3)+" option[value='"+data["courses"][index]["subject"]+"']").attr('selected','selected');
-                    $("#edit-elective-sbj-grd"+(index - 3)+" option[value='"+data["courses"][index]["grade"]+"']").attr('selected','selected');
-                }
-            }
-
-            $(".steps").addClass("hide");
-            $(".steps").removeClass("display");
-            $("#edit-step-1").removeClass("hide");
-            $("#edit-step-1").addClass("display");
-
-            $("#edit-prevStep").removeClass("display");
-            $("#edit-prevStep").addClass("hide");    
-            $("#edit-nextStep").removeClass("hide");
-            $("#edit-nextStep").addClass("display");
-            $("#edit-save-education-btn").removeClass("display");
-            $("#edit-save-education-btn").addClass("hide");
-            edit_next = 1;
-
-            $("#editSchoolModal").modal("toggle");
-        }).fail(function () {
-            alert("Could not reach server, please try again later.")
-        });
-
-        e.preventDefault();
-    });
-
-    function updateData(data, url) {
-        $.ajax({
-            type: "PUT",
-            url: "../../api/"+url,
-            data: data,
-            success: function(result) {
-                console.log(result);
-            },
-            error: function(error) {
-                console.log(error);
-            }
-        });
-    }
-
-    $(".form-select").change("blur", function() {
-        if ($("#edit-20eh29v1Tf").val() != 1) {
-            let data = {
-                what: this.name,
-                value: this.value,
-                snum: $("#edit-20eh29v1Tf").val(),
-            };
-            let url = "education"
-            updateData(data, url);
-        }
-    });
-
-    $(".form-control").on("blur", function() {
-        if ($("#edit-20eh29v1Tf").val() != 1) {
-            let data = {
-                what: this.name,
-                value: this.value,
-                snum: $("#edit-20eh29v1Tf").val(),
-            };
-            let url = "education"
-            updateData(data, url);
-        }
-    });
-
-    $(".form-radio").on("click", function() {
-        if ($("#edit-20eh29v1Tf").val() != 1) {
-            let data = {
-                what: this.name,
-                value: this.value,
-                snum: $("#edit-20eh29v1Tf").val(),
-            };
-            let url = "education"
-            updateData(data, url);
-        }
-    });
-
-    $(".delete-edu-btn").on("click", function() {
-        let answer = confirm("Are sure you want to delete this?");
-        if (answer == true) {
-            $.ajax({
-                type: "DELETE",
-                url: "../../api/education",
-                data: {
-                    what: "delete-edu-history",
-                    value: $(this).attr("id"),
-                },
-                success: function(result) {
-                    if (result["success"]) {
-                        console.log(result);
-                        window.location.reload();
-                    }
-                },
-                error: function(error) {
-                    console.log(error);
-                }
-            });
-        }
-    });
-
     $("#save-education-btn").click(function (event) {
         // Prepare data payload for submission
         $(".mb-4").removeClass("has-error");
         $(".mb-2").removeClass("has-error");
         $(".help-block").remove();
 
+        //Set 
         var formData = {
             sch_name: $("#sch-name").val(),
             sch_country: $("#sch-country").val(),
@@ -303,7 +119,7 @@ $(document).ready(function () {
         // Sent payload to server
         $.ajax({
             type: "POST",
-            url: "../../api/addEducation",
+            url: "../../api/education",
             data: formData,
             dataType: "json",
             encode: true,
@@ -462,6 +278,204 @@ $(document).ready(function () {
         }).fail(function () {
             $("education-form").html('<div class="alert alert-danger">Could not reach server, please try again later.</div>');
         });
+    });
+
+    /*
+        For edit Modal form
+    */ 
+
+    $("#edit-nextStep").click(function() {
+        if (edit_next >= 1 && edit_next < end) {
+            edit_next = edit_next + 1;
+            $(".steps").addClass("hide");
+            $(".steps").removeClass("display");
+            $("#edit-step-" + edit_next).removeClass("hide");
+            $("#edit-step-" + edit_next).addClass("display");
+            $("#edit-prevStep").removeClass("hide");
+            $("#edit-prevStep").addClass("display");
+            $(this).blur();
+            if (edit_next == end) {
+                $(this).hide();
+                $("#edit-save-education-btn").removeClass("hide");
+                $("#edit-save-education-btn").addClass("display");
+                $(this).addClass("hide");
+                $(this).removeClass("display");
+            }
+        }
+    });
+
+    $("#edit-prevStep").click(function() {
+        if (edit_next > 1 && edit_next <= end) {
+            edit_next = edit_next - 1;
+            $(".steps").addClass("hide");
+            $(".steps").removeClass("display");
+            $("#edit-step-" + edit_next).removeClass("hide");
+            $("#edit-step-" + edit_next).addClass("display");
+            $("#edit-nextStep").removeClass("hide");
+            $("#edit-nextStep").addClass("display");
+            $("#edit-save-education-btn").addClass("hide");
+            $("#edit-save-education-btn").removeClass("display");
+            $("#edit-nextStep").show();
+            $(this).blur();
+            if (edit_next == 1) {
+                $("#edit-prevStep").removeClass("display");
+                $("#edit-prevStep").addClass("hide");
+            }
+        }
+    });
+
+    //Edit button on each added education item
+    $(".edit-edu-btn").click(function(e) {
+        
+        $.ajax({
+            type: "GET",
+            url: "../../api/education",
+            data: {
+                what: this.name,
+                value: this.id,
+            },
+            dataType: "json",
+            encode: true,
+
+        }).done(function (data) {
+            console.log(data);
+
+            $("#edit-20eh29v1Tf").val(data["aca"][0]["s_number"])
+            $("#edit-sch-name").val(data["aca"][0]["school_name"]);
+            $("#edit-sch-country").val(data["aca"][0]["country"]);
+            $("#edit-sch-region").val(data["aca"][0]["region"]);
+            $("#edit-sch-city").val(data["aca"][0]["city"]);
+            
+            $("#edit-cert-type").val(data["aca"][0]["cert_type"]);
+            $("#edit-index-number").val(data["aca"][0]["index_number"]);
+            $("#edit-month-started" + " option[value='" + data["aca"][0]["month_started"] +"']").attr('selected','selected');
+            $("#edit-year-started" + " option[value='" + data["aca"][0]["year_started"] +"']").attr('selected','selected');
+            $("#edit-month-completed" + " option[value='" + data["aca"][0]["month_completed"] +"']").attr('selected','selected');
+            $("#edit-year-completed" + " option[value='" + data["aca"][0]["year_completed"] +"']").attr('selected','selected');
+            
+            $("#edit-course-studied").val(data["aca"][0]["course_of_study"]);
+
+            if (data["courses"]) {
+
+                //core subjects
+                for (let index = 0; index < 4; index++) {
+                    if (data["courses"][index]["type"] == "core") {
+                        $("#edit-core-sbj-grd"+(index + 1)+" option[value='"+data["courses"][index]["grade"]+"']").attr('selected','selected');
+                    }
+                }
+
+                //elective subjects
+                for (let index = 3; index < 8; index++) {
+                    if (data["courses"][index]["type"] == "elective") {
+                        $("#edit-elective-sbj"+(index - 3)+" option[value='"+data["courses"][index]["subject"]+"']").attr('selected','selected');
+                        $("#edit-elective-sbj-grd"+(index - 3)+" option[value='"+data["courses"][index]["grade"]+"']").attr('selected','selected');
+                    }
+                }
+
+            } else {
+                $("#edit-awaiting-result-yes").attr("checked", "checked");
+                $("#edit-awaiting-result-no").attr("checked", "");
+                $("#edit-not-waiting").attr("class", "hide");
+            }
+
+            //Append the grades to the dropdown list
+            $(".subject-grade").html('<option value="Select" hidden>Select</option>');
+            $.each(data["grades"], function(index, value) {
+                $(".subject-grade").append('<option value="' + value.grade + '">' + value.grade + '</option>');
+            });
+
+            //Append the grades to the dropdown list
+            $(".elective-subjects").html('<option value="Select" hidden>Select</option>');
+            $.each(data["elective_subjects"], function(index, value) {
+                $(".elective-subjects").append('<option value="' + value.subject + '">' + value.subject + '</option>');
+            });
+
+            $(".steps").addClass("hide");
+            $(".steps").removeClass("display");
+            $("#edit-step-1").removeClass("hide");
+            $("#edit-step-1").addClass("display");
+
+            $("#edit-prevStep").removeClass("display");
+            $("#edit-prevStep").addClass("hide");    
+            $("#edit-nextStep").removeClass("hide");
+            $("#edit-nextStep").addClass("display");
+            $("#edit-save-education-btn").removeClass("display");
+            $("#edit-save-education-btn").addClass("hide");
+            edit_next = 1;
+
+            $("#editSchoolModal").modal("toggle");
+        }).fail(function () {
+            alert("Could not reach server, please try again later.")
+        });
+
+        e.preventDefault();
+    });
+
+    function updateData(data, url) {
+        $.ajax({
+            type: "PUT",
+            url: "../../api/"+url,
+            data: data,
+            success: function(result) {
+                console.log(result);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    }
+
+    function prepareData(obj, snum) {
+        let data = {
+            what: obj.name,
+            value: obj.value,
+            snum: snum,
+        };
+        return data;
+    }
+
+    $(".form-select").change("blur", function() {
+        if ($("#edit-20eh29v1Tf").val() != 1) {
+            let data = prepareData(this, $("#edit-20eh29v1Tf").val());
+            updateData(data, "education");
+        }
+    });
+
+    $(".form-control").on("blur", function() {
+        if ($("#edit-20eh29v1Tf").val() != 1) {
+            let data = prepareData(this, $("#edit-20eh29v1Tf").val());
+            updateData(data, "education");
+        }
+    });
+
+    $(".form-radio").on("click", function() {
+        if ($("#edit-20eh29v1Tf").val() != 1) {
+            let data = prepareData(this, $("#edit-20eh29v1Tf").val());
+            updateData(data, "education");
+        }
+    });
+
+    $(".delete-edu-btn").on("click", function() {
+        let answer = confirm("Are sure you want to delete this?");
+        if (answer == true) {
+            $.ajax({
+                type: "DELETE",
+                url: "../../api/education",
+                data: {
+                    what: "delete-edu-history",
+                    value: $(this).attr("id"),
+                },
+                success: function(result) {
+                    if (result["success"]) {
+                        console.log(result);
+                        window.location.reload();
+                    }
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        }
     });
 
 });

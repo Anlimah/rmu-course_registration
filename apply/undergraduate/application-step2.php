@@ -114,6 +114,7 @@ $page = array("id" => 2, "name" => "Education Background");
                     $("#prev-uni-rec-list").addClass("hide");
                 }
             });
+
             $(".completed-prev-uni").click(function() {
                 if ($('#completed-prev-uni-yes').is(':checked')) {
                     $("#date-completed-uni").removeClass("hide");
@@ -128,9 +129,19 @@ $page = array("id" => 2, "name" => "Education Background");
                 if ($('#awaiting-result-yes').is(':checked')) {
                     $("#not-waiting").addClass("hide");
                     $("#awaiting_result_value").attr("value", 1);
-                } else if ($('#awaiting-result-no').is(':checked')) {
+                }
+                if ($('#awaiting-result-no').is(':checked')) {
                     $("#not-waiting").removeClass("hide");
                     $("#awaiting_result_value").attr("value", 0);
+                }
+
+                if ($('#edit-awaiting-result-yes').is(':checked')) {
+                    $("#edit-not-waiting").addClass("hide");
+                    $("#edit-awaiting_result_value").attr("value", 1);
+                }
+                if ($('#edit-awaiting-result-no').is(':checked')) {
+                    $("#edit-not-waiting").removeClass("hide");
+                    $("#edit-awaiting_result_value").attr("value", 0);
                 }
             });
 
@@ -244,12 +255,13 @@ $page = array("id" => 2, "name" => "Education Background");
             });
 
             $("#course-studied").change("blur", function() {
+                let value = "technical";
+                if (this.value != "TECHNICAL") value = "secondary";
                 $.ajax({
                     type: "GET",
                     url: "../../api/elective-subjects",
                     data: {
-                        what: this.name,
-                        value: this.value,
+                        value: value,
                     },
                     success: function(result) {
                         console.log(result);
