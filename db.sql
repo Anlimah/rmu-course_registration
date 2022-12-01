@@ -108,6 +108,10 @@ CREATE TABLE `applicants_login` (
     CONSTRAINT `fk_purchase_id` FOREIGN KEY (`purchase_id`) REFERENCES `purchase_detail`(`id`) ON UPDATE CASCADE
 );
 
+ALTER TABLE `applicants_login` 
+ADD COLUMN `admission_period` INT NOT NULL,
+ADD CONSTRAINT `fk_adm_pe_app_l` FOREIGN KEY (`admission_period`) REFERENCES `admission_period`(`id`) ON UPDATE CASCADE;
+
 /*
 Tables for applicants form registration
 */
@@ -120,17 +124,31 @@ CREATE TABLE `programs` (
     `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
     CONSTRAINT `fk_prog_form_type` FOREIGN KEY (`type`) REFERENCES `form_type`(`id`) ON UPDATE CASCADE
 );
-INSERT INTO `programs`(`type`, `name`) VALUES 
-(1, 'MSc. Environmental Engineering'), 
-(1, 'MA. Ports and Shipping Administration'), 
-(2, 'BSc. Computer Science'), 
-(2, 'BSc. Electrical Engineering'), 
-(2, 'BSc. Marine Engineering'),
-(2, 'Diploma Computer Engineering'), 
-(2, 'Diploma Electrical Engineering'), 
-(2, 'Diploma Marine Engineering'),
-(3, 'Marine Engine Mechanic'), 
-(3, 'Marine Refrigeration Mechanic');
+ALTER TABLE `programs` 
+ADD COLUMN `weekend` TINYINT DEFAULT 0 AFTER `type`,
+ADD COLUMN `group` CHAR(1) AFTER `weekend`;
+
+INSERT INTO `programs`(`type`, `name`, `weekend`, `group`) VALUES 
+
+(1, 'M.SC. RENEWABLE ENERGY (NEW PROGRAMME)', 1, 'M'),
+(1, 'M.SC. BIO-PROCESSING', 1, 'M'),
+(1, 'M.SC. ENVIRONMENTAL ENGINEERING', 1, 'M'),
+(1, 'M.A. PORTS AND SHIPPING ADMINISTRATION', 1, 'M'),
+
+(2, 'B.SC. NAUTICAL SCIENCE', 0, 'A'),
+(2, 'B.SC. MARINE ENGINEERING', 0, 'A'),
+(2, 'B.SC. MECHANICAL ENGINEERING', 1, 'A'),
+(2, 'B.SC. COMPUTER ENGINEERING', 1, 'A'),
+(2, 'B.SC. COMPUTER SCIENCE', 1, 'A'),
+(2, 'B.SC. ELECTRICAL/ELECTRONIC ENGINEERING', 1, 'A'),
+(2, 'B.SC. ACCOUNTING', 0, 'B'),
+(2, 'B.SC. INFORMATION TECHNOLOGY', 1, 'B'),
+(2, 'B.SC. PORT AND SHIPPING ADMINISTRATION', 1, 'B'),
+(2, 'B.SC. LOGISTICS MANAGEMENT', 1, 'B'),
+
+(3, 'DIPLOMA IN BANKING TECHNOLOGY AND ACCOUNTING', 0, 'B'),
+(3, 'DIPLOMA IN COMPUTERIZED ACCOUNTING', 0, 'B'),
+(3, 'DIPLOMA IN INFORMATION TECHNOLOGY', 0, 'B');
 
 DROP TABLE IF EXISTS `halls`;
 CREATE TABLE `halls` (
@@ -394,6 +412,7 @@ CREATE TABLE `previous_uni_records` (
     CONSTRAINT `fk_app_prev_uni` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE
 );
 
+DROP TABLE IF EXISTS `form_sections_chek`;
 CREATE TABLE `form_sections_chek` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
     `personal` TINYINT DEFAULT 0,
@@ -405,6 +424,18 @@ CREATE TABLE `form_sections_chek` (
     CONSTRAINT `fk_app_form_sec_check` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE
 );
 
+ALTER TABLE `form_sections_chek` ADD COLUMN `admitted` TINYINT DEFAULT 0;
+
+DROP TABLE IF EXISTS `admitted_students`;
+CREATE TABLE `admitted_students` (
+    `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
+    `app_login` INT NOT NULL,   
+    CONSTRAINT `fk_app_admit_sts` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE,
+    `admission_period` INT NOT NULL,
+    CONSTRAINT `fk_admin_per_admit_sts` FOREIGN KEY (`admission_period`) REFERENCES `admission_period`(`id`) ON UPDATE CASCADE
+);
+
+DROP TABLE IF EXISTS `heard_about_us`;
 CREATE TABLE `heard_about_us` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
     `medium` VARCHAR(50) NOT NULL,
