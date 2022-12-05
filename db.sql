@@ -1,4 +1,14 @@
-USE `rmu_admissions`;
+DROP TABLE IF EXISTS `sys_users`;
+CREATE TABLE `sys_users` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `host_name` VARCHAR(20) NOT NULL,
+    `user_name` VARCHAR(20) UNIQUE NOT NULL,
+    `password` VARCHAR(255) NOT NULL,
+    `user_type` VARCHAR(20)
+);
+
+INSERT INTO `sys_users` (`host_name`, `user_name`, `password`, `user_type`) VALUES 
+('localhost', 'Francis', '$2y$10$jmxuunWRqwB2KgT2jIypwufas3dPtqT9f21gdKT9lOOlNGNQCqeMC', 'Developer');
 
 /*
 Tables for form purchase
@@ -9,21 +19,33 @@ CREATE TABLE `admission_period` (
     `start_date` DATE NOT NULL,
     `end_date` DATE NOT NULL,
     `info` TEXT,
-    `active` TINYINT DEFAULT 0
+    `active` TINYINT DEFAULT 0,
+    `deadline` DATE
 );
 INSERT INTO `admission_period`(`start_date`,`end_date`, `active`) VALUES('2022-07-01', '2022-10-01', 1);
 
 DROP TABLE IF EXISTS `form_type`;
 CREATE TABLE `form_type` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
-    `name` VARCHAR(50) NOT NULL,
-    `amount` DECIMAL(6,2) NOT NULL
+    `name` VARCHAR(50) NOT NULL
+    -- `amount` DECIMAL(6,2) NOT NULL -- moved to form_price tbl
 );
-INSERT INTO `form_type`(`name`, `amount`) VALUES 
-("Postgraduate", 1), 
-("Undergraduate (Degree)", 1), 
-("Undergraduate (Diploma)", 1), 
-("Short courses", 1);
+INSERT INTO `form_type`(`name`) VALUES 
+("Postgraduate"), ("Undergraduate (Degree)"), ("Undergraduate (Diploma)"), ("Short courses");
+
+DROP TABLE IF EXISTS `form_price`;
+CREATE TABLE `form_price` (
+    `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
+    `form_type` INT NOT NULL,
+    `admin_period` INT NOT NULL,
+    `amount` DECIMAL(6,2) NOT NULL,
+    
+    CONSTRAINT `fk_form_price_type` FOREIGN KEY (`form_type`) REFERENCES `form_type`(`id`) ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT `fk_admin_p_f_price` FOREIGN KEY (`admin_period`) REFERENCES `admission_period`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+INSERT INTO `form_price` (`amount`, `form_type`, `admin_period`)  VALUES 
+(1, 1, 1), (1, 2, 1), (1, 3, 1), (1, 4, 1);
 
 DROP TABLE IF EXISTS `payment_method`;
 CREATE TABLE `payment_method` (
@@ -57,7 +79,7 @@ CREATE TABLE `vendor_login` (
     `password` VARCHAR(255) NOT NULL,
     
     `vendor` INT(11) NOT NULL,
-    CONSTRAINT `fk_vendor_login` FOREIGN KEY (`vendor`) REFERENCES `vendor_details`(`id`) ON UPDATE CASCADE,
+    CONSTRAINT `fk_vendor_login` FOREIGN KEY (`vendor`) REFERENCES `vendor_details`(`id`) ON UPDATE CASCADE ON DELETE CASCADE,
 
     `added_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP()
 );
@@ -91,9 +113,9 @@ CREATE TABLE `purchase_detail` (
     `admission_period` INT(11) NOT NULL, -- added
     `payment_method` VARCHAR(20),
 
-    CONSTRAINT `fk_purchase_vendor_details` FOREIGN KEY (`vendor`) REFERENCES `vendor_details`(`id`) ON UPDATE CASCADE,
-    CONSTRAINT `fk_purchase_form_type` FOREIGN KEY (`form_type`) REFERENCES `form_type`(`id`) ON UPDATE CASCADE,
-    CONSTRAINT `fk_purchase_admission_period` FOREIGN KEY (`admission_period`) REFERENCES `admission_period`(`id`) ON UPDATE CASCADE
+    CONSTRAINT `fk_purchase_vendor_details` FOREIGN KEY (`vendor`) REFERENCES `vendor_details`(`id`) ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT `fk_purchase_form_type` FOREIGN KEY (`form_type`) REFERENCES `form_type`(`id`) ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT `fk_purchase_admission_period` FOREIGN KEY (`admission_period`) REFERENCES `admission_period`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
 
 );
 
@@ -105,12 +127,8 @@ CREATE TABLE `applicants_login` (
     `added_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
     
     `purchase_id` INT NOT NULL,
-    CONSTRAINT `fk_purchase_id` FOREIGN KEY (`purchase_id`) REFERENCES `purchase_detail`(`id`) ON UPDATE CASCADE
+    CONSTRAINT `fk_purchase_id` FOREIGN KEY (`purchase_id`) REFERENCES `purchase_detail`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
 );
-
-ALTER TABLE `applicants_login` 
-ADD COLUMN `admission_period` INT NOT NULL,
-ADD CONSTRAINT `fk_adm_pe_app_l` FOREIGN KEY (`admission_period`) REFERENCES `admission_period`(`id`) ON UPDATE CASCADE;
 
 /*
 Tables for applicants form registration
@@ -122,14 +140,14 @@ CREATE TABLE `programs` (
     `name` VARCHAR(255) NOT NULL,
     `type` INT NOT NULL,
     `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
-    CONSTRAINT `fk_prog_form_type` FOREIGN KEY (`type`) REFERENCES `form_type`(`id`) ON UPDATE CASCADE
+    CONSTRAINT `fk_prog_form_type` FOREIGN KEY (`type`) REFERENCES `form_type`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
 );
 ALTER TABLE `programs` 
 ADD COLUMN `weekend` TINYINT DEFAULT 0 AFTER `type`,
 ADD COLUMN `group` CHAR(1) AFTER `weekend`;
 
 INSERT INTO `programs`(`type`, `name`, `weekend`, `group`) VALUES 
-
+-- NB: M -> Masters, A -> Eng programs, B -> Non-eng programs
 (1, 'M.SC. RENEWABLE ENERGY (NEW PROGRAMME)', 1, 'M'),
 (1, 'M.SC. BIO-PROCESSING', 1, 'M'),
 (1, 'M.SC. ENVIRONMENTAL ENGINEERING', 1, 'M'),
@@ -259,7 +277,7 @@ CREATE TABLE `applicant_uploads` (
     `file_name` VARCHAR(50),
     `app_login` INT NOT NULL,
     `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
-    CONSTRAINT `fk_uploaded_files` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE
+    CONSTRAINT `fk_uploaded_files` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 ALTER TABLE `applicant_uploads` 
@@ -323,21 +341,10 @@ CREATE TABLE `personal_information` (
     `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
 
     `app_login` INT NOT NULL,
-    CONSTRAINT `fk_app_pf` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE
+    CONSTRAINT `fk_app_pf` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 ALTER TABLE `personal_information` ADD COLUMN `speaks_english` TINYINT AFTER `english_native`;
-
-DROP TABLE IF EXISTS `awaiting_certs`;
-CREATE TABLE `awaiting_certs` (
-    `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
-
-    `awaiting` TINYINT DEFAULT 0,
-    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
-    
-    `app_login` INT NOT NULL,
-    CONSTRAINT `fk_app_a_certs` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE
-);
 
 DROP TABLE IF EXISTS `academic_background`;
 CREATE TABLE `academic_background` (
@@ -363,7 +370,7 @@ CREATE TABLE `academic_background` (
     `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
 
     `app_login` INT NOT NULL,
-    CONSTRAINT `fk_app_aca_bac` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE
+    CONSTRAINT `fk_app_aca_bac` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 DROP TABLE IF EXISTS `high_school_results`;
@@ -387,7 +394,7 @@ CREATE TABLE `program_info` (
     `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
 
     `app_login` INT NOT NULL,   
-    CONSTRAINT `fk_app_prog_info` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE
+    CONSTRAINT `fk_app_prog_info` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 DROP TABLE IF EXISTS `previous_uni_records`;
@@ -409,7 +416,7 @@ CREATE TABLE `previous_uni_records` (
     `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
 
     `app_login` INT NOT NULL,   
-    CONSTRAINT `fk_app_prev_uni` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE
+    CONSTRAINT `fk_app_prev_uni` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 DROP TABLE IF EXISTS `form_sections_chek`;
@@ -421,19 +428,10 @@ CREATE TABLE `form_sections_chek` (
     `uploads` TINYINT DEFAULT 0,
     `declaration` TINYINT DEFAULT 0,
     `app_login` INT NOT NULL,   
-    CONSTRAINT `fk_app_form_sec_check` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE
+    CONSTRAINT `fk_app_form_sec_check` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 ALTER TABLE `form_sections_chek` ADD COLUMN `admitted` TINYINT DEFAULT 0;
-
-DROP TABLE IF EXISTS `admitted_students`;
-CREATE TABLE `admitted_students` (
-    `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
-    `app_login` INT NOT NULL,   
-    CONSTRAINT `fk_app_admit_sts` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE,
-    `admission_period` INT NOT NULL,
-    CONSTRAINT `fk_admin_per_admit_sts` FOREIGN KEY (`admission_period`) REFERENCES `admission_period`(`id`) ON UPDATE CASCADE
-);
 
 DROP TABLE IF EXISTS `heard_about_us`;
 CREATE TABLE `heard_about_us` (
@@ -441,13 +439,8 @@ CREATE TABLE `heard_about_us` (
     `medium` VARCHAR(50) NOT NULL,
     `description` VARCHAR(50),
     `app_login` INT NOT NULL,   
-    CONSTRAINT `fk_heard_abt_us` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE
+    CONSTRAINT `fk_heard_abt_us` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
 );
-
-SELECT `purchase_detail`.`form_type` FROM `purchase_detail`, `applicants_login`
-WHERE `applicants_login`.`purchase_id` = `purchase_detail`.`id` AND `applicants_login`.`id` = 1;
-
-
 
 /*
     Restructuring DB according to sections in and questions
@@ -472,7 +465,7 @@ CREATE TABLE `page_sections` (
     `name` VARCHAR(150) NOT NULL UNIQUE,
     `description` VARCHAR(255),
     `page` INT NOT NULL,   
-    CONSTRAINT `fk_page_section` FOREIGN KEY (`page`) REFERENCES `web_pages`(`id`) ON UPDATE CASCADE
+    CONSTRAINT `fk_page_section` FOREIGN KEY (`page`) REFERENCES `web_pages`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
 );
 INSERT INTO `page_sections`(`name`, `page`) VALUES   
 ('Legal Name', 1),
@@ -498,7 +491,7 @@ CREATE TABLE `section_questions` (
     `place_holder` VARCHAR(25),
     `required` TINYINT DEFAULT 1,
     `section` INT NOT NULL,
-    CONSTRAINT `fk_section_question` FOREIGN KEY (`section`) REFERENCES `page_sections`(`id`) ON UPDATE CASCADE
+    CONSTRAINT `fk_section_question` FOREIGN KEY (`section`) REFERENCES `page_sections`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 -- Total number of forms purchased
