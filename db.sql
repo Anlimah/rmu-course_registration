@@ -431,7 +431,10 @@ CREATE TABLE `form_sections_chek` (
     CONSTRAINT `fk_app_form_sec_check` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-ALTER TABLE `form_sections_chek` ADD COLUMN `admitted` TINYINT DEFAULT 0;
+ALTER TABLE `form_sections_chek` 
+ADD COLUMN `admitted` TINYINT DEFAULT 0 AFTER `declaration`,
+ADD COLUMN `first_prog_qualified` TINYINT AFTER `admitted`,
+ADD COLUMN `second_prog_qualified` TINYINT AFTER `first_prog_qualified`;
 
 DROP TABLE IF EXISTS `heard_about_us`;
 CREATE TABLE `heard_about_us` (
