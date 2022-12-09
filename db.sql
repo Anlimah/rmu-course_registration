@@ -445,6 +445,30 @@ CREATE TABLE `heard_about_us` (
     CONSTRAINT `fk_heard_abt_us` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
+DROP TABLE IF EXISTS `broadsheets`;
+CREATE TABLE `broadsheets` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `admin_period` INT NOT NULL,
+    CONSTRAINT `fk_admin_broadsheets` FOREIGN KEY (`admin_period`) REFERENCES `admission_period`(`id`) ON UPDATE CASCADE ON DELETE CASCADE,
+    
+    `app_login` INT NOT NULL,
+    CONSTRAINT `fk_app_broadsheets` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE ON DELETE CASCADE,
+    
+    `program_id` INT NOT NULL,
+    CONSTRAINT `fk_program_broadsheets` FOREIGN KEY (`program_id`) REFERENCES `programs`(`id`) ON UPDATE CASCADE ON DELETE CASCADE,
+
+    `required_core_passed` INT NOT NULL,
+    `any_one_core_passed` INT NOT NULL,
+    `total_core_score` INT NOT NULL,
+
+    `any_three_elective_passed` INT NOT NULL,
+    `total_elective_score` INT NOT NULL,
+
+    `total_score` INT NOT NULL,
+
+    `program_choice` VARCHAR(15) NOT NULL
+);
+
 /*
     Restructuring DB according to sections in and questions
 */
