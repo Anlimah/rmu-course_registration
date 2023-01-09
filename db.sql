@@ -30,8 +30,10 @@ CREATE TABLE `form_type` (
     `name` VARCHAR(50) NOT NULL
     -- `amount` DECIMAL(6,2) NOT NULL -- moved to form_price tbl
 );
-INSERT INTO `form_type`(`name`) VALUES 
-("Postgraduate"), ("Undergraduate (Degree)"), ("Undergraduate (Diploma)"), ("Short courses");
+ALTER TABLE `form_type` ADD COLUMN `alt_name` VARCHAR(15);
+INSERT INTO `form_type`(`name`, `alt_name`) VALUES 
+("Masters", "Postgraduate"), ("Degree", "Undergraduate"), 
+("Diploma", "Undergraduate"), ("Short courses", "short courses");
 
 DROP TABLE IF EXISTS `form_price`;
 CREATE TABLE `form_price` (
