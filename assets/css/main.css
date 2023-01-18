@@ -443,10 +443,10 @@ fieldset legend {
 	border: 0;
 }
 
-input,
+/*input,
 select {
 	text-transform: uppercase;
-}
+}*/
 
 .edu-history {
 	width: 100% !important;
