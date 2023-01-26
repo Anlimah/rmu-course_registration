@@ -7,6 +7,10 @@ CREATE TABLE `sys_users` (
     `user_type` VARCHAR(20)
 );
 
+ALTER TABLE `sys_users` 
+ADD COLUMN `first_name` VARCHAR(25) AFTER `host_name`, 
+ADD COLUMN `last_name` VARCHAR(25) AFTER `first_name`;
+
 INSERT INTO `sys_users` (`host_name`, `user_name`, `password`, `user_type`) VALUES 
 ('localhost', 'Francis', '$2y$10$jmxuunWRqwB2KgT2jIypwufas3dPtqT9f21gdKT9lOOlNGNQCqeMC', 'Developer');
 

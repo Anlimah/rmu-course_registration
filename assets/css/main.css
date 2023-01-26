@@ -184,9 +184,18 @@ body {
 	-webkit-overflow-scrolling: touch;
 	overflow: auto;
 	line-height: 1;
-	background-color: #fff !important;
+	/*background-color: #fff !important;*/
 	color: #282828 !important;
 	font-size: 14px !important;
+	height: 100vh !important;
+}
+
+#bg-img {
+	background-image: url("../images/bg-01.jpg");
+	width: 100% !important;
+	height: 100% !important;
+	position: fixed;
+	background-size: cover;
 }
 
 a {

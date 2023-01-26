@@ -68,7 +68,8 @@
         <div class="info-card"> </div>
         <div class="logo-board"></div>
     </header>
-    <img src="assets/images/bg-01.jpg" style="width: 100%; position:fixed; z-index: -1" alt="">
+
+    <div id="bg-img"></div>
 
     <nav>
 
