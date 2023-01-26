@@ -2,14 +2,15 @@ DROP TABLE IF EXISTS `sys_users`;
 CREATE TABLE `sys_users` (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
     `host_name` VARCHAR(20) NOT NULL,
-    `user_name` VARCHAR(20) UNIQUE NOT NULL,
-    `password` VARCHAR(255) NOT NULL,
-    `user_type` VARCHAR(20)
+    `user_name` VARCHAR(100) UNIQUE NOT NULL,
+    `password` VARCHAR(16) NOT NULL,
+    `user_type` VARCHAR(20) NOT NULL,
+    `added_at` DATETIME DEFAULT TIMESTAMP()
 );
 
 ALTER TABLE `sys_users` 
-ADD COLUMN `first_name` VARCHAR(25) AFTER `host_name`, 
-ADD COLUMN `last_name` VARCHAR(25) AFTER `first_name`;
+ADD COLUMN `first_name` VARCHAR(30) AFTER `host_name`, 
+ADD COLUMN `last_name` VARCHAR(30) AFTER `first_name`;
 
 INSERT INTO `sys_users` (`host_name`, `user_name`, `password`, `user_type`) VALUES 
 ('localhost', 'Francis', '$2y$10$jmxuunWRqwB2KgT2jIypwufas3dPtqT9f21gdKT9lOOlNGNQCqeMC', 'Developer');
