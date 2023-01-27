@@ -1,7 +1,10 @@
+/*
+Tables for system users
+*/
+
 DROP TABLE IF EXISTS `sys_users`;
 CREATE TABLE `sys_users` (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
-    `host_name` VARCHAR(20) NOT NULL,
     `user_name` VARCHAR(100) UNIQUE NOT NULL,
     `password` VARCHAR(255) NOT NULL,
     `user_type` VARCHAR(20) NOT NULL,
@@ -9,11 +12,26 @@ CREATE TABLE `sys_users` (
 );
 
 ALTER TABLE `sys_users` 
-ADD COLUMN `first_name` VARCHAR(30) AFTER `host_name`, 
-ADD COLUMN `last_name` VARCHAR(30) AFTER `first_name`;
+ADD COLUMN `first_name` VARCHAR(30) NOT NULL AFTER `id`, 
+ADD COLUMN `last_name` VARCHAR(30) NOT NULL AFTER `first_name`, 
+CHANGE COLUMN `user_type` `role` VARCHAR(20) NOT NULL;
 
-INSERT INTO `sys_users` (`first_name`,`last_name`,`host_name`, `user_name`, `password`, `user_type`) VALUES 
-('Francis','Anlimah','localhost', 'y.m.ratty7@gmail.com', '$2y$10$jmxuunWRqwB2KgT2jIypwufas3dPtqT9f21gdKT9lOOlNGNQCqeMC', 'Developer');
+INSERT INTO `sys_users` (`first_name`, `last_name`, `user_name`, `password`, `role`) VALUES 
+('Francis','Anlimah', 'y.m.ratty7@gmail.com', '$2y$10$jmxuunWRqwB2KgT2jIypwufas3dPtqT9f21gdKT9lOOlNGNQCqeMC', 'Developer');
+
+DROP TABLE IF EXISTS `sys_users_privileges`;
+CREATE TABLE `sys_users_privileges` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `user_id` INT NOT NULL,
+    CONSTRAINT `fk_sys_users_id` FOREIGN KEY (`user_id`) REFERENCES `sys_users`(`id`) ON UPDATE CASCADE ON DELETE CASCADE,
+    `select` BOOLEAN NOT NULL DEFAULT 0,
+    `insert` BOOLEAN NOT NULL DEFAULT 0,
+    `update` BOOLEAN NOT NULL DEFAULT 0,
+    `delete` BOOLEAN NOT NULL DEFAULT 0,
+    `added_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP()
+);
+
+INSERT INTO `sys_users_privileges` (`user_id`, `select`,`insert`,`update`,`delete`) VALUES(1, 1, 1, 1, 1);
 
 /*
 Tables for form purchase
