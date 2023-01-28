@@ -7,8 +7,9 @@ CREATE TABLE `sys_users` (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
     `user_name` VARCHAR(100) UNIQUE NOT NULL,
     `password` VARCHAR(255) NOT NULL,
-    `user_type` VARCHAR(20) NOT NULL,
+    `role` VARCHAR(20) NOT NULL,
     `added_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP()
+    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP()
 );
 
 ALTER TABLE `sys_users` 
@@ -32,6 +33,21 @@ CREATE TABLE `sys_users_privileges` (
 );
 
 INSERT INTO `sys_users_privileges` (`user_id`, `select`,`insert`,`update`,`delete`) VALUES(1, 1, 1, 1, 1);
+
+DROP TABLE IF EXISTS `activity_logs`;
+CREATE TABLE `activity_logs` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` INT UNSIGNED NOT NULL,
+  `operation` ENUM('INSERT', 'UPDATE', 'DELETE') NOT NULL,
+  `description` TEXT NOT NULL,
+  `timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+  PRIMARY KEY (`id`),
+  INDEX `user_id` (`user_id`),
+  INDEX `operation` (`operation`),
+  INDEX `description` (`description`),
+  INDEX `timestamp` (`timestamp`)
+);
+
 
 /*
 Tables for form purchase
