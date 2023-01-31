@@ -38,12 +38,11 @@ CREATE TABLE `activity_logs` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` INT UNSIGNED NOT NULL,
   `operation` ENUM('INSERT', 'UPDATE', 'DELETE') NOT NULL,
-  `description` TEXT(255),
+  `description` TEXT NOT NULL,
   `timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
   PRIMARY KEY (`id`),
   INDEX `user_id` (`user_id`),
   INDEX `operation` (`operation`),
-  INDEX `description` (`description`),
   INDEX `timestamp` (`timestamp`)
 );
 
