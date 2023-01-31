@@ -2,25 +2,25 @@
 Tables for system users
 */
 
+DROP TABLE IF EXISTS `sys_users_privileges`;
 DROP TABLE IF EXISTS `sys_users`;
+DROP TABLE IF EXISTS `activity_logs`;
+
 CREATE TABLE `sys_users` (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
     `user_name` VARCHAR(100) UNIQUE NOT NULL,
     `password` VARCHAR(255) NOT NULL,
     `role` VARCHAR(20) NOT NULL,
     `added_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP()
-    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP()
 );
 
 ALTER TABLE `sys_users` 
 ADD COLUMN `first_name` VARCHAR(30) NOT NULL AFTER `id`, 
-ADD COLUMN `last_name` VARCHAR(30) NOT NULL AFTER `first_name`, 
-CHANGE COLUMN `user_type` `role` VARCHAR(20) NOT NULL;
+ADD COLUMN `last_name` VARCHAR(30) NOT NULL AFTER `first_name`;
 
 INSERT INTO `sys_users` (`first_name`, `last_name`, `user_name`, `password`, `role`) VALUES 
 ('Francis','Anlimah', 'y.m.ratty7@gmail.com', '$2y$10$jmxuunWRqwB2KgT2jIypwufas3dPtqT9f21gdKT9lOOlNGNQCqeMC', 'Developer');
 
-DROP TABLE IF EXISTS `sys_users_privileges`;
 CREATE TABLE `sys_users_privileges` (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
     `user_id` INT NOT NULL,
@@ -34,12 +34,11 @@ CREATE TABLE `sys_users_privileges` (
 
 INSERT INTO `sys_users_privileges` (`user_id`, `select`,`insert`,`update`,`delete`) VALUES(1, 1, 1, 1, 1);
 
-DROP TABLE IF EXISTS `activity_logs`;
 CREATE TABLE `activity_logs` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` INT UNSIGNED NOT NULL,
   `operation` ENUM('INSERT', 'UPDATE', 'DELETE') NOT NULL,
-  `description` TEXT NOT NULL,
+  `description` TEXT(255),
   `timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
   PRIMARY KEY (`id`),
   INDEX `user_id` (`user_id`),
@@ -47,6 +46,7 @@ CREATE TABLE `activity_logs` (
   INDEX `description` (`description`),
   INDEX `timestamp` (`timestamp`)
 );
+
 
 
 /*
