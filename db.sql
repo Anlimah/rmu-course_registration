@@ -87,16 +87,10 @@ CREATE TABLE `form_price` (
 INSERT INTO `form_price` (`amount`, `form_type`, `admin_period`)  VALUES 
 (1, 1, 1), (1, 2, 1), (1, 3, 1), (1, 4, 1);
 
-DROP TABLE IF EXISTS `payment_method`;
-CREATE TABLE `payment_method` (
-    `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
-    `name` VARCHAR(50) NOT NULL
-);
-INSERT INTO `payment_method`(`name`) VALUES ("Credit Card"), ("Mobile Money"), ("Bank Deposit");
-
 DROP TABLE IF EXISTS `vendor_details`;
 CREATE TABLE `vendor_details` (
     `id` INT(11) PRIMARY KEY,
+    `user_id` INT(11) NOT NULL,
     `type` VARCHAR(10) NOT NULL,
     `vendor_name` VARCHAR(50) NOT NULL,
     `tin` VARCHAR(15) NOT NULL,
@@ -107,10 +101,16 @@ CREATE TABLE `vendor_details` (
     `address` VARCHAR(50),
     `added_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP()
 );
-INSERT INTO `vendor_details`(`id`, `type`,`vendor_name`, `tin`, `country_code`, `phone_number`) VALUES 
-(1665605087, 'ONLINE', 'RMU ONLINE', 'RMU123', '+233', '0555351068'), 
-(1665605341, 'VENDOR', 'RMU CAMPUS', 'RMU123', '+233', '0555351068'), 
-(1665605866, 'VENDOR', 'MAXIM RETAIL', 'T14529045', '+233', '0555351068');
+
+ALTER TABLE `vendor_details` 
+DROP COLUMN `vendor_name`,
+DROP COLUMN `country_code`,
+DROP COLUMN `country_name`,
+ADD COLUMN `user_id` INT(11),
+CHANGE COLUMN `email_address` `company` VARCHAR(30);
+
+INSERT INTO `vendor_details`(`id`, `type`, `tin`, `phone_number`, `company`, `address`, `user_id`) 
+VALUES (1665605087, 'ONLINE', 'RMU', '233555351068', 'RMU', 'Nungua', 1);
 
 DROP TABLE IF EXISTS `vendor_login`;
 CREATE TABLE `vendor_login` (
