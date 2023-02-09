@@ -37,7 +37,7 @@ $courses = $user->fetchCourses();
                             <select class="edu-mod-select form-select form-select-sm" name="cert-type" id="cert-type">
                                 <option value="Select" hidden>Select</option>
                                 <option value="WASSCE">WASSCE</option>
-                                <option value="SSCE">SSCE</option>
+                                <option value="SSSCE">SSSCE</option>
                                 <option value="DIPLOMA">DIPLOMA</option>
                                 <option value="DEGREE">DEGREE</option>
                                 <option value="BACCALORATE">DEGREE</option>
