@@ -40,6 +40,7 @@ $page = array("id" => 0, "name" => "Application Status");
     <?php require_once("../inc/top-page-section.php") ?>
 
     <div class="main-content" style="height: 100% !important;">
+        <a href="?logout=true" class="btn btn-danger" style="float: right">Log out</a>
         <h1><?= $page["name"] ?></h1>
         <h4 class="text-success">Congratulations! Your application form was successfully submitted.</h4>
 
