@@ -159,6 +159,17 @@ CREATE TABLE `purchase_detail` (
 
 );
 
+DROP TABLE IF EXISTS `payment_method`;
+CREATE TABLE `payment_method` (
+    `id` INT AUTO_INCREMENT UNIQUE,
+    `name` VARCHAR(15) PRIMARY KEY
+);
+INSERT INTO payment_method (`name`) VALUES('MOMO'), ('CARD'), ('CASH');
+
+ALTER TABLE purchase_detail 
+ADD CONSTRAINT `fk_purchase_payment_method` FOREIGN KEY (`payment_method`) REFERENCES payment_method (`name`) ON UPDATE CASCADE;
+         
+
 DROP TABLE IF EXISTS `applicants_login`;
 CREATE TABLE `applicants_login` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
