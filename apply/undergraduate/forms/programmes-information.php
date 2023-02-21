@@ -46,7 +46,7 @@ $about_us = $user->fetchHowYouKnowUs($user_id);
             <select required class="form-select-option form-select form-select-sm mb-3" name="app-prog-first" id="app-prog-first">
                 <option hidden value="">Choose </option>
                 <?php
-                $programs = $data->getPrograms(2);
+                $programs = $data->getPrograms($_SESSION['applicantType']);
                 foreach ($programs as $program) {
                 ?>
                     <option value="<?= strtoupper($program['name']) ?>" <?= $personal_AB[0]["first_prog"] == strtoupper($program['name']) ? "selected" : "" ?>><?= strtoupper($program['name']) ?></option>
@@ -60,7 +60,7 @@ $about_us = $user->fetchHowYouKnowUs($user_id);
             <select required class="form-select-option form-select form-select-sm mb-3" name="app-prog-second" id="app-prog-second">
                 <option hidden value="">Choose </option>
                 <?php
-                $programs = $data->getPrograms(2);
+                $programs = $data->getPrograms($_SESSION['applicantType']);
                 foreach ($programs as $program) {
                 ?>
                     <option value="<?= strtoupper($program['name']) ?>" <?= $personal_AB[0]["second_prog"] == strtoupper($program['name']) ? "selected" : "" ?>><?= strtoupper($program['name']) ?></option>
