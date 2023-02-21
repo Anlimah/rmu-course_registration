@@ -38,9 +38,10 @@ $courses = $user->fetchCourses();
                                 <option value="Select" hidden>Select</option>
                                 <option value="WASSCE">WASSCE</option>
                                 <option value="SSSCE">SSSCE</option>
+                                <option value="GBCE">GBCE</option>
+                                <option value="NECO">NECO</option>
                                 <option value="DIPLOMA">DIPLOMA</option>
                                 <option value="DEGREE">DEGREE</option>
-                                <option value="BACCALORATE">DEGREE</option>
                             </select>
                         </div>
                         <div class="mb-4" id="index-number-group">
@@ -226,12 +227,6 @@ $courses = $user->fetchCourses();
                             </div>
                         </div>
                     </div>
-                    <!--<div id="step-4" class="steps hide" style="display:none; margin: auto 20%;">
-                                <div class="mb-4" id="sch-name-group">
-
-                                </div>
-                            </div>-->
-                    <!--<input type="hidden" name="20eh29v1Tf" id="20eh29v1Tf" value="1">-->
                     <input type="reset" name="reset" id="reset" style="display: none;">
                     <input type="hidden" name="awaiting_result_value" id="awaiting_result_value" value="0">
                 </form>
@@ -239,7 +234,7 @@ $courses = $user->fetchCourses();
             <div class="modal-footer" style="display: flex !important; flex-direction: row-reverse !important; justify-content: space-between !important;">
                 <button class="btn btn-primary hide" id="save-education-btn" style="width: 120px;">Save and Close</button>
                 <button type="button" class="btn btn-primary" id="nextStep">Next Step</button>
-                <p>Step 1 of 4</p>
+                <p>Step <span class="step-count"></span> of 3</p>
                 <button type="button" class="btn btn-secondary hide" id="prevStep">Prev. Step</button>
             </div>
         </div>
@@ -475,11 +470,6 @@ $courses = $user->fetchCourses();
                             </div>
                         </div>
                     </div>
-                    <!--<div id="edit-step-4" class="steps hide" style="display:none; margin: auto 20%;">
-                                <div class="mb-4" id="edit-sch-name-group">
-
-                                </div>
-                            </div>-->
                     <input type="hidden" name="edit-20eh29v1Tf" id="edit-20eh29v1Tf" value="1">
                     <input type="reset" name="edit-reset" id="edit-reset" style="display: none;">
                 </form>
