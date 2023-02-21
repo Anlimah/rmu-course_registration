@@ -27,6 +27,7 @@ $(document).ready(function () {
                 $(this).removeClass("display");
             }
         }
+        $(".step-count").text(add_next);
     });
     
     // When the previous btn is clicked
@@ -48,6 +49,7 @@ $(document).ready(function () {
                 $("#prevStep").addClass("hide");
             }
         }
+        $(".step-count").text(add_next);
     });
 
     $("#add-education-btn").click(function() {

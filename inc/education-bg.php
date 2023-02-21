@@ -234,7 +234,7 @@ $courses = $user->fetchCourses();
             <div class="modal-footer" style="display: flex !important; flex-direction: row-reverse !important; justify-content: space-between !important;">
                 <button class="btn btn-primary hide" id="save-education-btn" style="width: 120px;">Save and Close</button>
                 <button type="button" class="btn btn-primary" id="nextStep">Next Step</button>
-                <p>Step <span class="step-count"></span> of 3</p>
+                <p>Step <span class="step-count">1</span> of 3</p>
                 <button type="button" class="btn btn-secondary hide" id="prevStep">Prev. Step</button>
             </div>
         </div>
