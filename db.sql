@@ -234,21 +234,12 @@ CREATE TABLE `grades` (
     `type` VARCHAR(15)
 );
 INSERT INTO `grades`(`grade`, `type`) VALUES 
-('A1', 'WASSCE'), 
-('B2', 'WASSCE'), 
-('B3', 'WASSCE'), 
-('C4', 'WASSCE'), 
-('C5', 'WASSCE'), 
-('C6', 'WASSCE'), 
-('D7', 'WASSCE'), 
-('E8', 'WASSCE'), 
-('F9', 'WASSCE'),
-('A', 'SSCE'), 
-('B', 'SSCE'), 
-('C', 'SSCE'), 
-('D', 'SSCE'), 
-('E', 'SSCE'), 
-('F', 'SSCE');
+('A1', 'WASSCE'), ('B2', 'WASSCE'), ('B3', 'WASSCE'), ('C4', 'WASSCE'), ('C5', 'WASSCE'), 
+('C6', 'WASSCE'), ('D7', 'WASSCE'), ('E8', 'WASSCE'), ('F9', 'WASSCE'),
+('A1', 'NECO'), ('B2', 'NECO'), ('B3', 'NECO'), ('C4', 'NECO'), ('C5', 'NECO'), 
+('C6', 'NECO'), ('D7', 'NECO'), ('E8', 'NECO'), ('F9', 'NECO'),
+('A', 'SSSCE'), ('B', 'SSSCE'), ('C', 'SSSCE'), ('D', 'SSSCE'), ('E', 'SSSCE'), ('F', 'SSSCE'),
+('A', 'GBCE'), ('B', 'GBCE'), ('C', 'GBCE'), ('D', 'GBCE'), ('E', 'GBCE'), ('F', 'GBCE');
 
 DROP TABLE IF EXISTS `high_shcool_courses`;
 CREATE TABLE `high_shcool_courses` (

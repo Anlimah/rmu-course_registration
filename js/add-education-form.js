@@ -9,7 +9,7 @@ $(document).ready(function () {
     let edit_next = 1;
 
     // When next button is clicked
-    $("#nextStep").click(function() {
+    $("#nextStep").click(function () {
         if (add_next >= 1 && add_next < end) {
             add_next = add_next + 1;
             $(".steps").addClass("hide");
@@ -29,9 +29,9 @@ $(document).ready(function () {
         }
         $(".step-count").text(add_next);
     });
-    
+
     // When the previous btn is clicked
-    $("#prevStep").click(function() {
+    $("#prevStep").click(function () {
         if (add_next > 1 && add_next <= end) {
             add_next = add_next - 1;
             $(".steps").addClass("hide");
@@ -52,7 +52,7 @@ $(document).ready(function () {
         $(".step-count").text(add_next);
     });
 
-    $("#add-education-btn").click(function() {
+    $("#add-education-btn").click(function () {
         $(".mb-4").removeClass("has-error");
         $(".help-block").remove();
         $(".edu-mod-text").val("");
@@ -60,13 +60,13 @@ $(document).ready(function () {
         $(".steps").addClass("display");
         $(".steps").removeClass("hide");
         $(".steps").addClass("hide");
-        $(".steps").removeClass("display"); 
+        $(".steps").removeClass("display");
 
         $("#step-1").removeClass("hide");
-        $("#step-1").addClass("display"); 
+        $("#step-1").addClass("display");
 
         $("#prevStep").removeClass("display");
-        $("#prevStep").addClass("hide");    
+        $("#prevStep").addClass("hide");
         $("#nextStep").removeClass("hide");
         $("#nextStep").addClass("display");
         $("#save-education-btn").removeClass("display");
@@ -117,7 +117,7 @@ $(document).ready(function () {
             elective_sbj_grd3: $("#elective-sbj-grd3").val(),
             elective_sbj_grd4: $("#elective-sbj-grd4").val(),
         };
-        
+
         // Sent payload to server
         $.ajax({
             type: "POST",
@@ -244,24 +244,24 @@ $(document).ready(function () {
                     $(".steps").removeClass("display");
                     $("#step-" + step_errors).removeClass("hide");
                     $("#step-" + step_errors).addClass("display");
-                    
+
                     if (step_errors == 1) {
                         $("#prevStep").removeClass("display");
-                        $("#prevStep").addClass("hide");    
+                        $("#prevStep").addClass("hide");
                         $("#nextStep").removeClass("hide");
                         $("#nextStep").addClass("display");
                         $("#save-education-btn").removeClass("display");
                         $("#save-education-btn").addClass("hide");
                     } else if (step_errors == 3) {
                         $("#prevStep").removeClass("hide");
-                        $("#prevStep").addClass("display");    
+                        $("#prevStep").addClass("display");
                         $("#nextStep").removeClass("display");
                         $("#nextStep").addClass("hide");
                         $("#save-education-btn").removeClass("display");
                         $("#save-education-btn").addClass("hide");
-                    } else if(step_errors > 1 && step_errors < 3) {
+                    } else if (step_errors > 1 && step_errors < 3) {
                         $("#prevStep").removeClass("hide");
-                        $("#prevStep").addClass("display");    
+                        $("#prevStep").addClass("display");
                         $("#nextStep").removeClass("hide");
                         $("#nextStep").addClass("display");
                         $("#save-education-btn").removeClass("display");
@@ -284,9 +284,9 @@ $(document).ready(function () {
 
     /*
         For edit Modal form
-    */ 
+    */
 
-    $("#edit-nextStep").click(function() {
+    $("#edit-nextStep").click(function () {
         if (edit_next >= 1 && edit_next < end) {
             edit_next = edit_next + 1;
             $(".steps").addClass("hide");
@@ -306,7 +306,7 @@ $(document).ready(function () {
         }
     });
 
-    $("#edit-prevStep").click(function() {
+    $("#edit-prevStep").click(function () {
         if (edit_next > 1 && edit_next <= end) {
             edit_next = edit_next - 1;
             $(".steps").addClass("hide");
@@ -327,8 +327,8 @@ $(document).ready(function () {
     });
 
     //Edit button on each added education item
-    $(".edit-edu-btn").click(function(e) {
-        
+    $(".edit-edu-btn").click(function (e) {
+
         $.ajax({
             type: "GET",
             url: "../../api/education",
@@ -347,14 +347,14 @@ $(document).ready(function () {
             $("#edit-sch-country").val(data["aca"][0]["country"]);
             $("#edit-sch-region").val(data["aca"][0]["region"]);
             $("#edit-sch-city").val(data["aca"][0]["city"]);
-            
+
             $("#edit-cert-type").val(data["aca"][0]["cert_type"]);
             $("#edit-index-number").val(data["aca"][0]["index_number"]);
-            $("#edit-month-started" + " option[value='" + data["aca"][0]["month_started"] +"']").attr('selected','selected');
-            $("#edit-year-started" + " option[value='" + data["aca"][0]["year_started"] +"']").attr('selected','selected');
-            $("#edit-month-completed" + " option[value='" + data["aca"][0]["month_completed"] +"']").attr('selected','selected');
-            $("#edit-year-completed" + " option[value='" + data["aca"][0]["year_completed"] +"']").attr('selected','selected');
-            
+            $("#edit-month-started" + " option[value='" + data["aca"][0]["month_started"] + "']").attr('selected', 'selected');
+            $("#edit-year-started" + " option[value='" + data["aca"][0]["year_started"] + "']").attr('selected', 'selected');
+            $("#edit-month-completed" + " option[value='" + data["aca"][0]["month_completed"] + "']").attr('selected', 'selected');
+            $("#edit-year-completed" + " option[value='" + data["aca"][0]["year_completed"] + "']").attr('selected', 'selected');
+
             $("#edit-course-studied").val(data["aca"][0]["course_of_study"]);
 
             if (data["courses"]) {
@@ -362,15 +362,15 @@ $(document).ready(function () {
                 //core subjects
                 for (let index = 0; index < 4; index++) {
                     if (data["courses"][index]["type"] == "core") {
-                        $("#edit-core-sbj-grd"+(index + 1)+" option[value='"+data["courses"][index]["grade"]+"']").attr('selected','selected');
+                        $("#edit-core-sbj-grd" + (index + 1) + " option[value='" + data["courses"][index]["grade"] + "']").attr('selected', 'selected');
                     }
                 }
 
                 //elective subjects
                 for (let index = 3; index < 8; index++) {
                     if (data["courses"][index]["type"] == "elective") {
-                        $("#edit-elective-sbj"+(index - 3)+" option[value='"+data["courses"][index]["subject"]+"']").attr('selected','selected');
-                        $("#edit-elective-sbj-grd"+(index - 3)+" option[value='"+data["courses"][index]["grade"]+"']").attr('selected','selected');
+                        $("#edit-elective-sbj" + (index - 3) + " option[value='" + data["courses"][index]["subject"] + "']").attr('selected', 'selected');
+                        $("#edit-elective-sbj-grd" + (index - 3) + " option[value='" + data["courses"][index]["grade"] + "']").attr('selected', 'selected');
                     }
                 }
 
@@ -382,13 +382,13 @@ $(document).ready(function () {
 
             //Append the grades to the dropdown list
             $(".subject-grade").html('<option value="Select" hidden>Select</option>');
-            $.each(data["grades"], function(index, value) {
+            $.each(data["grades"], function (index, value) {
                 $(".subject-grade").append('<option value="' + value.grade + '">' + value.grade + '</option>');
             });
 
             //Append the grades to the dropdown list
             $(".elective-subjects").html('<option value="Select" hidden>Select</option>');
-            $.each(data["elective_subjects"], function(index, value) {
+            $.each(data["elective_subjects"], function (index, value) {
                 $(".elective-subjects").append('<option value="' + value.subject + '">' + value.subject + '</option>');
             });
 
@@ -398,7 +398,7 @@ $(document).ready(function () {
             $("#edit-step-1").addClass("display");
 
             $("#edit-prevStep").removeClass("display");
-            $("#edit-prevStep").addClass("hide");    
+            $("#edit-prevStep").addClass("hide");
             $("#edit-nextStep").removeClass("hide");
             $("#edit-nextStep").addClass("display");
             $("#edit-save-education-btn").removeClass("display");
@@ -416,12 +416,12 @@ $(document).ready(function () {
     function updateData(data, url) {
         $.ajax({
             type: "PUT",
-            url: "../../api/"+url,
+            url: "../../api/" + url,
             data: data,
-            success: function(result) {
+            success: function (result) {
                 console.log(result);
             },
-            error: function(error) {
+            error: function (error) {
                 console.log(error);
             }
         });
@@ -436,28 +436,28 @@ $(document).ready(function () {
         return data;
     }
 
-    $(".form-select").change("blur", function() {
+    $(".form-select").change("blur", function () {
         if ($("#edit-20eh29v1Tf").val() != 1) {
             let data = prepareData(this, $("#edit-20eh29v1Tf").val());
             updateData(data, "education");
         }
     });
 
-    $(".form-control").on("blur", function() {
+    $(".form-control").on("blur", function () {
         if ($("#edit-20eh29v1Tf").val() != 1) {
             let data = prepareData(this, $("#edit-20eh29v1Tf").val());
             updateData(data, "education");
         }
     });
 
-    $(".form-radio").on("click", function() {
+    $(".form-radio").on("click", function () {
         if ($("#edit-20eh29v1Tf").val() != 1) {
             let data = prepareData(this, $("#edit-20eh29v1Tf").val());
             updateData(data, "education");
         }
     });
 
-    $(".delete-edu-btn").on("click", function() {
+    $(".delete-edu-btn").on("click", function () {
         let answer = confirm("Are sure you want to delete this?");
         if (answer == true) {
             $.ajax({
@@ -467,13 +467,13 @@ $(document).ready(function () {
                     what: "delete-edu-history",
                     value: $(this).attr("id"),
                 },
-                success: function(result) {
+                success: function (result) {
                     if (result["success"]) {
                         console.log(result);
                         window.location.reload();
                     }
                 },
-                error: function(error) {
+                error: function (error) {
                     console.log(error);
                 }
             });
