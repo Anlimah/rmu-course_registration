@@ -268,7 +268,6 @@ INSERT INTO `high_sch_subjects`(`type`, `subject`) VALUES
 ("core", "ENGLISH LANGUAGE"), 
 ("core", "INTEGRATED SCIENCE"), 
 ("core", "SOCIAL STUDIES"), 
-("secondary", "BUSINESS MANAGEMENT"), 
 ("secondary", "PRINCIPLE OF COSTING"),
 ("secondary", "ACCOUNTING"), 
 ("secondary", "BUSINESS MANAGEMENT"), 

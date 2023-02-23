@@ -49,7 +49,7 @@ $courses = $user->fetchCourses();
                             <input placeholder="Index Number" class="edu-mod-text form-control" type="text" name="index-number" id="index-number" placeholder="Index Number">
                         </div>
                         <div class="mb-4" id="date-started-group">
-                            <label class="form-label" for="completion-date">Date Started <span class="input-required">*</span></label>
+                            <label class="form-label" for="completion-date">Date Admitted <span class="input-required">*</span></label>
                             <div style="max-width: 280px !important; display:flex; flex-direction:row; justify-content: space-between">
                                 <select class="edu-mod-date-m form-select form-select-sm" style="margin-right: 10px;" name="month-started" id="month-started">
                                     <option value="Month" hidden>Month</option>
@@ -105,7 +105,7 @@ $courses = $user->fetchCourses();
                             </div>
                         </div>
                         <div class="mb-4" id="date-completed-group">
-                            <label class="form-label" for="completion-date">Date Completed <span class="input-required">*</span></label>
+                            <label class="form-label" for="completion-date">Exam Date / Date Completed <span class="input-required">*</span></label>
                             <div style="max-width: 280px !important; display:flex; flex-direction:row; justify-content: space-between">
                                 <select class="edu-mod-date-m form-select form-select-sm" style="margin-right: 10px;" name="month-completed" id="month-completed">
                                     <option value="Month" hidden>Month</option>

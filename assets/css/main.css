@@ -146,6 +146,7 @@ select,
 input,
 select {
 	padding: 0.40625rem 0.6875rem !important;
+	text-transform: uppercase;
 }
 
 table {
@@ -451,11 +452,6 @@ fieldset legend {
 	border-color: none !important;
 	border: 0;
 }
-
-/*input,
-select {
-	text-transform: uppercase;
-}*/
 
 .edu-history {
 	width: 100% !important;

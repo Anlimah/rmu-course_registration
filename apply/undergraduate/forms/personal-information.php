@@ -175,14 +175,7 @@ require_once('../../inc/page-data.php');
         </div>
         <div class="mb-4">
             <label class="form-label" for="region-birth">State / Province / Region</label>
-            <input class="form-control form-control-sm mb-3" list="region-birth-list" name="region-birth" id="country-birth" value="<?= $personal[0]["spr_birth"] ?>">
-            <datalist id="region-birth-list">
-                <?php
-                foreach (COUNTRIES as $cn) {
-                    echo '<option value="' . $cn["name"] . '">';
-                }
-                ?>
-            </datalist>
+            <input type="text" class="form-control form-control-sm mb-3" name="region-birth" id="country-birth" value="<?= $personal[0]["spr_birth"] ?>">
         </div>
         <div class="mb-4">
             <label class="form-label" for="home-town">City of birth <span class="input-required">*</span></label>
