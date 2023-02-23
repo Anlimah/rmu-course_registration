@@ -475,7 +475,7 @@ $courses = $user->fetchCourses();
                 </form>
             </div>
             <div class="modal-footer" style="display: flex !important; flex-direction: row-reverse !important; justify-content: space-between !important;">
-                <button class="btn btn-primary hide" id="edit-save-education-btn" style="width: 120px;">Save and Close</button>
+                <button class="btn btn-primary hide" id="edit-save-education-btn" style="width: 120px;" data-bs-dismiss="modal" aria-label="Close">Save and Close</button>
                 <button type="button" class="btn btn-primary" id="edit-nextStep">Next Step</button>
                 <p>Step 1 of 4</p>
                 <button type="button" class="btn btn-secondary hide" id="edit-prevStep">Prev. Step</button>

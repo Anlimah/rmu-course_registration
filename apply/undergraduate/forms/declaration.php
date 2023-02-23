@@ -15,7 +15,7 @@ $fullname = !empty($personal[0]["middle_name"]) ? $personal[0]["first_name"] . "
             <label for="" style="color: red;">IMPORTANT</label>
         </div>
         <p>
-            AN APPLICANT WHO MAKES A FALSE STATEMENT OR WITHHOLDS RELEVANT INFORMATION MAY BE REFUSED ADMISSION. IF HE HAS ALREADY COME INTO THE UNIVERSITY, HE WILL BE WITHDRAWN.
+            AN APPLICANT WHO MAKES A FALSE STATEMENT OR WITHHOLDS RELEVANT INFORMATION MAY BE REFUSED ADMISSION. IF HE/SHE HAS ALREADY BEEN ADMITTED INTO THE UNIVERSITY, HE/SHE WILL BE WITHDRAWN.
         </p>
         <div style="width: 100%; background-color: #036; color: #fff; font-size: smaller; padding: 5px 10px">
             <b>DECLARATION</b>
