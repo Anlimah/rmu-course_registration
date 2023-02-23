@@ -328,7 +328,7 @@ $(document).ready(function () {
 
     //Edit button on each added education item
     $(".edit-edu-btn").click(function (e) {
-
+        alert("Okay")
         $.ajax({
             type: "GET",
             url: "../../api/education",
