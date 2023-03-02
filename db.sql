@@ -159,6 +159,12 @@ CREATE TABLE `purchase_detail` (
 
 );
 
+ALTER TABLE `purchase_detail` 
+DROP COLUMN IF EXISTS `device_info`,
+DROP COLUMN IF EXISTS `ip_address`,
+ADD COLUMN IF NOT EXISTS `service_rate` DECIMAL(6,2) DEFAULT 0.0 AFTER `amount`,
+ADD COLUMN IF NOT EXISTS `service_charge` DECIMAL(6,2) GENERATED ALWAYS AS (`amount` * `service_rate`) AFTER `service_rate`;
+
 DROP TABLE IF EXISTS `payment_method`;
 CREATE TABLE `payment_method` (
     `id` INT AUTO_INCREMENT UNIQUE,
