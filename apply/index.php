@@ -21,11 +21,6 @@ if (!isset($_SESSION["_start"])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <style>
-        body {
-            margin: 0 !important;
-            padding: 0 !important;
-        }
-
         .main-content {
             top: 50px !important;
         }
@@ -36,7 +31,7 @@ if (!isset($_SESSION["_start"])) {
 
     <header class="container-fluid index-page">
     </header>
-    <div class="main-content">
+    <div class="main-content mt-4">
         <div class="container-fluid" style="margin-bottom: 100px;">
             <div class="row">
                 <!--Voucher purchase info-->

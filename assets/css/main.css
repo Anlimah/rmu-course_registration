@@ -268,11 +268,11 @@ header {
 	width: 100% !important;
 	background-color: #fff !important;
 	border: none !important;
-	z-index: 9 !important;
+	z-index: 999 !important;
 }
 
 .top-nav-bar {
-	height: 100px !important;
+	height: 130px !important;
 	position: fixed !important;
 }
 
@@ -283,7 +283,7 @@ header {
 }
 
 .top-nav-bar .info-card {
-	height: 35% !important;
+	height: 25% !important;
 	background-color: #003262 !important;
 	background: linear-gradient(180deg, #003262 0, #002549);
 }
@@ -295,8 +295,14 @@ header {
 }
 
 .top-nav-bar .logo-board {
-	height: 65% !important;
+	height: 75% !important;
 	background-color: #fff !important;
+}
+
+.logo-board {
+	display: flex !important;
+	justify-content: space-between !important;
+	align-items: baseline !important;
 }
 
 .info-card {
@@ -558,6 +564,9 @@ fieldset legend {
 
 	fieldset legend {
 		font-size: 18px;
+	}
+	.app-proecess-info {
+		padding: 20px 30px;
 	}
 
 	.main-content,

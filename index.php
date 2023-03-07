@@ -17,11 +17,11 @@
             flex-direction: column;
             justify-content: space-between;
             align-items: baseline;
-            width: 430px;
             background-color: #fff;
-            float: left;
-            padding: 30px 40px 40px 40px;
+            padding: 20px 30px;
             border-radius: 10px;
+            max-width: 480px !important;
+            margin: 0 15px !important
         }
 
         .btn-card {
@@ -58,42 +58,43 @@
 
         footer {
             bottom: 0 !important;
-            position: relative !important;
+            position: absolute !important;
         }
     </style>
 </head>
 
 <body>
     <header class="top-nav-bar card">
-        <div class="info-card"> </div>
-        <div class="logo-board"></div>
+        <div class="info-card">OKAY</div>
+        <div class="logo-board">
+            <img src="assets/images/RMU-LOG.png" alt="" style="height: 100%;">`
+            <h1>APPLICATION PORTAL</h1>
+        </div>
     </header>
 
     <div id="bg-img"></div>
 
-    <nav>
-
-    </nav>
-
-    <div class="main-content" style="z-index: 999;">
-        <div class="container-sm app-proecess-info">
+    <div class="main-content" style="z-index: 9;">
+        <div class="app-proecess-info col-sm">
             <h1>Application Process</h1>
-            <p style="font-size: medium;">
-                Click <a href="https://forms.rmuictonline.com/buy-online/" title="Buy voucher online via Mobile Money and Credit Card"><b>here</b></a> to buy voucher or see our <a href=""><b>vendors listed here</b></a>.
-            </p>
-            <div style="width: 100%; display:flex; flex-direction:column;justify-content: space-between; margin-top: 10px">
+            <ul style="font-size: medium;">
+                <li>Click <a href="https://forms.rmuictonline.com/buy-online/" title="Buy voucher online via Mobile Money and Credit Card"><b>here</b></a> to buy voucher online</li>
+                <li>or buy vouchor from any of our <a href=""><b>vendors listed here</b></a></li>
+            </ul>
+            <div style="width: 100%; margin-top: 10px">
                 <a href="apply/" class="btn-card btn">
                     <span>APPLY FOR A PROGRAMME</span>
                 </a>
             </div>
         </div>
 
-        <div class="help_area">
+        <div class="help_area col-sm">
             <div class="help_chat_area"></div>
             <button style="padding: 5px 10px; cursor: pointer">Chat with us</button>
         </div>
     </div>
-    <?php require_once('./inc/page-footer.php') ?>
+    <?php //require_once('./inc/page-footer.php') 
+    ?>
 
 </body>
 
