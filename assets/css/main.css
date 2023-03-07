@@ -572,7 +572,7 @@ fieldset legend {
 	.main-content,
 	.info-card,
 	.logo-board {
-		padding: 0 110px !important;
+		padding: 0 15px !important;
 	}
 
 	fieldset > .field-header {

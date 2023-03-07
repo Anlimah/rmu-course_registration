@@ -24,6 +24,24 @@ if (!isset($_SESSION["_start"])) {
         .main-content {
             top: 50px !important;
         }
+
+        .app-step {
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 16px;
+        }
+
+        div .col-1 {
+            font-size: 20px;
+            background-color: #003262;
+            height: 100%;
+            padding: 5px 10px;
+            color: #fff;
+            
+        }
     </style>
 </head>
 
@@ -31,17 +49,56 @@ if (!isset($_SESSION["_start"])) {
 
     <header class="container-fluid index-page">
     </header>
-    <div class="main-content mt-4">
+    <div class="main-content mt-4 container">
         <div class="container-fluid" style="margin-bottom: 100px;">
             <div class="row">
                 <!--Voucher purchase info-->
-                <section class="col-8">
+                <section class="col-md-6 col-sm-12">
                     <h1>Easy steps to apply</h1>
-                    <div></div>
+                    <div class="col container">
+                        <div class="app-step row">
+                            <div class="col-1 text-center">1</div>
+                            <p class="col-11">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores voluptas, molestiae quae tenetur modi animi iure tempora amet laborum numquam error quod sequi a nemo cupiditate atque accusantium aut ratione?
+                            </p>
+                        </div>
+                        <div class="app-step row">
+                            <div class="col-1 text-center">2</div>
+                            <p class="col-11">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores voluptas, molestiae quae tenetur modi animi iure tempora amet laborum numquam error quod sequi a nemo cupiditate atque accusantium aut ratione?
+                            </p>
+                        </div>
+                        <div class="app-step row">
+                            <div class="col-1 text-center">3</div>
+                            <p class="col-11">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores voluptas, molestiae quae tenetur modi animi iure tempora amet laborum numquam error quod sequi a nemo cupiditate atque accusantium aut ratione?
+                            </p>
+                        </div>
+                        <div class="app-step row">
+                            <div class="col-1 text-center">4</div>
+                            <p class="col-11">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores voluptas, molestiae quae tenetur modi animi iure tempora amet laborum numquam error quod sequi a nemo cupiditate atque accusantium aut ratione?
+                            </p>
+                        </div>
+                        <div class="app-step row">
+                            <div class="col-1 text-center">5</div>
+                            <p class="col-11">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores voluptas, molestiae quae tenetur modi animi iure tempora amet laborum numquam error quod sequi a nemo cupiditate atque accusantium aut ratione?
+                            </p>
+                        </div>
+                        <div class="app-step row">
+                            <div class="col-1 text-center">6</div>
+                            <p class="col-11">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores voluptas, molestiae quae tenetur modi animi iure tempora amet laborum numquam error quod sequi a nemo cupiditate atque accusantium aut ratione?
+                            </p>
+                        </div>
+                    </div>
                 </section>
 
+                <div class="col-md-2"></div>
+
                 <!--Login form-->
-                <section class="col-4" style="display:flex; flex-direction:column; float: right !important">
+                <section class="col-md-4 col-sm-12" style="display:flex; flex-direction:column;">
                     <h1>Login</h1>
                     <form id="appLoginForm" style="margin-bottom: 50px">
                         <div class="mb-4" style="width: 280px">
