@@ -585,13 +585,23 @@ main {
 .fp-header > div {
 	width: 100% !important;
 	height: 100% !important;
-	margin: 0px 150px;
+	margin: 0px 110px;
 }
 
 .rmu-logo-letter {
 	font-family: "Ubuntu", sans-serif;
-	font-size: 28px !important;
 	color: #fff;
+}
+
+.rmu-logo-letter.logo-letter {
+	font-size: 22px !important;
+	font-weight: 600 !important;
+	letter-spacing: 0rem !important;
+}
+
+.rmu-logo-letter.description {
+	font-size: 18px !important;
+	letter-spacing: 0.4rem !important;
 }
 
 .flex-column {
@@ -648,10 +658,18 @@ main {
 	.fp-header > div {
 		width: 100% !important;
 		height: 100% !important;
-		margin: 0px 15px;
+		margin: 0px 5px;
 	}
-	.rmu-logo-letter {
-		font-size: 20px !important;
+
+	.rmu-logo-letter.logo-letter {
+		font-size: 16px !important;
+		font-weight: 600 !important;
+		letter-spacing: 0rem !important;
+	}
+
+	.rmu-logo-letter.description {
+		font-size: 14px !important;
+		letter-spacing: 0.4rem !important;
 	}
 }
 
@@ -681,8 +699,15 @@ main {
 		padding: 110px 0px !important;
 	}
 
-	.rmu-logo-letter {
-		font-size: 20px !important;
+	.rmu-logo-letter.logo-letter {
+		font-size: 18px !important;
+		font-weight: 600 !important;
+		letter-spacing: 0rem !important;
+	}
+
+	.rmu-logo-letter.description {
+		font-size: 14px !important;
+		letter-spacing: 0.4rem !important;
 	}
 }
 
