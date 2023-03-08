@@ -650,6 +650,9 @@ main {
 		height: 100% !important;
 		margin: 0px 15px;
 	}
+	.rmu-logo-letter {
+		font-size: 20px !important;
+	}
 }
 
 /*Small devices (landscape phones, 576px and up)*/
@@ -676,6 +679,10 @@ main {
 
 	.content {
 		padding: 110px 0px !important;
+	}
+
+	.rmu-logo-letter {
+		font-size: 20px !important;
 	}
 }
 

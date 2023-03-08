@@ -51,8 +51,8 @@ if (!isset($_SESSION["_start"])) {
                 <div class="items">
                     <img src="../assets/images/rmu-logo.png" alt="RMU logo" style="width: 60px;">
                     <div class="flex-column justify-center" style="height: 100% !important; line-height: 1.3">
-                        <span class="rmu-logo-letter" style="font-size: 20px !important; font-weight: 600; letter-spacing: 0.0rem">REGIONAL MARITIME UNIVERSITY</span>
-                        <span class="rmu-logo-letter" style="font-size: 18px !important; letter-spacing: 0.3rem">APPLICATION PORTAL</span>
+                        <span class="rmu-logo-letter" style="font-weight: 600; letter-spacing: 0.0rem">REGIONAL MARITIME UNIVERSITY</span>
+                        <span class="rmu-logo-letter" style="letter-spacing: 0.3rem">APPLICATION PORTAL</span>
                     </div>
                 </div>
             </div>
