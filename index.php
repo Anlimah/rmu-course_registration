@@ -12,7 +12,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <style>
-        .app-proecess-info {
+        .app-process-info {
+            position: relative;
+            top: 180px !important;
             display: flex !important;
             flex-direction: column;
             justify-content: space-between;
@@ -67,7 +69,7 @@
     <header class="top-nav-bar card">
         <div class="info-card">OKAY</div>
         <div class="logo-board">
-            <img src="assets/images/RMU-LOG.png" alt="" style="height: 100%;">`
+            <img src="assets/images/RMU-LOG.png" alt="" style="height: 100%;">
             <h1>APPLICATION PORTAL</h1>
         </div>
     </header>
@@ -75,7 +77,7 @@
     <div id="bg-img"></div>
 
     <div class="main-content" style="z-index: 9;">
-        <div class="app-proecess-info col-sm">
+        <div class="app-process-info col-sm">
             <h1>Application Process</h1>
             <ul style="font-size: medium;">
                 <li>Click <a href="https://forms.rmuictonline.com/buy-online/" title="Buy voucher online via Mobile Money and Credit Card"><b>here</b></a> to buy voucher online</li>
@@ -93,7 +95,7 @@
             <button style="padding: 5px 10px; cursor: pointer">Chat with us</button>
         </div>
     </div>
-    <?php //require_once('./inc/page-footer.php') 
+    <?php require_once('./inc/page-footer.php')
     ?>
 
 </body>
