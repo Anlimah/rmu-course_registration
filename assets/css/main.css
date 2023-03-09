@@ -711,6 +711,20 @@ main {
 	}
 }
 
+/*Small devices (landscape phones, 576px and up)*/
+@media (max-width: 767.99px) {
+	.rmu-logo-letter.logo-letter {
+		font-size: 16px !important;
+		font-weight: 600 !important;
+		letter-spacing: 0rem !important;
+	}
+
+	.rmu-logo-letter.description {
+		font-size: 14px !important;
+		letter-spacing: 0.4rem !important;
+	}
+}
+
 /*Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
 	.content {
