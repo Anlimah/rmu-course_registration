@@ -42,6 +42,7 @@ $courses = $user->fetchCourses();
                                 <option value="NECO">NECO</option>
                                 <option value="DIPLOMA">DIPLOMA</option>
                                 <option value="DEGREE">DEGREE</option>
+                                <option value="BAC">BACCALAUREATE</option>
                             </select>
                         </div>
                         <div class="mb-4" id="index-number-group">

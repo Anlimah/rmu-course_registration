@@ -12,11 +12,11 @@ require_once('../../inc/page-data.php');
 
 ?>
 
-<fieldset class="fieldset">
-    <div class="field-header">
+<fieldset class="fieldset row">
+    <div class="col-md-4 col-sm-12">
         <legend>Passport Picture</legend>
     </div>
-    <div class="field-content" style="display: flex !important; flex-direction: row !important; justify-content: space-between !important;">
+    <div class="col-md-8 col-sm-12" style="display: flex !important; flex-direction: row !important; justify-content: space-between !important;">
         <div style="margin-right: 15px;">
             <p>Please upload a passport size photo of yourself. The size of the image should not be more than 100KB. The background color of your image should be white.</p>
             <p style="color: brown"><b>NB: The image you use will not be changed. So use a most recent passport sized picture of yourself.</b></p>
@@ -30,11 +30,11 @@ require_once('../../inc/page-data.php');
     </div>
 </fieldset>
 
-<fieldset class="fieldset">
-    <div class="field-header">
+<fieldset class="fieldset row">
+    <div class="col-md-4 col-sm-12">
         <legend>Legal Name</legend>
     </div>
-    <div class="field-content">
+    <div class="col-md-8 col-sm-12">
         <p style="margin-bottom: 30px !important">Please use your legal name. DO NOT use nicknames or abbreviations</p>
         <div class="form-fields" style="flex-grow: 8;">
             <div class="mb-4">
@@ -87,11 +87,11 @@ require_once('../../inc/page-data.php');
     </div>
 </fieldset>
 
-<fieldset class="fieldset">
-    <div class="field-header">
+<fieldset class="fieldset row">
+    <div class="col-md-4 col-sm-12">
         <legend>Personal Details</legend>
     </div>
-    <div class="field-content">
+    <div class="col-md-8 col-sm-12">
         <div class="form-fields" style="flex-grow: 8;">
             <div class="mb-4">
                 <label class="form-label" for="gender">Gender <span class="input-required">*</span></label>
@@ -157,11 +157,11 @@ require_once('../../inc/page-data.php');
     </div>
 </fieldset>
 
-<fieldset class="fieldset">
-    <div class="field-header">
+<fieldset class="fieldset row">
+    <div class="col-md-4 col-sm-12">
         <legend>Place of Birth</legend>
     </div>
-    <div class="field-content">
+    <div class="col-md-8 col-sm-12">
         <div class="mb-4">
             <label for="country-birth" class="form-label">Country of Birth <span class="input-required">*</span></label>
             <input required class="form-control form-control-sm mb-3" list="country-birth-list" name="country-birth" id="country-birth" value="<?= $personal[0]["country_birth"] ?>">
@@ -184,11 +184,11 @@ require_once('../../inc/page-data.php');
     </div>
 </fieldset>
 
-<fieldset class="fieldset">
-    <div class="field-header">
+<fieldset class="fieldset row">
+    <div class="col-md-4 col-sm-12">
         <legend>Language</legend>
     </div>
-    <div class="field-content">
+    <div class="col-md-8 col-sm-12">
         <div class="mb-3">
             <label class="form-label" for="english-native">English Native <span class="input-required">*</span></label>
             <label class="form-label radio-btn" for="english-native-yes">
@@ -226,11 +226,11 @@ require_once('../../inc/page-data.php');
     </div>
 </fieldset>
 
-<fieldset class="fieldset">
-    <div class="field-header">
+<fieldset class="fieldset row">
+    <div class="col-md-4 col-sm-12">
         <legend>Address</legend>
     </div>
-    <div class="field-content">
+    <div class="col-md-8 col-sm-12">
         <div class="mb-4">
             <label class="form-label" for="address-line1">Address Line 1 <span class="input-required">*</span></label>
             <input required class="form-control" type="text" name="address-line1" id="address-line1" value="<?= $personal[0]["postal_addr"] ?>">
@@ -261,11 +261,11 @@ require_once('../../inc/page-data.php');
     </div>
 </fieldset>
 
-<fieldset class="fieldset">
-    <div class="field-header">
+<fieldset class="fieldset row">
+    <div class="col-md-4 col-sm-12">
         <legend>Contact</legend>
     </div>
-    <div class="field-content">
+    <div class="col-md-8 col-sm-12">
         <div class="mb-4">
             <label class="form-label" for="app-phone-number">Primary Phone Number <span class="input-required">*</span></label>
             <div style="max-width: 280px !important; display:flex !important; flex-direction:row !important; justify-content: space-between !important">
@@ -306,11 +306,11 @@ require_once('../../inc/page-data.php');
     </div>
 </fieldset>
 
-<fieldset class="fieldset">
-    <div class="field-header">
+<fieldset class="fieldset row">
+    <div class="col-md-4 col-sm-12">
         <legend>Parent / Guardian Information</legend>
     </div>
-    <div class="field-content">
+    <div class="col-md-8 col-sm-12">
         <div class="mb-4">
             <label class="form-label" for="gd-prefix">Prefix <span class="input-required">*</span></label>
             <select required class="form-select form-select-sm mb-3" name="gd-prefix" id="gd-prefix">

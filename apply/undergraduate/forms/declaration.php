@@ -9,7 +9,7 @@ $appStatus = $user->getApplicationStatus($user_id);
 $fullname = !empty($personal[0]["middle_name"]) ? $personal[0]["first_name"] . " " . $personal[0]["middle_name"] . " " . $personal[0]["last_name"] : $personal[0]["first_name"] . " " . $personal[0]["last_name"];
 ?>
 
-<fieldset class="fieldset">
+<fieldset class="fieldset row">
     <div style="width: 100%; border: 1px dashed red;padding: 20px; background-color:#ffffcc;">
         <div>
             <label for="" style="color: red;">IMPORTANT</label>

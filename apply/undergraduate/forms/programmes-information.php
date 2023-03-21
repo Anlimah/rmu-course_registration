@@ -13,11 +13,11 @@ $appStatus = $user->getApplicationStatus($user_id);
 $about_us = $user->fetchHowYouKnowUs($user_id);
 ?>
 
-<fieldset class="fieldset">
-    <div class="field-header">
+<fieldset class="fieldset row">
+    <div class="col-md-4 col-sm-12">
         <legend>Programmes</legend>
     </div>
-    <div class="field-content">
+    <div class="col-md-8 col-sm-12">
         <div class="mb-4">
             <label class="form-label" for="medium">Where did you hear of RMU? (Optional)</label>
             <select class="form-select-option form-select form-select-sm mb-3" name="medium" id="medium">

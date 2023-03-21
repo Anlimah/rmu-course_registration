@@ -11,156 +11,136 @@ if (!isset($_SESSION["_start"])) {
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RMU Online Applicatioin Portal</title>
     <link rel="stylesheet" href="../assets/css/main.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Roboto+Mono:wght@700&family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        .app-step {
-            padding: 10px;
-            margin-bottom: 10px;
-        }
-
-        p {
-            font-size: 16px;
-        }
-
-        div .col-1 {
-            font-size: 20px;
-            background-color: #003262;
-            height: 100%;
-            padding: 5px 10px;
-            color: #fff;
-        }
-    </style>
+    <title>RMU Online Applicatioin Portal</title>
+    <?php require_once("../inc/apply-head-section.php") ?>
 </head>
 
-<body class="fluid-container">
+<body>
 
     <div id="wrapper">
 
-        <nav class="fp-header">
-            <div class="container">
-                <div class="items">
-                    <img src="../assets/images/rmu-logo.png" alt="RMU logo" style="width: 60px;">
-                    <div class="flex-column justify-center" style="height: 100% !important; line-height: 1.3">
-                        <span class="rmu-logo-letter logo-letter">REGIONAL MARITIME UNIVERSITY</span>
-                        <span class="rmu-logo-letter description">APPLICATION PORTAL</span>
-                    </div>
+        <?php require_once("../inc/page-nav.php") ?>
+
+        <main class="flex-container">
+            <div class="row">
+
+                <div class="col-md-6 app-steps-section">
+                    <!--Voucher purchase info-->
+                    <section class="easy-apply">
+
+                        <h1 class="text-center"><u style="font-weight: 100; font-size: 32px">EASY STEPS TO APPLY</u></h1>
+
+                        <div class="app-step row">
+                            <div class="col-1 text-center">1</div>
+                            <p class="col-11">
+                                Purchase an e-voucher <a href="https://forms.rmuictonline.com/buy-online">online here</a> using
+                                <span style="color:#003262; font-weight:bolder">MoMo</span> or <span style="color:#003262; font-weight:bolder">Card</span>
+                                (Visa, Master) or from any of the <a href="">vendors listed here</a>.
+                            </p>
+                        </div>
+                        <div class="app-step row">
+                            <div class="col-1 text-center">2</div>
+                            <p class="col-11">
+                                Login with the form on the right hand side, using the voucher <span style="color:#003262; font-weight:bolder">APPLICATION</span> and
+                                <span style="color:#003262; font-weight:bolder">PIN</span> number that was provided to you via SMS and/or Email.
+                            </p>
+                        </div>
+                        <div class="app-step row">
+                            <div class="col-1 text-center">3</div>
+                            <p class="col-11">
+                                The application form is sub-divided into 5 sections. After filling form in each section, click
+                                <span style="color:#003262; font-weight:bolder">CHECK AND CONTINUE</span> button
+                                to verify that all required fields have been provided for.
+                            </p>
+                        </div>
+                        <div class="app-step row">
+                            <div class="col-1 text-center">4</div>
+                            <p class="col-11">
+                                The applicant’s passport picture should be in <span style="color:red; font-weight:bolder">.jpg, .jpeg, .png </span> or
+                                <span style="color:red; font-weight:bolder">.gif</span> format and must not exceed 100KB in size. Make sure you upload a picture showing your face clearly.
+                            </p>
+                        </div>
+                        <div class="app-step row">
+                            <div class="col-1 text-center">5</div>
+                            <p class="col-11">
+                                In the final section, verify and make sure that all information provided is correct before you submit.
+                                Clicking the <span style="color:#003262; font-weight:bolder">SUBMIT AND PRINT</span> button to submit the form and generate a reference number which will be sent to the phone number you specified. Changes after form submission is not allowed.
+                            </p>
+                        </div>
+                        <div class="app-step row">
+                            <div class="col-1 text-center">6</div>
+                            <p class="col-11">
+                                Click logout to leave the page. On subsequent logins you will be sent to a tracking page where you can track and print the application form you filled.
+                            </p>
+                        </div>
+
+                    </section>
                 </div>
+
+                <div class="col-md-6 login-section">
+                    <section class="login">
+
+                        <div style="width:auto">
+
+                            <!--Form card-->
+                            <div class="card loginFormContainer" style="margin-bottom: 50px; margin-top: 50px; max-width: 360px">
+                                <h1 style="margin: 0px 12% !important; margin-top:20px !important">Login</h1>
+
+                                <hr style="width: 100%">
+
+                                <p style="margin: 0px 12% !important; margin-bottom:20px !important">
+                                    Please enter the application and pin number received by SMS and/or Email
+                                    in the form below to begin with the application process!
+                                </p>
+
+                                <form id="appLoginForm" style="margin: 0px 12% !important; margin-top: 15px !important;">
+
+                                    <div class="mb-4">
+                                        <label class="form-label" for="app_number">Application Number</label>
+                                        <div class="input-group " style="width: 280px">
+                                            <span class="input-group-text" id="basic-addon1" style="font-weight: 600;">RMU-</span>
+                                            <input class="form-control form-control-lg form-control-login" type="text" id="app_number" name="app_number" aria-describedby="basic-addon1" placeholder="Application Number">
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <label class="form-label" for="pin_code">PIN Code</label>
+                                        <input class="form-control form-control-lg form-control-login" type="password" id="pin_code" name="pin_code" placeholder="PIN Code" style="width: 280px">
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <button type="submit" class="btn btn-primary form-btn-login">Login</button>
+                                    </div>
+                                    <input type="hidden" name="_logToken" value="<?= $_SESSION['_start'] ?>">
+                                </form>
+
+                            </div>
+
+                            <!--Help center card-->
+                            <fieldset class="fieldset text-center container" style="display: flex !important; flex-direction: column !important; align-items:center !important; max-width: 280px !important; min-width: 280px !important; font-size: 14px">
+                                <legend style="width:100%; text-align: center;">Need Help?</legend>
+                                <p style="width: 100%;">
+                                    <span class="bi bi-telephone-fill"></span>
+                                    <a href=" tel:+233302712775">+233302712775</a>
+                                </p>
+                                <p style="width: 100%;">
+                                    <span class="bi bi-envelope-fill"></span>
+                                    <a href="mailto:university.registrar@rmu.edu.gh">university.registrar@rmu.edu.gh</a>
+                                </p>
+                            </fieldset>
+
+                        </div>
+
+                    </section>
+                </div>
+
             </div>
-        </nav>
+        </main>
+        <?php require_once("../inc/page-footer.php"); ?>
 
-        <div class="row content">
-
-            <!--Voucher purchase info-->
-            <section class="col-md-6 col-sm-12 easy-apply" style="background-color: #f2f2f2 !important;">
-
-                <div class="container">
-
-                    <h1 class="text-center" style="font-weight: 100;"><u style="font-weight: 300;">EASY STEPS TO APPLY</u></h1>
-
-                    <div class="app-step row">
-                        <div class="col-1 text-center">1</div>
-                        <p class="col-11">
-                            Purchase an e-voucher <a href="https://forms.rmuictonline.com/buy-online">online here</a> using
-                            <span style="color:#003262; font-weight:bolder">MoMo</span> or <span style="color:#003262; font-weight:bolder">Card</span>
-                            (Visa, Master) or from any of the <a href="">vendors listed here</a>.
-                        </p>
-                    </div>
-                    <div class="app-step row">
-                        <div class="col-1 text-center">2</div>
-                        <p class="col-11">
-                            Login with the form on the right hand side, using the voucher APPLICATION and PIN NUMBER that was provided to you via SMS and/or Email.
-                        </p>
-                    </div>
-                    <div class="app-step row">
-                        <div class="col-1 text-center">3</div>
-                        <p class="col-11">
-                            Select your mode of entry and indicate your entry type (i.e Post WASSCE/SSCE, Post Diploma, Matured ... etc). Click submit to start applying.
-                        </p>
-                    </div>
-                    <div class="app-step row">
-                        <div class="col-1 text-center">4</div>
-                        <p class="col-11">
-                            Fill application form and attach your passport picture. The applicant’s passport picture should be in .jpg, .jpeg, .png or .gif format and must not exceed 100KB in size. Make sure you upload a picture showing your face clearly.
-                        </p>
-                    </div>
-                    <div class="app-step row">
-                        <div class="col-1 text-center">5</div>
-                        <p class="col-11">
-                            Clicking the SUBMIT AND PRINT button will submit the form and generate a reference number which will be sent to the phone number you specified. Make sure you provide correct information before submitting the form. Changes after form submission is not allowed.
-                        </p>
-                    </div>
-                    <div class="app-step row">
-                        <div class="col-1 text-center">6</div>
-                        <p class="col-11">
-                            Click logout to leave the page. On subsequent logins you will be sent to a tracking page where you can track and print the application form you filled.
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-            <!--Login form-->
-            <section class="col-md-6 col-sm-12 login" style="display:flex; flex-direction:column; align-items:center; justify-content: center">
-
-                <div style="width:auto">
-
-                    <div class="card container" style="margin-bottom: 50px; margin-top: 50px; padding-top:15px; max-width: 302px">
-                        <h1>Login</h1>
-                        <hr style="margin-top: auto;">
-
-                        <p style="width: auto">
-                            Please enter the application and pin number received by SMS and/or Email
-                            in the form below to begin with the application process!
-                        </p>
-
-                        <form id="appLoginForm" style="margin-top: 15px;">
-                            <div class="mb-4" style="width: 280px">
-                                <label class="form-label" for="app_number">Application Number</label>
-                                <div class="input-group ">
-                                    <span class="input-group-text" id="basic-addon1" style="font-weight: 600;">RMU - </span>
-                                    <input class="form-control form-control-lg form-control-login" type="text" id="app_number" name="app_number" aria-describedby="basic-addon1" placeholder="Application Number">
-                                </div>
-                            </div>
-                            <div class="mb-4">
-                                <label class="form-label" for="pin_code">PIN Code</label>
-                                <input class="form-control form-control-lg form-control-login" style="width: 280px" type="password" id="pin_code" name="pin_code" placeholder="PIN Code">
-                            </div>
-                            <div class="mb-4">
-                                <button type="submit" class="btn btn-primary form-btn-login">Login</button>
-                            </div>
-                            <input type="hidden" name="_logToken" value="<?= $_SESSION['_start'] ?>">
-                        </form>
-
-                    </div>
-
-                    <fieldset class="fieldset text-center container" style="display: flex !important; flex-direction: column !important; align-items:center !important; max-width: 280px !important; min-width: 280px !important; font-size: 14px">
-                        <legend style="width:100%; text-align: center;">Need Help?</legend>
-                        <p style="width: 100%;">
-                            <span class="bi bi-telephone-fill"></span>
-                            <a href=" tel:+233302712775">+233302712775</a>
-                        </p>
-                        <p style="width: 100%;">
-                            <span class="bi bi-envelope-fill"></span>
-                            <a href="mailto:university.registrar@rmu.edu.gh">university.registrar@rmu.edu.gh</a>
-                        </p>
-                    </fieldset>
-
-                </div>
-
-            </section>
-        </div>
-
-        <?php require_once('../inc/page-footer.php') ?>
     </div>
+
 
     <script src="../js/jquery-3.6.0.min.js"></script>
     <script>

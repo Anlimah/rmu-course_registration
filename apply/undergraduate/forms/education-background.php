@@ -13,12 +13,12 @@ require_once('../../inc/page-data.php');
 
 ?>
 
-<fieldset class="fieldset" id="graduate">
-    <div class="field-header">
+<fieldset class="fieldset row" id="graduate">
+    <div class="col-md-4 col-sm-12">
         <legend>Which Secondary/High Schools have you attended?</legend>
     </div>
 
-    <div class="field-content">
+    <div class="col-md-8 col-sm-12">
         <div class="mb-4">
             <p>
                 Please list all colleges, universities, or other secondary institutions in which you attended classes. If you went to multiple institutions, please enter each separately. </br>
@@ -74,13 +74,13 @@ require_once('../../inc/page-data.php');
 </fieldset>
 
 <!--Previous university record section-->
-<fieldset class="fieldset">
-    <div class="field-header">
+<fieldset class="fieldset row">
+    <div class="col-md-4 col-sm-12">
         <legend>Previous University Enrollment Information</legend>
     </div>
 
     <!--Previous university record-->
-    <div class="field-content">
+    <div class="col-md-8 col-sm-12">
         <div class="mb-4">
             <div class="mb-4">
                 <label class="form-label">Do you have any previous University records? <span class="input-required">*</span></label>

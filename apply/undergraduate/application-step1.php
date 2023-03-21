@@ -23,26 +23,22 @@ $page = array("id" => 1, "name" => "Personal Information");
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $page["name"] ?></title>
     <link rel="stylesheet" href="../../assets/css/main.css">
-    <!--<link rel="stylesheet" href="../../assets/css/bootstrap.css">-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <?php require_once("../../inc/apply-head-section.php") ?>
 </head>
 
 <body id="body">
 
-    <?php require_once("../../inc/top-page-section.php") ?>
+    <div id="wrapper">
 
-    <div class="main-content">
-        <div class="container">
+        <?php require_once("../../inc/page-nav2.php") ?>
+
+        <main class="container">
             <div class="row">
-                <div class="col-9">
-                    <main>
+
+                <div class="col-md-8 ">
+                    <section class="easy-apply">
                         <div id="page_info" style="margin-bottom: 0px !important;">
                             <h1 style="font-size: 40px; padding-bottom: 15px !important">Personal Information</h1>
                             <div class="alert alert-danger text-danger hide" id="page_info_text" style="width: 100%; border: none !important">
@@ -54,9 +50,6 @@ $page = array("id" => 1, "name" => "Personal Information");
                         <!-- Page form -->
                         <form class="needs-validation" id="appForm" name="1" method="POST" style="margin-top: 15px !important;" novalidate>
                             <?php require_once("forms/personal-information.php") ?>
-
-                            <!-- Bottom page navigation -->
-                            <?php require_once("../../inc/bottom-page-section.php"); ?>
                         </form>
 
                         <!--image uploader-->
@@ -68,15 +61,19 @@ $page = array("id" => 1, "name" => "Personal Information");
                             </form>
                         </div>
 
-                    </main>
+                        <!-- Bottom page navigation -->
+                        <?php require_once("../../inc/bottom-page-section.php"); ?>
+                    </section>
                 </div>
 
-                <!-- Right page navigation and help div -->
-                <?php require_once("../../inc/right-page-section.php"); ?>
+                <div class="col-md-4 ">
+                    <!-- Right page navigation and help div -->
+                    <?php require_once("../../inc/right-page-section.php"); ?>
+                </div>
 
             </div>
-        </div>
-        <?php require_once('../../inc/app-page-footer.php') ?>
+        </main>
+        <?php require_once("../../inc/page-footer.php"); ?>
     </div>
 
     <script src="../../js/jquery-3.6.0.min.js"></script>

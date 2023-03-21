@@ -7,3 +7,4 @@
         <button type="submit" id="submitBtn" style="width: 50%; margin-left: 10px" class="btn btn-primary text-white">Check My Work and Continue</button>
     <?php } ?>
 </div>
+<div style="width:100%; text-align:center">Your progress is automatically saved!</div>

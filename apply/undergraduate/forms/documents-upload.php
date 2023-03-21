@@ -13,11 +13,11 @@ $appStatus = $user->getApplicationStatus($user_id);
 
 ?>
 
-<fieldset class="fieldset">
-    <div class="field-header">
+<fieldset class="fieldset row">
+    <div class="col-md-4 col-sm-12">
         <legend>Academic Qualifications</legend>
     </div>
-    <div class="field-content">
+    <div class="col-md-8 col-sm-12">
         <div class="mb-4">
             <p>Upload scanned copies of certificates related to the education information you provide in the education background section.</p>
         </div>

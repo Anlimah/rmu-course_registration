@@ -84,7 +84,7 @@ video {
 	padding: 0;
 	border: 0;
 	font-size: 100%;
-	font: inherit;
+	font-family: inherit;
 	vertical-align: baseline;
 }
 
@@ -146,12 +146,17 @@ select,
 input,
 select {
 	padding: 0.40625rem 0.6875rem !important;
-	text-transform: uppercase;
+	/*text-transform: uppercase;*/
 }
 
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
+}
+
+body,
+html {
+	min-height: 100vh;
 }
 
 html {
@@ -168,21 +173,6 @@ strong {
 }
 .display {
 	display: block !important;
-}
-
-body,
-html {
-	height: auto;
-	min-height: 100vh;
-}
-
-body {
-	background: #fff;
-	-webkit-overflow-scrolling: touch;
-	overflow: auto;
-	line-height: 1;
-	color: #282828 !important;
-	font-size: 16px !important;
 }
 
 #bg-img {
@@ -208,12 +198,12 @@ a:hover {
 	cursor: pointer;
 }
 
-footer {
+/*footer {
 	background-color: #000;
 	display: block;
 	padding: 0.5rem 0;
 	width: 100%;
-	color: #fff;
+	color: #003262 !important;
 	z-index: 10;
 }
 
@@ -226,10 +216,6 @@ footer {
 	margin: 0 4px;
 }
 
-.footer a {
-	color: #fff;
-}
-
 .footer ul li::after {
 	margin-left: 4px;
 	content: "|";
@@ -237,7 +223,7 @@ footer {
 
 .footer ul li:last-child::after {
 	content: "";
-}
+}*/
 
 /*
     PAGE LAYOUT
@@ -279,7 +265,7 @@ header {
 	background-color: #003262 !important;
 	background: linear-gradient(180deg, #003262 0, #002549);
 }
-
+/*
 .top-nav-bar .info-card,
 .top-nav-bar .logo-board {
 	width: 100% !important;
@@ -305,6 +291,7 @@ header {
 	display: block;
 	line-height: 182%;
 }
+*/
 
 .info-card {
 	width: 100% !important;
@@ -313,12 +300,6 @@ header {
 	align-items: center;
 	justify-content: space-between;
 	color: #fff;
-}
-
-main {
-	color: #303030;
-	margin-bottom: 50px;
-	width: 100% !important;
 }
 
 .main-content {
@@ -358,7 +339,8 @@ label {
 .fieldset,
 .right-section,
 .fieldset-col,
-.page-control {
+.page-control,
+.fp-footer {
 	border-top: 1px solid #ccc;
 }
 
@@ -532,8 +514,61 @@ fieldset legend {
 	width: 100%;
 }
 
-.easy-apply > h1 {
-	text-align: center;
+/*
+Flex styles
+*/
+
+/*.flex-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.flex-container > div {
+	height: 100% !important;
+	width: 100% !important;
+}*/
+
+.flex-column {
+	display: flex !important;
+	flex-direction: column !important;
+}
+
+.flex-row {
+	display: flex !important;
+	flex-direction: column !important;
+}
+
+.justify-center {
+	justify-content: center !important;
+}
+
+.justify-space-between {
+	justify-content: space-between !important;
+}
+
+.align-items-center {
+	align-items: center !important;
+}
+
+.align-items-baseline {
+	align-items: baseline !important;
+}
+
+/*
+From rmu_admin_new
+*/
+
+body {
+	/*was 000*/
+	font-family: "Ubuntu", sans-serif !important;
+	font-weight: 400;
+	-webkit-overflow-scrolling: touch;
+	overflow: auto;
+	line-height: 1;
+	background-color: #fff !important;
+	color: #282828 !important;
+	font-size: 14px !important;
 }
 
 #wrapper {
@@ -543,12 +578,13 @@ fieldset legend {
 	justify-content: space-between;
 	width: 100% !important;
 	height: 100% !important;
+	position: relative !important;
 }
 
 main {
 	width: 100%;
 	height: 100%;
-	margin-top: 50px !important;
+	flex: 1;
 }
 
 .fp-header,
@@ -558,13 +594,61 @@ main {
 
 .fp-header {
 	background-color: #003262 !important;
-	height: 80px !important;
-	position: fixed;
+	position: fixed !important;
 	top: 0;
 	left: 0;
 	right: 0;
 	box-shadow: 0 0 25px 0 black;
 	z-index: 999 !important;
+	width: 100% !important;
+}
+
+.info-board {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.fp-header > .info-board {
+	width: 100% !important;
+	height: 40px !important;
+	background-color: #fff !important;
+}
+
+.fp-header > .logo-board,
+.fp-header > .container {
+	width: 100% !important;
+	height: 80px !important;
+}
+
+.fp-header > .row {
+	align-items: center;
+}
+
+.info-board > .info-board-items {
+	height: 100%;
+	width: 100%;
+}
+
+.info-board-items {
+	display: flex;
+	justify-content: center;
+}
+
+.board-items {
+	text-align: center;
+}
+
+.info-board-items > .board-items {
+	height: 100%;
+	align-items: center;
+	margin-right: 25px;
+	padding: 8px 0px;
+}
+
+.board-items .bi {
+	color: #003262;
 }
 
 .fp-footer {
@@ -573,19 +657,29 @@ main {
 	justify-content: center !important;
 	align-self: flex-end !important;
 	align-items: center !important;
-	background-color: #fff !important;
-	margin: 0 !important;
-	position: fixed !important;
-	bottom: 0 !important;
 	text-align: center !important;
 	line-height: 1.2 !important;
-	height: 50px !important;
+	height: 60px !important;
+	color: #003262 !important;
+	width: 100% !important;
+	/*background-color: #002549;*/
 }
 
-.fp-header > div {
-	width: 100% !important;
-	height: 100% !important;
-	margin: 0px 110px;
+.items {
+	display: flex !important;
+	flex-direction: row !important;
+	align-items: center;
+	height: inherit;
+}
+
+.items > img,
+.items > span {
+	padding: 2px 7px !important;
+}
+
+.rmu-logo-letter {
+	font-family: "Ubuntu", sans-serif;
+	color: #fff;
 }
 
 .rmu-logo-letter {
@@ -604,36 +698,64 @@ main {
 	letter-spacing: 0.4rem !important;
 }
 
-.flex-column {
-	display: flex !important;
-	flex-direction: column !important;
+.easy-apply > h1 {
+	text-align: center;
 }
 
-.justify-center {
-	justify-content: center !important;
-}
-
-.items {
-	display: flex !important;
-	flex-direction: row !important;
+.login {
+	display: flex;
+	flex-direction: column;
 	align-items: center;
-	height: inherit;
+	justify-content: center;
 }
 
-.items > span {
-	padding: 2px 5px !important;
+.easy-apply,
+.login {
+	padding: 170px 0 30px 0;
 }
 
-.items > img {
-	padding: 5px 4px !important;
+.login .reduce-pad-bottom,
+.easy-apply .reduce-pad-bottom {
+	padding-bottom: 0 !important;
+}
+
+.app-steps-section,
+.login-section {
+	padding: 0px 110px !important;
+}
+
+.app-steps-section {
+	background-color: #f1f1f1 !important;
+}
+
+.login-section {
+	background-color: #fff !important;
+}
+
+.app-step {
+	padding: 10px;
+	margin-bottom: 10px;
+}
+
+div .col-1 {
+	font-size: 20px;
+	background-color: #003262;
+	height: 100%;
+	padding: 5px 10px;
+	color: #fff;
+	border-radius: 8px;
+}
+
+form {
+	margin: 0 0 !important;
 }
 
 /*Small devices (landscape phones, 576px and up)*/
-@media (max-width: 576px) {
-	main {
+@media (max-width: 575.99px) {
+	/*main {
 		padding-left: 15px !important;
 		padding-right: 15px !important;
-	}
+	}*/
 
 	label {
 		font-size: 13px;
@@ -655,30 +777,17 @@ main {
 		width: auto;
 	}
 
-	.fp-header > div {
-		width: 100% !important;
-		height: 100% !important;
-		margin: 0px 5px;
-	}
-
-	.rmu-logo-letter.logo-letter {
-		font-size: 16px !important;
-		font-weight: 600 !important;
-		letter-spacing: 0rem !important;
-	}
-
-	.rmu-logo-letter.description {
-		font-size: 14px !important;
-		letter-spacing: 0.4rem !important;
+	#sign-out-1 {
+		display: none !important;
 	}
 }
 
 /*Small devices (landscape phones, 576px and up)*/
 @media (min-width: 576px) {
-	main {
+	/*main {
 		padding-left: 15px !important;
 		padding-right: 15px !important;
-	}
+	}*/
 
 	label {
 		font-size: 13px;
@@ -697,31 +806,6 @@ main {
 
 	.content {
 		padding: 110px 0px !important;
-	}
-
-	.rmu-logo-letter.logo-letter {
-		font-size: 16px !important;
-		font-weight: 600 !important;
-		letter-spacing: 0rem !important;
-	}
-
-	.rmu-logo-letter.description {
-		font-size: 14px !important;
-		letter-spacing: 0.4rem !important;
-	}
-}
-
-/*Small devices (landscape phones, 576px and up)*/
-@media (max-width: 767.99px) {
-	.rmu-logo-letter.logo-letter {
-		font-size: 16px !important;
-		font-weight: 600 !important;
-		letter-spacing: 0rem !important;
-	}
-
-	.rmu-logo-letter.description {
-		font-size: 14px !important;
-		letter-spacing: 0.4rem !important;
 	}
 }
 
@@ -752,7 +836,7 @@ main {
 	.main-content,
 	.info-card,
 	.logo-board {
-		padding: 0 0px !important;
+		padding: 0 0 !important;
 	}
 
 	fieldset > .field-header {
@@ -765,12 +849,80 @@ main {
 		width: 100% !important;
 		margin-left: 15px;
 	}
+
+	#menu {
+		display: none !important;
+	}
+}
+
+@media (max-width: 767.99px) {
+	/* For mobile phones: */
+
+	label {
+		font-size: 13px !important;
+		font-weight: bolder !important;
+	}
+
+	h1 {
+		font-size: 30px !important;
+		padding-bottom: 15px !important;
+		font-weight: 700 !important;
+	}
+
+	body {
+		overflow: none;
+	}
+
+	.form-control {
+		width: 100% !important;
+	}
+
+	.app-steps-section,
+	.login-section {
+		padding: 0px 15px !important;
+	}
+
+	/*.login {
+		padding: 100px 0px;
+	}*/
+
+	.easy-apply {
+		padding-bottom: 100px;
+	}
+
+	.rmu-logo-letter.logo-letter {
+		font-size: 14px !important;
+		font-weight: 600 !important;
+		letter-spacing: 0rem !important;
+	}
+
+	.rmu-logo-letter.description {
+		font-size: 13px !important;
+		letter-spacing: 0.4rem !important;
+	}
+
+	#sections-process,
+	#sign-out-1 {
+		display: none !important;
+	}
 }
 
 /*Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
 	.content {
 		padding: 110px 120px !important;
+	}
+}
+
+/*Large devices (desktops, 992px and up) */
+@media (max-width: 991.99px) {
+	.content {
+		padding: 110px 120px !important;
+	}
+
+	.app-steps-section,
+	.login-section {
+		padding: 0px 15px !important;
 	}
 }
 
