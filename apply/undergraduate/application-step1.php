@@ -50,6 +50,9 @@ $page = array("id" => 1, "name" => "Personal Information");
                         <!-- Page form -->
                         <form class="needs-validation" id="appForm" name="1" method="POST" style="margin-top: 15px !important;" novalidate>
                             <?php require_once("forms/personal-information.php") ?>
+
+                            <!-- Bottom page navigation -->
+                            <?php require_once("../../inc/bottom-page-section.php"); ?>
                         </form>
 
                         <!--image uploader-->
@@ -60,13 +63,10 @@ $page = array("id" => 1, "name" => "Personal Information");
                                 <input type="hidden" name="____entered___" id="____entered___">
                             </form>
                         </div>
-
-                        <!-- Bottom page navigation -->
-                        <?php require_once("../../inc/bottom-page-section.php"); ?>
                     </section>
                 </div>
 
-                <div class="col-md-4 ">
+                <div class="col-md-4">
                     <!-- Right page navigation and help div -->
                     <?php require_once("../../inc/right-page-section.php"); ?>
                 </div>
@@ -164,6 +164,8 @@ $page = array("id" => 1, "name" => "Personal Information");
             });
 
             $(".form-select").change("blur", function() {
+                alert(this.name)
+                alert(this.value)
                 $.ajax({
                     type: "PUT",
                     url: "../../api/personal",

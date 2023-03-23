@@ -32,7 +32,7 @@ $fullname = !empty($personal[0]["middle_name"]) ? $personal[0]["first_name"] . "
             </div>
 
             <div style="width: 100%; text-align:center">
-                <input type="submit" class="btn btn-primary" value="Complete Application" style="margin-top: 20px !important; background-color: #036; padding: 15px 20px !important">
+                <button type="submit" class="btn btn-primary" style="margin-top: 20px !important; background-color: #036; padding: 15px 20px !important">Submit Application</button>
             </div>
         </div>
     </div>

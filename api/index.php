@@ -518,6 +518,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			if ($column == "dob") {
 				$value = str_replace("/", "-", $value);
 			}
+
 			//English Language and disability check
 			if ($column == "disability" || $column == "english_native") {
 				if ($value == "YES") {

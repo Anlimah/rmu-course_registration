@@ -1,6 +1,6 @@
 <!-- Application progress tracker -->
-<section id="sections-process" class="login reduce-pad-bottom">
-    <div class="container-sm" style="margin-top: 77px; display: flex; flex-direction: column; position: -webkit-sticky; position: sticky; top: 10.3rem;">
+<section id="sections-process" class="login reduce-pad-bottom" style="position: -webkit-sticky; position: sticky; top: 5.5rem;">
+    <div class="container-sm">
         <fieldset class="right-section card" style="float:left; margin-top: 0px; max-width: 270px;min-width: 260px; width: 100%;">
             <legend style="width:100%; text-align: center; font-size: 20px; font-weight:600; margin-bottom:0px">Application Sections</legend>
             <span style="font-size: small;">In progress</span>

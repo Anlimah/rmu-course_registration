@@ -15,12 +15,20 @@ $about_us = $user->fetchHowYouKnowUs($user_id);
 
 <fieldset class="fieldset row">
     <div class="col-md-4 col-sm-12">
-        <legend>Programmes</legend>
+        <legend>Programme of Study</legend>
     </div>
     <div class="col-md-8 col-sm-12">
         <div class="mb-4">
+            <label class="form-label" for="medium">To what term are you applying?</label>
+            <select class="transform-text form-select-option form-select form-select-sm mb-3" name="medium" id="medium">
+                <option value="" hidden>Select</option>
+                <option value="AUGUST">August Intake</option>
+                <option value="JANUARY">January Intake</option>
+            </select>
+        </div>
+        <div class="mb-4">
             <label class="form-label" for="medium">Where did you hear of RMU? (Optional)</label>
-            <select class="form-select-option form-select form-select-sm mb-3" name="medium" id="medium">
+            <select class="transform-text form-select-option form-select form-select-sm mb-3" name="medium" id="medium">
                 <option value="" hidden>Select</option>
                 <option value="Social Media" <?= !empty($about_us[0]["medium"]) && $about_us[0]["medium"] == "Social Media" ? "selected" : "" ?>>Social Media</option>
                 <option value="Print Media" <?= !empty($about_us[0]["medium"]) && $about_us[0]["medium"] == "Print Media" ? "selected" : "" ?>>Print Media</option>
@@ -39,11 +47,17 @@ $about_us = $user->fetchHowYouKnowUs($user_id);
         </div>
         <div class="mb-4 <?= !empty($about_us[0]["description"]) ? "display" : "hide" ?> hide" id="medium-desc">
             <label class="form-label" for="medium-descript">Please state <span id="state-where"></span></label>
-            <input class="form-control" type="text" name="medium-descript" id="medium-descript" value="<?= $about_us[0]["description"] ?>">
+            <input class="transform-text form-control" type="text" name="medium-descript" id="medium-descript" value="<?= $about_us[0]["description"] ?>">
+        </div>
+        <div class="mb-4">
+            <div class="div-container alert alert-info" role="alert">
+                <h4 class="alert-heading">Note</h4>
+                <p>Programmes, displayed below to choose, are based on the type of form you purchased.</p>
+            </div>
         </div>
         <div class="mb-4">
             <label class="form-label" for="app-prog-first">First (1<sup>st</sup>) Choice <span class="input-required">*</span></label>
-            <select required class="form-select-option form-select form-select-sm mb-3" name="app-prog-first" id="app-prog-first">
+            <select required class="transform-text form-select-option form-select form-select-sm mb-3" name="app-prog-first" id="app-prog-first">
                 <option hidden value="">Choose </option>
                 <?php
                 $programs = $data->getPrograms($_SESSION['applicantType']);
@@ -57,7 +71,7 @@ $about_us = $user->fetchHowYouKnowUs($user_id);
         </div>
         <div class="mb-4">
             <label class="form-label" for="app-prog-second"> Second (2<sup>nd</sup>) Choice <span class="input-required">*</span></label>
-            <select required class="form-select-option form-select form-select-sm mb-3" name="app-prog-second" id="app-prog-second">
+            <select required class="transform-text form-select-option form-select form-select-sm mb-3" name="app-prog-second" id="app-prog-second">
                 <option hidden value="">Choose </option>
                 <?php
                 $programs = $data->getPrograms($_SESSION['applicantType']);

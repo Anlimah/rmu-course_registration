@@ -137,16 +137,25 @@ p:before {
 
 input,
 select,
+textarea,
+.div-container,
 .photo-upload-area {
-	max-width: 20rem !important;
-	font-size: 14px !important;
-	line-height: 1.5 !important;
+	max-width: 25rem !important;
 }
 
 input,
-select {
-	padding: 0.40625rem 0.6875rem !important;
-	/*text-transform: uppercase;*/
+select,
+textarea,
+.photo-upload-area {
+	font-size: 14px !important;
+	line-height: 1.5 !important;
+	background-color: #f9f9f9 !important;
+}
+
+input.transform-text,
+select.transform-text,
+textarea.transform-text {
+	text-transform: uppercase;
 }
 
 table {
@@ -198,33 +207,6 @@ a:hover {
 	cursor: pointer;
 }
 
-/*footer {
-	background-color: #000;
-	display: block;
-	padding: 0.5rem 0;
-	width: 100%;
-	color: #003262 !important;
-	z-index: 10;
-}
-
-.footer ul {
-	text-align: center;
-}
-
-.footer ul li {
-	display: inline-block;
-	margin: 0 4px;
-}
-
-.footer ul li::after {
-	margin-left: 4px;
-	content: "|";
-}
-
-.footer ul li:last-child::after {
-	content: "";
-}*/
-
 /*
     PAGE LAYOUT
 */
@@ -265,33 +247,6 @@ header {
 	background-color: #003262 !important;
 	background: linear-gradient(180deg, #003262 0, #002549);
 }
-/*
-.top-nav-bar .info-card,
-.top-nav-bar .logo-board {
-	width: 100% !important;
-	border: none !important;
-}
-
-.top-nav-bar .logo-board {
-	height: 75% !important;
-	background-color: #fff !important;
-}
-
-.logo-board {
-	display: flex !important;
-	justify-content: space-between !important;
-	align-items: baseline !important;
-	align-content: baseline !important;
-}
-
-.logo-board > h1 {
-	margin-top: auto;
-	margin-bottom: auto;
-	margin-left: 16px;
-	display: block;
-	line-height: 182%;
-}
-*/
 
 .info-card {
 	width: 100% !important;
@@ -300,17 +255,6 @@ header {
 	align-items: center;
 	justify-content: space-between;
 	color: #fff;
-}
-
-.main-content {
-	position: relative;
-	height: 100vh !important;
-	width: 100% !important;
-}
-
-.main-content::after {
-	margin: 0;
-	content: "";
 }
 
 label {
@@ -509,11 +453,6 @@ fieldset legend {
 	height: 5px;
 }
 
-.content {
-	padding: 120px 150px !important;
-	width: 100%;
-}
-
 /*
 Flex styles
 */
@@ -555,6 +494,13 @@ Flex styles
 	align-items: baseline !important;
 }
 
+.form-control,
+.form-select {
+	padding: 8px 10px !important;
+	border-radius: 5px !important;
+	border: 1px solid #888 !important;
+}
+
 /*
 From rmu_admin_new
 */
@@ -568,7 +514,7 @@ body {
 	line-height: 1;
 	background-color: #fff !important;
 	color: #282828 !important;
-	font-size: 14px !important;
+	font-size: 16px !important;
 }
 
 #wrapper {
@@ -711,7 +657,7 @@ main {
 
 .easy-apply,
 .login {
-	padding: 170px 0 30px 0;
+	padding: 120px 0 50px 0;
 }
 
 .login .reduce-pad-bottom,
@@ -751,14 +697,9 @@ form {
 }
 
 /*Small devices (landscape phones, 576px and up)*/
-@media (max-width: 575.99px) {
-	/*main {
-		padding-left: 15px !important;
-		padding-right: 15px !important;
-	}*/
-
+@media (max-width: 424.99px) {
 	label {
-		font-size: 13px;
+		font-size: 14px;
 		font-weight: bolder;
 	}
 
@@ -772,25 +713,55 @@ form {
 		font-weight: 700;
 	}
 
-	.content {
-		padding: 110px 0px !important;
-		width: auto;
+	#sign-out-1 {
+		display: none !important;
+	}
+
+	input,
+	select,
+	textarea,
+	.photo-upload-area {
+		max-width: 100% !important;
+		min-width: 100% !important;
+	}
+}
+
+/*Small devices (landscape phones, 576px and up)*/
+@media (max-width: 575.99px) {
+	label {
+		font-size: 14px;
+		font-weight: bolder;
+	}
+
+	fieldset legend {
+		font-size: 16px;
+	}
+
+	h1 {
+		font-size: 28px;
+		padding-bottom: 15px;
+		font-weight: 700;
 	}
 
 	#sign-out-1 {
 		display: none !important;
 	}
+
+	input,
+	select,
+	textarea,
+	.div-container,
+	.photo-upload-area {
+		max-width: 25rem !important;
+		/*font-size: 14px !important;*/
+		line-height: 1.5 !important;
+	}
 }
 
 /*Small devices (landscape phones, 576px and up)*/
 @media (min-width: 576px) {
-	/*main {
-		padding-left: 15px !important;
-		padding-right: 15px !important;
-	}*/
-
 	label {
-		font-size: 13px;
+		font-size: 14px;
 		font-weight: bolder;
 	}
 
@@ -803,17 +774,10 @@ form {
 		padding-bottom: 15px;
 		font-weight: 700;
 	}
-
-	.content {
-		padding: 110px 0px !important;
-	}
 }
 
 /*Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
-	.content {
-		padding: 110px 0px !important;
-	}
 	h1 {
 		font-size: 40px;
 		padding-bottom: 15px;
@@ -821,7 +785,7 @@ form {
 	}
 
 	label {
-		font-size: 14px;
+		/*font-size: 14px;*/
 		font-weight: bolder;
 	}
 
@@ -833,7 +797,6 @@ form {
 		padding: 20px 30px;
 	}
 
-	.main-content,
 	.info-card,
 	.logo-board {
 		padding: 0 0 !important;
@@ -859,7 +822,7 @@ form {
 	/* For mobile phones: */
 
 	label {
-		font-size: 13px !important;
+		font-size: 14px !important;
 		font-weight: bolder !important;
 	}
 
@@ -881,10 +844,6 @@ form {
 	.login-section {
 		padding: 0px 15px !important;
 	}
-
-	/*.login {
-		padding: 100px 0px;
-	}*/
 
 	.easy-apply {
 		padding-bottom: 100px;
@@ -909,17 +868,10 @@ form {
 
 /*Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
-	.content {
-		padding: 110px 120px !important;
-	}
 }
 
 /*Large devices (desktops, 992px and up) */
 @media (max-width: 991.99px) {
-	.content {
-		padding: 110px 120px !important;
-	}
-
 	.app-steps-section,
 	.login-section {
 		padding: 0px 15px !important;

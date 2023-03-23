@@ -98,11 +98,11 @@ require_once('../../inc/page-data.php');
             <div class="<?= $pre_uni_rec[0]["pre_uni_rec"] == 1 ? "" : "hide" ?>" id="prev-uni-rec-list">
                 <div class="mb-4">
                     <label class="form-label" for="name_of_uni">Name of University <span class="input-required">*</span></label>
-                    <input class="required-field form-control form-text-input" type="text" name="name_of_uni" id="name_of_uni" value="<?= $pre_uni_rec[0]["name_of_uni"] ?>" <?= $pre_uni_rec[0]["pre_uni_rec"] == 1 ? "required" : "" ?>>
+                    <input class="transform-text required-field form-control form-text-input" type="text" name="name_of_uni" id="name_of_uni" value="<?= $pre_uni_rec[0]["name_of_uni"] ?>" <?= $pre_uni_rec[0]["pre_uni_rec"] == 1 ? "required" : "" ?>>
                 </div>
                 <div class="mb-4">
                     <label class="form-label" for="program">Program Pursued <span class="input-required">*</span></label>
-                    <input class="required-field form-control form-text-input" type="text" name="program" id="program" value="<?= $pre_uni_rec[0]["program"] ?>" <?= $pre_uni_rec[0]["pre_uni_rec"] == 1 ? "required" : "" ?>>
+                    <input class="transform-text required-field form-control form-text-input" type="text" name="program" id="program" value="<?= $pre_uni_rec[0]["program"] ?>" <?= $pre_uni_rec[0]["pre_uni_rec"] == 1 ? "required" : "" ?>>
                 </div>
                 <div class="mb-4" id="date-enrolled-uni">
                     <label class="form-label" for="completion-date">Date Enrolled <span class="input-required">*</span></label>

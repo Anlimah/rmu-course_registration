@@ -46,7 +46,7 @@ $appStatus = $user->getApplicationStatus($user_id);
         <main class="container">
             <div class="row">
 
-                <div class="col-md-8 app-steps-section">
+                <div class="col-md-8">
                     <section class="easy-apply">
                         <div class="page_info" style="margin-bottom: 0px !important;">
                             <h1 style="font-size: 40px; padding-bottom: 15px !important; font-weight: 700;">Welcome to your application</h1>
