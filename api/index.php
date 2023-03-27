@@ -729,6 +729,10 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			$column = 'description';
 		}
 
+		if ($column == "app_term") {
+			$column = 'application_term';
+		}
+
 		if ($column == "medium" || $column == "description") {
 			$result = $user->updateHowYouKnowUs($column, $value["message"], $_SESSION['ghApplicant']);
 		} else {
