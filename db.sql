@@ -444,6 +444,10 @@ CREATE TABLE `program_info` (
     CONSTRAINT `fk_app_prog_info` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
+ALTER TABLE `program_info` 
+ADD COLUMN `application_term` VARCHAR(15) AFTER `second_prog`, 
+ADD COLUMN `study_stream` VARCHAR(15) AFTER `application_term`; 
+
 DROP TABLE IF EXISTS `previous_uni_records`;
 CREATE TABLE `previous_uni_records` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,

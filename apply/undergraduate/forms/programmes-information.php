@@ -19,11 +19,19 @@ $about_us = $user->fetchHowYouKnowUs($user_id);
     </div>
     <div class="col-md-8 col-sm-12">
         <div class="mb-4">
-            <label class="form-label" for="medium">To what term are you applying?</label>
-            <select class="transform-text form-select-option form-select form-select-sm mb-3" name="medium" id="medium">
+            <label class="form-label" for="app-term">To what term are you applying?</label>
+            <select class="transform-text form-select-option form-select form-select-sm mb-3" name="app-term" id="app-term">
                 <option value="" hidden>Select</option>
                 <option value="AUGUST">August Intake</option>
                 <option value="JANUARY">January Intake</option>
+            </select>
+        </div>
+        <div class="mb-4">
+            <label class="form-label" for="study-stream">Choose a study streams</label>
+            <select class="transform-text form-select-option form-select form-select-sm mb-3" name="study-stream" id="study-stream">
+                <option value="" hidden>Select</option>
+                <option value="REGULAR">Regular</option>
+                <option value="WEEKEND">Weekend</option>
             </select>
         </div>
         <div class="mb-4">
