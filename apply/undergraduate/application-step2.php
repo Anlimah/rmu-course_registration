@@ -147,6 +147,7 @@ $page = array("id" => 2, "name" => "Education Background");
             });
 
             $(".form-select").change("blur", function() {
+                // For add education background
                 if (this.id == "cert-type") {
 
                     var myArray = ['WASSCE', 'SSSCE', 'NECO', 'GBCE'];
@@ -164,29 +165,6 @@ $page = array("id" => 2, "name" => "Education Background");
                         $(".other-course-studied").slideUp();
                         $(".waec-course-content").slideDown();
                     }
-
-                    $("#course-studied option[value='Select']").attr('selected', 'selected');
-
-                    /*if (this.value == "OTHER") {
-                        $(".sepcific-cert").slideToggle();
-
-                        $("#course-studied").slideUp();
-                        $(".other-course-studied").slideToggle();
-                        $(".waec-course-content").slideUp();
-                    } else {
-                        $(".sepcific-cert").slideUp();
-
-                        var myArray = ['WASSCE', 'SSSCE', 'NECO', 'GBCE'];
-                        let index = $.inArray(this.value, myArray);
-
-                        if (index == -1) {
-                            $(".waec-course-content").slideUp();
-                        } else {
-                            $("#course-studied").slideDown();
-                            $(".other-course-studied").slideUp();
-                            $(".waec-course-content").slideDown();
-                        }
-                    }*/
                 }
 
                 if (this.id == "course-studied") {
@@ -194,6 +172,34 @@ $page = array("id" => 2, "name" => "Education Background");
                         $(".other-course-studied").slideToggle(200);
                     } else {
                         $(".other-course-studied").slideUp(200);
+                    }
+                }
+
+                // For edit education background
+                if (this.id == "edit-cert-type") {
+
+                    var myArray = ['WASSCE', 'SSSCE', 'NECO', 'GBCE'];
+                    let index = $.inArray(this.value, myArray);
+
+                    if (index == -1) {
+                        $("#edit-course-studied").slideUp();
+                        $(".edit-other-course-studied").slideDown();
+                        $(".edit-waec-course-content").slideUp();
+
+                        if (this.value == "OTHER") $(".edit-sepcific-cert").slideToggle();
+
+                    } else {
+                        $("#edit-course-studied").slideDown();
+                        $(".edit-other-course-studied").slideUp();
+                        $(".edit-waec-course-content").slideDown();
+                    }
+                }
+
+                if (this.id == "edit-course-studied") {
+                    if (this.value == "OTHER") {
+                        $(".edit-other-course-studied").slideToggle(200);
+                    } else {
+                        $(".edit-other-course-studied").slideUp(200);
                     }
                 }
             });
