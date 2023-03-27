@@ -225,25 +225,25 @@ class UsersController
     public function updateApplicantInfo($what, $value, $user_id)
     {
         $sql = "UPDATE `personal_information` SET `$what` = :v WHERE `app_login` = :a";
-        $this->dm->inputData($sql, array(':v' => $value, ':a' => $user_id));
+        return $this->dm->inputData($sql, array(':v' => $value, ':a' => $user_id));
     }
 
     public function updateAcademicInfo($what, $value, $s_number, $user_id)
     {
         $sql = "UPDATE `academic_background` SET `$what` = :v WHERE `s_number` = :s AND  `app_login` = :a";
-        $this->dm->inputData($sql, array(':v' => $value, ':s' => $s_number, ':a' => $user_id));
+        return $this->dm->inputData($sql, array(':v' => $value, ':s' => $s_number, ':a' => $user_id));
     }
 
     public function updatePrevUniInfo($what, $value, $user_id)
     {
         $sql = "UPDATE `previous_uni_records` SET `$what` = :v WHERE `app_login` = :a";
-        $this->dm->inputData($sql, array(':v' => $value, ':a' => $user_id));
+        return $this->dm->inputData($sql, array(':v' => $value, ':a' => $user_id));
     }
 
     public function updateProgramInfo($what, $value, $user_id)
     {
         $sql = "UPDATE `program_info` SET `$what` = :v WHERE `app_login` = :a";
-        $this->dm->inputData($sql, array(':v' => $value, ':a' => $user_id));
+        return $this->dm->inputData($sql, array(':v' => $value, ':a' => $user_id));
     }
 
     public function updateHowYouKnowUs($what, $value, $user_id)

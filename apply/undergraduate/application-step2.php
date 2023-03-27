@@ -74,6 +74,7 @@ $page = array("id" => 2, "name" => "Education Background");
         $(document).ready(function() {
             var incompleteForm = false;
             var itsForm = false;
+
             (() => {
                 'use strict'
 
@@ -123,21 +124,77 @@ $page = array("id" => 2, "name" => "Education Background");
 
             $(".awaiting-result").click(function() {
                 if ($('#awaiting-result-yes').is(':checked')) {
-                    $("#not-waiting").addClass("hide");
+                    //$("#not-waiting").addClass("hide");
+                    $("#not-waiting").slideToggle(200);
                     $("#awaiting_result_value").attr("value", 1);
                 }
                 if ($('#awaiting-result-no').is(':checked')) {
-                    $("#not-waiting").removeClass("hide");
+                    //$("#not-waiting").removeClass("hide");
+                    $("#not-waiting").slideToggle(200);
                     $("#awaiting_result_value").attr("value", 0);
                 }
 
                 if ($('#edit-awaiting-result-yes').is(':checked')) {
-                    $("#edit-not-waiting").addClass("hide");
+                    //$("#edit-not-waiting").addClass("hide");
+                    $("#edit-not-waiting").slideToggle(200);
                     $("#edit-awaiting_result_value").attr("value", 1);
                 }
                 if ($('#edit-awaiting-result-no').is(':checked')) {
-                    $("#edit-not-waiting").removeClass("hide");
+                    //$("#edit-not-waiting").removeClass("hide");
+                    $("#edit-not-waiting").slideToggle(200);
                     $("#edit-awaiting_result_value").attr("value", 0);
+                }
+            });
+
+            $(".form-select").change("blur", function() {
+                if (this.id == "cert-type") {
+
+                    var myArray = ['WASSCE', 'SSSCE', 'NECO', 'GBCE'];
+                    let index = $.inArray(this.value, myArray);
+
+                    if (index == -1) {
+                        $("#course-studied").slideUp();
+                        $(".other-course-studied").slideDown();
+                        $(".waec-course-content").slideUp();
+
+                        if (this.value == "OTHER") $(".sepcific-cert").slideToggle();
+
+                    } else {
+                        $("#course-studied").slideDown();
+                        $(".other-course-studied").slideUp();
+                        $(".waec-course-content").slideDown();
+                    }
+
+                    $("#course-studied option[value='Select']").attr('selected', 'selected');
+
+                    /*if (this.value == "OTHER") {
+                        $(".sepcific-cert").slideToggle();
+
+                        $("#course-studied").slideUp();
+                        $(".other-course-studied").slideToggle();
+                        $(".waec-course-content").slideUp();
+                    } else {
+                        $(".sepcific-cert").slideUp();
+
+                        var myArray = ['WASSCE', 'SSSCE', 'NECO', 'GBCE'];
+                        let index = $.inArray(this.value, myArray);
+
+                        if (index == -1) {
+                            $(".waec-course-content").slideUp();
+                        } else {
+                            $("#course-studied").slideDown();
+                            $(".other-course-studied").slideUp();
+                            $(".waec-course-content").slideDown();
+                        }
+                    }*/
+                }
+
+                if (this.id == "course-studied") {
+                    if (this.value == "OTHER") {
+                        $(".other-course-studied").slideToggle(200);
+                    } else {
+                        $(".other-course-studied").slideUp(200);
+                    }
                 }
             });
 

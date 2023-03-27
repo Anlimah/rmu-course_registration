@@ -3,7 +3,7 @@ $appStatus = $user->getApplicationStatus($user_id);
 $courses = $user->fetchCourses();
 ?>
 
-<!-- Modal -->
+<!-- Add education history Modal -->
 <div class="modal fade" id="addSchoolModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
@@ -13,7 +13,7 @@ $courses = $user->fetchCourses();
             </div>
             <div class="modal-body">
                 <form id="education-form" name="education-form">
-                    <div id="step-1" class="steps" style="margin: auto 20%;">
+                    <div id="step-1" class="steps">
                         <div class="mb-4" id="sch-name-group">
                             <label class="form-label" for="sch-name">School Name <span class="input-required">*</span></label>
                             <input placeholder="School" class="edu-mod-text form-control" type="text" name="sch-name" id="sch-name">
@@ -31,9 +31,9 @@ $courses = $user->fetchCourses();
                             <input placeholder="City" class="edu-mod-text form-control" type="text" name="sch-city" id="sch-city">
                         </div>
                     </div>
-                    <div id="step-2" class="steps hide" style="display:none; margin: auto 20%;">
+                    <div id="step-2" class="steps hide">
                         <div class="mb-4" id="cert-type-group">
-                            <label class="form-label" for="cert-type">Certificate/Degree Earned <span class="input-required">*</span></label>
+                            <label class="form-label" for="cert-type">Certificate or degree Earned <span class="input-required">*</span></label>
                             <select class="edu-mod-select form-select form-select-sm" name="cert-type" id="cert-type">
                                 <option value="Select" hidden>Select</option>
                                 <option value="WASSCE">WASSCE</option>
@@ -42,8 +42,15 @@ $courses = $user->fetchCourses();
                                 <option value="NECO">NECO</option>
                                 <option value="DIPLOMA">DIPLOMA</option>
                                 <option value="DEGREE">DEGREE</option>
-                                <option value="BAC">BACCALAUREATE</option>
+                                <option value="BACCALAUREATE">BACCALAUREATE</option>
+                                <option value="O LEVEL">O LEVEL</option>
+                                <option value="A LEVEL">A LEVEL</option>
+                                <option value="OTHER">OTHER</option>
                             </select>
+                            <div class="div-container mt-4 sepcific-cert" style="display: none">
+                                <label class="form-label" for="other-cert-type"> Specify the certificate name <span class="input-required">*</span></label>
+                                <input type="text" id="other-cert-type" name="other-cert-type" class="edu-mod-text form-control" placeholder="Input certificate">
+                            </div>
                         </div>
                         <div class="mb-4" id="index-number-group">
                             <label class="form-label" for="index-number">Index Number <span class="input-required">*</span></label>
@@ -162,10 +169,10 @@ $courses = $user->fetchCourses();
                             </div>
                         </div>
                     </div>
-                    <div id="step-3" class="steps hide" style="display:none; margin: auto 20%;">
+                    <div id="step-3" class="steps hide">
                         <div class="mb-4" id="course-studied-group">
-                            <label class="form-label" for="course-studied">Course/Program of Study <span class="input-required">*</span></label>
-                            <select class="edu-mod-select form-select form-select-sm" name="course-studied" id="course-studied">
+                            <label class="form-label" for="course-studied">Course or program of Study <span class="input-required">*</span></label>
+                            <select class="mb-4 edu-mod-select form-select form-select-sm" name="course-studied" id="course-studied">
                                 <option value="Select" hidden>Select</option>
                                 <?php
                                 foreach ($courses as $course) {
@@ -174,57 +181,62 @@ $courses = $user->fetchCourses();
                                 <?php
                                 }
                                 ?>
+                                <option value="OTHER">OTHER</option>
                             </select>
-                            <input placeholder="Index Number" class="edu-mod-text form-control" type="text" name="bacc-course-studied" id="bacc-course-studied" style="display: none">
-                        </div>
-                        <div class="mb4">
-                            <label class="form-label" for="awaiting-cert">Are you waiting for exam result ? <span class="input-required">*</span></label>
-                            <label for="awaiting-result-yes" class="form-label radio-btn">
-                                <input class="awaiting-result" style="margin: 0 !important; padding: 0 !important;" type="radio" name="awaiting-result" id="awaiting-result-yes" value="Yes"> Yes
-                            </label>
-                            <label for="awaiting-result-no" class="form-label radio-btn">
-                                <input class="awaiting-result" style="margin: 0 !important; padding: 0 !important;" type="radio" name="awaiting-result" id="awaiting-result-no" value="No" checked> No
-                            </label>
-                        </div>
-                        <div id="not-waiting" class="">
-                            <div class="mb-4 mt-4" id="core-subjects">
-                                <label class="form-label">Core Subjects <span class="input-required">*</span></label>
-                                <?php
-                                $core_sbjs = $user->fetchSubjects("core");
-                                $i = 0;
-                                foreach ($core_sbjs as $core_sbj) {
-                                ?>
-                                    <div id="core-sbj<?= ($i + 1) ?>-group" class="mb-2">
-                                        <div style="display:flex !important; flex-direction:row !important; justify-content: space-between !important">
-                                            <input style="margin-right: 10px; width: 75%" class="form-control" type="text" name="core-sbj<?= ($i + 1) ?>" id="core-sbj<?= ($i + 1) ?>" value="<?= $core_sbj["subject"] ?>" disabled>
-                                            <select style="width: 25%" class="edu-mod-grade form-select form-select-sm subject-grade" name="core-sbj-grd<?= ($i + 1) ?>" id="core-sbj-grd<?= ($i + 1) ?>">
-                                                <option value="Grade" hidden>Grade</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                <?php
-                                    $i++;
-                                }
-                                ?>
+                            <div class="other-course-studied" style="display: none">
+                                <input type="text" name="other-course-studied" id="other-course-studied" class="edu-mod-text form-control" placeholder="Enter course studied">
                             </div>
-                            <div class="mb-4" id="elective-subjects">
-                                <label class="form-label">Elective Subjects <span class="input-required">*</span></label>
-                                <?php
-                                for ($i = 0; $i < 4; $i++) {
-                                ?>
-                                    <div id="elective-sbj<?= ($i + 1) ?>-group" class="mb-2">
-                                        <div style="display:flex !important; flex-direction:row !important; justify-content: space-between !important">
-                                            <select style="margin-right: 10px; width: 75%" class="edu-mod-select elective-subjects form-select form-select-sm" name="elective-sbj<?= ($i + 1) ?>" id="elective-sbj<?= ($i + 1) ?>">
-                                                <option value="Select" hidden>Select</option>
-                                            </select>
-                                            <select style="width: 25%" class="edu-mod-grade form-select form-select-sm" name="elective-sbj-grd<?= ($i + 1) ?>" id="elective-sbj-grd<?= ($i + 1) ?>">
-                                                <option value="Grade" hidden>Grade</option>
-                                            </select>
+                        </div>
+                        <div class="waec-course-content">
+                            <div class="mb4">
+                                <label class="form-label" for="awaiting-cert">Are you waiting for exam result ? <span class="input-required">*</span></label>
+                                <label for="awaiting-result-yes" class="form-label radio-btn">
+                                    <input class="awaiting-result" style="margin: 0 !important; padding: 0 !important;" type="radio" name="awaiting-result" id="awaiting-result-yes" value="Yes"> Yes
+                                </label>
+                                <label for="awaiting-result-no" class="form-label radio-btn">
+                                    <input class="awaiting-result" style="margin: 0 !important; padding: 0 !important;" type="radio" name="awaiting-result" id="awaiting-result-no" value="No" checked> No
+                                </label>
+                            </div>
+                            <div id="not-waiting" class="">
+                                <div class="mb-4 mt-4" id="core-subjects">
+                                    <label class="form-label">Core Subjects <span class="input-required">*</span></label>
+                                    <?php
+                                    $core_sbjs = $user->fetchSubjects("core");
+                                    $i = 0;
+                                    foreach ($core_sbjs as $core_sbj) {
+                                    ?>
+                                        <div id="core-sbj<?= ($i + 1) ?>-group" class="mb-2">
+                                            <div style="display:flex !important; flex-direction:row !important; justify-content: space-between !important">
+                                                <input style="margin-right: 10px; width: 75%" class="form-control" type="text" name="core-sbj<?= ($i + 1) ?>" id="core-sbj<?= ($i + 1) ?>" value="<?= $core_sbj["subject"] ?>" disabled>
+                                                <select style="width: 25%" class="edu-mod-grade form-select form-select-sm subject-grade" name="core-sbj-grd<?= ($i + 1) ?>" id="core-sbj-grd<?= ($i + 1) ?>">
+                                                    <option value="Grade" hidden>Grade</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
-                                <?php
-                                }
-                                ?>
+                                    <?php
+                                        $i++;
+                                    }
+                                    ?>
+                                </div>
+                                <div class="mb-4" id="elective-subjects">
+                                    <label class="form-label">Elective Subjects <span class="input-required">*</span></label>
+                                    <?php
+                                    for ($i = 0; $i < 4; $i++) {
+                                    ?>
+                                        <div id="elective-sbj<?= ($i + 1) ?>-group" class="mb-2">
+                                            <div style="display:flex !important; flex-direction:row !important; justify-content: space-between !important">
+                                                <select style="margin-right: 10px; width: 75%" class="edu-mod-select elective-subjects form-select form-select-sm" name="elective-sbj<?= ($i + 1) ?>" id="elective-sbj<?= ($i + 1) ?>">
+                                                    <option value="Select" hidden>Select</option>
+                                                </select>
+                                                <select style="width: 25%" class="edu-mod-grade form-select form-select-sm" name="elective-sbj-grd<?= ($i + 1) ?>" id="elective-sbj-grd<?= ($i + 1) ?>">
+                                                    <option value="Grade" hidden>Grade</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    <?php
+                                    }
+                                    ?>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -243,7 +255,7 @@ $courses = $user->fetchCourses();
 </div>
 <!--End of Modal-->
 
-<!-- Edit Modal -->
+<!-- Edit education history Modal -->
 <div class="modal fade" id="editSchoolModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-2" aria-labelledby="editStaticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
@@ -253,7 +265,7 @@ $courses = $user->fetchCourses();
             </div>
             <div class="modal-body">
                 <form id="edit-education-form" name="edit-education-form">
-                    <div id="edit-step-1" class="steps" style="margin: auto 20%;">
+                    <div id="edit-step-1" class="steps">
                         <div class="mb-4" id="edit-sch-name-group">
                             <label class="form-label" for="sch-name">School Name <span class="input-required">*</span></label>
                             <input placeholder="School" class="edu-mod-text form-control" type="text" name="edit-sch-name" id="edit-sch-name">
@@ -271,7 +283,7 @@ $courses = $user->fetchCourses();
                             <input placeholder="City" class="edu-mod-text form-control" type="text" name="edit-sch-city" id="edit-sch-city">
                         </div>
                     </div>
-                    <div id="edit-step-2" class="steps hide" style="display:none; margin: auto 20%;">
+                    <div id="edit-step-2" class="steps hide">
                         <div class="mb-4" id="edit-cert-type-group">
                             <label class="form-label" for="cert-type">Certificate/Degree Earned <span class="input-required">*</span></label>
                             <select class="edu-mod-select form-select form-select-sm" name="edit-cert-type" id="edit-cert-type">
@@ -401,7 +413,7 @@ $courses = $user->fetchCourses();
                             </div>
                         </div>
                     </div>
-                    <div id="edit-step-3" class="steps hide" style="display:none; margin: auto 20%;">
+                    <div id="edit-step-3" class="steps hide">
                         <div class="mb-4" id="edit-course-studied-group">
                             <label class="form-label" for="course-studied">Course/Program of Study <span class="input-required">*</span></label>
                             <select class="edu-mod-select form-select form-select-sm" name="edit-course-studied" id="edit-course-studied">

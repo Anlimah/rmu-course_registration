@@ -90,6 +90,7 @@ $(document).ready(function () {
             sch_city: $("#sch-city").val(),
 
             cert_type: $("#cert-type").val(),
+            other_cert_type: $("#other-cert-type").val(),
             index_number: $("#index-number").val(),
             month_started: $("#month-started").val(),
             year_started: $("#year-started").val(),
@@ -97,6 +98,7 @@ $(document).ready(function () {
             year_completed: $("#year-completed").val(),
 
             course_studied: $("#course-studied").val(),
+            other_course_studied: $("#other-course-studied").val(),
             awaiting_result: $("#awaiting_result_value").val(),
 
             core_sbj1: $("#core-sbj1").val(),
@@ -135,95 +137,95 @@ $(document).ready(function () {
                 //Step 1
                 if (data.errors.sch_name) {
                     $("#sch-name-group").addClass("has-error");
-                    $("#sch-name-group").append('<div class="help-block">' + data.errors.sch_name + "</div>");
+                    $("#sch-name-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.sch_name + "</div>");
                     step1 = 1;
                 }
                 if (data.errors.sch_country) {
                     $("#sch-country-group").addClass("has-error");
-                    $("#sch-country-group").append('<div class="help-block">' + data.errors.sch_country + "</div>");
+                    $("#sch-country-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.sch_country + "</div>");
                     step1 = 1;
                 }
                 if (data.errors.sch_region) {
                     $("#sch-region-group").addClass("has-error");
-                    $("#sch-region-group").append('<div class="help-block">' + data.errors.sch_region + "</div>");
+                    $("#sch-region-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.sch_region + "</div>");
                     step1 = 1;
                 }
                 if (data.errors.sch_city) {
                     $("#sch-city-group").addClass("has-error");
-                    $("#sch-city-group").append('<div class="help-block">' + data.errors.sch_city + "</div>");
+                    $("#sch-city-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.sch_city + "</div>");
                     step1 = 1;
                 }
 
                 //Step 2
                 if (data.errors.cert_type) {
                     $("#cert-type-group").addClass("has-error");
-                    $("#cert-type-group").append('<div class="help-block">' + data.errors.cert_type + "</div>");
+                    $("#cert-type-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.cert_type + "</div>");
                     step2 = 2;
                 }
                 if (data.errors.index_number) {
                     $("#index-number-group").addClass("has-error");
-                    $("#index-number-group").append('<div class="help-block">' + data.errors.index_number + "</div>");
+                    $("#index-number-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.index_number + "</div>");
                     step2 = 2;
                 }
                 if (data.errors.date_started) {
                     $("#date-started-group").addClass("has-error");
-                    $("#date-started-group").append('<div class="help-block">' + data.errors.date_started + "</div>");
+                    $("#date-started-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.date_started + "</div>");
                     step2 = 2;
                 }
                 if (data.errors.date_completed) {
                     $("#date-completed-group").addClass("has-error");
-                    $("#date-completed-group").append('<div class="help-block">' + data.errors.date_completed + "</div>");
+                    $("#date-completed-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.date_completed + "</div>");
                     step2 = 2;
                 }
 
                 //Step 3
                 if (data.errors.course_studied) {
                     $("#course-studied-group").addClass("has-error");
-                    $("#course-studied-group").append('<div class="help-block">' + data.errors.course_studied + "</div>");
+                    $("#course-studied-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.course_studied + "</div>");
                     step3 = 3;
                 }
 
                 // core
                 if (data.errors.core_sbj_grp1) {
                     $("#core-sbj1-group").addClass("has-error");
-                    $("#core-sbj1-group").append('<div class="help-block">' + data.errors.core_sbj_grp1 + "</div>");
+                    $("#core-sbj1-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.core_sbj_grp1 + "</div>");
                     step3 = 3;
                 }
                 if (data.errors.core_sbj_grp2) {
                     $("#core-sbj2-group").addClass("has-error");
-                    $("#core-sbj2-group").append('<div class="help-block">' + data.errors.core_sbj_grp2 + "</div>");
+                    $("#core-sbj2-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.core_sbj_grp2 + "</div>");
                     step3 = 3;
                 }
                 if (data.errors.core_sbj_grp3) {
                     $("#core-sbj3-group").addClass("has-error");
-                    $("#core-sbj3-group").append('<div class="help-block">' + data.errors.core_sbj_grp3 + "</div>");
+                    $("#core-sbj3-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.core_sbj_grp3 + "</div>");
                     step3 = 3;
                 }
                 if (data.errors.core_sbj_grp4) {
                     $("#core-sbj4-group").addClass("has-error");
-                    $("#core-sbj4-group").append('<div class="help-block">' + data.errors.core_sbj_grp4 + "</div>");
+                    $("#core-sbj4-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.core_sbj_grp4 + "</div>");
                     step3 = 3;
                 }
 
                 //elective
                 if (data.errors.elective_sbj_grp1) {
                     $("#elective-sbj1-group").addClass("has-error");
-                    $("#elective-sbj1-group").append('<div class="help-block">' + data.errors.elective_sbj_grp1 + "</div>");
+                    $("#elective-sbj1-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.elective_sbj_grp1 + "</div>");
                     step3 = 3;
                 }
                 if (data.errors.elective_sbj_grp2) {
                     $("#elective-sbj2-group").addClass("has-error");
-                    $("#elective-sbj2-group").append('<div class="help-block">' + data.errors.elective_sbj_grp2 + "</div>");
+                    $("#elective-sbj2-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.elective_sbj_grp2 + "</div>");
                     step3 = 3;
                 }
                 if (data.errors.elective_sbj_grp3) {
                     $("#elective-sbj3-group").addClass("has-error");
-                    $("#elective-sbj3-group").append('<div class="help-block">' + data.errors.elective_sbj_grp3 + "</div>");
+                    $("#elective-sbj3-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.elective_sbj_grp3 + "</div>");
                     step3 = 3;
                 }
                 if (data.errors.elective_sbj_grp4) {
                     $("#elective-sbj4-group").addClass("has-error");
-                    $("#elective-sbj4-group").append('<div class="help-block">' + data.errors.elective_sbj_grp4 + "</div>");
+                    $("#elective-sbj4-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.elective_sbj_grp4 + "</div>");
                     step3 = 3;
                 }
 

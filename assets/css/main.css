@@ -453,6 +453,10 @@ fieldset legend {
 	height: 5px;
 }
 
+.steps {
+	margin: auto 20% !important;
+}
+
 /*
 Flex styles
 */
@@ -698,6 +702,10 @@ form {
 
 /*Small devices (landscape phones, 576px and up)*/
 @media (max-width: 424.99px) {
+	.steps {
+		margin: auto 10% !important;
+	}
+
 	label {
 		font-size: 14px;
 		font-weight: bolder;
@@ -728,6 +736,10 @@ form {
 
 /*Small devices (landscape phones, 576px and up)*/
 @media (max-width: 575.99px) {
+	.steps {
+		margin: auto 10% !important;
+	}
+
 	label {
 		font-size: 14px;
 		font-weight: bolder;
