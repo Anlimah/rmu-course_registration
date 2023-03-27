@@ -37,9 +37,9 @@ $page = array("id" => 0, "name" => "Application Status");
         <main class="container">
             <div class="row">
 
-                <section class="easy-apply">
+                <section class="easy-apply" style="margin-top: 25px;">
                     <div class="page_info" style="margin-bottom: 0px !important;">
-                        <h1 style="font-size: 40px; padding-bottom: 15px !important; font-weight: 700;"><?= $page["name"] ?></h1>
+                        <h1 style="font-size: 40px; padding-bottom: 15px !important;"><?= $page["name"] ?></h1>
 
                         <!--<a href="?logout=true" class="btn btn-danger" style="float: right">Log out</a>-->
                         <div class="mb-4">
@@ -61,7 +61,7 @@ $page = array("id" => 0, "name" => "Application Status");
                     <div class="mt-4">
                         <label for="">
                             <span class="me-4">You can download a copy of your application form</span>
-                            <button type="button" class="btn btn-primary btn-sm">Download</button>
+                            <a href="./download-copy.php" class="btn btn-primary btn-sm" style="color: #fff !important">Download</a>
                         </label>
                     </div>
 
