@@ -338,8 +338,7 @@ fieldset legend {
 
 .form-btn-login {
 	max-width: 280px !important;
-	min-width: 280px !important;
-	width: 280px !important;
+	width: 100% !important;
 	margin-top: 10px !important;
 	background-color: #003262 !important;
 	border: 1px solid #003262 !important;
@@ -598,7 +597,12 @@ main {
 }
 
 .board-items .bi {
-	color: #003262;
+	color: #003262 !important;
+	font-size: larger !important;
+}
+
+.board-items .info {
+	text-decoration: none !important;
 }
 
 .fp-footer {
@@ -882,6 +886,14 @@ form {
 	#sections-process,
 	#sign-out-1 {
 		display: none !important;
+	}
+
+	.board-items .bi {
+		font-size: smaller !important;
+	}
+
+	.board-items .info {
+		font-size: smaller !important;
 	}
 }
 

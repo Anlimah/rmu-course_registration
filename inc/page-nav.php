@@ -3,16 +3,16 @@
         <div class="info-board-items">
 
             <div class="board-items">
-                <span class="bi bi-calendar2-week-fill" style="font-size: larger;"></span>
-                <span>Mon - Fri 8:00 - 16:00</span>
+                <span class="bi bi-calendar2-week-fill"></span>
+                <span class="info">Mon - Fri 8:00 - 16:00</span>
             </div>
             <div class="board-items">
-                <span class="bi bi-telephone-fill" style="font-size: larger;"></span>
-                <a href="tel:+233302712775" style="text-decoration: none">(+233) 302 712775</a>
+                <span class="bi bi-telephone-fill"></span>
+                <a class="info" href="tel:+233302712775">(+233) 302 712775</a>
             </div>
             <div class="board-items">
-                <span class="bi bi-envelope-fill" style="font-size: larger;"></span>
-                <a href="mailto:admissions@rmu.edu.gh" style="text-decoration: none">admissions@rmu.edu.gh</a>
+                <span class="bi bi-envelope-fill"></span>
+                <a class="info" href="mailto:admissions@rmu.edu.gh">admissions@rmu.edu.gh</a>
             </div>
         </div>
     </div>

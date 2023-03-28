@@ -89,53 +89,55 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	if ($_GET["url"] == "appLogin") {
 		$message = array("response" => "error", "message" => "Invalid request!");
 
-		if (isset($_SESSION["_start"]) && !empty($_SESSION["_start"])) {
-			if ($_POST["_logToken"] != $_SESSION["_start"]) {
-				die(json_encode(array("response" => "error", "message" => "Invalid request!")));
-			} else {
-				//$app_number = "RMU-" . $user->validateInput($_POST["app_number"]);
-				$app_number = $user->validateInput($_POST["app_number"]);
-				$pin_code = $user->validateInput($_POST["pin_code"]);
+		if (!isset($_SESSION["_start"]) || empty($_SESSION["_start"])) die(json_encode($message));
+		if ($_POST["_logToken"] != $_SESSION["_start"]) die(json_encode($message));
+		$da = is_numeric($_POST["app_number"]);
 
-				$result = $user->verifyLoginDetails($app_number, $pin_code);
+		if (!isset($_POST["app_number"]) || empty($_POST["app_number"]))
+			die(json_encode(array("response" => "error", "message" => "Incorrect application number or PIN!")));
+		if (!isset($_POST["pin_code"]) || empty($_POST["pin_code"]))
+			die(json_encode(array("response" => "error", "message" => "Incorrect application number or PIN!")));
 
-				if (!$result) {
-					die(json_encode(array("response" => "error", "message" => "Incorrect application number or PIN! ")));
-				} else {
-					$_SESSION['ghApplicant'] = $result["id"];
-					$_SESSION['applicantType'] = $result["type"];
-					$_SESSION['ghAppLogin'] = true;
-					$type = "";
+		$app_number = $user->validateInput(substr($_POST["app_number"], 4));
+		$pin_code = $user->validateInput($_POST["pin_code"]);
+		$result = $user->verifyLoginDetails($app_number, $pin_code);
 
-					switch ($result["type"]) {
-						case 1:
-							$type = 'postgraduate/welcome.php';
-							break;
-						case 2:
-						case 3:
-						case 4:
-							$type = 'undergraduate/welcome.php';
-							break;
+		if (!$result) die(json_encode(array("response" => "error", "message" => "Incorrect application number or PIN! ")));
 
-						default:
-							$type = 'none';
-							break;
-					}
-					$status = $user->hasSubmittedForm($_SESSION['ghApplicant']);
-					if (!empty($status)) {
-						$state = 1;
-						$type = "application-status.php";
-					} else {
-						$state = 0;
-					}
-					die(json_encode(array("response" => "success", "message" => $type, "state" => $state)));
-				}
-			}
-		} else {
-			echo 'NO';
+		$_SESSION['ghApplicant'] = $result["id"];
+		$_SESSION['applicantType'] = $result["type"];
+		$_SESSION['ghAppLogin'] = true;
+		$type = "";
+
+		switch ($result["type"]) {
+			case 1:
+				$type = 'postgraduate/welcome.php';
+				break;
+			case 2:
+			case 3:
+			case 4:
+				$type = 'undergraduate/welcome.php';
+				break;
+
+			default:
+				$type = 'none';
+				break;
 		}
-		exit();
-	} elseif ($_GET["url"] == "verify") {
+
+		$status = $user->hasSubmittedForm($_SESSION['ghApplicant']);
+
+		if (!empty($status)) {
+			$state = 1;
+			$type = "application-status.php";
+		} else {
+			$state = 0;
+		}
+
+		die(json_encode(array("response" => "success", "message" => $type, "state" => $state)));
+	}
+
+	// 
+	if ($_GET["url"] == "verify") {
 		$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 		$uri = explode('/', $uri);
 
@@ -377,7 +379,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	}
 
 	//Upload certificates endpoint
-	elseif ($_GET["url"] == "certificates") {
+	if ($_GET["url"] == "certificates") {
 		$data = [];
 		$errors = [];
 		if (isset($_FILES["upload-file"]["name"]) && !empty($_FILES["upload-file"]["name"])) {
@@ -432,7 +434,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		exit();
 
 		/** */
-	} elseif ($_GET["url"] == "upload-photo") {
+	}
+
+	if ($_GET["url"] == "upload-photo") {
 		$data = [];
 		$errors = [];
 
@@ -471,7 +475,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		}
 		echo json_encode($data);
 		exit();
-	} elseif ($_GET["url"] == "validateForm") {
+	}
+
+	if ($_GET["url"] == "validateForm") {
 		if (isset($_POST["form"]) && !empty($_POST["form"])) {
 			$form = $user->validatePhone($_POST["form"]);
 			$go = false;

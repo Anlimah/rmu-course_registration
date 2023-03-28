@@ -29,7 +29,7 @@ if (!isset($_SESSION["_start"])) {
                     <!--Voucher purchase info-->
                     <section class="easy-apply">
 
-                        <h1 class="text-center"><u style="font-weight: 100; font-size: 32px">EASY STEPS TO APPLY</u></h1>
+                        <h1 class="text-center" style="margin-top: 40px !important;"><u style="font-weight: 100; font-size: 32px">EASY STEPS TO APPLY</u></h1>
 
                         <div class="app-step row">
                             <div class="col-1 text-center">1</div>
@@ -98,15 +98,12 @@ if (!isset($_SESSION["_start"])) {
 
                                     <div class="mb-4">
                                         <label class="form-label" for="app_number">Application Number</label>
-                                        <div class="input-group " style="width: 280px">
-                                            <span class="input-group-text" id="basic-addon1" style="font-weight: 600;">RMU-</span>
-                                            <input class="form-control form-control-lg form-control-login" type="text" id="app_number" name="app_number" aria-describedby="basic-addon1" placeholder="Application Number">
-                                        </div>
+                                        <input class="form-control form-control-lg form-control-login" type="text" id="app_number" name="app_number" placeholder="Application Number">
                                     </div>
 
                                     <div class="mb-4">
                                         <label class="form-label" for="pin_code">PIN Code</label>
-                                        <input class="form-control form-control-lg form-control-login" type="password" id="pin_code" name="pin_code" placeholder="PIN Code" style="width: 280px">
+                                        <input class="form-control form-control-lg form-control-login" type="password" id="pin_code" name="pin_code" placeholder="PIN Code">
                                     </div>
 
                                     <div class="mb-4">
@@ -157,7 +154,7 @@ if (!isset($_SESSION["_start"])) {
                  *  1. Only numbers allowed
                  *  2. Min and Max of 8
                  */
-                if ($("#app_number").val().length > 8 || $("#app_number").val().length < 8) {
+                if ($("#app_number").val().length > 12 || $("#app_number").val().length < 8) {
                     alert("Invalid application number or PIN");
                     return;
                 }
