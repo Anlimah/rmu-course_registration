@@ -28,7 +28,10 @@
             <div id="sign-out-1" style="text-align:center; display: relative">
                 <a href="?logout=true" style="color: #fff !important">Sign Out</a>
             </div>
-            <span id="menu" class="bi bi-list" style="font-size: 28px; color: #fff"></span>
+            <a href="?logout=true" style="color: #fff !important">
+                <span class="bi bi-box-arrow-right" style="font-size: 28px; color: #fff; cursor:pointer"></span>
+            </a>
+
         </div>
     </div>
 </nav>
