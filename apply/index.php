@@ -22,7 +22,7 @@ if (!isset($_SESSION["_start"])) {
 
         <?php require_once("../inc/page-nav.php") ?>
 
-        <main class="flex-container">
+        <main>
             <div class="row">
 
                 <div class="col-md-6 app-steps-section">
