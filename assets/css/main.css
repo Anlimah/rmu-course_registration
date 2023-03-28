@@ -448,8 +448,9 @@ fieldset legend {
 .form-checked::after {
 	content: url("../images/icons8-checkmark-24.png");
 	position: relative;
-	width: 5px;
-	height: 5px;
+	width: 24px;
+	height: 24px;
+	transform: scale(0.8); /* scales the image down to 50% */
 }
 
 .steps {
@@ -460,7 +461,7 @@ fieldset legend {
 Flex styles
 */
 
-/*.flex-container {
+.flex-container {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -469,7 +470,7 @@ Flex styles
 .flex-container > div {
 	height: 100% !important;
 	width: 100% !important;
-}*/
+}
 
 .flex-column {
 	display: flex !important;
@@ -704,6 +705,34 @@ form {
 	margin: 0 0 !important;
 }
 
+.app-sections-menu {
+	position: absolute;
+	top: 0;
+	right: -300px;
+	width: 300px;
+	height: 100vh;
+	background-color: #fff;
+	z-index: 999;
+	padding: 25px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+	transition: transform 0.3s ease-out, right 0.3s ease-out;
+}
+
+.app-sections-menu.open {
+	transform: translateX(0); /* slide in from the right */
+	right: 0;
+}
+
+.app-sections-menu.close {
+	transform: translateX(0); /* slide out to the right */
+	right: -300px;
+}
+
+.close-sections-menu,
+.open-sections-menu {
+	cursor: pointer !important;
+}
+
 /*Small devices (landscape phones, 576px and up)*/
 @media (max-width: 424.99px) {
 	.steps {
@@ -829,7 +858,8 @@ form {
 		margin-left: 15px;
 	}
 
-	#menu {
+	.open-sections-menu,
+	.app-sections-menu {
 		display: none !important;
 	}
 }

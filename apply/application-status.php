@@ -267,7 +267,11 @@ $page = array("id" => 0, "name" => "Application Status");
         </main>
         <?php require_once("../inc/page-footer.php"); ?>
     </div>
+
+    <?php require_once("../inc/app-sections-menu.php"); ?>
+
     <script src="../js/jquery-3.6.0.min.js"></script>
+    <script src="../js/myjs.js"></script>
     <script>
         $(document).ready(function() {
             var currentGfgStep, nextGfgStep, preGfgStep;

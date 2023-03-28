@@ -76,6 +76,8 @@ $page = array("id" => 1, "name" => "Personal Information");
         <?php require_once("../../inc/page-footer.php"); ?>
     </div>
 
+    <?php require_once("../../inc/app-sections-menu.php"); ?>
+
     <script src="../../js/jquery-3.6.0.min.js"></script>
     <script src="../../js/myjs.js"></script>
     <script>
@@ -164,8 +166,6 @@ $page = array("id" => 1, "name" => "Personal Information");
             });
 
             $(".form-select").change("blur", function() {
-                alert(this.name)
-                alert(this.value)
                 $.ajax({
                     type: "PUT",
                     url: "../../api/personal",

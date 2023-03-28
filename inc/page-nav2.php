@@ -11,7 +11,7 @@
             <div id="sign-out-1" style="text-align:center; display: relative">
                 <a href="?logout=true" style="color: #fff !important">Sign Out</a>
             </div>
-            <span id="menu" class="bi bi-list" style="font-size: 28px; color: #fff"></span>
+            <span class="open-sections-menu bi bi-list" style="font-size: 28px; color: #fff"></span>
         </div>
     </div>
 </nav>

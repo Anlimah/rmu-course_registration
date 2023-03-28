@@ -69,6 +69,8 @@ $page = array("id" => 3, "name" => "Programmes Information");
 
     </div>
 
+    <?php require_once("../../inc/app-sections-menu.php"); ?>
+
     <script src="../../js/jquery-3.6.0.min.js"></script>
     <script src="../../js/myjs.js"></script>
     <script>
