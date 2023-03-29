@@ -490,6 +490,10 @@ Flex styles
 	justify-content: space-between !important;
 }
 
+.justify-space-around {
+	justify-content: space-around !important;
+}
+
 .align-items-center {
 	align-items: center !important;
 }
@@ -905,14 +909,19 @@ form {
 	}
 
 	.rmu-logo-letter.logo-letter {
-		font-size: 14px !important;
+		font-size: 12px !important;
 		font-weight: 600 !important;
 		letter-spacing: 0rem !important;
 	}
 
 	.rmu-logo-letter.description {
-		font-size: 13px !important;
-		letter-spacing: 0.4rem !important;
+		font-size: 12px !important;
+		letter-spacing: 0.3rem !important;
+	}
+
+	.items > img,
+	.items > span {
+		padding: 2px 15px !important;
 	}
 
 	#sections-process,
