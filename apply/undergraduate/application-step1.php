@@ -40,7 +40,7 @@ $page = array("id" => 1, "name" => "Personal Information");
                 <div class="col-md-8 ">
                     <section class="easy-apply">
                         <div id="page_info" style="margin-bottom: 0px !important;">
-                            <h1 style="font-size: 40px; padding-bottom: 15px !important">Personal Information</h1>
+                            <h1>Personal Information</h1>
                             <div class="alert alert-danger text-danger hide" id="page_info_text" style="width: 100%; border: none !important">
                                 <label class="text-danger">This form has errors:</label>
                                 <p>Provide values for all <b>required *</b> fields in the form.</p>

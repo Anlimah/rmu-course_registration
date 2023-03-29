@@ -29,7 +29,7 @@
 
         <a class="flex-row justify-space-between btn btn-outline-primary" href="?logout=true" style="align-items:center; width:100%;">
             <span>Sign out</span>
-            <span class="bi bi-box-arrow-up-right"></span>
+            <span class="bi bi-power"></span>
         </a>
     </div>
 </div>

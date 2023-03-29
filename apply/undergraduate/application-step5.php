@@ -40,7 +40,7 @@ $page = array("id" => 5, "name" => "Declaration");
                 <div class="col-md-8 ">
                     <section class="easy-apply">
                         <div id="page_info" style="margin-bottom: 0px !important;">
-                            <h1 style="font-size: 40px; padding-bottom: 15px !important">Declaration</h1>
+                            <h1>Declaration</h1>
                             <div class="alert alert-danger text-danger hide" id="page_info_text" style="width: 100%; border: none !important">
                                 <label class="text-danger">This form has errors:</label>
                                 <p id="data_info">Provide values for all <b>required *</b> fields in the form.</p>
@@ -48,12 +48,9 @@ $page = array("id" => 5, "name" => "Declaration");
                         </div>
 
                         <!-- Page form -->
-                        <form class="needs-validation" id="appForm" name="5" method="POST" style="margin-top: 15px !important;" novalidate>
+                        <form class="needs-validation" id="appForm" name="5" method="POST" novalidate>
                             <?php require_once("forms/declaration.php") ?>
 
-                            <!-- Bottom page navigation -->
-                            <?php //require_once("../../inc/bottom-page-section.php"); 
-                            ?>
                         </form>
                     </section>
                 </div>
@@ -107,27 +104,30 @@ $page = array("id" => 5, "name" => "Declaration");
 
             $("#appForm").on("submit", function() {
                 if (!incompleteForm) {
-                    $.ajax({
-                        type: "POST",
-                        url: "../../api/validateForm/",
-                        data: {
-                            form: this.name,
-                        },
-                        success: function(result) {
-                            console.log(result);
-                            if (result.success) {
-                                window.location.href = "../application-status.php";
-                            } else {
-                                $("#page_info_text").removeClass("hide");
-                                $("#page_info_text").addClass("display");
-                                $("#data_info").html("").append(result.message);
-                                window.location.href = "#body";
+                    let advance = confirm("Are you sure you want to submit your application?");
+                    if (advance) {
+                        $.ajax({
+                            type: "POST",
+                            url: "../../api/validateForm/",
+                            data: {
+                                form: this.name,
+                            },
+                            success: function(result) {
+                                console.log(result);
+                                if (result.success) {
+                                    window.location.href = "application-status.php";
+                                } else {
+                                    $("#page_info_text").removeClass("hide");
+                                    $("#page_info_text").addClass("display");
+                                    $("#data_info").html("").append(result.message);
+                                    window.location.href = "#body";
+                                }
+                            },
+                            error: function(error) {
+                                console.log(error);
                             }
-                        },
-                        error: function(error) {
-                            console.log(error);
-                        }
-                    });
+                        });
+                    }
                 }
             });
 

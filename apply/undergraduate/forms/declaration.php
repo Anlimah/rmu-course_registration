@@ -24,8 +24,9 @@ $fullname = !empty($personal[0]["middle_name"]) ? $personal[0]["first_name"] . "
             <p style="margin-left: 10px;">I <label for=""><?= $fullname ?></label>, certify that the information provided above is valid and will be held personally responsible for its authenticity and will bear any consequences for any invalid information provided.</p>
 
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="accept-declared" required>
-                <label class="form-check-label" for="accept-declared" style="margin-left: 10px"> Agree</label>
+                <label class="form-check-label" for="accept-declared">
+                    <input style="background-color: none !important;" class="form-check-input" type="checkbox" value="" id="accept-declared" required>Agree
+                </label>
                 <div class="invalid-feedback">
                     You must agree before submitting.
                 </div>

@@ -40,7 +40,7 @@ $page = array("id" => 2, "name" => "Education Background");
                 <div class="col-md-8 ">
                     <section class="easy-apply">
                         <div id="page_info" style="margin-bottom: 0px !important;">
-                            <h1 style="font-size: 40px; padding-bottom: 15px !important">Education Background</h1>
+                            <h1>Education Background</h1>
                             <div class="alert alert-danger text-danger hide" id="page_info_text" style="width: 100%; border: none !important">
                                 <label class="text-danger">This form has errors:</label>
                                 <p id="data_info">Provide values for all <b>required *</b> fields in the form.</p>
@@ -48,7 +48,7 @@ $page = array("id" => 2, "name" => "Education Background");
                         </div>
 
                         <!-- Page form -->
-                        <form class="needs-validation" id="appForm" name="2" method="#" style="margin-top: 15px !important;" novalidate>
+                        <form class="needs-validation" id="appForm" name="2" method="#" novalidate>
                             <?php require_once("forms/education-background.php") ?>
 
                             <!-- Bottom page navigation -->

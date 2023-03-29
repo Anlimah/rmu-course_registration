@@ -39,7 +39,7 @@ $page = array("id" => 0, "name" => "Application Status");
 
                 <section class="easy-apply" style="margin-top: 25px;">
                     <div class="page_info" style="margin-bottom: 0px !important;">
-                        <h1 style="font-size: 40px; padding-bottom: 15px !important;"><?= $page["name"] ?></h1>
+                        <h1><?= $page["name"] ?></h1>
 
                         <!--<a href="?logout=true" class="btn btn-danger" style="float: right">Log out</a>-->
                         <div class="mb-4">
@@ -163,7 +163,7 @@ $page = array("id" => 0, "name" => "Application Status");
 
                                 #progressbar li {
                                     list-style-type: none;
-                                    font-size: 15px;
+                                    font-size: 14px;
                                     width: 25%;
                                     float: left;
                                     position: relative;
@@ -242,27 +242,30 @@ $page = array("id" => 0, "name" => "Application Status");
 
                             <div class="container">
                                 <div class="row justify-content-center">
-                                    <div class="col-11 col-sm-9 col-md-7 col-lg-6 col-xl-5 text-center p-0 mt-3 mb-2">
+                                    <div class="col-12 text-center p-0 mb-2">
                                         <div class="px-0 pt-4 pb-0 mt-3 mb-3">
                                             <form id="form">
                                                 <ul id="progressbar">
                                                     <li class="active" id="step1">
                                                         <strong> <span class="bi bi-send-check"></span> Submitted </strong>
                                                     </li>
-                                                    <li id="step2"> <strong> <span class="bi bi-"></span> Reviewed </strong> </li>
-                                                    <li id="step3"> <strong> <span class="bi bi-"></span> Admission </strong> </li>
+                                                    <li class="active" id="step2">
+                                                        <strong> <span class="bi bi-yelp"></span> Reviewed </strong>
+                                                    </li>
+                                                    <li id="step3">
+                                                        <strong> <span class="bi bi-list-check"></span> Admission </strong>
+                                                    </li>
                                                 </ul>
-                                                <!--<div class="progress">
-                                        <div class="pbar"> </div>
-                                    </div>-->
                                             </form>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </section>
+
             </div>
         </main>
         <?php require_once("../inc/page-footer.php"); ?>
@@ -281,62 +284,10 @@ $page = array("id" => 0, "name" => "Application Status");
 
             setProgressBar(current);
 
-            $(".next-step").click(function() {
-                currentGfgStep = $(this).parent();
-                nextGfgStep = $(this).parent().next();
-                $("#progressbar li").eq($("fieldset").index(nextGfgStep)).addClass("active");
-                nextGfgStep.show();
-                currentGfgStep.animate({
-                    opacity: 0
-                }, {
-                    step: function(now) {
-                        opacity = 1 - now;
-                        currentGfgStep.css({
-                            'display': 'none',
-                            'position': 'relative'
-                        });
-                        nextGfgStep.css({
-                            'opacity': opacity
-                        });
-                    },
-                    duration: 500
-                });
-                setProgressBar(++current);
-            });
-
-            $(".pre-step").click(function() {
-                currentGfgStep = $(this).parent();
-                preGfgStep = $(this).parent().prev();
-                $("#progressbar li").eq($("fieldset")
-                    .index(currentGfgStep)).removeClass("active");
-                preGfgStep.show();
-                currentGfgStep.animate({
-                    opacity: 0
-                }, {
-                    step: function(now) {
-                        opacity = 1 - now;
-                        currentGfgStep.css({
-                            'display': 'none',
-                            'position': 'relative'
-                        });
-                        preGfgStep.css({
-                            'opacity': opacity
-                        });
-                    },
-                    duration: 500
-                });
-                setProgressBar(--current);
-            });
-
-            function setProgressBar(currentStep) {
-                var percent = parseFloat(100 / steps) * current;
-                percentpercent = percent.toFixed();
-                $(".pbar").css("width", percent + "%")
-            }
-
             $(".submit").click(function() {
                 return false;
             });
+
         });
     </script>
 </body>

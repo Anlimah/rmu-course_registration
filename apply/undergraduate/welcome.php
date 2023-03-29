@@ -49,7 +49,7 @@ $appStatus = $user->getApplicationStatus($user_id);
                 <div class="col-md-8">
                     <section class="easy-apply">
                         <div class="page_info" style="margin-bottom: 0px !important;">
-                            <h1 style="font-size: 40px; padding-bottom: 15px !important; font-weight: 700;">Welcome to your application</h1>
+                            <h1>Welcome to your application</h1>
                         </div>
 
                         <div style="margin-top: 0px !important">

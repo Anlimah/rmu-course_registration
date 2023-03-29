@@ -149,13 +149,13 @@ textarea,
 .photo-upload-area {
 	font-size: 14px !important;
 	line-height: 1.5 !important;
-	background-color: #f9f9f9 !important;
 }
 
 input.transform-text,
 select.transform-text,
 textarea.transform-text {
 	text-transform: uppercase;
+	background-color: #f9f9f9 !important;
 }
 
 table {
@@ -272,6 +272,12 @@ label {
 	color: #353535;
 }
 
+h1 {
+	font-size: 22px !important;
+	padding-bottom: 15px !important;
+	font-weight: 700 !important;
+}
+
 .fieldset,
 .right-section,
 .fieldset-col,
@@ -329,6 +335,10 @@ fieldset legend {
 
 .input-required {
 	color: red;
+}
+
+#appForm {
+	margin-top: 15px !important;
 }
 
 .form-control-login,
@@ -754,12 +764,6 @@ form {
 		font-size: 16px;
 	}
 
-	h1 {
-		font-size: 28px;
-		padding-bottom: 15px;
-		font-weight: 700;
-	}
-
 	#sign-out-1 {
 		display: none !important;
 	}
@@ -788,12 +792,6 @@ form {
 		font-size: 16px;
 	}
 
-	h1 {
-		font-size: 28px;
-		padding-bottom: 15px;
-		font-weight: 700;
-	}
-
 	#sign-out-1 {
 		display: none !important;
 	}
@@ -819,20 +817,14 @@ form {
 	fieldset legend {
 		font-size: 16px;
 	}
-
-	h1 {
-		font-size: 30px;
-		padding-bottom: 15px;
-		font-weight: 700;
-	}
 }
 
 /*Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
 	h1 {
-		font-size: 40px;
-		padding-bottom: 15px;
-		font-weight: 700;
+		font-size: 28px !important;
+		padding-bottom: 15px !important;
+		font-weight: 700 !important;
 	}
 
 	label {
@@ -868,10 +860,25 @@ form {
 	.app-sections-menu {
 		display: none !important;
 	}
+
+	#sign-out-1 {
+		display: block !important;
+	}
+
+	#logout-icon {
+		display: none !important;
+	}
 }
 
 @media (max-width: 767.99px) {
 	/* For mobile phones: */
+
+	h1 {
+		font-size: 22px !important;
+		padding-bottom: 15px !important;
+		font-weight: 700 !important;
+	}
+
 	main {
 		padding: 0 18px !important;
 	}
@@ -879,12 +886,6 @@ form {
 	label {
 		font-size: 14px !important;
 		font-weight: bolder !important;
-	}
-
-	h1 {
-		font-size: 30px !important;
-		padding-bottom: 15px !important;
-		font-weight: 700 !important;
 	}
 
 	/*body {
