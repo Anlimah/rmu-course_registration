@@ -88,9 +88,10 @@ $appStatus = $user->getApplicationStatus($user_id);
             </div>
         </main>
         <?php require_once("../../inc/page-footer.php"); ?>
-    </div>
 
-    <?php require_once("../../inc/app-sections-menu.php"); ?>
+        <?php //require_once("../../inc/app-sections-menu.php"); 
+        ?>
+    </div>
 
     <script src="../../js/jquery-3.6.0.min.js"></script>
     <script src="../../js/myjs.js"></script>
