@@ -514,7 +514,9 @@ body {
 	font-family: "Ubuntu", sans-serif !important;
 	font-weight: 400;
 	-webkit-overflow-scrolling: touch;
-	overflow: auto;
+	overflow-x: hidden !important;
+	overflow-y: auto;
+	width: 100%;
 	line-height: 1;
 	background-color: #fff !important;
 	color: #282828 !important;
