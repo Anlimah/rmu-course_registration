@@ -310,7 +310,7 @@ class UsersController
     public function fetchEducationHistory($serial_number, $user_id)
     {
         $sql1 = "SELECT `id`, `s_number`, `school_name`, `country`, `region`, `city`, 
-                `cert_type`, `index_number`, `month_started`, `year_started`, 
+                `cert_type`, `other_cert_type`, `index_number`, `month_started`, `year_started`, 
                 `month_completed`, `year_completed`, `course_of_study`,`awaiting_result` 
                 FROM `academic_background` WHERE `s_number` = :sn AND `app_login` = :id";
         $params = array(":sn" => $serial_number, ":id" => $user_id);

@@ -330,6 +330,7 @@ $(document).ready(function () {
 
     //Edit button on each added education item
     $(".edit-edu-btn").click(function (e) {
+        console.log("OK")
         $.ajax({
             type: "GET",
             url: "../../api/education",
@@ -358,6 +359,28 @@ $(document).ready(function () {
 
             $("#edit-course-studied").val(data["aca"][0]["course_of_study"]);
 
+            // show the necessary fields per cert type
+            var myArray = ['WASSCE', 'SSSCE', 'NECO', 'GBCE'];
+            let index = $.inArray(data["aca"][0]["cert_type"], myArray);
+
+            if (index == -1) {
+                $("#edit-course-studied").slideUp();
+                $(".edit-other-course-studied").slideDown();
+                $(".edit-waec-course-content").slideUp();
+
+                if (data["aca"][0]["cert_type"] == "OTHER") $(".edit-sepcific-cert").slideToggle();
+
+            } else {
+                $("#edit-other-cert-type").val(data["aca"][0]["other_cert_type"]);
+                $("#edit-other-course-studied").val(data["aca"][0]["course_of_study"]);
+                
+                $("#edit-course-studied").slideDown();
+                $(".edit-other-course-studied").slideUp();
+                $(".edit-waec-course-content").slideDown();
+                $(".edit-sepcific-cert").slideUp();
+            }
+
+            // Set courses values (if cert type in 'WASSCE', 'SSSCE', 'NECO', 'GBCE')
             if (data["courses"]) {
 
                 //core subjects
