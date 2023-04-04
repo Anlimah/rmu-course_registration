@@ -8,6 +8,8 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
     header('Location: ../index.php');
 }
 
+if ($_SESSION["submitted"]) header('Location: ../application-status.php');
+
 if (isset($_GET['logout'])) {
     unset($_SESSION['ghAppLogin']);
     unset($_SESSION['ghApplicant']);
@@ -17,7 +19,7 @@ if (isset($_GET['logout'])) {
 
 $user_id = $_SESSION['ghApplicant'];
 
-$page = array("id" => 0, "name" => "Personal Information");
+$page = array("id" => 0, "name" => "Welcome");
 
 
 require_once('../../bootstrap.php');

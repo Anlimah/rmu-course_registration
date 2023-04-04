@@ -41,10 +41,10 @@ require_once('../../inc/page-data.php');
                     <div class="mb-4 edu-history" id="<?= $edu_hist["s_number"] ?>">
                         <div class="edu-history-header">
                             <div class="edu-history-header-info">
-                                <p style="font-size: 17px; font-weight: 600;margin:0;padding:0">
+                                <p style="font-size: 16px; font-weight: 600;margin:0;padding:0">
                                     <?= htmlspecialchars_decode(html_entity_decode(ucwords(strtolower($edu_hist["school_name"])), ENT_QUOTES), ENT_QUOTES); ?>
                                 </p>
-                                <p style="font-size: 16px; font-weight: 500; color:#8c8c8c;margin:0;padding:0">
+                                <p style="color:#8c8c8c;margin:0;padding:0">
                                     <?= ucwords(strtolower($edu_hist["month_started"])) . " " . ucwords(strtolower($edu_hist["year_started"])) . " - " ?>
                                     <?= ucwords(strtolower($edu_hist["month_completed"])) . " " . ucwords(strtolower($edu_hist["year_completed"])) ?>
                                 </p>
@@ -58,9 +58,6 @@ require_once('../../inc/page-data.php');
                                 </button>
                             </div>
                         </div>
-                        <!--<div class="edu-history-footer">
-                            <a>Upload a scanned copy of Certificate</a>
-                        </div>-->
                     </div>
             <?php
                 }

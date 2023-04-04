@@ -8,6 +8,8 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
     header('Location: ../index.php');
 }
 
+if ($_SESSION["submitted"]) header('Location: ../application-status.php');
+
 if (isset($_GET['logout'])) {
     unset($_SESSION['ghAppLogin']);
     unset($_SESSION['ghApplicant']);
@@ -138,7 +140,13 @@ $page = array("id" => 1, "name" => "Personal Information");
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
                     reader.onload = function(e) {
-                        $('#app-photo').attr('src', e.target.result);
+                        console.log(e);
+                        if (this.width === 600 && this.height === 600) {
+                            return true;
+                            $('#app-photo').attr('src', e.target.result);
+                        } else {
+                            return false;
+                        }
                     }
                     reader.readAsDataURL(input.files[0]);
                 }
@@ -146,7 +154,8 @@ $page = array("id" => 1, "name" => "Personal Information");
 
             //displays image when URL of file input changes
             $("#photo-upload").change(function() {
-                readURL(this);
+                console.log(this);
+                if (!readURL(this)) $("#passport-img-error").text("Uploaded image is not passport-sized.").slideDown()
                 $("#____entered___").val(1);
                 $("#sbmit__enetere").click();
             });

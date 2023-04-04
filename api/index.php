@@ -106,17 +106,20 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 		$_SESSION['ghApplicant'] = $result["id"];
 		$_SESSION['applicantType'] = $result["type"];
+		$_SESSION['submitted'] = $result["submitted"];
 		$_SESSION['ghAppLogin'] = true;
 		$type = "";
 
 		switch ($result["type"]) {
 			case 1:
 				$type = 'postgraduate/welcome.php';
+				$_SESSION['loginType'] = $type;
 				break;
 			case 2:
 			case 3:
 			case 4:
 				$type = 'undergraduate/welcome.php';
+				$_SESSION['loginType'] = $type;
 				break;
 
 			default:
@@ -181,30 +184,19 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		}
 
 		//step 2
-		/*$cert_type = $user->validateInputTextOnly($_POST["cert_type"]);
-		if ($cert_type['status'] == "error") {
-			$errors['cert_type'] = 'Certificate/Degree Earned is ' . $cert_type['message'] . '!';
+		$cert_type = [];
+
+		$cert_type = $user->validateInputTextOnly($_POST["cert_type"]);
+		if ($cert_type['status'] == "error" || $_POST['cert_type'] == "Select") {
+			$errors['cert_type'] = 'Certificate or degree earned is ' . $cert_type['message'] . '!';
 		}
 
 		if ($_POST["cert_type"] == "OTHER" && empty($_POST["other_cert_type"])) {
 			$errors['cert_type'] = 'Specify the name of certificate earned!';
-		} else {
-			$errors['cert_type'] = 'Certificate/Degree Earned is required!';
-		}*/
-
-		$cert_type = [];
-
-		if ($_POST["cert_type"] == "OTHER" && empty($_POST["other_cert_type"])) {
-			$errors['cert_type'] = 'Specify the name of certificate earned!';
 		} else if ($_POST["cert_type"] == "OTHER" && !empty($_POST["other_cert_type"])) {
-			$cert_type = $user->validateInputTextOnly($_POST["other_cert_type"]);
-			if ($cert_type['status'] == "error") {
-				$errors['cert_type'] = 'Certificate or degree earned is ' . $cert_type['message'] . '!';
-			}
-		} else {
-			$cert_type = $user->validateInputTextOnly($_POST["cert_type"]);
-			if ($cert_type['status'] == "error" || $_POST['cert_type'] == "Select") {
-				$errors['cert_type'] = 'Certificate or degree earned is ' . $cert_type['message'] . '!';
+			$other_cert_type = $user->validateInputTextOnly($_POST["other_cert_type"]);
+			if ($other_cert_type['status'] == "error") {
+				$errors['cert_type'] = 'Certificate or degree earned is ' . $other_cert_type['message'] . '!';
 			}
 		}
 
@@ -236,21 +228,23 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		//step 3
 		$course_studied = [];
 
+		$course_studied = $user->validateInputTextOnly($_POST["course_studied"]);
+		if ($course_studied['status'] == "error" || $_POST['course_studied'] == "Select") {
+			$errors['course_studied'] = 'Course/Program of study is ' . $course_studied['message'] . '!';
+		}
+
 		if ($_POST["cert_type"] == "OTHER" && empty($_POST["other_course_studied"])) {
 			$errors['course_studied'] = 'Course or programme of study required!';
 		} else if ($_POST["cert_type"] == "OTHER" && !empty($_POST["other_course_studied"])) {
-			$course_studied = $user->validateInputTextOnly($_POST["other_course_studied"]);
-			if ($course_studied['status'] == "error") {
-				$errors['course_studied'] = 'Courseor program of study is ' . $course_studied['message'] . '!';
-			}
-		} else {
-			$course_studied = $user->validateInputTextOnly($_POST["course_studied"]);
-			if ($course_studied['status'] == "error" || $_POST['course_studied'] == "Select") {
-				$errors['course_studied'] = 'Course/Program of study is ' . $course_studied['message'] . '!';
+			$other_course_studied = $user->validateInputTextOnly($_POST["other_course_studied"]);
+			if ($other_course_studied['status'] == "error") {
+				$errors['course_studied'] = 'Courseor program of study is ' . $other_course_studied['message'] . '!';
 			}
 		}
 
-		$awaiting_result = ($_POST["cert_type"] == "OTHER") ? 1 : $_POST["awaiting_result"];
+		//$awaiting_result = ($_POST["cert_type"] == "OTHER") ? 1 : $_POST["awaiting_result"];
+		if ($_POST["cert_type"] == "OTHER") $awaiting_result = 1;
+		else $awaiting_result = $_POST["awaiting_result"];
 
 		if ($awaiting_result == 0) {
 			//core subjects
@@ -337,12 +331,14 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 				$sch_region["message"],
 				$sch_city["message"],
 				$cert_type["message"],
+				$other_cert_type["message"],
 				$index_number["message"],
 				$month_started["message"],
 				$year_started["message"],
 				$month_completed["message"],
 				$year_completed["message"],
 				$course_studied["message"],
+				$other_course_studied["message"],
 				$awaiting_result,
 				$_SESSION['ghApplicant']
 			);
@@ -524,6 +520,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			if ($go) {
 				if ($user->updateApplicationStatus($column, $_SESSION['ghApplicant'])) {
 					$data["success"] = true;
+					$_SESSION['submitted'] = 1;
 				}
 			} else {
 				$data["success"] = false;
@@ -653,13 +650,257 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 		$result = $user->updateApplicantInfo($column, $value, $_SESSION['ghApplicant']);
 		die($result ? json_encode(array("success" => true)) : json_encode(array("success" => false)));
-	} elseif ($_GET["url"] == "education") {
+	}
 
+	// Update education history
+	elseif ($_GET["url"] == "education") {
+		$errors = [];
+		$data = [];
+
+		if (!isset($_PUT["aca_eh29v1Tf_key"]) || empty($_PUT["aca_eh29v1Tf_key"])) {
+			die(json_encode(array(
+				"success" => false,
+				"message" => "Invalid education history data. You can delete it and add a new one!"
+			)));
+		}
+
+		$s_number = $user->validateNumber($_PUT["aca_eh29v1Tf_key"]);
+		if ($s_number['status'] == "error") {
+			die(json_encode(array(
+				"success" => false,
+				"message" => "Invalid education history data. You can delete it and add a new one!"
+			)));
+		}
+
+		//step 1
+		/*$sch_name = $user->validateInputTextOnly($_PUT["sch_name"]);
+		if ($sch_name['status'] == "error") {
+			$errors['sch_name'] = 'School Name is ' . $sch_name['message'] . '!';
+		}
+
+		$sch_country = $user->validateInputTextOnly($_PUT["sch_country"]);
+		if ($sch_country['status'] == "error") {
+			$errors['sch_country'] = 'School Country is ' . $sch_country['message'] . '!';
+		}
+
+		$sch_region = $user->validateInputTextOnly($_PUT["sch_region"]);
+		if ($sch_region['status'] == "error") {
+			$errors['sch_region'] = 'School Province/Region is ' . $sch_region['message'] . '!';
+		}
+
+		$sch_city = $user->validateInputTextOnly($_PUT["sch_city"]);
+		if ($sch_city['status'] == "error") {
+			$errors['sch_city'] = 'School City is ' . $sch_city['message'] . '!';
+		}
+
+		//step 2
+		$cert_type = [];
+		$other_cert_type = [];
+
+		if ($_PUT["cert_type"] == "OTHER" && empty($_PUT["other_cert_type"])) {
+			$errors['cert_type'] = 'Specify the name of certificate earned!';
+		} else if ($_PUT["cert_type"] == "OTHER" && !empty($_PUT["other_cert_type"])) {
+			$cert_type = $user->validateInputTextOnly($_PUT["cert_type"]);
+			$other_cert_type = $user->validateInputTextOnly($_PUT["other_cert_type"]);
+			if ($cert_type['status'] == "error") {
+				$errors['cert_type'] = 'Certificate or degree earned is ' . $other_cert_type['message'] . '!';
+			}
+		} else {
+			$cert_type = $user->validateInputTextOnly($_PUT["cert_type"]);
+			if ($cert_type['status'] == "error" || $_PUT['cert_type'] == "Select") {
+				$errors['cert_type'] = 'Certificate or degree earned is ' . $cert_type['message'] . '!';
+			}
+		}
+
+		$index_number = $user->validateInputTextNumber($_PUT["index_number"]);
+		if ($index_number['status'] == "error") {
+			$errors['index_number'] = 'Index Number is ' . $index_number['message'] . '!';
+		}
+
+		$month_started = $user->validateInputTextOnly($_PUT["month_started"]);
+		if ($month_started['status'] == "error" || $_PUT['month_started'] == "Month") {
+			$errors['date_started'] = 'Month started is invalid!';
+		}
+
+		$year_started = $user->validateYearData($_PUT["year_started"]);
+		if ($year_started['status'] == "error" || $_PUT['year_started'] == "Year") {
+			$errors['date_started'] = 'Year started is invalid!';
+		}
+
+		$month_completed = $user->validateInputTextOnly($_PUT["month_completed"]);
+		if ($month_completed['status'] == "error" || $_PUT['month_completed'] == "Month") {
+			$errors['date_completed'] = 'Month completed is invalid!';
+		}
+
+		$year_completed = $user->validateYearData($_PUT["year_completed"]);
+		if ($year_completed['status'] == "error" || $_PUT['year_completed'] == "Year") {
+			$errors['date_completed'] = 'Year completed is invalid!';
+		}
+
+		//step 3
+		$course_studied = [];
+
+		if ($_PUT["cert_type"] == "OTHER" && empty($_PUT["other_course_studied"])) {
+			$errors['course_studied'] = 'Course or programme of study required!';
+		} else if ($_PUT["cert_type"] == "OTHER" && !empty($_PUT["other_course_studied"])) {
+			$course_studied = $user->validateInputTextOnly($_PUT["course_studied"]);
+			$other_course_studied = $user->validateInputTextOnly($_PUT["other_course_studied"]);
+			if ($course_studied['status'] == "error") {
+				$errors['course_studied'] = 'Courseor program of study is ' . $course_studied['message'] . '!';
+			}
+		} else {
+			$course_studied = $user->validateInputTextOnly($_PUT["course_studied"]);
+			if ($course_studied['status'] == "error" || $_PUT['course_studied'] == "Select") {
+				$errors['course_studied'] = 'Course/Program of study is ' . $course_studied['message'] . '!';
+			}
+		}*/
+
+		if ($_PUT["cert_type"] == "OTHER") $awaiting_result = 1;
+		else $awaiting_result = $_PUT["awaiting_result"];
+
+		if ($awaiting_result == 0) {
+			//core subjects
+			$core_sbj1 = $user->validateInputTextOnly($_PUT["core_sbj1"]);
+			if ($core_sbj1['status'] == "error" || $_PUT['core_sbj1'] == "Select") {
+				$errors['core_sbj_grp1'] = 'Subject is ' . $core_sbj1['message'] . '!';
+			}
+			$core_sbj2 = $user->validateInputTextOnly($_PUT["core_sbj2"]);
+			if ($core_sbj2['status'] == "error" || $_PUT['core_sbj2'] == "Select") {
+				$errors['core_sbj_grp2'] = 'Subject is ' . $core_sbj2['message'] . '!';
+			}
+			$core_sbj3 = $user->validateInputTextOnly($_PUT["core_sbj3"]);
+			if ($core_sbj3['status'] == "error" || $_PUT['core_sbj3'] == "Select") {
+				$errors['core_sbj_grp3'] = 'Subject is ' . $core_sbj3['message'] . '!';
+			}
+			$core_sbj4 = $user->validateInputTextOnly($_PUT["core_sbj4"]);
+			if ($core_sbj4['status'] == "error" || $_PUT['core_sbj4'] == "Select") {
+				$errors['core_sbj_grp4'] = 'Subject is ' . $core_sbj4['message'] . '!';
+			}
+
+			//core subjects grades
+			$core_sbj_grd1 = $user->validateGrade($_PUT["core_sbj_grd1"]);
+			if ($core_sbj_grd1['status'] == "error") {
+				$errors['core_sbj_grp1'] = 'Subject\'s grade is ' . $core_sbj_grd1['message'] . '!';
+			}
+			$core_sbj_grd2 = $user->validateGrade($_PUT["core_sbj_grd2"]);
+			if ($core_sbj_grd2['status'] == "error") {
+				$errors['core_sbj_grp2'] = 'Subject\'s grade is ' . $core_sbj_grd2['message'] . '!';
+			}
+			$core_sbj_grd3 = $user->validateGrade($_PUT["core_sbj_grd3"]);
+			if ($core_sbj_grd3['status'] == "error") {
+				$errors['core_sbj_grp3'] = 'Subject\'s grade is ' . $core_sbj_grd3['message'] . '!';
+			}
+			$core_sbj_grd4 = $user->validateGrade($_PUT["core_sbj_grd4"]);
+			if ($core_sbj_grd4['status'] == "error") {
+				$errors['core_sbj_grp4'] = 'Subject\'s grade is ' . $core_sbj_grd4['message'] . '!';
+			}
+
+			//elective subjects
+			$elective_sbj1 = $user->validateInputTextOnly($_PUT["elective_sbj1"]);
+			if ($elective_sbj1['status'] == "error" || $_PUT['elective_sbj1'] == "Select") {
+				$errors['elective_sbj_grp1'] = 'Subject is ' . $elective_sbj1['message'] . '!';
+			}
+			$elective_sbj2 = $user->validateInputTextOnly($_PUT["elective_sbj2"]);
+			if ($elective_sbj2['status'] == "error" || $_PUT['elective_sbj2'] == "Select") {
+				$errors['elective_sbj_grp2'] = 'Subject is ' . $elective_sbj2['message'] . '!';
+			}
+			$elective_sbj3 = $user->validateInputTextOnly($_PUT["elective_sbj3"]);
+			if ($elective_sbj3['status'] == "error" || $_PUT['elective_sbj3'] == "Select") {
+				$errors['elective_sbj_grp3'] = 'Subject is ' . $elective_sbj3['message'] . '!';
+			}
+			$elective_sbj4 = $user->validateInputTextOnly($_PUT["elective_sbj4"]);
+			if ($elective_sbj4['status'] == "error" || $_PUT['elective_sbj4'] == "Select") {
+				$errors['elective_sbj_grp4'] = 'Subject is ' . $elective_sbj4['message'] . '!';
+			}
+
+			//core subjects grades
+			$elective_sbj_grd1 = $user->validateGrade($_PUT["elective_sbj_grd1"]);
+			if ($elective_sbj_grd1['status'] == "error") {
+				$errors['elective_sbj_grp1'] = 'Subject\'s grade is ' . $elective_sbj_grd1['message'] . '!';
+			}
+			$elective_sbj_grd2 = $user->validateGrade($_PUT["elective_sbj_grd2"]);
+			if ($elective_sbj_grd2['status'] == "error") {
+				$errors['elective_sbj_grp2'] = 'Subject\'s grade is ' . $elective_sbj_grd2['message'] . '!';
+			}
+			$elective_sbj_grd3 = $user->validateGrade($_PUT["elective_sbj_grd3"]);
+			if ($elective_sbj_grd3['status'] == "error") {
+				$errors['elective_sbj_grp3'] = 'Subject\'s grade is ' . $elective_sbj_grd3['message'] . '!';
+			}
+			$elective_sbj_grd4 = $user->validateGrade($_PUT["elective_sbj_grd4"]);
+			if ($elective_sbj_grd4['status'] == "error") {
+				$errors['elective_sbj_grp4'] = 'Subject\'s grade is ' . $elective_sbj_grd4['message'] . '!';
+			}
+		}
+
+		//die($_PUT["cert_type"] . " > 1 >" . $awaiting_result);
+
+		if (!empty($errors)) {
+			$data['success'] = false;
+			$data['errors'] = $errors;
+		} else {
+			/*$education_info = array();
+			$result = $user->updateEducation(
+				$sch_name["message"],
+				$sch_country["message"],
+				$sch_region["message"],
+				$sch_city["message"],
+				$cert_type["message"],
+				$other_cert_type["message"],
+				$index_number["message"],
+				$month_started["message"],
+				$year_started["message"],
+				$month_completed["message"],
+				$year_completed["message"],
+				$course_studied["message"],
+				$other_course_studied["message"],
+				$awaiting_result,
+				$_SESSION['ghApplicant'],
+				$s_number["message"]
+			);*/
+
+			//if ($result) {
+			if ($awaiting_result == 0) {
+				//$result = $user->fetchApplicantAcaB($_SESSION["ghApplicant"]);
+				$subjects = array(
+					"core" => array(
+						array("subject" => $core_sbj1["message"], "grade" => $core_sbj_grd1["message"]),
+						array("subject" => $core_sbj2["message"], "grade" => $core_sbj_grd2["message"]),
+						array("subject" => $core_sbj3["message"], "grade" => $core_sbj_grd3["message"]),
+						array("subject" => $core_sbj4["message"], "grade" => $core_sbj_grd4["message"])
+					),
+					"elective" => array(
+						array("subject" => $elective_sbj1["message"], "grade" => $elective_sbj_grd1["message"]),
+						array("subject" => $elective_sbj2["message"], "grade" => $elective_sbj_grd2["message"]),
+						array("subject" => $elective_sbj3["message"], "grade" => $elective_sbj_grd3["message"]),
+						array("subject" => $elective_sbj4["message"], "grade" => $elective_sbj_grd4["message"])
+					)
+				);
+				die("OKay o: " . $user->updateSubjectAndGrades($subjects, $result));
+				if ($user->updateSubjectAndGrades($subjects, $result)) {
+					$data['success'] = true;
+					$data['message'] = 'Data saved successfully!';
+				}
+			} else {
+				$data['success'] = true;
+				$data['message'] = 'Data saved successfully!';
+			}
+			//}
+			//$data['success'] = true;
+			//$data['message'] = 'Data saved successfully!';
+		}
+
+		die(json_encode($data));/**/
+	}
+
+	//
+	elseif ($_GET["url"] == "education") {
+		// Old way
 		$what = $_PUT["what"];
 		$value = $_PUT['value'];
 		$s_number = $_PUT["snum"];
 
-		if (!isset($what) || empty($what)) die(json_encode(array("success" => false, "message" => "Invalid input!")));
+		if (!isset($what) || empty($what) || !isset($value) || empty($value) || !isset($s_number) || empty($s_number))
+			die(json_encode(array("success" => false, "message" => "Invalid input!")));
 
 		$column = substr(str_replace("-", "_", $what), 5);
 
@@ -686,7 +927,10 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		//$column = substr_replace($column, "", -1);
 		$result = $user->updateAcademicInfo($column, $value, $s_number, $_SESSION['ghApplicant']);
 		die($result ? json_encode(array("success" => true)) : json_encode(array("success" => false)));
-	} elseif ($_GET["url"] == "prev-uni-recs") {
+	}
+
+	//
+	elseif ($_GET["url"] == "prev-uni-recs") {
 
 		$what = $_PUT["what"];
 		$value = strtoupper($_PUT['value']);
@@ -714,7 +958,10 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		//$column = substr_replace($column, "", -1);
 		$result = $user->updatePrevUniInfo($column, $value, $_SESSION['ghApplicant']);
 		die($result ? json_encode(array("success" => true)) : json_encode(array("success" => false)));
-	} elseif ($_GET["url"] == "programmes") {
+	}
+
+	//
+	elseif ($_GET["url"] == "programmes") {
 
 		$what = $_PUT["what"];
 		$value = $user->validateInputTextOnly($_PUT['value']);

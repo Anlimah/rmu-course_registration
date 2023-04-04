@@ -8,6 +8,8 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
     header('Location: ../index.php');
 }
 
+if ($_SESSION["submitted"]) header('Location: ../application-status.php');
+
 if (isset($_GET['logout'])) {
     unset($_SESSION['ghAppLogin']);
     unset($_SESSION['ghApplicant']);
@@ -128,23 +130,23 @@ $page = array("id" => 2, "name" => "Education Background");
             $(".awaiting-result").click(function() {
                 if ($('#awaiting-result-yes').is(':checked')) {
                     //$("#not-waiting").addClass("hide");
-                    $("#not-waiting").slideToggle(200);
+                    $("#not-waiting").slideUp(200);
                     $("#awaiting_result_value").attr("value", 1);
                 }
                 if ($('#awaiting-result-no').is(':checked')) {
                     //$("#not-waiting").removeClass("hide");
-                    $("#not-waiting").slideToggle(200);
+                    $("#not-waiting").slideDown(200);
                     $("#awaiting_result_value").attr("value", 0);
                 }
 
                 if ($('#edit-awaiting-result-yes').is(':checked')) {
                     //$("#edit-not-waiting").addClass("hide");
-                    $("#edit-not-waiting").slideToggle(200);
+                    $("#edit-not-waiting").slideUp(200);
                     $("#edit-awaiting_result_value").attr("value", 1);
                 }
                 if ($('#edit-awaiting-result-no').is(':checked')) {
                     //$("#edit-not-waiting").removeClass("hide");
-                    $("#edit-not-waiting").slideToggle(200);
+                    $("#edit-not-waiting").slideDown(200);
                     $("#edit-awaiting_result_value").attr("value", 0);
                 }
             });
@@ -158,16 +160,23 @@ $page = array("id" => 2, "name" => "Education Background");
 
                     if (index == -1) {
                         $("#course-studied").slideUp();
+                        $("#course-studied option[value='OTHER']").attr('selected', 'selected');
                         $(".other-course-studied").slideDown();
                         $(".waec-course-content").slideUp();
 
-                        if (this.value == "OTHER") $(".sepcific-cert").slideToggle();
+                        if (this.value == "OTHER") $(".sepcific-cert").slideDown();
+
+                        $("#awaiting-result-yes").attr("checked", "checked");
+                        $("#awaiting-result-no").attr("checked", "");
 
                     } else {
                         $("#course-studied").slideDown();
                         $(".other-course-studied").slideUp();
                         $(".waec-course-content").slideDown();
                         $(".sepcific-cert").slideUp();
+
+                        $("#awaiting-result-yes").attr("checked", "");
+                        $("#awaiting-result-no").attr("checked", "checked");
                     }
                 }
 
@@ -186,16 +195,23 @@ $page = array("id" => 2, "name" => "Education Background");
 
                     if (index == -1) {
                         $("#edit-course-studied").slideUp();
+                        $("#edit-course-studied option[value='OTHER']").attr('selected', 'selected');
                         $(".edit-other-course-studied").slideDown();
                         $(".edit-waec-course-content").slideUp();
 
                         if (this.value == "OTHER") $(".edit-sepcific-cert").slideDown();
+
+                        $("#edit-awaiting-result-yes").attr("checked", "checked");
+                        $("#edit-awaiting-result-no").attr("checked", "");
 
                     } else {
                         $("#edit-course-studied").slideDown();
                         $(".edit-other-course-studied").slideUp();
                         $(".edit-waec-course-content").slideDown();
                         $(".edit-sepcific-cert").slideUp();
+
+                        $("#edit-awaiting-result-yes").attr("checked", "");
+                        $("#edit-awaiting-result-no").attr("checked", "checked");
                     }
                 }
 
@@ -296,7 +312,12 @@ $page = array("id" => 2, "name" => "Education Background");
                 });
             });
 
-            $("#cert-type").change("blur", function() {
+            $("#cert-type, #edit-cert-type").change("blur", function() {
+                var myArray = ['WASSCE', 'SSSCE', 'NECO', 'GBCE'];
+                let index = $.inArray(this.value, myArray);
+
+                if (index == -1) return;
+
                 $.ajax({
                     type: "GET",
                     url: "../../api/grades",

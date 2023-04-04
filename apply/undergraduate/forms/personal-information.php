@@ -16,17 +16,18 @@ require_once('../../inc/page-data.php');
     <div class="col-md-4 col-sm-12">
         <legend>Passport Picture</legend>
     </div>
-    <div class="col-md-8 col-sm-12" style="display: flex !important; flex-direction: row !important; justify-content: space-between !important;">
-        <div style="margin-right: 15px;">
-            <p>Please upload a passport size photo of yourself. The size of the image should not be more than 100KB. The background color of your image should be white.</p>
-            <p style="color: brown"><b>NB: The image you use will not be changed. So use a most recent passport sized picture of yourself.</b></p>
-
-            <label for="photo-upload" class="upload-photo-label btn btn-primary">Upload photo</label>
-
+    <div class="col-md-8 col-sm-12">
+        <div style="display: flex !important; flex-direction: row !important; justify-content: space-between !important;">
+            <div style="margin-right: 15px;">
+                <p>Please upload a passport size photo of yourself. The size of the image should not be more than 100KB. The background color of your image should be white.</p>
+                <p style="color: brown"><b>NB: The image you use will not be changed. So use a most recent passport sized picture of yourself.</b></p>
+            </div>
         </div>
-        <div class="photo-display" style="padding: 5px;">
-            <img id="app-photo" src="../photos/<?= !empty($photo[0]["photo"]) ? $photo[0]["photo"] : "icons8-test-account-96.png" ?>" alt="" style="width: 100%;">
+        <div class="photo-display mb-1" style="padding: 5px;">
+            <img id="app-photo" src="../photos/<?= !empty($photo[0]["photo"]) ? $photo[0]["photo"] : "icons8-test-account-96.png" ?>" alt="">
         </div>
+        <label for="photo-upload" class="upload-photo-label btn btn-primary" style="width: 150px"><b>Upload photo</b></label>
+        <div class="text-danger"></div>
     </div>
 </fieldset>
 

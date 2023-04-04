@@ -375,12 +375,16 @@ fieldset legend {
 }
 
 .photo-display {
-	width: 300px;
-	height: 130px;
-	background: red;
+	width: 150px !important;
+	height: 150px !important;
+	/*background: red;*/
 	border-radius: 5px;
 	border: 1px solid #aaa;
 	background: #f1f1f1;
+}
+
+.photo-display > img {
+	width: 100% !important;
 }
 
 .photo-display > img {

@@ -327,10 +327,220 @@ $(document).ready(function () {
             }
         }
     });
+    
+    $("#edit-save-education-btn").click(function (event) {
+        
+        // Prepare data payload for submission
+        $(".mb-4").removeClass("has-error");
+        $(".mb-2").removeClass("has-error");
+        $(".help-block").remove();
+
+        //Set 
+        var formData = {
+            sch_name: $("#edit-sch-name").val(),
+            sch_country: $("#edit-sch-country").val(),
+            sch_region: $("#edit-sch-region").val(),
+            sch_city: $("#edit-sch-city").val(),
+
+            cert_type: $("#edit-cert-type").val(),
+            other_cert_type: $("#edit-other-cert-type").val(),
+            index_number: $("#edit-index-number").val(),
+            month_started: $("#edit-month-started").val(),
+            year_started: $("#edit-year-started").val(),
+            month_completed: $("#edit-month-completed").val(),
+            year_completed: $("#edit-year-completed").val(),
+
+            course_studied: $("#edit-course-studied").val(),
+            other_course_studied: $("#edit-other-course-studied").val(),
+            awaiting_result: $("#edit-awaiting_result_value").val(),
+
+            core_sbj1: $("#edit-core-sbj1").val(),
+            core_sbj2: $("#edit-core-sbj2").val(),
+            core_sbj3: $("#edit-core-sbj3").val(),
+            core_sbj4: $("#edit-core-sbj4").val(),
+            core_sbj_grd1: $("#edit-core-sbj-grd1").val(),
+            core_sbj_grd2: $("#edit-core-sbj-grd2").val(),
+            core_sbj_grd3: $("#edit-core-sbj-grd3").val(),
+            core_sbj_grd4: $("#edit-core-sbj-grd4").val(),
+
+            elective_sbj1: $("#edit-elective-sbj1").val(),
+            elective_sbj2: $("#edit-elective-sbj2").val(),
+            elective_sbj3: $("#edit-elective-sbj3").val(),
+            elective_sbj4: $("#edit-elective-sbj4").val(),
+            elective_sbj_grd1: $("#edit-elective-sbj-grd1").val(),
+            elective_sbj_grd2: $("#edit-elective-sbj-grd2").val(),
+            elective_sbj_grd3: $("#edit-elective-sbj-grd3").val(),
+            elective_sbj_grd4: $("#edit-elective-sbj-grd4").val(),
+
+            aca_eh29v1Tf_key: $("#edit-20eh29v1Tf").val()
+        };
+
+        console.log(formData);
+        $.ajax({
+            type: "PUT",
+            url: "../../api/education-grades",
+            data: formData,
+            dataType: "json",
+            encode: true,
+        }).done(function (data) {
+            console.log(data);
+
+            if (!data.success) {
+
+                let step_errors = 0;
+                let step1, step2, step3, step4 = 0;
+
+                //Step 1
+                /*if (data.errors.sch_name) {
+                    $("#edit-sch-name-group").addClass("has-error");
+                    $("#edit-sch-name-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.sch_name + "</div>");
+                    step1 = 1;
+                }
+                if (data.errors.sch_country) {
+                    $("#edit-sch-country-group").addClass("has-error");
+                    $("#edit-sch-country-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.sch_country + "</div>");
+                    step1 = 1;
+                }
+                if (data.errors.sch_region) {
+                    $("#edit-sch-region-group").addClass("has-error");
+                    $("#edit-sch-region-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.sch_region + "</div>");
+                    step1 = 1;
+                }
+                if (data.errors.sch_city) {
+                    $("#edit-sch-city-group").addClass("has-error");
+                    $("#edit-sch-city-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.sch_city + "</div>");
+                    step1 = 1;
+                }
+
+                //Step 2
+                if (data.errors.cert_type) {
+                    $("#edit-cert-type-group").addClass("has-error");
+                    $("#edit-cert-type-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.cert_type + "</div>");
+                    step2 = 2;
+                }
+                if (data.errors.index_number) {
+                    $("#edit-index-number-group").addClass("has-error");
+                    $("#edit-index-number-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.index_number + "</div>");
+                    step2 = 2;
+                }
+                if (data.errors.date_started) {
+                    $("#edit-date-started-group").addClass("has-error");
+                    $("#edit-date-started-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.date_started + "</div>");
+                    step2 = 2;
+                }
+                if (data.errors.date_completed) {
+                    $("#edit-date-completed-group").addClass("has-error");
+                    $("#edit-date-completed-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.date_completed + "</div>");
+                    step2 = 2;
+                }
+
+                //Step 3
+                if (data.errors.course_studied) {
+                    $("#edit-course-studied-group").addClass("has-error");
+                    $("#edit-course-studied-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.course_studied + "</div>");
+                    step3 = 3;
+                }*/
+
+                // core
+                if (data.errors.core_sbj_grp1) {
+                    $("#edit-core-sbj1-group").addClass("has-error");
+                    $("#edit-core-sbj1-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.core_sbj_grp1 + "</div>");
+                    step3 = 3;
+                }
+                if (data.errors.core_sbj_grp2) {
+                    $("#edit-core-sbj2-group").addClass("has-error");
+                    $("#edit-core-sbj2-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.core_sbj_grp2 + "</div>");
+                    step3 = 3;
+                }
+                if (data.errors.core_sbj_grp3) {
+                    $("#edit-core-sbj3-group").addClass("has-error");
+                    $("#edit-core-sbj3-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.core_sbj_grp3 + "</div>");
+                    step3 = 3;
+                }
+                if (data.errors.core_sbj_grp4) {
+                    $("#edit-core-sbj4-group").addClass("has-error");
+                    $("#edit-core-sbj4-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.core_sbj_grp4 + "</div>");
+                    step3 = 3;
+                }
+
+                //elective
+                if (data.errors.elective_sbj_grp1) {
+                    $("#edit-elective-sbj1-group").addClass("has-error");
+                    $("#edit-elective-sbj1-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.elective_sbj_grp1 + "</div>");
+                    step3 = 3;
+                }
+                if (data.errors.elective_sbj_grp2) {
+                    $("#edit-elective-sbj2-group").addClass("has-error");
+                    $("#edit-elective-sbj2-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.elective_sbj_grp2 + "</div>");
+                    step3 = 3;
+                }
+                if (data.errors.elective_sbj_grp3) {
+                    $("#edit-elective-sbj3-group").addClass("has-error");
+                    $("#edit-elective-sbj3-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.elective_sbj_grp3 + "</div>");
+                    step3 = 3;
+                }
+                if (data.errors.elective_sbj_grp4) {
+                    $("#edit-elective-sbj4-group").addClass("has-error");
+                    $("#edit-elective-sbj4-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.elective_sbj_grp4 + "</div>");
+                    step3 = 3;
+                }
+
+                if (step1) {
+                    step_errors = step1;
+                } else if (step2) {
+                    step_errors = step2;
+                } else if (step3) {
+                    step_errors = step3;
+                } else if (step4) {
+                    step_errors = step4;
+                }
+
+                //Steps redirection
+                if (step_errors) {
+                    //alert(step_errors);
+                    $(".steps").addClass("hide");
+                    $(".steps").removeClass("display");
+                    $("#edit-step-" + step_errors).removeClass("hide");
+                    $("#edit-step-" + step_errors).addClass("display");
+
+                    if (step_errors == 1) {
+                        $("#edit-prevStep").removeClass("display");
+                        $("#edit-prevStep").addClass("hide");
+                        $("#edit-nextStep").removeClass("hide");
+                        $("#edit-nextStep").addClass("display");
+                        $("#edit-save-education-btn").removeClass("display");
+                        $("#edit-save-education-btn").addClass("hide");
+                    } else if (step_errors == 3) {
+                        $("#edit-prevStep").removeClass("hide");
+                        $("#edit-prevStep").addClass("display");
+                        $("#edit-nextStep").removeClass("display");
+                        $("#edit-nextStep").addClass("hide");
+                        $("#edit-save-education-btn").removeClass("display");
+                        $("#edit-save-education-btn").addClass("hide");
+                    } else if (step_errors > 1 && step_errors < 3) {
+                        $("#edit-prevStep").removeClass("hide");
+                        $("#edit-prevStep").addClass("display");
+                        $("#edit-nextStep").removeClass("hide");
+                        $("#edit-nextStep").addClass("display");
+                        $("#edit-save-education-btn").removeClass("display");
+                        $("#edit-save-education-btn").addClass("hide");
+                    }
+                    //next = step_errors;
+                    add_next = step_errors;
+                }
+                return;
+            } else {
+                alert(data.message);
+                window.location.reload();
+            }
+        }).fail((error) => {
+            $("education-form").html('<div class="alert alert-danger">Could not reach server, please try again later.</div>');
+        });
+    });
 
     //Edit button on each added education item
     $(".edit-edu-btn").click(function (e) {
-        console.log("OK")
+        
         $.ajax({
             type: "GET",
             url: "../../api/education",
@@ -344,13 +554,14 @@ $(document).ready(function () {
         }).done(function (data) {
             console.log(data);
 
-            $("#edit-20eh29v1Tf").val(data["aca"][0]["s_number"])
-            $("#edit-sch-name").val(data["aca"][0]["school_name"]);
+            $("#edit-20eh29v1Tf").val(data["aca"][0]["s_number"]);
+            $("#edit-sch-name").val(data["aca"][0]["school_name"].replace(/&amp;#039;/g, "'"));
             $("#edit-sch-country").val(data["aca"][0]["country"]);
             $("#edit-sch-region").val(data["aca"][0]["region"]);
             $("#edit-sch-city").val(data["aca"][0]["city"]);
 
-            $("#edit-cert-type").val(data["aca"][0]["cert_type"]);
+            $("#edit-cert-type").val(data["aca"][0]["cert_type"]).prop("disabled", true);
+            $("#edit-other-cert-type").val(data["aca"][0]["other_cert_type"]);
             $("#edit-index-number").val(data["aca"][0]["index_number"]);
             $("#edit-month-started" + " option[value='" + data["aca"][0]["month_started"] + "']").attr('selected', 'selected');
             $("#edit-year-started" + " option[value='" + data["aca"][0]["year_started"] + "']").attr('selected', 'selected');
@@ -358,6 +569,7 @@ $(document).ready(function () {
             $("#edit-year-completed" + " option[value='" + data["aca"][0]["year_completed"] + "']").attr('selected', 'selected');
 
             $("#edit-course-studied").val(data["aca"][0]["course_of_study"]);
+            $("#edit-other-course-studied").val(data["aca"][0]["other_course_studied"]);
 
             // show the necessary fields per cert type
             var myArray = ['WASSCE', 'SSSCE', 'NECO', 'GBCE'];
@@ -365,24 +577,42 @@ $(document).ready(function () {
 
             if (index == -1) {
                 $("#edit-course-studied").slideUp();
+                //$("#edit-course-studied option[value='OTHER']").attr('selected', 'selected');
                 $(".edit-other-course-studied").slideDown();
                 $(".edit-waec-course-content").slideUp();
 
-                if (data["aca"][0]["cert_type"] == "OTHER") $(".edit-sepcific-cert").slideToggle();
+                if (data["aca"][0]["cert_type"] == "OTHER") $(".edit-sepcific-cert").slideDown();
+
+                $("#edit-awaiting-result-yes").prop("checked", true);
+                $("#edit-awaiting-result-no").prop("checked", false);
 
             } else {
-                $("#edit-other-cert-type").val(data["aca"][0]["other_cert_type"]);
-                $("#edit-other-course-studied").val(data["aca"][0]["course_of_study"]);
                 
                 $("#edit-course-studied").slideDown();
                 $(".edit-other-course-studied").slideUp();
                 $(".edit-waec-course-content").slideDown();
+                $("#edit-not-waiting").slideDown();
                 $(".edit-sepcific-cert").slideUp();
+
+                $("#edit-awaiting-result-yes").prop("checked", false);
+                $("#edit-awaiting-result-no").prop("checked", true);
             }
+            
+            //Append the grades to the dropdown list
+            $(".subject-grade").html('<option value="Select" hidden>Select</option>');
+            $.each(data["grades"], function (index, value) {
+                $(".subject-grade").append('<option value="' + value.grade + '">' + value.grade + '</option>');
+            });
+
+            //Append the grades to the dropdown list
+            $(".elective-subjects").html('<option value="Select" hidden>Select</option>');
+            $.each(data["elective_subjects"], function (index, value) {
+                $(".elective-subjects").append('<option value="' + value.subject + '">' + value.subject + '</option>');
+            });
 
             // Set courses values (if cert type in 'WASSCE', 'SSSCE', 'NECO', 'GBCE')
             if (data["courses"]) {
-
+                console.log(data["courses"])
                 //core subjects
                 for (let index = 0; index < 4; index++) {
                     if (data["courses"][index]["type"] == "core") {
@@ -401,20 +631,9 @@ $(document).ready(function () {
             } else {
                 $("#edit-awaiting-result-yes").attr("checked", "checked");
                 $("#edit-awaiting-result-no").attr("checked", "");
-                $("#edit-not-waiting").attr("class", "hide");
+                $("#edit-not-waiting").slideUp();
+                //$("#edit-not-waiting").attr("class", "hide");
             }
-
-            //Append the grades to the dropdown list
-            $(".subject-grade").html('<option value="Select" hidden>Select</option>');
-            $.each(data["grades"], function (index, value) {
-                $(".subject-grade").append('<option value="' + value.grade + '">' + value.grade + '</option>');
-            });
-
-            //Append the grades to the dropdown list
-            $(".elective-subjects").html('<option value="Select" hidden>Select</option>');
-            $.each(data["elective_subjects"], function (index, value) {
-                $(".elective-subjects").append('<option value="' + value.subject + '">' + value.subject + '</option>');
-            });
 
             $(".steps").addClass("hide");
             $(".steps").removeClass("display");

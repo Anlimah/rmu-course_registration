@@ -103,6 +103,22 @@ class UsersController
         die("Invalid Input!");
     }
 
+    public function validateNumber($input)
+    {
+        if (empty($input)) {
+            return array("status" => "error", "message" => "required");
+        }
+
+        $user_input = htmlentities(htmlspecialchars($input));
+        $validated_input = (bool) preg_match('/^[0-9]/', $user_input);
+
+        if ($validated_input) {
+            return array("status" => "success", "message" => $user_input);
+        }
+
+        return array("status" => "error", "message" => "invalid");
+    }
+
     public function validateInputTextOnly($input)
     {
         if (empty($input)) {
@@ -189,22 +205,16 @@ class UsersController
 
     public function verifyLoginDetails($app_number, $pin)
     {
-        $sql = "SELECT `pin`, `id`, `purchase_id` FROM `applicants_login` WHERE `app_number` = :a";
-        $data = $this->dm->getData($sql, array(':a' => sha1($app_number)));
-        if ($data) {
-            if (!empty($data[0]["pin"])) {
-                if (password_verify($pin, $data[0]["pin"])) {
+        $sql = "SELECT al.`pin`, al.`id`, al.`purchase_id`, fc.`declaration`, pd.`form_type` 
+                FROM `applicants_login` AS al, `form_sections_chek` AS fc, `purchase_detail` AS pd 
+                WHERE al.`app_number` = :a AND pd.id = al.`purchase_id` AND fc.app_login = al.id;";
+        $data1 = $this->dm->getData($sql, array(':a' => sha1($app_number)));
 
-                    // Get application form type
-                    $sql2 = "SELECT `form_type` FROM `purchase_detail` WHERE `id` = :a";
-                    $data2 = $this->dm->getData($sql2, array(':a' => $data[0]["purchase_id"]));
+        if (empty($data1)) return 0;
 
-                    if ($data2) {
-                        return array("id" => $data[0]["id"], "type" => $data2[0]["form_type"]);
-                    }
-                }
-            }
-        }
+        if (password_verify($pin, $data1[0]["pin"]))
+            return array("id" => $data1[0]["id"], "type" => $data1[0]["form_type"], "submitted" => $data1[0]["declaration"]);
+
         return 0;
     }
 
@@ -311,7 +321,7 @@ class UsersController
     {
         $sql1 = "SELECT `id`, `s_number`, `school_name`, `country`, `region`, `city`, 
                 `cert_type`, `other_cert_type`, `index_number`, `month_started`, `year_started`, 
-                `month_completed`, `year_completed`, `course_of_study`,`awaiting_result` 
+                `month_completed`, `year_completed`, `course_of_study`, `other_course_studied`, `awaiting_result` 
                 FROM `academic_background` WHERE `s_number` = :sn AND `app_login` = :id";
         $params = array(":sn" => $serial_number, ":id" => $user_id);
         return $this->dm->getData($sql1, $params);
@@ -386,7 +396,7 @@ class UsersController
         return 0;
     }
 
-    public function saveEducation($sn, $cn, $rg, $ci, $ct, $im, $ms, $ys, $mc, $yc, $cs, $ar, $al)
+    public function saveEducation($sn, $cn, $rg, $ci, $ct, $oct, $im, $ms, $ys, $mc, $yc, $cs, $ocs, $ar, $al)
     {
         $rslt = 1;
         while ($rslt) {
@@ -395,14 +405,14 @@ class UsersController
         }
 
         $sql = "INSERT INTO `academic_background` (`s_number`, `school_name`, `country`, 
-                `region`, `city`, `cert_type`, `index_number`, `month_started`, `year_started`, 
-                `month_completed`, `year_completed`, `course_of_study`, `awaiting_result`, `app_login`) 
-                VALUES (:sr, :sn, :cn, :rg, :ci, :ct, :im, :ms, :ys, :mc, :yc, :cs, :ar, :al)";
+                `region`, `city`, `cert_type`, `other_cert_type`, `index_number`, `month_started`, `year_started`, 
+                `month_completed`, `year_completed`, `course_of_study`, `other_course_studied`, `awaiting_result`, `app_login`) 
+                VALUES (:sr, :sn, :cn, :rg, :ci, :ct, :oct, :im, :ms, :ys, :mc, :yc, :cs, :ocs, :ar, :al)";
 
         $params = array(
             ":sr" => $serial_number, ":sn" => $sn, ":cn" => $cn, ":rg" => $rg,
-            ":ci" => $ci, ":ct" => $ct, ":im" => $im, ":ms" => $ms, ":ys" => $ys,
-            ":mc" => $mc, ":yc" => $yc, ":cs" => $cs, ":ar" => $ar, ":al" => $al
+            ":ci" => $ci, ":ct" => $ct, ":oct" => $oct, ":im" => $im, ":ms" => $ms, ":ys" => $ys,
+            ":mc" => $mc, ":yc" => $yc, ":cs" => $cs, ":ocs" => $ocs, ":ar" => $ar, ":al" => $al
         );
 
         if ($this->dm->inputData($sql, $params)) {
@@ -412,8 +422,25 @@ class UsersController
 
         return 0;
     }
+    public function updateEducation($sn, $cn, $rg, $ci, $ct, $oct, $im, $ms, $ys, $mc, $yc, $cs, $ocs, $ar, $al, $sr)
+    {
+        $sql = "UPDATE `academic_background` SET 
+                `school_name` = :sn, `country` = :cn, `region` = :rg, `city` = :ci, `cert_type` = :ct, `other_cert_type` = :oct, 
+                `index_number` = :im, `month_started` = :ms, `year_started` = :ys, `month_completed` = :mc, `year_completed` = :yc, 
+                `course_of_study` = :cs, `other_course_studied` = :ocs, `awaiting_result` = :ar 
+                WHERE  `s_number` = :sr AND `app_login` = :al";
 
-    public function saveCoreSubjectGrades($math, $english, $science, $social)
+        $params = array(
+            ":sr" => $sr, ":sn" => $sn, ":cn" => $cn, ":rg" => $rg,
+            ":ci" => $ci, ":ct" => $ct, ":oct" => $oct, ":im" => $im, ":ms" => $ms, ":ys" => $ys,
+            ":mc" => $mc, ":yc" => $yc, ":cs" => $cs, ":ocs" => $ocs, ":ar" => $ar, ":al" => $al
+        );
+
+        if ($this->dm->inputData($sql, $params)) return $sr;
+        return 0;
+    }
+
+    /*public function saveCoreSubjectGrades($math, $english, $science, $social)
     {
         $sql = "INSERT INTO `core_subjects_grades` (`school_name`, `country`, 
                 `region`, `city`, `cert_type`, `index_number`, `month_started`, `year_started`, 
@@ -434,7 +461,7 @@ class UsersController
             ":s3" => $ej3, ":g3" => $ejg3, ":s4" => $ej4, ":g4" => $ejg4
         );
         return $this->dm->inputData($sql, $params);
-    }
+    }*/
 
     public function saveSubjectAndGrades($subjects = array(), $aca_id)
     {
@@ -455,6 +482,35 @@ class UsersController
 
             return 1;
         }
+        return 0;
+    }
+
+    public function updateSubjectAndGrades($subjects = array(), $aca_id)
+    {
+        if (!empty($subjects)) {
+            $query1 = "SELECT COUNT(`id`) FROM `high_school_results` WHERE `acad_back_id` = :ac";
+            return $this->dm->getID($query1, array(":ac" => $aca_id));
+
+            if (1) {
+                $sql = "UPDATE `high_school_results` SET `type` = :t, `subject` = :s, `grade` = :g WHERE `acad_back_id` = :ai)";
+            } else {
+                $sql = "INSERT INTO `high_school_results` (`type`, `subject`, `grade`, `acad_back_id`) VALUES (:t, :s, :g, :ai)";
+            }
+            // add core subjects
+            for ($i = 0; $i < count($subjects["core"]); $i++) {
+                $params = array(":t" => "core", ":s" => $subjects["core"][$i]["subject"], ":g" => $subjects["core"][$i]["grade"], ":ai" =>  $aca_id);
+                $this->dm->inputData($sql, $params);
+            }
+
+            // add elective subjects
+            for ($i = 0; $i < count($subjects["elective"]); $i++) {
+                $params = array(":t" => "elective", ":s" => $subjects["elective"][$i]["subject"], ":g" => $subjects["elective"][$i]["grade"], ":ai" =>  $aca_id);
+                $this->dm->inputData($sql, $params);
+            }
+
+            return 1;
+        }
+
         return 0;
     }
 

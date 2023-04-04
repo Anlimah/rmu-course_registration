@@ -420,7 +420,9 @@ CREATE TABLE `academic_background` (
     CONSTRAINT `fk_app_aca_bac` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-ALTER TABLE `academic_background` ADD COLUMN `other_cert_type` VARCHAR(50) AFTER `cert_type`;
+ALTER TABLE `academic_background` 
+ADD COLUMN `other_cert_type` VARCHAR(100) AFTER `cert_type`,
+ADD COLUMN `other_course_studied` VARCHAR(100) AFTER `course_of_study`;
 
 DROP TABLE IF EXISTS `high_school_results`;
 CREATE TABLE `high_school_results` (

@@ -8,6 +8,8 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
     header('Location: ./index.php?status=error&message=Invalid access!');
 }
 
+if (!$_SESSION["submitted"]) header("Location: {$_SESSION['loginType']}");
+
 if (isset($_GET['logout'])) {
     unset($_SESSION['ghAppLogin']);
     unset($_SESSION['ghApplicant']);

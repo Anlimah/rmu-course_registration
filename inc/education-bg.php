@@ -499,6 +499,7 @@ $courses = $user->fetchCourses();
                     </div>
                     <input type="hidden" name="edit-20eh29v1Tf" id="edit-20eh29v1Tf" value="1">
                     <input type="reset" name="edit-reset" id="edit-reset" style="display: none;">
+                    <input type="hidden" name="edit-awaiting_result_value" id="edit-awaiting_result_value" value="0">
                 </form>
             </div>
             <div class="modal-footer" style="display: flex !important; flex-direction: row-reverse !important; justify-content: space-between !important;">
