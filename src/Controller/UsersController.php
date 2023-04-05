@@ -485,47 +485,55 @@ class UsersController
         return 0;
     }
 
+    private function binarySearch()
+    {
+        # code...
+    }
+
     public function updateSubjectAndGrades($subjects = array(), $aca_id)
     {
-        if (!empty($subjects)) {
-            $query1 = "SELECT COUNT(`id`) FROM `high_school_results` WHERE `acad_back_id` = :ac";
-            return $this->dm->getID($query1, array(":ac" => $aca_id));
+        if (empty($subjects)) return 0;
 
-            if (1) {
-                $sql = "UPDATE `high_school_results` SET `type` = :t, `subject` = :s, `grade` = :g WHERE `acad_back_id` = :ai)";
-            } else {
-                $sql = "INSERT INTO `high_school_results` (`type`, `subject`, `grade`, `acad_back_id`) VALUES (:t, :s, :g, :ai)";
-            }
-            // add core subjects
-            for ($i = 0; $i < count($subjects["core"]); $i++) {
-                $params = array(":t" => "core", ":s" => $subjects["core"][$i]["subject"], ":g" => $subjects["core"][$i]["grade"], ":ai" =>  $aca_id);
-                $this->dm->inputData($sql, $params);
-            }
+        $query1 = "SELECT `id`, `type` FROM `high_school_results` WHERE `acad_back_id` = :ac";
+        $result = $this->dm->getData($query1, array(":ac" => $aca_id));
+        $sql = "";
 
-            // add elective subjects
-            for ($i = 0; $i < count($subjects["elective"]); $i++) {
-                $params = array(":t" => "elective", ":s" => $subjects["elective"][$i]["subject"], ":g" => $subjects["elective"][$i]["grade"], ":ai" =>  $aca_id);
-                $this->dm->inputData($sql, $params);
-            }
-
-            return 1;
+        if (1) {
+            $sql = "UPDATE `high_school_results` SET `type` = :t, `subject` = :s, `grade` = :g WHERE `acad_back_id` = :ai";
+        } else {
+            $sql = "INSERT INTO `high_school_results` (`type`, `subject`, `grade`, `acad_back_id`) VALUES (:t, :s, :g, :ai)";
+        }
+        // add core subjects
+        for ($i = 0; $i < count($subjects["core"]); $i++) {
+            $params = array(":t" => "core", ":s" => $subjects["core"][$i]["subject"], ":g" => $subjects["core"][$i]["grade"], ":ai" =>  $aca_id);
+            $this->dm->inputData($sql, $params);
         }
 
-        return 0;
+        // add elective subjects
+        for ($i = 0; $i < count($subjects["elective"]); $i++) {
+            $params = array(":t" => "elective", ":s" => $subjects["elective"][$i]["subject"], ":g" => $subjects["elective"][$i]["grade"], ":ai" =>  $aca_id);
+            $this->dm->inputData($sql, $params);
+        }
+
+        return 1;
+    }
+
+    public function fetchApplicantAcaBID(int $sNumber, int $appID)
+    {
+        $sql = "SELECT `id` FROM `academic_background` WHERE `s_number` = :sn AND `app_login` = :id";
+        return $this->dm->getID($sql, array(":sn" => $sNumber, ":id" => $appID));
     }
 
     public function deleteEducationHistory($serial_number, $education_id)
     {
         $sql = "DELETE FROM `academic_background` WHERE `s_number` = :sn AND `app_login` = :id";
-        $params = array(":sn" => $serial_number, ":id" => $education_id);
-        return $this->dm->inputData($sql, $params);
+        return $this->dm->inputData($sql, array(":sn" => $serial_number, ":id" => $education_id));
     }
 
     public function saveDocuments($type, $filename, $user_id)
     {
         $sql = "INSERT INTO `applicant_uploads`(`type`, `file_name`, `app_login`) VALUES (:t, :f, :a)";
-        $params = array(":t" => $type, ":f" => $filename, ":a" => $user_id);
-        return $this->dm->inputData($sql, $params);
+        return $this->dm->inputData($sql, array(":t" => $type, ":f" => $filename, ":a" => $user_id));
     }
 
     public function fetchUploadedDocs($user_id)

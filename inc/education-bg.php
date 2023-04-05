@@ -268,25 +268,25 @@ $courses = $user->fetchCourses();
                     <div id="edit-step-1" class="steps">
                         <div class="mb-4" id="edit-sch-name-group">
                             <label class="form-label" for="sch-name">School Name <span class="input-required">*</span></label>
-                            <input placeholder="School" class="edu-mod-text form-control" type="text" name="edit-sch-name" id="edit-sch-name">
+                            <input placeholder="School" class="transform-text edu-mod-text form-control" type="text" name="edit-sch-name" id="edit-sch-name">
                         </div>
                         <div class="mb-4" id="edit-sch-country-group">
                             <label class="form-label" for="sch-country">School Country <span class="input-required">*</span></label>
-                            <input placeholder="Country" class="edu-mod-text form-control" type="text" name="edit-sch-country" id="edit-sch-country">
+                            <input placeholder="Country" class="transform-text edu-mod-text form-control" type="text" name="edit-sch-country" id="edit-sch-country">
                         </div>
                         <div class="mb-4" id="edit-sch-region-group">
                             <label class="form-label" for="sch-region">School Province/Region <span class="input-required">*</span></label>
-                            <input placeholder="Province/Region" class="edu-mod-text form-control" type="text" name="edit-sch-region" id="edit-sch-region">
+                            <input placeholder="Province/Region" class="transform-text edu-mod-text form-control" type="text" name="edit-sch-region" id="edit-sch-region">
                         </div>
                         <div class="mb-4" id="edit-sch-city-group">
                             <label class="form-label" for="sch-city">School City <span class="input-required">*</span></label>
-                            <input placeholder="City" class="edu-mod-text form-control" type="text" name="edit-sch-city" id="edit-sch-city">
+                            <input placeholder="City" class="transform-text edu-mod-text form-control" type="text" name="edit-sch-city" id="edit-sch-city">
                         </div>
                     </div>
                     <div id="edit-step-2" class="steps hide">
                         <div class="mb-4" id="edit-cert-type-group">
                             <label class="form-label" for="edit-cert-type">Certificate or degree earned <span class="input-required">*</span></label>
-                            <select class="edu-mod-select form-select form-select-sm" name="edit-cert-type" id="edit-cert-type">
+                            <select class="transform-text edu-mod-select form-select form-select-sm" name="edit-cert-type" id="edit-cert-type">
                                 <option value="Select" hidden>Select</option>
                                 <option value="WASSCE">WASSCE</option>
                                 <option value="SSSCE">SSSCE</option>
@@ -301,17 +301,17 @@ $courses = $user->fetchCourses();
                             </select>
                             <div class="div-container mt-4 edit-sepcific-cert" style="display: none">
                                 <label class="form-label" for="edit-other-cert-type"> Specify the certificate name <span class="input-required">*</span></label>
-                                <input type="text" id="edit-other-cert-type" name="edit-other-cert-type" class="edu-mod-text form-control" placeholder="Input certificate">
+                                <input type="text" id="edit-other-cert-type" name="edit-other-cert-type" class="transform-text edu-mod-text form-control" placeholder="Input certificate">
                             </div>
                         </div>
                         <div class="mb-4" id="edit-index-number-group">
                             <label class="form-label" for="index-number">Index Number <span class="input-required">*</span></label>
-                            <input placeholder="Index Number" class="edu-mod-text form-control" type="text" name="edit-index-number" id="edit-index-number" placeholder="Index Number">
+                            <input placeholder="Index Number" class="transform-text edu-mod-text form-control" type="text" name="edit-index-number" id="edit-index-number" placeholder="Index Number">
                         </div>
                         <div class="mb-4" id="edit-date-started-group">
                             <label class="form-label" for="completion-date">Date Started <span class="input-required">*</span></label>
                             <div style="max-width: 280px !important; display:flex; flex-direction:row; justify-content: space-between">
-                                <select class="edu-mod-date-m form-select form-select-sm" style="margin-right: 10px;" name="edit-month-started" id="edit-month-started">
+                                <select class="transform-text edu-mod-date-m form-select form-select-sm" style="margin-right: 10px;" name="edit-month-started" id="edit-month-started">
                                     <option value="Month" hidden>Month</option>
                                     <option value="Jan">Jan</option>
                                     <option value="Feb">Feb</option>
@@ -326,7 +326,7 @@ $courses = $user->fetchCourses();
                                     <option value="Nov">Nov</option>
                                     <option value="Dec">Dec</option>
                                 </select>
-                                <select class="edu-mod-date-y form-select form-select-sm" name="edit-year-started" id="edit-year-started">
+                                <select class="transform-text edu-mod-date-y form-select form-select-sm" name="edit-year-started" id="edit-year-started">
                                     <option value="Year" hidden>Year</option>
                                     <option value="2022">2022</option>
                                     <option value="2021">2021</option>
@@ -367,7 +367,7 @@ $courses = $user->fetchCourses();
                         <div class="mb-4" id="edit-date-completed-group">
                             <label class="form-label" for="completion-date">Date Completed <span class="input-required">*</span></label>
                             <div style="max-width: 280px !important; display:flex; flex-direction:row; justify-content: space-between">
-                                <select class="edu-mod-date-m form-select form-select-sm" style="margin-right: 10px;" name="edit-month-completed" id="edit-month-completed">
+                                <select class="transform-text edu-mod-date-m form-select form-select-sm" style="margin-right: 10px;" name="edit-month-completed" id="edit-month-completed">
                                     <option value="Month" hidden>Month</option>
                                     <option value="Jan">Jan</option>
                                     <option value="Feb">Feb</option>
@@ -382,7 +382,7 @@ $courses = $user->fetchCourses();
                                     <option value="Nov">Nov</option>
                                     <option value="Dec">Dec</option>
                                 </select>
-                                <select class="edu-mod-date-y form-select form-select-sm" name="edit-year-completed" id="edit-year-completed">
+                                <select class="transform-text edu-mod-date-y form-select form-select-sm" name="edit-year-completed" id="edit-year-completed">
                                     <option value="Year" hidden>Year</option>
                                     <option value="2022">2022</option>
                                     <option value="2021">2021</option>
@@ -424,7 +424,7 @@ $courses = $user->fetchCourses();
                     <div id="edit-step-3" class="steps hide">
                         <div class="mb-4" id="edit-course-studied-group">
                             <label class="form-label" for="course-studied">Course/Program of Study <span class="input-required">*</span></label>
-                            <select class="edu-mod-select form-select form-select-sm" name="edit-course-studied" id="edit-course-studied">
+                            <select class="transform-text edu-mod-select form-select form-select-sm" name="edit-course-studied" id="edit-course-studied">
                                 <option value="Select" hidden>Select</option>
                                 <?php
                                 foreach ($courses as $course) {
@@ -435,7 +435,7 @@ $courses = $user->fetchCourses();
                                 ?>
                                 <option value="OTHER">OTHER</option>
                             </select>
-                            <div class="edit-other-course-studied" style="display: none">
+                            <div class="transform-text edit-other-course-studied" style="display: none">
                                 <input type="text" name="edit-other-course-studied" id="edit-other-course-studied" class="edu-mod-text form-control" placeholder="Enter course studied">
                             </div>
                         </div>
@@ -500,10 +500,11 @@ $courses = $user->fetchCourses();
                     <input type="hidden" name="edit-20eh29v1Tf" id="edit-20eh29v1Tf" value="1">
                     <input type="reset" name="edit-reset" id="edit-reset" style="display: none;">
                     <input type="hidden" name="edit-awaiting_result_value" id="edit-awaiting_result_value" value="0">
+                    <input type="submit" id="submit-edit-education-form" style="display: none">
                 </form>
             </div>
             <div class="modal-footer" style="display: flex !important; flex-direction: row-reverse !important; justify-content: space-between !important;">
-                <button class="btn btn-primary hide" id="edit-save-education-btn" style="width: 120px;" data-bs-dismiss="modal" aria-label="Close">Save and Close</button>
+                <label for="submit-edit-education-form" class="btn btn-primary hide" id="edit-save-education-btn" style="width: 120px;">Save and Close</label>
                 <button type="button" class="btn btn-primary" id="edit-nextStep">Next Step</button>
                 <p>Step 1 of 4</p>
                 <button type="button" class="btn btn-secondary hide" id="edit-prevStep">Prev. Step</button>
