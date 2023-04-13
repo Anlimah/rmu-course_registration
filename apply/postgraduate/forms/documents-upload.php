@@ -7,28 +7,60 @@ use Src\Controller\ExposeDataController;
 
 $data = new ExposeDataController();
 $user = new UsersController();
-
+$academic_BG = $user->fetchApplicantAcaB($user_id);
+$uploads = $user->fetchUploadedDocs($user_id);
+$appStatus = $user->getApplicationStatus($user_id);
 
 ?>
-<form id="appForm" method="POST" style="margin-top: 50px !important;">
-    <fieldset class="fieldset">
-        <legend>Passport Picture</legend>
-        <div class="field-content">
-            <div class="form-fields" style="flex-grow: 8;">
-                <div class="photo-upload-area">
-                    <p style="font-size: 14px; color: brown">Please upload a passport size photo of yourself. The size of the image should not be more than 100KB. The background color of your image should be white.</p>
-                    <p style="font-size: 14px; color: red"><b>NB: The image you use will not be changed. So use a most recent passport sized picture of yourself.</b></p>
-                    <div class="photo-display"></div>
-                    <label for="applicant-photo" class="upload-photo-label btn btn-primary">Upload photo</label>
-                    <input class="form-control" type="file" style="display: none;" name="applicant-photo" id="applicant-photo">
-                </div>
+
+<fieldset class="fieldset row">
+    <div class="col-md-4 col-sm-12">
+        <legend>Academic Qualifications</legend>
+    </div>
+    <div class="col-md-8 col-sm-12">
+        <div class="mb-4">
+            <p>Upload scanned copies of certificates related to the education information you provide in the education background section.</p>
+        </div>
+        <div class="mb-4">
+            <button type="button" id="attach-cert-btn" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#addDocumentModal">Upload</button>
+
+            <h5 style="font-size: 16px;" class="form-label mb-4"><b>List of documents <span class="input-required">*</b></span></h5>
+
+            <div class="certificates mb-4">
+                <?php
+                if (!empty($uploads)) {
+                ?>
+                    <table class="table table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th scope="col">S/N</th>
+                                <th scope="col">DOCUMENT TYPE</th>
+                                <th scope="col">DATE</th>
+                                <th scope="col"> </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $ind = 1;
+                            foreach ($uploads as $cert) {
+                            ?>
+                                <tr>
+                                    <th scope="row"><?= $ind ?></th>
+                                    <td><?= ucwords(strtoupper($cert["type"])) ?></td>
+                                    <td><?= ucwords(strtolower($cert["updated_at"])) ?></td>
+                                    <td> <button type="button" style="cursor: pointer;" class="btn btn-danger btn-sm delete-file" id="tran-delete-<?= $cert["id"] ?>" title="Delete"><span class="bi bi-trash"></span></button></td>
+                                </tr>
+                            <?php
+                                $ind += 1;
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                <?php
+                }
+                ?>
             </div>
         </div>
-
-        <div class="photo-upload-area">
-            <p style="font-size: 14px; color: brown">Upload a scanned PDF copy of your certificate and transcipts.</p>
-            <label for="applicant-photo" class="upload-photo-label btn btn-default">Upload certificate <span class="input-required">*</span></label>
-            <input class="form-control" type="file" name="applicant-photo" id="applicant-photo" style="display: none;">
-        </div>
-    </fieldset>
-</form>
+        <p><b><span style=" color: brown">Allowed file types:</span></b> .pdf, .docx, .doc</p>
+    </div>
+</fieldset>

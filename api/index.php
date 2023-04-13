@@ -185,19 +185,22 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 		//step 2
 		$cert_type = [];
-
 		$cert_type = $user->validateInputTextOnly($_POST["cert_type"]);
 		if ($cert_type['status'] == "error" || $_POST['cert_type'] == "Select") {
 			$errors['cert_type'] = 'Certificate or degree earned is ' . $cert_type['message'] . '!';
 		}
 
+		$other_cert_type = [];
+		$other_cert_type["message"] = "";
 		if ($_POST["cert_type"] == "OTHER" && empty($_POST["other_cert_type"])) {
-			$errors['cert_type'] = 'Specify the name of certificate earned!';
+			$errors['cert_type'] = 'Please specify certificate or degree earned!';
 		} else if ($_POST["cert_type"] == "OTHER" && !empty($_POST["other_cert_type"])) {
 			$other_cert_type = $user->validateInputTextOnly($_POST["other_cert_type"]);
 			if ($other_cert_type['status'] == "error") {
 				$errors['cert_type'] = 'Certificate or degree earned is ' . $other_cert_type['message'] . '!';
 			}
+		} else {
+			$errors['cert_type'] = 'Please specify certificate or degree earned!';
 		}
 
 		$index_number = $user->validateInputTextNumber($_POST["index_number"]);
@@ -227,19 +230,22 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 		//step 3
 		$course_studied = [];
-
 		$course_studied = $user->validateInputTextOnly($_POST["course_studied"]);
 		if ($course_studied['status'] == "error" || $_POST['course_studied'] == "Select") {
 			$errors['course_studied'] = 'Course/Program of study is ' . $course_studied['message'] . '!';
 		}
 
-		if ($_POST["cert_type"] == "OTHER" && empty($_POST["other_course_studied"])) {
-			$errors['course_studied'] = 'Course or programme of study required!';
-		} else if ($_POST["cert_type"] == "OTHER" && !empty($_POST["other_course_studied"])) {
+		$other_course_studied = [];
+		$other_course_studied["message"] = "";
+		if ($_POST["course_studied"] == "OTHER" && empty($_POST["other_course_studied"])) {
+			$errors['course_studied'] = 'Please specify the programme of study!';
+		} else if ($_POST["course_studied"] == "OTHER" && !empty($_POST["other_course_studied"])) {
 			$other_course_studied = $user->validateInputTextOnly($_POST["other_course_studied"]);
 			if ($other_course_studied['status'] == "error") {
-				$errors['course_studied'] = 'Courseor program of study is ' . $other_course_studied['message'] . '!';
+				$errors['course_studied'] = 'Course or program of study is ' . $other_course_studied['message'] . '!';
 			}
+		} else {
+			$errors['course_studied'] = 'Please specify the programme of study!';
 		}
 
 		//$awaiting_result = ($_POST["cert_type"] == "OTHER") ? 1 : $_POST["awaiting_result"];

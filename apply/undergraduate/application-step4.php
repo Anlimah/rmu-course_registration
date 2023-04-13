@@ -1,9 +1,11 @@
 <?php
 session_start();
 if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
-    if (!(isset($_SESSION["ghApplicant"]) && !empty($_SESSION['ghApplicant']))) {
+    if (!isset($_SESSION['loginType']) || empty($_SESSION['loginType']) || ($_SESSION['loginType'] != "undergraduate/welcome.php"))
+        echo '<script>window.location.href = "?logout=true"</script>';
+
+    if (!(isset($_SESSION["ghApplicant"]) && !empty($_SESSION['ghApplicant'])))
         header('Location: ../index.php');
-    }
 } else {
     header('Location: ../index.php');
 }
