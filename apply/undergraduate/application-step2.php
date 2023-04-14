@@ -184,9 +184,9 @@ $page = array("id" => 2, "name" => "Education Background");
 
                 if (this.id == "course-studied") {
                     if (this.value == "OTHER") {
-                        $(".other-course-studied").slideUp(200);
-                    } else {
                         $(".other-course-studied").slideDown(200);
+                    } else {
+                        $(".other-course-studied").slideUp(200);
                     }
                 }
 
@@ -219,7 +219,7 @@ $page = array("id" => 2, "name" => "Education Background");
 
                 if (this.id == "edit-course-studied") {
                     if (this.value == "OTHER") {
-                        $(".edit-other-course-studied").slideToggle(200);
+                        $(".edit-other-course-studied").slideDown(200);
                     } else {
                         $(".edit-other-course-studied").slideUp(200);
                     }

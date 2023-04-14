@@ -244,6 +244,15 @@ class UsersController
         return $this->dm->inputData($sql, array(':v' => $value, ':s' => $s_number, ':a' => $user_id));
     }
 
+    public function updateHighSchoolResultInfo($subject_type, $value, $s_number, $subject_id)
+    {
+        $sql1 = "SELECT `id` FROM `academic_background` WHERE `s_number` = :sn";
+        $aca_id = $this->dm->getID($sql1, array(":sn" => $s_number));
+
+        $sql = "UPDATE `high_school_results` SET `$subject_type` = :v WHERE `id` = :i AND acad_back_id = :ac";
+        return $this->dm->inputData($sql, array(':v' => $value, ':i' => $subject_id, ':ac' => $aca_id));
+    }
+
     public function updatePrevUniInfo($what, $value, $user_id)
     {
         $sql = "UPDATE `previous_uni_records` SET `$what` = :v WHERE `app_login` = :a";

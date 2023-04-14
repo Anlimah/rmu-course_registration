@@ -327,16 +327,121 @@ $(document).ready(function () {
             }
         }
     });
+
     $("#edit-education-form").on("submit", function (e) {
         e.preventDefault();
+
+        if (!document.querySelector("#edit-core-sbj1").dataset.type) {
+            alert("OK")
+        }
+        
         $.ajax({
             type: "PUT",
             url: "../../api/education-grades",
-            data: formData,
+            data: new FormData(this),
             dataType: "json",
             encode: true,
+            processData: false
         }).done(function (data) {
             console.log(data);
+
+            let step_errors = 0;
+            if (!data.success) {
+                let step1, step2, step3, step4 = 0;
+
+                // core
+                if (data.errors.core_sbj_grp1) {
+                    $("#edit-core-sbj1-group").addClass("has-error"); 
+                    $("#edit-core-sbj1-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.core_sbj_grp1 + "</div>");
+                    step3 = 3;
+                }
+                if (data.errors.core_sbj_grp2) {
+                    $("#edit-core-sbj2-group").addClass("has-error");
+                    $("#edit-core-sbj2-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.core_sbj_grp2 + "</div>");
+                    step3 = 3;
+                }
+                if (data.errors.core_sbj_grp3) {
+                    $("#edit-core-sbj3-group").addClass("has-error");
+                    $("#edit-core-sbj3-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.core_sbj_grp3 + "</div>");
+                    step3 = 3;
+                }
+                if (data.errors.core_sbj_grp4) {
+                    $("#edit-core-sbj4-group").addClass("has-error");
+                    $("#edit-core-sbj4-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.core_sbj_grp4 + "</div>");
+                    step3 = 3;
+                }
+
+                //elective
+                if (data.errors.elective_sbj_grp1) {
+                    $("#edit-elective-sbj1-group").addClass("has-error");
+                    $("#edit-elective-sbj1-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.elective_sbj_grp1 + "</div>");
+                    step3 = 3;
+                }
+                if (data.errors.elective_sbj_grp2) {
+                    $("#edit-elective-sbj2-group").addClass("has-error");
+                    $("#edit-elective-sbj2-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.elective_sbj_grp2 + "</div>");
+                    step3 = 3;
+                }
+                if (data.errors.elective_sbj_grp3) {
+                    $("#edit-elective-sbj3-group").addClass("has-error");
+                    $("#edit-elective-sbj3-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.elective_sbj_grp3 + "</div>");
+                    step3 = 3;
+                }
+                if (data.errors.elective_sbj_grp4) {
+                    $("#edit-elective-sbj4-group").addClass("has-error");
+                    $("#edit-elective-sbj4-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.elective_sbj_grp4 + "</div>");
+                    step3 = 3;
+                }
+
+                if (step1) {
+                    step_errors = step1;
+                } else if (step2) {
+                    step_errors = step2;
+                } else if (step3) {
+                    step_errors = step3;
+                } else if (step4) {
+                    step_errors = step4;
+                }
+
+                //Steps redirection
+                if (step_errors) {
+                    //alert(step_errors);
+                    $(".steps").addClass("hide");
+                    $(".steps").removeClass("display");
+                    $("#edit-step-" + step_errors).removeClass("hide");
+                    $("#edit-step-" + step_errors).addClass("display");
+
+                    if (step_errors == 1) {
+                        $("#edit-prevStep").removeClass("display");
+                        $("#edit-prevStep").addClass("hide");
+                        $("#edit-nextStep").removeClass("hide");
+                        $("#edit-nextStep").addClass("display");
+                        $("#edit-save-education-btn").removeClass("display");
+                        $("#edit-save-education-btn").addClass("hide");
+                    } else if (step_errors == 3) {
+                        $("#edit-prevStep").removeClass("hide");
+                        $("#edit-prevStep").addClass("display");
+                        $("#edit-nextStep").removeClass("display");
+                        $("#edit-nextStep").addClass("hide");
+                        $("#edit-save-education-btn").removeClass("display");
+                        $("#edit-save-education-btn").addClass("hide");
+                    } else if (step_errors > 1 && step_errors < 3) {
+                        $("#edit-prevStep").removeClass("hide");
+                        $("#edit-prevStep").addClass("display");
+                        $("#edit-nextStep").removeClass("hide");
+                        $("#edit-nextStep").addClass("display");
+                        $("#edit-save-education-btn").removeClass("display");
+                        $("#edit-save-education-btn").addClass("hide");
+                    }
+                    //next = step_errors;
+                    add_next = step_errors;
+                }
+                return;
+
+            } else {
+                alert(data.message);
+                window.location.reload();
+            }
         }).fail(function (error) {
             console.log(error);
         })
@@ -616,11 +721,15 @@ $(document).ready(function () {
     
                 // Set courses values (if cert type in 'WASSCE', 'SSSCE', 'NECO', 'GBCE')
                 if (data["courses"]) {
-                    console.log(data["courses"])
                     //core subjects
                     for (let index = 0; index < 4; index++) {
                         if (data["courses"][index]["type"] == "core") {
                             $("#edit-core-sbj-grd" + (index + 1) + " option[value='" + data["courses"][index]["grade"] + "']").attr('selected', 'selected');
+                            document.querySelector("#edit-core-sbj" + (index + 1)).dataset.type = "subject";
+                            document.querySelector("#edit-core-sbj" + (index + 1)).dataset.value = data["courses"][index]["id"];
+                            
+                            document.querySelector("#edit-core-sbj-grd" + (index + 1)).dataset.type = "grade";
+                            document.querySelector("#edit-core-sbj-grd" + (index + 1)).dataset.value = data["courses"][index]["id"];
                         }
                     }
     
@@ -629,6 +738,11 @@ $(document).ready(function () {
                         if (data["courses"][index]["type"] == "elective") {
                             $("#edit-elective-sbj" + (index - 3) + " option[value='" + data["courses"][index]["subject"] + "']").attr('selected', 'selected');
                             $("#edit-elective-sbj-grd" + (index - 3) + " option[value='" + data["courses"][index]["grade"] + "']").attr('selected', 'selected');
+                            document.querySelector("#edit-elective-sbj" + (index - 3)).dataset.type = "subject";
+                            document.querySelector("#edit-elective-sbj" + (index - 3)).dataset.value = data["courses"][index]["id"];
+                            
+                            document.querySelector("#edit-elective-sbj-grd" + (index - 3)).dataset.type = "grade";
+                            document.querySelector("#edit-elective-sbj-grd" + (index - 3)).dataset.value = data["courses"][index]["id"];
                         }
                     }
     
@@ -684,18 +798,36 @@ $(document).ready(function () {
         });
     }
 
-    function prepareData(obj, snum) {
+    function prepareData(obj, snum, subj = false) {
+        let subj_id = 0;
+        let subj_type = "";
+
+        if (subj) {
+            subj_type = obj.dataset.type;
+            subj_id = obj.dataset.value;
+        }
+
         let data = {
             what: obj.name,
             value: obj.value,
             snum: snum,
+            subj_type: subj_type,
+            subj_id: subj_id
         };
+
         return data;
     }
 
     $(".form-select").change("blur", function () {
         if ($("#edit-20eh29v1Tf").val() != 1) {
-            let data = prepareData(this, $("#edit-20eh29v1Tf").val());
+            let data;
+            if (this.dataset.value) {
+                data = prepareData(this, $("#edit-20eh29v1Tf").val(), true);
+            } else if (this.dataset.value) {
+                data = prepareData(this, $("#edit-20eh29v1Tf").val(), true);
+            } else {
+                data = prepareData(this, $("#edit-20eh29v1Tf").val());
+            }
             updateData(data, "education");
         }
     });

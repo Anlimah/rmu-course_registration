@@ -162,6 +162,8 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		$errors = [];
 		$data = [];
 
+		die(json_encode($_POST));
+
 		//step 1
 		$sch_name = $user->validateInputTextOnly($_POST["sch_name"]);
 		if ($sch_name['status'] == "error") {
@@ -526,7 +528,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			if ($go) {
 				if ($user->updateApplicationStatus($column, $_SESSION['ghApplicant'])) {
 					$data["success"] = true;
-					$_SESSION['submitted'] = 1;
+					if ($column == "declaration") $_SESSION['submitted'] = 1;
 				}
 			} else {
 				$data["success"] = false;
@@ -885,34 +887,31 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		$what = $_PUT["what"];
 		$value = $_PUT['value'];
 		$s_number = $_PUT["snum"];
+		$subject_type = $_PUT["subj_type"];
+		$subject_id = $_PUT["subj_id"];
 
 		if (!isset($what) || empty($what) || !isset($value) || empty($value) || !isset($s_number) || empty($s_number))
 			die(json_encode(array("success" => false, "message" => "Invalid input!")));
 
-		$column = substr(str_replace("-", "_", $what), 5);
+		if (!$subject_id) {
 
-		if ($column == "sch_name") {
-			$column = 'school_name';
+			$column = substr(str_replace("-", "_", $what), 5);
+			if ($column == "sch_name") {
+				$column = 'school_name';
+			} else if ($column == "sch_country") {
+				$column = 'country';
+			} else if ($column == "sch_region") {
+				$column = 'region';
+			} else if ($column == "sch_city") {
+				$column = 'city';
+			} else if ($column == "course_studied") {
+				$column = 'course_of_study';
+			}
+			$result = $user->updateAcademicInfo($column, $value, $s_number, $_SESSION['ghApplicant']);
+		} else {
+			$result = $user->updateHighSchoolResultInfo($subject_type, $value, $s_number, $subject_id);
 		}
 
-		if ($column == "sch_country") {
-			$column = 'country';
-		}
-
-		if ($column == "sch_region") {
-			$column = 'region';
-		}
-
-		if ($column == "sch_city") {
-			$column = 'city';
-		}
-
-		if ($column == "course_studied") {
-			$column = 'course_of_study';
-		}
-
-		//$column = substr_replace($column, "", -1);
-		$result = $user->updateAcademicInfo($column, $value, $s_number, $_SESSION['ghApplicant']);
 		die($result ? json_encode(array("success" => true)) : json_encode(array("success" => false)));
 	}
 

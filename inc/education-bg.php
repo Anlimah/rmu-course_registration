@@ -435,8 +435,8 @@ $courses = $user->fetchCourses();
                                 ?>
                                 <option value="OTHER">OTHER</option>
                             </select>
-                            <div class="transform-text edit-other-course-studied" style="display: none">
-                                <input type="text" name="edit-other-course-studied" id="edit-other-course-studied" class="edu-mod-text form-control" placeholder="Enter course studied">
+                            <div class="edit-other-course-studied" style="display: none">
+                                <input type="text" name="edit-other-course-studied" id="edit-other-course-studied" class="transform-text edu-mod-text form-control" placeholder="Enter course studied">
                             </div>
                         </div>
                         <div class="edit-waec-course-content">
@@ -457,8 +457,8 @@ $courses = $user->fetchCourses();
                                     ?>
                                         <div id="edit-core-sbj<?= ($i + 1) ?>-group" class="mb-2">
                                             <div style="display:flex !important; flex-direction:row !important; justify-content: space-between !important">
-                                                <input style="margin-right: 10px; width: 75%" class="form-control" type="text" name="edit-core-sbj<?= ($i + 1) ?>" id="edit-core-sbj<?= ($i + 1) ?>" value="<?= SHSCOURSES["subjects"]["core"][$i] ?>" disabled>
-                                                <select style="width: 25%" class="edu-mod-grade form-select form-select-sm subject-grade" name="edit-core-sbj-grd<?= ($i + 1) ?>" id="edit-core-sbj-grd<?= ($i + 1) ?>">
+                                                <input name="edit-core-sbj<?= ($i + 1) ?>" id="edit-core-sbj<?= ($i + 1) ?>" value="<?= SHSCOURSES["subjects"]["core"][$i] ?>" style="margin-right: 10px; width: 75%" class="form-control" type="text" disabled>
+                                                <select name="edit-core-sbj-grd<?= ($i + 1) ?>" id="edit-core-sbj-grd<?= ($i + 1) ?>" style="width: 25%" class="edu-mod-grade form-select form-select-sm subject-grade">
                                                     <option value="Grade" hidden>Grade</option>
                                                 </select>
                                             </div>
@@ -474,7 +474,7 @@ $courses = $user->fetchCourses();
                                     ?>
                                         <div id="edit-elective-sbj<?= ($i + 1) ?>-group" class="mb-2">
                                             <div style="display:flex !important; flex-direction:row !important; justify-content: space-between !important">
-                                                <select style="margin-right: 10px; width: 75%" class="edu-mod-select elective-subjects form-select form-select-sm" name="edit-elective-sbj<?= ($i + 1) ?>" id="edit-elective-sbj<?= ($i + 1) ?>">
+                                                <select name="edit-elective-sbj<?= ($i + 1) ?>" id="edit-elective-sbj<?= ($i + 1) ?>" style="margin-right: 10px; width: 75%" class="edu-mod-select elective-subjects form-select form-select-sm">
                                                     <option value="Select" hidden>Select</option>
                                                     <?php
                                                     for ($j = 0; $j < count(SHSCOURSES["subjects"]["electives"]); $j++) {
@@ -484,7 +484,7 @@ $courses = $user->fetchCourses();
                                                     }
                                                     ?>
                                                 </select>
-                                                <select style="width: 25%" class="edu-mod-grade form-select form-select-sm subject-grade" name="edit-elective-sbj-grd<?= ($i + 1) ?>" id="edit-elective-sbj-grd<?= ($i + 1) ?>">
+                                                <select name="edit-elective-sbj-grd<?= ($i + 1) ?>" id="edit-elective-sbj-grd<?= ($i + 1) ?>" style="width: 25%" class="edu-mod-grade form-select form-select-sm subject-grade">
                                                     <option value="Grade" hidden>Grade</option>
                                                 </select>
                                             </div>
