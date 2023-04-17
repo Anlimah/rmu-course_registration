@@ -8,7 +8,7 @@ session_start();
 require "../bootstrap.php";
 
 use Src\Controller\UsersController;
-use Src\Controller\ExposeDataController;
+//use Src\Controller\ExposeDataController;
 
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
@@ -17,7 +17,7 @@ header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
 $user = new UsersController();
-$expose = new ExposeDataController();
+//$expose = new ExposeDataController();
 
 $data = [];
 //$errors = [];

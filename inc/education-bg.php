@@ -286,7 +286,7 @@ $courses = $user->fetchCourses();
                     <div id="edit-step-2" class="steps hide">
                         <div class="mb-4" id="edit-cert-type-group">
                             <label class="form-label" for="edit-cert-type">Certificate or degree earned <span class="input-required">*</span></label>
-                            <select class="transform-text edu-mod-select form-select form-select-sm" name="edit-cert-type" id="edit-cert-type">
+                            <select class="transform-text edu-mod-select form-select form-select-sm" name="edit-cert-type" id="edit-cert-type" style="background-color: red;">
                                 <option value="Select" hidden>Select</option>
                                 <option value="WASSCE">WASSCE</option>
                                 <option value="SSSCE">SSSCE</option>
