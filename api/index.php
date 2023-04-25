@@ -162,27 +162,25 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		$errors = [];
 		$data = [];
 
-		die(json_encode($_POST));
-
 		//step 1
 		$sch_name = $user->validateInputTextOnly($_POST["sch_name"]);
 		if ($sch_name['status'] == "error") {
-			$errors['sch_name'] = 'School Name is ' . $sch_name['message'] . '!';
+			$errors['sch_name'] = 'Name of school is ' . $sch_name['message'] . '!';
 		}
 
 		$sch_country = $user->validateInputTextOnly($_POST["sch_country"]);
 		if ($sch_country['status'] == "error") {
-			$errors['sch_country'] = 'School Country is ' . $sch_country['message'] . '!';
+			$errors['sch_country'] = 'Country of school is ' . $sch_country['message'] . '!';
 		}
 
 		$sch_region = $user->validateInputTextOnly($_POST["sch_region"]);
 		if ($sch_region['status'] == "error") {
-			$errors['sch_region'] = 'School Province/Region is ' . $sch_region['message'] . '!';
+			$errors['sch_region'] = 'Province or region of school is ' . $sch_region['message'] . '!';
 		}
 
 		$sch_city = $user->validateInputTextOnly($_POST["sch_city"]);
 		if ($sch_city['status'] == "error") {
-			$errors['sch_city'] = 'School City is ' . $sch_city['message'] . '!';
+			$errors['sch_city'] = 'City school is ' . $sch_city['message'] . '!';
 		}
 
 		//step 2
@@ -201,8 +199,6 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			if ($other_cert_type['status'] == "error") {
 				$errors['cert_type'] = 'Certificate or degree earned is ' . $other_cert_type['message'] . '!';
 			}
-		} else {
-			$errors['cert_type'] = 'Please specify certificate or degree earned!';
 		}
 
 		$index_number = $user->validateInputTextNumber($_POST["index_number"]);
@@ -234,7 +230,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		$course_studied = [];
 		$course_studied = $user->validateInputTextOnly($_POST["course_studied"]);
 		if ($course_studied['status'] == "error" || $_POST['course_studied'] == "Select") {
-			$errors['course_studied'] = 'Course/Program of study is ' . $course_studied['message'] . '!';
+			$errors['course_studied'] = 'Course or program of study is ' . $course_studied['message'] . '!';
 		}
 
 		$other_course_studied = [];
@@ -246,8 +242,6 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			if ($other_course_studied['status'] == "error") {
 				$errors['course_studied'] = 'Course or program of study is ' . $other_course_studied['message'] . '!';
 			}
-		} else {
-			$errors['course_studied'] = 'Please specify the programme of study!';
 		}
 
 		//$awaiting_result = ($_POST["cert_type"] == "OTHER") ? 1 : $_POST["awaiting_result"];

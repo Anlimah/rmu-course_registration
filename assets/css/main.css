@@ -756,7 +756,7 @@ form {
 /*Small devices (landscape phones, 576px and up)*/
 @media (max-width: 424.99px) {
 	.steps {
-		margin: auto 10% !important;
+		margin: auto 3% !important;
 	}
 
 	label {
@@ -784,7 +784,7 @@ form {
 /*Small devices (landscape phones, 576px and up)*/
 @media (max-width: 575.99px) {
 	.steps {
-		margin: auto 10% !important;
+		margin: auto 15% !important;
 	}
 
 	label {

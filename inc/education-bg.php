@@ -58,114 +58,122 @@ $courses = $user->fetchCourses();
                         </div>
                         <div class="mb-4" id="date-started-group">
                             <label class="form-label" for="completion-date">Date Admitted <span class="input-required">*</span></label>
-                            <div style="max-width: 280px !important; display:flex; flex-direction:row; justify-content: space-between">
-                                <select class="edu-mod-date-m form-select form-select-sm" style="margin-right: 10px;" name="month-started" id="month-started">
-                                    <option value="Month" hidden>Month</option>
-                                    <option value="Jan">Jan</option>
-                                    <option value="Feb">Feb</option>
-                                    <option value="Mar">Mar</option>
-                                    <option value="Apr">Apr</option>
-                                    <option value="May">May</option>
-                                    <option value="Jun">Jun</option>
-                                    <option value="Jul">Jul</option>
-                                    <option value="Aug">Aug</option>
-                                    <option value="Sep">Sep</option>
-                                    <option value="Oct">Oct</option>
-                                    <option value="Nov">Nov</option>
-                                    <option value="Dec">Dec</option>
-                                </select>
-                                <select class="edu-mod-date-y form-select form-select-sm" name="year-started" id="year-started">
-                                    <option value="Year" hidden>Year</option>
-                                    <option value="2022">2022</option>
-                                    <option value="2021">2021</option>
-                                    <option value="2020">2020</option>
-                                    <option value="2019">2019</option>
-                                    <option value="2018">2018</option>
-                                    <option value="2017">2017</option>
-                                    <option value="2016">2016</option>
-                                    <option value="2015">2015</option>
-                                    <option value="2014">2014</option>
-                                    <option value="2013">2013</option>
-                                    <option value="2012">2012</option>
-                                    <option value="2011">2011</option>
-                                    <option value="2010">2010</option>
-                                    <option value="2009">2009</option>
-                                    <option value="2008">2008</option>
-                                    <option value="2007">2007</option>
-                                    <option value="2006">2006</option>
-                                    <option value="2005">2005</option>
-                                    <option value="2004">2004</option>
-                                    <option value="2003">2003</option>
-                                    <option value="2002">2002</option>
-                                    <option value="2001">2001</option>
-                                    <option value="2000">2000</option>
-                                    <option value="1999">1999</option>
-                                    <option value="1998">1998</option>
-                                    <option value="1997">1997</option>
-                                    <option value="1996">1996</option>
-                                    <option value="1995">1995</option>
-                                    <option value="1994">1994</option>
-                                    <option value="1993">1993</option>
-                                    <option value="1992">1992</option>
-                                    <option value="1991">1991</option>
-                                    <option value="1990">1990</option>
-                                </select>
+                            <div class="row">
+                                <div class="col-6">
+                                    <select class="edu-mod-date-m form-select form-select-sm" style="margin-right: 10px;" name="month-started" id="month-started">
+                                        <option value="Month" hidden>Month</option>
+                                        <option value="Jan">Jan</option>
+                                        <option value="Feb">Feb</option>
+                                        <option value="Mar">Mar</option>
+                                        <option value="Apr">Apr</option>
+                                        <option value="May">May</option>
+                                        <option value="Jun">Jun</option>
+                                        <option value="Jul">Jul</option>
+                                        <option value="Aug">Aug</option>
+                                        <option value="Sep">Sep</option>
+                                        <option value="Oct">Oct</option>
+                                        <option value="Nov">Nov</option>
+                                        <option value="Dec">Dec</option>
+                                    </select>
+                                </div>
+                                <div class="col-6">
+                                    <select class="edu-mod-date-y form-select form-select-sm" name="year-started" id="year-started">
+                                        <option value="Year" hidden>Year</option>
+                                        <option value="2022">2022</option>
+                                        <option value="2021">2021</option>
+                                        <option value="2020">2020</option>
+                                        <option value="2019">2019</option>
+                                        <option value="2018">2018</option>
+                                        <option value="2017">2017</option>
+                                        <option value="2016">2016</option>
+                                        <option value="2015">2015</option>
+                                        <option value="2014">2014</option>
+                                        <option value="2013">2013</option>
+                                        <option value="2012">2012</option>
+                                        <option value="2011">2011</option>
+                                        <option value="2010">2010</option>
+                                        <option value="2009">2009</option>
+                                        <option value="2008">2008</option>
+                                        <option value="2007">2007</option>
+                                        <option value="2006">2006</option>
+                                        <option value="2005">2005</option>
+                                        <option value="2004">2004</option>
+                                        <option value="2003">2003</option>
+                                        <option value="2002">2002</option>
+                                        <option value="2001">2001</option>
+                                        <option value="2000">2000</option>
+                                        <option value="1999">1999</option>
+                                        <option value="1998">1998</option>
+                                        <option value="1997">1997</option>
+                                        <option value="1996">1996</option>
+                                        <option value="1995">1995</option>
+                                        <option value="1994">1994</option>
+                                        <option value="1993">1993</option>
+                                        <option value="1992">1992</option>
+                                        <option value="1991">1991</option>
+                                        <option value="1990">1990</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <div class="mb-4" id="date-completed-group">
                             <label class="form-label" for="completion-date">Exam Date / Date Completed <span class="input-required">*</span></label>
-                            <div style="max-width: 280px !important; display:flex; flex-direction:row; justify-content: space-between">
-                                <select class="edu-mod-date-m form-select form-select-sm" style="margin-right: 10px;" name="month-completed" id="month-completed">
-                                    <option value="Month" hidden>Month</option>
-                                    <option value="Jan">Jan</option>
-                                    <option value="Feb">Feb</option>
-                                    <option value="Mar">Mar</option>
-                                    <option value="Apr">Apr</option>
-                                    <option value="May">May</option>
-                                    <option value="Jun">Jun</option>
-                                    <option value="Jul">Jul</option>
-                                    <option value="Aug">Aug</option>
-                                    <option value="Sep">Sep</option>
-                                    <option value="Oct">Oct</option>
-                                    <option value="Nov">Nov</option>
-                                    <option value="Dec">Dec</option>
-                                </select>
-                                <select class="edu-mod-date-y form-select form-select-sm" name="year-completed" id="year-completed">
-                                    <option value="Year" hidden>Year</option>
-                                    <option value="2022">2022</option>
-                                    <option value="2021">2021</option>
-                                    <option value="2020">2020</option>
-                                    <option value="2019">2019</option>
-                                    <option value="2018">2018</option>
-                                    <option value="2017">2017</option>
-                                    <option value="2016">2016</option>
-                                    <option value="2015">2015</option>
-                                    <option value="2014">2014</option>
-                                    <option value="2013">2013</option>
-                                    <option value="2012">2012</option>
-                                    <option value="2011">2011</option>
-                                    <option value="2010">2010</option>
-                                    <option value="2009">2009</option>
-                                    <option value="2008">2008</option>
-                                    <option value="2007">2007</option>
-                                    <option value="2006">2006</option>
-                                    <option value="2005">2005</option>
-                                    <option value="2004">2004</option>
-                                    <option value="2003">2003</option>
-                                    <option value="2002">2002</option>
-                                    <option value="2001">2001</option>
-                                    <option value="2000">2000</option>
-                                    <option value="1999">1999</option>
-                                    <option value="1998">1998</option>
-                                    <option value="1997">1997</option>
-                                    <option value="1996">1996</option>
-                                    <option value="1995">1995</option>
-                                    <option value="1994">1994</option>
-                                    <option value="1993">1993</option>
-                                    <option value="1992">1992</option>
-                                    <option value="1991">1991</option>
-                                    <option value="1990">1990</option>
-                                </select>
+                            <div class="row">
+                                <div class="col-6">
+                                    <select class="edu-mod-date-m form-select form-select-sm" name="month-completed" id="month-completed">
+                                        <option value="Month" hidden>Month</option>
+                                        <option value="Jan">Jan</option>
+                                        <option value="Feb">Feb</option>
+                                        <option value="Mar">Mar</option>
+                                        <option value="Apr">Apr</option>
+                                        <option value="May">May</option>
+                                        <option value="Jun">Jun</option>
+                                        <option value="Jul">Jul</option>
+                                        <option value="Aug">Aug</option>
+                                        <option value="Sep">Sep</option>
+                                        <option value="Oct">Oct</option>
+                                        <option value="Nov">Nov</option>
+                                        <option value="Dec">Dec</option>
+                                    </select>
+                                </div>
+                                <div class="col-6">
+                                    <select class="edu-mod-date-y form-select form-select-sm" name="year-completed" id="year-completed">
+                                        <option value="Year" hidden>Year</option>
+                                        <option value="2022">2022</option>
+                                        <option value="2021">2021</option>
+                                        <option value="2020">2020</option>
+                                        <option value="2019">2019</option>
+                                        <option value="2018">2018</option>
+                                        <option value="2017">2017</option>
+                                        <option value="2016">2016</option>
+                                        <option value="2015">2015</option>
+                                        <option value="2014">2014</option>
+                                        <option value="2013">2013</option>
+                                        <option value="2012">2012</option>
+                                        <option value="2011">2011</option>
+                                        <option value="2010">2010</option>
+                                        <option value="2009">2009</option>
+                                        <option value="2008">2008</option>
+                                        <option value="2007">2007</option>
+                                        <option value="2006">2006</option>
+                                        <option value="2005">2005</option>
+                                        <option value="2004">2004</option>
+                                        <option value="2003">2003</option>
+                                        <option value="2002">2002</option>
+                                        <option value="2001">2001</option>
+                                        <option value="2000">2000</option>
+                                        <option value="1999">1999</option>
+                                        <option value="1998">1998</option>
+                                        <option value="1997">1997</option>
+                                        <option value="1996">1996</option>
+                                        <option value="1995">1995</option>
+                                        <option value="1994">1994</option>
+                                        <option value="1993">1993</option>
+                                        <option value="1992">1992</option>
+                                        <option value="1991">1991</option>
+                                        <option value="1990">1990</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -206,11 +214,15 @@ $courses = $user->fetchCourses();
                                     foreach ($core_sbjs as $core_sbj) {
                                     ?>
                                         <div id="core-sbj<?= ($i + 1) ?>-group" class="mb-2">
-                                            <div style="display:flex !important; flex-direction:row !important; justify-content: space-between !important">
-                                                <input style="margin-right: 10px; width: 75%" class="form-control" type="text" name="core-sbj<?= ($i + 1) ?>" id="core-sbj<?= ($i + 1) ?>" value="<?= $core_sbj["subject"] ?>" disabled>
-                                                <select style="width: 25%" class="edu-mod-grade form-select form-select-sm subject-grade" name="core-sbj-grd<?= ($i + 1) ?>" id="core-sbj-grd<?= ($i + 1) ?>">
-                                                    <option value="Grade" hidden>Grade</option>
-                                                </select>
+                                            <div class="row">
+                                                <div class="col-9">
+                                                    <input class="form-control" type="text" name="core-sbj<?= ($i + 1) ?>" id="core-sbj<?= ($i + 1) ?>" value="<?= $core_sbj["subject"] ?>" disabled>
+                                                </div>
+                                                <div class="col-3">
+                                                    <select class="edu-mod-grade form-select form-select-sm subject-grade" name="core-sbj-grd<?= ($i + 1) ?>" id="core-sbj-grd<?= ($i + 1) ?>">
+                                                        <option value="Grade" hidden>Grade</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                     <?php
@@ -224,13 +236,17 @@ $courses = $user->fetchCourses();
                                     for ($i = 0; $i < 4; $i++) {
                                     ?>
                                         <div id="elective-sbj<?= ($i + 1) ?>-group" class="mb-2">
-                                            <div style="display:flex !important; flex-direction:row !important; justify-content: space-between !important">
-                                                <select style="margin-right: 10px; width: 75%" class="edu-mod-select elective-subjects form-select form-select-sm" name="elective-sbj<?= ($i + 1) ?>" id="elective-sbj<?= ($i + 1) ?>">
-                                                    <option value="Select" hidden>Select</option>
-                                                </select>
-                                                <select style="width: 25%" class="edu-mod-grade form-select form-select-sm" name="elective-sbj-grd<?= ($i + 1) ?>" id="elective-sbj-grd<?= ($i + 1) ?>">
-                                                    <option value="Grade" hidden>Grade</option>
-                                                </select>
+                                            <div class="row">
+                                                <div class="col-9">
+                                                    <select class="edu-mod-select elective-subjects form-select form-select-sm" name="elective-sbj<?= ($i + 1) ?>" id="elective-sbj<?= ($i + 1) ?>">
+                                                        <option value="Select" hidden>Select</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-3">
+                                                    <select class="edu-mod-grade form-select form-select-sm" name="elective-sbj-grd<?= ($i + 1) ?>" id="elective-sbj-grd<?= ($i + 1) ?>">
+                                                        <option value="Grade" hidden>Grade</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                     <?php
@@ -456,25 +472,31 @@ $courses = $user->fetchCourses();
                                     for ($i = 0; $i < count(SHSCOURSES["subjects"]["core"]); $i++) {
                                     ?>
                                         <div id="edit-core-sbj<?= ($i + 1) ?>-group" class="mb-2">
-                                            <div style="display:flex !important; flex-direction:row !important; justify-content: space-between !important">
-                                                <input name="edit-core-sbj<?= ($i + 1) ?>" id="edit-core-sbj<?= ($i + 1) ?>" value="<?= SHSCOURSES["subjects"]["core"][$i] ?>" style="margin-right: 10px; width: 75%" class="form-control" type="text" disabled>
-                                                <select name="edit-core-sbj-grd<?= ($i + 1) ?>" id="edit-core-sbj-grd<?= ($i + 1) ?>" style="width: 25%" class="edu-mod-grade form-select form-select-sm subject-grade">
-                                                    <option value="Grade" hidden>Grade</option>
-                                                </select>
+                                            <div class="row">
+                                                <div class="col-9">
+                                                    <input name="edit-core-sbj<?= ($i + 1) ?>" id="edit-core-sbj<?= ($i + 1) ?>" value="<?= SHSCOURSES["subjects"]["core"][$i] ?>" class="form-control" type="text" disabled>
+                                                </div>
+                                                <div class="col-3">
+                                                    <select name="edit-core-sbj-grd<?= ($i + 1) ?>" id="edit-core-sbj-grd<?= ($i + 1) ?>" class="edu-mod-grade form-select form-select-sm subject-grade">
+                                                        <option value="Grade" hidden>Grade</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                     <?php
                                     }
                                     ?>
                                 </div>
-                                <div class="mb-4" id="edit-elective-subjects">
-                                    <label class="form-label">Elective Subjects <span class="input-required">*</span></label>
-                                    <?php
-                                    for ($i = 0; $i < 4; $i++) {
-                                    ?>
-                                        <div id="edit-elective-sbj<?= ($i + 1) ?>-group" class="mb-2">
-                                            <div style="display:flex !important; flex-direction:row !important; justify-content: space-between !important">
-                                                <select name="edit-elective-sbj<?= ($i + 1) ?>" id="edit-elective-sbj<?= ($i + 1) ?>" style="margin-right: 10px; width: 75%" class="edu-mod-select elective-subjects form-select form-select-sm">
+                            </div>
+                            <div class="mb-4" id="edit-elective-subjects">
+                                <label class="form-label">Elective Subjects <span class="input-required">*</span></label>
+                                <?php
+                                for ($i = 0; $i < 4; $i++) {
+                                ?>
+                                    <div id="edit-elective-sbj<?= ($i + 1) ?>-group" class="mb-2">
+                                        <div class="row">
+                                            <div class="col-9">
+                                                <select name="edit-elective-sbj<?= ($i + 1) ?>" id="edit-elective-sbj<?= ($i + 1) ?>" class="edu-mod-select elective-subjects form-select form-select-sm">
                                                     <option value="Select" hidden>Select</option>
                                                     <?php
                                                     for ($j = 0; $j < count(SHSCOURSES["subjects"]["electives"]); $j++) {
@@ -484,16 +506,17 @@ $courses = $user->fetchCourses();
                                                     }
                                                     ?>
                                                 </select>
-                                                <select name="edit-elective-sbj-grd<?= ($i + 1) ?>" id="edit-elective-sbj-grd<?= ($i + 1) ?>" style="width: 25%" class="edu-mod-grade form-select form-select-sm subject-grade">
+                                            </div>
+                                            <div class="col-3">
+                                                <select name="edit-elective-sbj-grd<?= ($i + 1) ?>" id="edit-elective-sbj-grd<?= ($i + 1) ?>" class="edu-mod-grade form-select form-select-sm subject-grade">
                                                     <option value="Grade" hidden>Grade</option>
                                                 </select>
                                             </div>
                                         </div>
-                                    <?php
-                                    }
-                                    ?>
-
-                                </div>
+                                    </div>
+                                <?php
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>
@@ -511,5 +534,6 @@ $courses = $user->fetchCourses();
             </div>
         </div>
     </div>
+</div>
 </div>
 <!--End of Modal-->
