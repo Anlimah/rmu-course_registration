@@ -535,5 +535,4 @@ $courses = $user->fetchCourses();
         </div>
     </div>
 </div>
-</div>
 <!--End of Modal-->
