@@ -457,7 +457,7 @@ $courses = $user->fetchCourses();
                         </div>
                         <div class="edit-waec-course-content">
                             <div class="mb4">
-                                <label class="form-label" for="awaiting-cert">Are you waiting for exam result ? <span class="input-required">*</span></label>
+                                <label class="form-label" for="awaiting-cert">Are you waiting for exam result? <span class="input-required">*</span></label>
                                 <label for="edit-awaiting-result-yes" class="form-label radio-btn">
                                     <input class="awaiting-result" style="margin: 0 !important; padding: 0 !important;" type="radio" name="edit-awaiting-result" id="edit-awaiting-result-yes" value="Yes"> Yes
                                 </label>
@@ -487,36 +487,36 @@ $courses = $user->fetchCourses();
                                     }
                                     ?>
                                 </div>
-                            </div>
-                            <div class="mb-4" id="edit-elective-subjects">
-                                <label class="form-label">Elective Subjects <span class="input-required">*</span></label>
-                                <?php
-                                for ($i = 0; $i < 4; $i++) {
-                                ?>
-                                    <div id="edit-elective-sbj<?= ($i + 1) ?>-group" class="mb-2">
-                                        <div class="row">
-                                            <div class="col-9">
-                                                <select name="edit-elective-sbj<?= ($i + 1) ?>" id="edit-elective-sbj<?= ($i + 1) ?>" class="edu-mod-select elective-subjects form-select form-select-sm">
-                                                    <option value="Select" hidden>Select</option>
-                                                    <?php
-                                                    for ($j = 0; $j < count(SHSCOURSES["subjects"]["electives"]); $j++) {
-                                                    ?>
-                                                        <option value="<?= SHSCOURSES["subjects"]["electives"][$j] ?>"><?= SHSCOURSES["subjects"]["electives"][$j] ?></option>
-                                                    <?php
-                                                    }
-                                                    ?>
-                                                </select>
-                                            </div>
-                                            <div class="col-3">
-                                                <select name="edit-elective-sbj-grd<?= ($i + 1) ?>" id="edit-elective-sbj-grd<?= ($i + 1) ?>" class="edu-mod-grade form-select form-select-sm subject-grade">
-                                                    <option value="Grade" hidden>Grade</option>
-                                                </select>
+                                <div class="mb-4" id="edit-elective-subjects">
+                                    <label class="form-label">Elective Subjects <span class="input-required">*</span></label>
+                                    <?php
+                                    for ($i = 0; $i < 4; $i++) {
+                                    ?>
+                                        <div id="edit-elective-sbj<?= ($i + 1) ?>-group" class="mb-2">
+                                            <div class="row">
+                                                <div class="col-9">
+                                                    <select name="edit-elective-sbj<?= ($i + 1) ?>" id="edit-elective-sbj<?= ($i + 1) ?>" class="edu-mod-select elective-subjects form-select form-select-sm">
+                                                        <option value="Select" hidden>Select</option>
+                                                        <?php
+                                                        for ($j = 0; $j < count(SHSCOURSES["subjects"]["electives"]); $j++) {
+                                                        ?>
+                                                            <option value="<?= SHSCOURSES["subjects"]["electives"][$j] ?>"><?= SHSCOURSES["subjects"]["electives"][$j] ?></option>
+                                                        <?php
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                </div>
+                                                <div class="col-3">
+                                                    <select name="edit-elective-sbj-grd<?= ($i + 1) ?>" id="edit-elective-sbj-grd<?= ($i + 1) ?>" class="edu-mod-grade form-select form-select-sm subject-grade">
+                                                        <option value="Grade" hidden>Grade</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                <?php
-                                }
-                                ?>
+                                    <?php
+                                    }
+                                    ?>
+                                </div>
                             </div>
                         </div>
                     </div>

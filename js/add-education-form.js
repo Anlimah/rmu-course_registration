@@ -447,7 +447,7 @@ $(document).ready(function () {
         })
     });
     
-    /*$("#edit-save-education-btn").click(function (event) {
+    $("#edit-save-education-btn").click(function (event) {
         
         // Prepare data payload for submission
         $(".mb-4").removeClass("has-error");
@@ -468,7 +468,7 @@ $(document).ready(function () {
             year_started: $("#edit-year-started").val(),
             month_completed: $("#edit-month-completed").val(),
             year_completed: $("#edit-year-completed").val(),
-
+            
             course_studied: $("#edit-course-studied").val(),
             other_course_studied: $("#edit-other-course-studied").val(),
             awaiting_result: $("#edit-awaiting_result_value").val(),
@@ -493,8 +493,7 @@ $(document).ready(function () {
 
             aca_eh29v1Tf_key: $("#edit-20eh29v1Tf").val()
         };
-
-        console.log(formData);
+        
         $.ajax({
             type: "PUT",
             url: "../../api/education-grades",
@@ -510,7 +509,7 @@ $(document).ready(function () {
                 let step1, step2, step3, step4 = 0;
 
                 //Step 1
-                /*if (data.errors.sch_name) {
+                if (data.errors.sch_name) {
                     $("#edit-sch-name-group").addClass("has-error");
                     $("#edit-sch-name-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.sch_name + "</div>");
                     step1 = 1;
@@ -655,7 +654,7 @@ $(document).ready(function () {
         }).fail((error) => {
             $("education-form").html('<div class="alert alert-danger">Could not reach server, please try again later.</div>');
         });
-    });*/
+    });
 
     //Edit button on each added education item
     $(".edit-edu-btn").click(function (e) {

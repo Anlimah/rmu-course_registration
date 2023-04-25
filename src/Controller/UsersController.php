@@ -499,71 +499,81 @@ class UsersController
         # code...
     }
 
-    public function updateSubjectAndGrades($subjects = array(), $aca_id)
+    public function checkHighSchResult(int $aca_id)
     {
-        if (empty($subjects)) return 0;
+        // Get applicant's high school results added 
+        $query = "SELECT COUNT(`id`) AS `total` FROM `high_school_results` WHERE `acad_back_id` = :a";
+        return $this->dm->getData($query, array(":a" => $aca_id));
+    }
 
-        $query1 = "SELECT `id`, `type` FROM `high_school_results` WHERE `acad_back_id` = :ac";
-        $result = $this->dm->getData($query1, array(":ac" => $aca_id));
-        $sql = "";
+    public function updateAwaitingResultStatus(int $awaitingStatus, int $sNumber, int $appID)
+    {
+        $query = "UPDATE `high_school_results` SET `awaiting_result` = :ar WHERE `s_number` = :sn AND `app_login` = :id";
+        return $this->dm->inputData($query, array(":ar" => $awaitingStatus, ":sn" => $sNumber, ":id" => $appID));
+    }
 
-        if (1) {
-            $sql = "UPDATE `high_school_results` SET `type` = :t, `subject` = :s, `grade` = :g WHERE `acad_back_id` = :ai";
-        } else {
-            $sql = "INSERT INTO `high_school_results` (`type`, `subject`, `grade`, `acad_back_id`) VALUES (:t, :s, :g, :ai)";
-        }
+    public function deleteHighSchoolResult(int $aca_id)
+    {
+        $query = "DELETE FROM `high_school_results` WHERE `acad_back_id` = :a";
+        return $this->dm->inputData($query, array(":a" => $aca_id));
+    }
+
+    public function addSubjectAndGrades($subjects = array(), $aca_id)
+    {
+        $count = 0;
+        $query = "INSERT INTO `high_school_results`(`type`, `subject`, `grade`, `acad_back_id`) VALUES(:t,:s,:g,:a)";
         // add core subjects
         for ($i = 0; $i < count($subjects["core"]); $i++) {
-            $params = array(":t" => "core", ":s" => $subjects["core"][$i]["subject"], ":g" => $subjects["core"][$i]["grade"], ":ai" =>  $aca_id);
-            $this->dm->inputData($sql, $params);
+            $params = array(":t" => "core", ":s" => $subjects["core"][$i]["subject"], ":g" => $subjects["core"][$i]["grade"], ":a" =>  $aca_id);
+            $count += $this->dm->inputData($query, $params);
         }
 
         // add elective subjects
         for ($i = 0; $i < count($subjects["elective"]); $i++) {
-            $params = array(":t" => "elective", ":s" => $subjects["elective"][$i]["subject"], ":g" => $subjects["elective"][$i]["grade"], ":ai" =>  $aca_id);
-            $this->dm->inputData($sql, $params);
+            $params = array(":t" => "elective", ":s" => $subjects["elective"][$i]["subject"], ":g" => $subjects["elective"][$i]["grade"], ":a" =>  $aca_id);
+            $count += $this->dm->inputData($query, $params);
         }
 
-        return 1;
+        return $count;
     }
 
     public function fetchApplicantAcaBID(int $sNumber, int $appID)
     {
-        $sql = "SELECT `id` FROM `academic_background` WHERE `s_number` = :sn AND `app_login` = :id";
-        return $this->dm->getID($sql, array(":sn" => $sNumber, ":id" => $appID));
+        $query = "SELECT `id` FROM `academic_background` WHERE `s_number` = :sn AND `app_login` = :id";
+        return $this->dm->getID($query, array(":sn" => $sNumber, ":id" => $appID));
     }
 
     public function deleteEducationHistory($serial_number, $education_id)
     {
-        $sql = "DELETE FROM `academic_background` WHERE `s_number` = :sn AND `app_login` = :id";
-        return $this->dm->inputData($sql, array(":sn" => $serial_number, ":id" => $education_id));
+        $query = "DELETE FROM `academic_background` WHERE `s_number` = :sn AND `app_login` = :id";
+        return $this->dm->inputData($query, array(":sn" => $serial_number, ":id" => $education_id));
     }
 
     public function saveDocuments($type, $filename, $user_id)
     {
-        $sql = "INSERT INTO `applicant_uploads`(`type`, `file_name`, `app_login`) VALUES (:t, :f, :a)";
-        return $this->dm->inputData($sql, array(":t" => $type, ":f" => $filename, ":a" => $user_id));
+        $query = "INSERT INTO `applicant_uploads`(`type`, `file_name`, `app_login`) VALUES (:t, :f, :a)";
+        return $this->dm->inputData($query, array(":t" => $type, ":f" => $filename, ":a" => $user_id));
     }
 
     public function fetchUploadedDocs($user_id)
     {
-        $sql = "SELECT u.* FROM `applicant_uploads` AS u WHERE `app_login` = :a";
-        return $this->dm->getData($sql, array(':a' => $user_id));
+        $query = "SELECT u.* FROM `applicant_uploads` AS u WHERE `app_login` = :a";
+        return $this->dm->getData($query, array(':a' => $user_id));
     }
 
     public function deleteUploadedFile($serial_number, $user_id)
     {
         $data = [];
-        $sql1 = "SELECT `file_name` FROM `applicant_uploads` WHERE `id` = :sn AND `app_login` = :id";
+        $query1 = "SELECT `file_name` FROM `applicant_uploads` WHERE `id` = :sn AND `app_login` = :id";
         $params = array(":sn" => $serial_number, ":id" => $user_id);
-        $file_name = $this->dm->getData($sql1, $params);
+        $file_name = $this->dm->getData($query1, $params);
 
         if (!empty($file_name))
             $file = "../apply/docs/" . $file_name[0]["file_name"];
 
         if (file_exists($file)) {
-            $sql2 = "DELETE FROM `applicant_uploads` WHERE `id` = :sn AND `app_login` = :id";
-            if ($this->dm->inputData($sql2, $params)) {
+            $query2 = "DELETE FROM `applicant_uploads` WHERE `id` = :sn AND `app_login` = :id";
+            if ($this->dm->inputData($query2, $params)) {
                 if (unlink($file)) {
                     $data["success"] = true;
                     $data["message"] = "The file was deleted successfully!";
@@ -584,7 +594,7 @@ class UsersController
 
     public function fetchApplicantPhoto($user_id)
     {
-        $sql = "SELECT `photo` FROM `personal_information` WHERE `app_login` = :a";
-        return $this->dm->getData($sql, array(':a' => $user_id));
+        $query = "SELECT `photo` FROM `personal_information` WHERE `app_login` = :a";
+        return $this->dm->getData($query, array(':a' => $user_id));
     }
 }
