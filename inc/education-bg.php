@@ -283,19 +283,19 @@ $courses = $user->fetchCourses();
                 <form id="edit-education-form" name="edit-education-form">
                     <div id="edit-step-1" class="steps">
                         <div class="mb-4" id="edit-sch-name-group">
-                            <label class="form-label" for="sch-name">School Name <span class="input-required">*</span></label>
+                            <label class="form-label" for="edit-sch-name">School Name <span class="input-required">*</span></label>
                             <input placeholder="School" class="transform-text edu-mod-text form-control" type="text" name="edit-sch-name" id="edit-sch-name">
                         </div>
                         <div class="mb-4" id="edit-sch-country-group">
-                            <label class="form-label" for="sch-country">School Country <span class="input-required">*</span></label>
+                            <label class="form-label" for="edit-sch-country">School Country <span class="input-required">*</span></label>
                             <input placeholder="Country" class="transform-text edu-mod-text form-control" type="text" name="edit-sch-country" id="edit-sch-country">
                         </div>
                         <div class="mb-4" id="edit-sch-region-group">
-                            <label class="form-label" for="sch-region">School Province/Region <span class="input-required">*</span></label>
+                            <label class="form-label" for="edit-sch-region">School Province/Region <span class="input-required">*</span></label>
                             <input placeholder="Province/Region" class="transform-text edu-mod-text form-control" type="text" name="edit-sch-region" id="edit-sch-region">
                         </div>
                         <div class="mb-4" id="edit-sch-city-group">
-                            <label class="form-label" for="sch-city">School City <span class="input-required">*</span></label>
+                            <label class="form-label" for="edit-sch-city">School City <span class="input-required">*</span></label>
                             <input placeholder="City" class="transform-text edu-mod-text form-control" type="text" name="edit-sch-city" id="edit-sch-city">
                         </div>
                     </div>
@@ -321,13 +321,13 @@ $courses = $user->fetchCourses();
                             </div>
                         </div>
                         <div class="mb-4" id="edit-index-number-group">
-                            <label class="form-label" for="index-number">Index Number <span class="input-required">*</span></label>
+                            <label class="form-label" for="edit-index-number">Index Number <span class="input-required">*</span></label>
                             <input placeholder="Index Number" class="transform-text edu-mod-text form-control" type="text" name="edit-index-number" id="edit-index-number" placeholder="Index Number">
                         </div>
                         <div class="mb-4" id="edit-date-started-group">
                             <label class="form-label" for="completion-date">Date Started <span class="input-required">*</span></label>
                             <div style="max-width: 280px !important; display:flex; flex-direction:row; justify-content: space-between">
-                                <select class="transform-text edu-mod-date-m form-select form-select-sm" style="margin-right: 10px;" name="edit-month-started" id="edit-month-started">
+                                <select name="edit-month-started" id="edit-month-started" class="transform-text edu-mod-date-m form-select form-select-sm" style="margin-right: 10px;">
                                     <option value="Month" hidden>Month</option>
                                     <option value="Jan">Jan</option>
                                     <option value="Feb">Feb</option>
@@ -342,7 +342,7 @@ $courses = $user->fetchCourses();
                                     <option value="Nov">Nov</option>
                                     <option value="Dec">Dec</option>
                                 </select>
-                                <select class="transform-text edu-mod-date-y form-select form-select-sm" name="edit-year-started" id="edit-year-started">
+                                <select name="edit-year-started" id="edit-year-started" class="transform-text edu-mod-date-y form-select form-select-sm">
                                     <option value="Year" hidden>Year</option>
                                     <option value="2022">2022</option>
                                     <option value="2021">2021</option>
@@ -383,7 +383,7 @@ $courses = $user->fetchCourses();
                         <div class="mb-4" id="edit-date-completed-group">
                             <label class="form-label" for="completion-date">Date Completed <span class="input-required">*</span></label>
                             <div style="max-width: 280px !important; display:flex; flex-direction:row; justify-content: space-between">
-                                <select class="transform-text edu-mod-date-m form-select form-select-sm" style="margin-right: 10px;" name="edit-month-completed" id="edit-month-completed">
+                                <select name="edit-month-completed" id="edit-month-completed" class="transform-text edu-mod-date-m form-select form-select-sm" style="margin-right: 10px;">
                                     <option value="Month" hidden>Month</option>
                                     <option value="Jan">Jan</option>
                                     <option value="Feb">Feb</option>
@@ -398,7 +398,7 @@ $courses = $user->fetchCourses();
                                     <option value="Nov">Nov</option>
                                     <option value="Dec">Dec</option>
                                 </select>
-                                <select class="transform-text edu-mod-date-y form-select form-select-sm" name="edit-year-completed" id="edit-year-completed">
+                                <select name="edit-year-completed" id="edit-year-completed" class="transform-text edu-mod-date-y form-select form-select-sm">
                                     <option value="Year" hidden>Year</option>
                                     <option value="2022">2022</option>
                                     <option value="2021">2021</option>
@@ -459,10 +459,10 @@ $courses = $user->fetchCourses();
                             <div class="mb4">
                                 <label class="form-label" for="awaiting-cert">Are you waiting for exam result? <span class="input-required">*</span></label>
                                 <label for="edit-awaiting-result-yes" class="form-label radio-btn">
-                                    <input class="awaiting-result" style="margin: 0 !important; padding: 0 !important;" type="radio" name="edit-awaiting-result" id="edit-awaiting-result-yes" value="Yes"> Yes
+                                    <input class="edit-awaiting-result" style="margin: 0 !important; padding: 0 !important;" type="radio" name="edit-awaiting-result" id="edit-awaiting-result-yes" value="Yes"> Yes
                                 </label>
                                 <label for="edit-awaiting-result-no" class="form-label radio-btn">
-                                    <input class="awaiting-result" style="margin: 0 !important; padding: 0 !important;" type="radio" name="edit-awaiting-result" id="edit-awaiting-result-no" value="No" checked> No
+                                    <input class="edit-awaiting-result" style="margin: 0 !important; padding: 0 !important;" type="radio" name="edit-awaiting-result" id="edit-awaiting-result-no" value="No" checked> No
                                 </label>
                             </div>
                             <div id="edit-not-waiting" class="">

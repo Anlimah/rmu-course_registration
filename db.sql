@@ -79,10 +79,10 @@ CREATE TABLE `form_price` (
     `form_type` INT NOT NULL,
     `admin_period` INT NOT NULL,
     `amount` DECIMAL(6,2) NOT NULL,
-    
     CONSTRAINT `fk_form_price_type` FOREIGN KEY (`form_type`) REFERENCES `form_type`(`id`) ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT `fk_admin_p_f_price` FOREIGN KEY (`admin_period`) REFERENCES `admission_period`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
 );
+ALTER TABLE `form_price` ADD COLUMN `name` VARCHAR(120) AFTER `form_type`;
 
 INSERT INTO `form_price` (`amount`, `form_type`, `admin_period`)  VALUES 
 (1, 1, 1), (1, 2, 1), (1, 3, 1), (1, 4, 1);
@@ -575,31 +575,3 @@ CREATE TABLE `section_questions` (
     `section` INT NOT NULL,
     CONSTRAINT `fk_section_question` FOREIGN KEY (`section`) REFERENCES `page_sections`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
 );
-
--- Total number of forms purchased
-SELECT COUNT(id) AS total_purchase FROM purchase_detail;
-
--- List of all forms purchased
-SELECT id, first_name, last_name, country_name, form_type, payment_method AS mode_of_purchase FROM purchase_detail;
-
--- List of all applicants who have submitted applications
-SELECT pf.app_login, pf.first_name, pf.last_name, pf.country_res, pf.gender, pf.photo 
-FROM personal_information AS pf, form_sections_chek AS fc 
-WHERE pf.app_login = fc.app_login AND fc.declaration = 1;
-
--- Total number of submitted applications
-SELECT COUNT(pf.id) AS total_submitted
-FROM personal_information AS pf, form_sections_chek AS fc 
-WHERE pf.app_login = fc.app_login AND fc.declaration = 1;
-
--- Awating applications
-SELECT pf.app_login, pf.first_name, pf.last_name, pf.country_res, pf.gender, pf.photo 
-FROM personal_information AS pf, form_sections_chek AS fc, academic_background AS ab 
-WHERE pf.app_login = fc.app_login AND pf.app_login = ab.app_login 
-AND fc.declaration = 1 AND ab.awaiting_result = 1;
-
--- Non-Awating applications
-SELECT pf.app_login, pf.first_name, pf.last_name, pf.country_res, pf.gender, pf.photo 
-FROM personal_information AS pf, form_sections_chek AS fc, academic_background AS ab 
-WHERE pf.app_login = fc.app_login AND pf.app_login = ab.app_login 
-AND fc.declaration = 1 AND ab.awaiting_result = 0;
