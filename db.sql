@@ -189,7 +189,7 @@ CREATE TABLE `applicants_login` (
 );
 
 ALTER TABLE `applicants_login` 
-ADD COLUMN `deleted` TINYINT(1) DEFAULT 1 AFTER `service_charge`;
+ADD COLUMN `deleted` TINYINT(1) DEFAULT 1 AFTER `pin`;
 /*
 Tables for applicants form registration
 */
