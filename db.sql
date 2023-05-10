@@ -188,6 +188,8 @@ CREATE TABLE `applicants_login` (
     CONSTRAINT `fk_purchase_id` FOREIGN KEY (`purchase_id`) REFERENCES `purchase_detail`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
+ALTER TABLE `applicants_login` 
+ADD COLUMN `deleted` TINYINT(1) DEFAULT 1 AFTER `service_charge`;
 /*
 Tables for applicants form registration
 */
