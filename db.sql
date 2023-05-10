@@ -68,7 +68,7 @@ CREATE TABLE `form_type` (
     `name` VARCHAR(50) NOT NULL
     -- `amount` DECIMAL(6,2) NOT NULL -- moved to form_price tbl
 );
--- ALTER TABLE `form_type` ADD COLUMN `alt_name` VARCHAR(15);
+ALTER TABLE `form_type` ADD COLUMN `alt_name` VARCHAR(15);
 INSERT INTO `form_type`(`name`) VALUES ("POSTGRADUATE"), ("UNDERGRADUATE"), ("OTHER COURSES");
 ALTER TABLE form_type DROP COLUMN alt_name;
 
@@ -83,8 +83,7 @@ CREATE TABLE `form_price` (
 );
 ALTER TABLE `form_price` ADD COLUMN `name` VARCHAR(120) AFTER `form_type`;
 
-INSERT INTO `form_price` (`amount`, `form_type`, `admin_period`)  VALUES 
-(1, 1, 1), (1, 2, 1), (1, 3, 1), (1, 4, 1);
+-- INSERT INTO `form_price` (`amount`, `form_type`, `admin_period`)  VALUES (1, 1, 1), (1, 2, 1), (1, 3, 1), (1, 4, 1);
 
 DROP TABLE IF EXISTS `vendor_details`;
 CREATE TABLE `vendor_details` (
@@ -162,7 +161,10 @@ ALTER TABLE `purchase_detail`
 DROP COLUMN IF EXISTS `device_info`,
 DROP COLUMN IF EXISTS `ip_address`,
 ADD COLUMN IF NOT EXISTS `service_rate` DECIMAL(6,2) DEFAULT 0.0 AFTER `amount`,
-ADD COLUMN IF NOT EXISTS `service_charge` DECIMAL(6,2) GENERATED ALWAYS AS (`amount` * `service_rate`) AFTER `service_rate`;
+ADD COLUMN IF NOT EXISTS `service_charge` DECIMAL(6,2) GENERATED ALWAYS AS (`amount` * `service_rate`) AFTER `service_rate`,
+CHANGE COLUMN form_type form_price INT NOT NULL
+DROP FOREIGN KEY fk_purchase_form_type,
+ADD CONSTRAINT `fk_purchase_form_price` FOREIGN KEY (`form_price`) REFERENCES `form_price`(`id`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 DROP TABLE IF EXISTS `payment_method`; 
 CREATE TABLE `payment_method` (
