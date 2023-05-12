@@ -66,9 +66,7 @@ DROP TABLE IF EXISTS `form_type`;
 CREATE TABLE `form_type` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
     `name` VARCHAR(50) NOT NULL
-    -- `amount` DECIMAL(6,2) NOT NULL -- moved to form_price tbl
 );
-ALTER TABLE `form_type` ADD COLUMN `alt_name` VARCHAR(15);
 INSERT INTO `form_type`(`name`) VALUES ("POSTGRADUATE"), ("UNDERGRADUATE"), ("OTHER COURSES");
 ALTER TABLE form_type DROP COLUMN alt_name;
 
@@ -82,9 +80,9 @@ CREATE TABLE `form_price` (
     CONSTRAINT `fk_admin_p_f_price` FOREIGN KEY (`admin_period`) REFERENCES `admission_period`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
 );
 ALTER TABLE `form_price` ADD COLUMN `name` VARCHAR(120) AFTER `form_type`;
+-- RUN THIS
 ALTER TABLE form_price DROP CONSTRAINT fk_admin_p_f_price, DROP COLUMN admin_period; 
 RENAME TABLE `form_price` TO `forms`;
--- INSERT INTO `form_price` (`amount`, `form_type`, `admin_period`)  VALUES (1, 1, 1), (1, 2, 1), (1, 3, 1), (1, 4, 1);
 
 DROP TABLE IF EXISTS `vendor_details`;
 CREATE TABLE `vendor_details` (
@@ -111,6 +109,7 @@ CHANGE COLUMN `email_address` `company` VARCHAR(30);
 INSERT INTO `vendor_details`(`id`, `type`, `tin`, `phone_number`, `company`, `address`, `user_id`) 
 VALUES (1665605087, 'ONLINE', 'RMU', '233555351068', 'RMU', 'Nungua', 1);
 
+-- RUN THIS
 ALTER TABLE `vendor_details`
 DROP COLUMN IF EXISTS `tin`, 
 DROP COLUMN IF EXISTS `address`, 
@@ -167,10 +166,14 @@ ALTER TABLE `purchase_detail`
 DROP COLUMN IF EXISTS `device_info`,
 DROP COLUMN IF EXISTS `ip_address`,
 ADD COLUMN IF NOT EXISTS `service_rate` DECIMAL(6,2) DEFAULT 0.0 AFTER `amount`,
-ADD COLUMN IF NOT EXISTS `service_charge` DECIMAL(6,2) GENERATED ALWAYS AS (`amount` * `service_rate`) AFTER `service_rate`,
+ADD COLUMN IF NOT EXISTS `service_charge` DECIMAL(6,2) GENERATED ALWAYS AS (`amount` * `service_rate`) AFTER `service_rate`;
+
+-- RUN THIS
+ALTER TABLE `purchase_detail` 
 ADD COLUMN IF NOT EXISTS `deleted` TINYINT(1) DEFAULT 0,
 CHANGE COLUMN form_type form_id INT NOT NULL,
 DROP FOREIGN KEY fk_purchase_form_type,
+DROP FOREIGN KEY fk_purchase_form_price,
 ADD CONSTRAINT `fk_purchase_form_id` FOREIGN KEY (`form_id`) REFERENCES `forms`(`id`) ON UPDATE CASCADE;
 
 DROP TABLE IF EXISTS `payment_method`; 
