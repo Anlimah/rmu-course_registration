@@ -82,7 +82,8 @@ CREATE TABLE `form_price` (
     CONSTRAINT `fk_admin_p_f_price` FOREIGN KEY (`admin_period`) REFERENCES `admission_period`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
 );
 ALTER TABLE `form_price` ADD COLUMN `name` VARCHAR(120) AFTER `form_type`;
-
+ALTER TABLE form_price DROP CONSTRAINT fk_admin_p_f_price, DROP COLUMN admin_period; 
+RENAME TABLE `form_price` TO `forms`;
 -- INSERT INTO `form_price` (`amount`, `form_type`, `admin_period`)  VALUES (1, 1, 1), (1, 2, 1), (1, 3, 1), (1, 4, 1);
 
 DROP TABLE IF EXISTS `vendor_details`;
@@ -109,6 +110,11 @@ CHANGE COLUMN `email_address` `company` VARCHAR(30);
 
 INSERT INTO `vendor_details`(`id`, `type`, `tin`, `phone_number`, `company`, `address`, `user_id`) 
 VALUES (1665605087, 'ONLINE', 'RMU', '233555351068', 'RMU', 'Nungua', 1);
+
+ALTER TABLE `vendor_details`
+DROP COLUMN IF EXISTS `tin`, 
+DROP COLUMN IF EXISTS `address`, 
+ADD COLUMN IF NOT EXISTS `branch` VARCHAR(50) AFTER `company`;  
 
 DROP TABLE IF EXISTS `vendor_login`;
 CREATE TABLE `vendor_login` (
@@ -162,9 +168,10 @@ DROP COLUMN IF EXISTS `device_info`,
 DROP COLUMN IF EXISTS `ip_address`,
 ADD COLUMN IF NOT EXISTS `service_rate` DECIMAL(6,2) DEFAULT 0.0 AFTER `amount`,
 ADD COLUMN IF NOT EXISTS `service_charge` DECIMAL(6,2) GENERATED ALWAYS AS (`amount` * `service_rate`) AFTER `service_rate`,
-CHANGE COLUMN form_type form_price INT NOT NULL
+ADD COLUMN IF NOT EXISTS `deleted` TINYINT(1) DEFAULT 0,
+CHANGE COLUMN form_type form_id INT NOT NULL,
 DROP FOREIGN KEY fk_purchase_form_type,
-ADD CONSTRAINT `fk_purchase_form_price` FOREIGN KEY (`form_price`) REFERENCES `form_price`(`id`) ON UPDATE CASCADE ON DELETE CASCADE;
+ADD CONSTRAINT `fk_purchase_form_id` FOREIGN KEY (`form_id`) REFERENCES `forms`(`id`) ON UPDATE CASCADE;
 
 DROP TABLE IF EXISTS `payment_method`; 
 CREATE TABLE `payment_method` (
@@ -190,6 +197,7 @@ CREATE TABLE `applicants_login` (
 
 ALTER TABLE `applicants_login` 
 ADD COLUMN `deleted` TINYINT(1) DEFAULT 1 AFTER `pin`;
+ALTER TABLE applicants_login CHANGE COLUMN IF EXISTS `deleted` `deleted` TINYINT(1) DEFAULT 0;
 /*
 Tables for applicants form registration
 */
