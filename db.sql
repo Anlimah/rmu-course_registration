@@ -115,21 +115,21 @@ DROP COLUMN IF EXISTS `tin`,
 DROP COLUMN IF EXISTS `address`, 
 ADD COLUMN IF NOT EXISTS `branch` VARCHAR(50) AFTER `company`;  
 
-DROP TABLE IF EXISTS `vendor_login`;
-CREATE TABLE `vendor_login` (
-    `id` INT AUTO_INCREMENT PRIMARY KEY,
-    `user_name` VARCHAR(255) UNIQUE NOT NULL,
-    `password` VARCHAR(255) NOT NULL,
+-- DROP TABLE IF EXISTS `vendor_login`;
+-- CREATE TABLE `vendor_login` (
+--     `id` INT AUTO_INCREMENT PRIMARY KEY,
+--     `user_name` VARCHAR(255) UNIQUE NOT NULL,
+--     `password` VARCHAR(255) NOT NULL,
     
-    `vendor` INT(11) NOT NULL,
-    CONSTRAINT `fk_vendor_login` FOREIGN KEY (`vendor`) REFERENCES `vendor_details`(`id`) ON UPDATE CASCADE ON DELETE CASCADE,
+--    `vendor` INT(11) NOT NULL,
+--    CONSTRAINT `fk_vendor_login` FOREIGN KEY (`vendor`) REFERENCES `vendor_details`(`id`) ON UPDATE CASCADE ON DELETE CASCADE,
 
-    `added_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP()
-);
+--    `added_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP()
+--);
 
-INSERT INTO `vendor_login`(`vendor`,`user_name`,`password`) VALUES 
-(1665605866, 'd8ded753c6fd237dc576c1846382387e7e739337', '$2y$10$jmxuunWRqwB2KgT2jIypwufas3dPtqT9f21gdKT9lOOlNGNQCqeMC'),
-(1665605341, 'bc4f6e0e173b58999ff3cd1253cc97c1924ecc2e', '$2y$10$jmxuunWRqwB2KgT2jIypwufas3dPtqT9f21gdKT9lOOlNGNQCqeMC');
+-- INSERT INTO `vendor_login`(`vendor`,`user_name`,`password`) VALUES 
+-- (1665605866, 'd8ded753c6fd237dc576c1846382387e7e739337', '$2y$10$jmxuunWRqwB2KgT2jIypwufas3dPtqT9f21gdKT9lOOlNGNQCqeMC'),
+-- (1665605341, 'bc4f6e0e173b58999ff3cd1253cc97c1924ecc2e', '$2y$10$jmxuunWRqwB2KgT2jIypwufas3dPtqT9f21gdKT9lOOlNGNQCqeMC');
 
 DROP TABLE IF EXISTS `purchase_detail`; 
 CREATE TABLE `purchase_detail` (
