@@ -69,6 +69,7 @@ CREATE TABLE `form_type` (
 );
 INSERT INTO `form_type`(`name`) VALUES ("POSTGRADUATE"), ("UNDERGRADUATE"), ("OTHER COURSES");
 ALTER TABLE form_type DROP COLUMN alt_name;
+RENAME TABLE form_type TO form_categories;
 
 DROP TABLE IF EXISTS `form_price`;
 CREATE TABLE `form_price` (
@@ -83,6 +84,10 @@ ALTER TABLE `form_price` ADD COLUMN `name` VARCHAR(120) AFTER `form_type`;
 -- RUN THIS
 ALTER TABLE form_price DROP CONSTRAINT fk_admin_p_f_price, DROP COLUMN admin_period; 
 RENAME TABLE `form_price` TO `forms`;
+ALTER TABLE forms 
+DROP FOREIGN KEY fk_form_price_type,
+CHANGE COLUMN form_type form_category INT NOT NULL,
+ADD CONSTRAINT `fk_form_category` FOREIGN KEY (`form_category`) REFERENCES `form_categories`(`id`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 DROP TABLE IF EXISTS `vendor_details`;
 CREATE TABLE `vendor_details` (
