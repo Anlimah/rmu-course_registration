@@ -46,6 +46,16 @@ CREATE TABLE `activity_logs` (
   INDEX `timestamp` (`timestamp`)
 );
 
+CREATE TABLE `ussd_activity_logs` (
+  `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  `session_id` VARCHAR(255),
+  `service_code` VARCHAR(255),
+  `msisdn` VARCHAR(15),
+  `msg_type` INT,
+  `ussd_body` VARCHAR(255),
+  `nw_code` VARCHAR(2),
+  `timestamp` TIMESTAMP DEFAULT CURRENT_TIMESTAMP()
+);
 
 
 /*
