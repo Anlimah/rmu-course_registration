@@ -185,9 +185,9 @@ class UsersController
         return array("status" => "success", "message" => $user_input);
     }
 
-    public function getFormPrice(string $form_type)
+    public function getFormPrice(string $form)
     {
-        return $this->dm->getData("SELECT `amount` FROM `form_type` WHERE `name` LIKE '%$form_type%'");
+        return $this->dm->getData("SELECT `amount` FROM `forms` WHERE `name` LIKE '%$form%'");
     }
 
     public function getAdminYearCode()
@@ -205,15 +205,15 @@ class UsersController
 
     public function verifyLoginDetails($app_number, $pin)
     {
-        $sql = "SELECT al.`pin`, al.`id`, al.`purchase_id`, fc.`declaration`, pd.`form_type` 
+        $sql = "SELECT al.`pin`, al.`id`, al.`purchase_id`, fc.`declaration`, pd.`form_id` 
                 FROM `applicants_login` AS al, `form_sections_chek` AS fc, `purchase_detail` AS pd 
                 WHERE al.`app_number` = :a AND pd.id = al.`purchase_id` AND fc.app_login = al.id;";
-        $data1 = $this->dm->getData($sql, array(':a' => sha1($app_number)));
+        $data = $this->dm->getData($sql, array(':a' => sha1($app_number)));
 
-        if (empty($data1)) return 0;
+        if (empty($data)) return 0;
 
-        if (password_verify($pin, $data1[0]["pin"]))
-            return array("id" => $data1[0]["id"], "type" => $data1[0]["form_type"], "submitted" => $data1[0]["declaration"]);
+        if (password_verify($pin, $data[0]["pin"]))
+            return array("id" => $data[0]["id"], "type" => $data[0]["form_id"], "submitted" => $data[0]["declaration"]);
 
         return 0;
     }
@@ -366,7 +366,7 @@ class UsersController
 
     public function getApplicationType($user_id)
     {
-        $sql = "SELECT `purchase_detail`.`form_type` FROM `purchase_detail`, `applicants_login`
+        $sql = "SELECT `purchase_detail`.`form_id` FROM `purchase_detail`, `applicants_login`
         WHERE `applicants_login`.`purchase_id` = `purchase_detail`.`id` AND `applicants_login`.`id` = :a";
         return $this->dm->getData($sql, array(':a' => $user_id));
     }
