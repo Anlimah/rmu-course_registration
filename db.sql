@@ -195,7 +195,7 @@ CREATE TABLE `payment_method` (
     `id` INT AUTO_INCREMENT UNIQUE,
     `name` VARCHAR(15) PRIMARY KEY
 );
-INSERT INTO payment_method (`name`) VALUES('MOMO'), ('CARD'), ('CASH');
+INSERT INTO payment_method (`name`) VALUES('MOMO'), ('CARD'), ('CASH'), ('USSD');
 
 ALTER TABLE purchase_detail 
 ADD CONSTRAINT `fk_purchase_payment_method` FOREIGN KEY (`payment_method`) REFERENCES payment_method (`name`) ON UPDATE CASCADE;
@@ -225,7 +225,7 @@ CREATE TABLE `programs` (
     `name` VARCHAR(255) NOT NULL,
     `type` INT NOT NULL,
     `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
-    CONSTRAINT `fk_prog_form_type` FOREIGN KEY (`type`) REFERENCES `form_type`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
+    CONSTRAINT `fk_prog_form_type` FOREIGN KEY (`type`) REFERENCES `forms`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
 );
 ALTER TABLE `programs` 
 ADD COLUMN `weekend` TINYINT DEFAULT 0 AFTER `type`,
@@ -467,8 +467,8 @@ CREATE TABLE `program_info` (
     `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
 
     -- programs
-    `first_prog` VARCHAR(100),
-    `second_prog` VARCHAR(100),
+    `first_prog` VARCHAR(200),
+    `second_prog` VARCHAR(200),
 
     `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
 
