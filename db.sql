@@ -57,8 +57,6 @@ CREATE TABLE `ussd_activity_logs` (
   `timestamp` TIMESTAMP DEFAULT CURRENT_TIMESTAMP()
 );
 
-ALTER TABLE `ussd_activity_logs` ADD COLUMN `level` VARCHAR(50) AFTER `nw_code`;
-
 /*
 Tables for form purchase
 */
