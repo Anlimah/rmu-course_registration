@@ -25,9 +25,9 @@
             </div>
         </div>
         <div class="col-md-2" style="display: flex; align-items: center; justify-content:space-between">
-            <div id="sign-out-1" style="text-align:center; display: relative">
+            <!--<div id="sign-out-1" style="text-align:center; display: relative">
                 <a href="?logout=true" style="color: #fff !important">Sign Out</a>
-            </div>
+            </div>-->
             <a id="logout-icon" href="?logout=true" style="color: #fff !important">
                 <span class="bi bi-power" style="font-size: 28px; color: #fff; cursor:pointer"></span>
             </a>
