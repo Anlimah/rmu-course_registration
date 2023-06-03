@@ -77,7 +77,6 @@ CREATE TABLE `form_type` (
     `name` VARCHAR(50) NOT NULL
 );
 INSERT INTO `form_type`(`name`) VALUES ("POSTGRADUATE"), ("UNDERGRADUATE"), ("OTHER COURSES");
-ALTER TABLE form_type DROP COLUMN alt_name;
 RENAME TABLE form_type TO form_categories;
 
 DROP TABLE IF EXISTS `form_price`;
@@ -86,7 +85,7 @@ CREATE TABLE `form_price` (
     `form_type` INT NOT NULL,
     `admin_period` INT NOT NULL,
     `amount` DECIMAL(6,2) NOT NULL,
-    CONSTRAINT `fk_form_price_type` FOREIGN KEY (`form_type`) REFERENCES `form_type`(`id`) ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT `fk_form_price_type` FOREIGN KEY (`form_type`) REFERENCES `form_categories`(`id`) ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT `fk_admin_p_f_price` FOREIGN KEY (`admin_period`) REFERENCES `admission_period`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
 );
 ALTER TABLE `form_price` ADD COLUMN `name` VARCHAR(120) AFTER `form_type`;
@@ -117,7 +116,6 @@ ALTER TABLE `vendor_details`
 DROP COLUMN `vendor_name`,
 DROP COLUMN `country_code`,
 DROP COLUMN `country_name`,
-ADD COLUMN `user_id` INT(11),
 CHANGE COLUMN `email_address` `company` VARCHAR(30);
 
 INSERT INTO `vendor_details`(`id`, `type`, `tin`, `phone_number`, `company`, `address`, `user_id`) 
@@ -129,26 +127,17 @@ DROP COLUMN IF EXISTS `tin`,
 DROP COLUMN IF EXISTS `address`, 
 ADD COLUMN IF NOT EXISTS `branch` VARCHAR(50) AFTER `company`;  
 
--- DROP TABLE IF EXISTS `vendor_login`;
--- CREATE TABLE `vendor_login` (
---     `id` INT AUTO_INCREMENT PRIMARY KEY,
---     `user_name` VARCHAR(255) UNIQUE NOT NULL,
---     `password` VARCHAR(255) NOT NULL,
-    
---    `vendor` INT(11) NOT NULL,
---    CONSTRAINT `fk_vendor_login` FOREIGN KEY (`vendor`) REFERENCES `vendor_details`(`id`) ON UPDATE CASCADE ON DELETE CASCADE,
+DROP TABLE IF EXISTS `payment_method`; 
+CREATE TABLE `payment_method` (
+    `id` INT AUTO_INCREMENT UNIQUE,
+    `name` VARCHAR(15) PRIMARY KEY
+);
+INSERT INTO payment_method (`name`) VALUES('MOMO'), ('CARD'), ('CASH'), ('USSD');
 
---    `added_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP()
---);
-
--- INSERT INTO `vendor_login`(`vendor`,`user_name`,`password`) VALUES 
--- (1665605866, 'd8ded753c6fd237dc576c1846382387e7e739337', '$2y$10$jmxuunWRqwB2KgT2jIypwufas3dPtqT9f21gdKT9lOOlNGNQCqeMC'),
--- (1665605341, 'bc4f6e0e173b58999ff3cd1253cc97c1924ecc2e', '$2y$10$jmxuunWRqwB2KgT2jIypwufas3dPtqT9f21gdKT9lOOlNGNQCqeMC');
 
 DROP TABLE IF EXISTS `purchase_detail`; 
 CREATE TABLE `purchase_detail` (
     `id` INT(11) PRIMARY KEY,
-
     `first_name` VARCHAR(50) NOT NULL,
     `last_name` VARCHAR(50) NOT NULL,
     `email_address` VARCHAR(100),
@@ -171,9 +160,7 @@ CREATE TABLE `purchase_detail` (
     `payment_method` VARCHAR(20),
 
     CONSTRAINT `fk_purchase_vendor_details` FOREIGN KEY (`vendor`) REFERENCES `vendor_details`(`id`) ON UPDATE CASCADE ON DELETE CASCADE,
-    CONSTRAINT `fk_purchase_form_type` FOREIGN KEY (`form_type`) REFERENCES `form_type`(`id`) ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT `fk_purchase_admission_period` FOREIGN KEY (`admission_period`) REFERENCES `admission_period`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
-
 );
 
 ALTER TABLE `purchase_detail` 
@@ -186,20 +173,8 @@ ADD COLUMN IF NOT EXISTS `service_charge` DECIMAL(6,2) GENERATED ALWAYS AS (`amo
 ALTER TABLE `purchase_detail` 
 ADD COLUMN IF NOT EXISTS `deleted` TINYINT(1) DEFAULT 0,
 CHANGE COLUMN form_type form_id INT NOT NULL,
-DROP FOREIGN KEY fk_purchase_form_type,
-DROP FOREIGN KEY fk_purchase_form_price,
-ADD CONSTRAINT `fk_purchase_form_id` FOREIGN KEY (`form_id`) REFERENCES `forms`(`id`) ON UPDATE CASCADE;
-
-DROP TABLE IF EXISTS `payment_method`; 
-CREATE TABLE `payment_method` (
-    `id` INT AUTO_INCREMENT UNIQUE,
-    `name` VARCHAR(15) PRIMARY KEY
-);
-INSERT INTO payment_method (`name`) VALUES('MOMO'), ('CARD'), ('CASH'), ('USSD');
-
-ALTER TABLE purchase_detail 
+ADD CONSTRAINT `fk_purchase_form_id` FOREIGN KEY (`form_id`) REFERENCES `forms`(`id`) ON UPDATE CASCADE,
 ADD CONSTRAINT `fk_purchase_payment_method` FOREIGN KEY (`payment_method`) REFERENCES payment_method (`name`) ON UPDATE CASCADE;
-         
 
 DROP TABLE IF EXISTS `applicants_login`;
 CREATE TABLE `applicants_login` (
