@@ -35,15 +35,16 @@ if (!isset($_SESSION["_start"])) {
                             <div class="col-1 text-center">1</div>
                             <p class="col-11">
                                 Purchase an e-voucher <a href="https://forms.rmuictonline.com/buy-online">online here</a> using
-                                <span style="color:#003262; font-weight:bolder">MoMo</span> or <span style="color:#003262; font-weight:bolder">Card</span>
-                                (Visa, Master) or from any of the <a href="">vendors listed here</a>.
+                                <span style="color:#003262; font-weight:bolder">MoMo </span> (on all networks for only Ghanaian applicants) or <span style="color:#003262; font-weight:bolder">Card</span>
+                                (Visa, Master) or by dialing <span style="color:#003262; font-weight:bolder">*447*8#</span> (for only Ghanaian applicants)
+                                on MTN and VODAFONE or from any of the <a href="">vendors listed here</a>.
                             </p>
                         </div>
                         <div class="app-step row">
                             <div class="col-1 text-center">2</div>
                             <p class="col-11">
-                                Login with the form on the right hand side, using the voucher <span style="color:#003262; font-weight:bolder">APPLICATION</span> and
-                                <span style="color:#003262; font-weight:bolder">PIN</span> number that was provided to you via SMS and/or Email.
+                                Login with the form on the right hand side, using the voucher <span style="color:#003262; font-weight:bolder">APPLICATION NUMBER</span> and
+                                <span style="color:#003262; font-weight:bolder">PIN CODE</span> that was provided to you via SMS and/or Email or vendor.
                             </p>
                         </div>
                         <div class="app-step row">
@@ -64,15 +65,24 @@ if (!isset($_SESSION["_start"])) {
                         <div class="app-step row">
                             <div class="col-1 text-center">5</div>
                             <p class="col-11">
-                                In the final section, verify and make sure that all information provided is correct before you submit.
-                                Clicking the <span style="color:#003262; font-weight:bolder">SUBMIT AND PRINT</span> button to submit the form and generate a reference number which will be sent to the phone number you specified. Changes after form submission is not allowed.
+                                Your progress will be <span style="color:#003262; font-weight:bolder">saved automatically</span> as you fill the form to enable you focus on your work.
                             </p>
                         </div>
                         <div class="app-step row">
                             <div class="col-1 text-center">6</div>
                             <p class="col-11">
-                                Click logout to leave the page. On subsequent logins you will be sent to a tracking page where you can track and print the application form you filled.
+                                In the final section, verify and make sure that all information provided is correct before you submit.
+                                Clicking the <span style="color:#003262; font-weight:bolder">SUBMIT AND PRINT</span> button to submit the form and
+                                generate a reference number which will be sent to the phone number you specified.
+                                <span style="color:red; font-weight:bolder">Changes after form submission is not allowed.</span>
                             </p>
+                        </div>
+                        <div class="app-step row">
+                            <div class="col-1 text-center">7</div>
+                            <p class="col-11">
+                                Click <span style="color:#003262; font-weight:bolder">logout button</span> to leave the page.
+                                On subsequent logins after your form been submitted, you will be sent to a tracking page where
+                                you can track and print the application form you filled. </p>
                         </div>
 
                     </section>
