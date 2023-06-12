@@ -127,6 +127,8 @@ DROP COLUMN IF EXISTS `tin`,
 DROP COLUMN IF EXISTS `address`, 
 ADD COLUMN IF NOT EXISTS `branch` VARCHAR(50) AFTER `company`;  
 
+ALTER TABLE `vendor_details` ADD `role` VARCHAR(50) AFTER `branch`;
+
 DROP TABLE IF EXISTS `payment_method`; 
 CREATE TABLE `payment_method` (
     `id` INT AUTO_INCREMENT UNIQUE,
