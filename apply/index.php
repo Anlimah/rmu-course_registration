@@ -153,6 +153,8 @@ if (!isset($_SESSION["_start"])) {
     <script>
         $(document).ready(function() {
 
+            console.log(window.location.href);
+
             $("input").on("click", function() {
                 $(this).select();
             });
