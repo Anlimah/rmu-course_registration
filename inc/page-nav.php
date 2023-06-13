@@ -24,7 +24,7 @@
                 <span class="rmu-logo-letter description">APPLICATION PORTAL</span>
             </div>
         </div>
-        <div class="col-md-2" style="display: flex; align-items: center; justify-content:space-between">
+        <div class="col-md-2" id="signout-div" style="display: flex; align-items: center; justify-content:space-between">
             <div id="sign-out-1" style="text-align:center; display: relative">
                 <a href="?logout=true" style="color: #fff !important">Sign Out</a>
             </div>

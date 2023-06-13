@@ -153,7 +153,9 @@ if (!isset($_SESSION["_start"])) {
     <script>
         $(document).ready(function() {
 
-            console.log(window.location.href);
+            if (window.location.href == "https://admissions.rmuictonline.com/apply/index.php") {
+                $("#signout-div").hide();
+            }
 
             $("input").on("click", function() {
                 $(this).select();
