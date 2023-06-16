@@ -746,7 +746,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
             if ($go) {
                 if ($user->updateApplicationStatus($column, $_SESSION['ghApplicant'])) {
                     $data["success"] = true;
-                    if ($column == "declaration") $_SESSION['submitted'] = 1;
+                    if ($form == 5) $_SESSION['submitted'] = 1;
                 }
             } else {
                 $data["success"] = false;

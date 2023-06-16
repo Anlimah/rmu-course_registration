@@ -52,8 +52,8 @@ $page = array("id" => 0, "name" => "Application Status");
                             <h4 class="alert-heading">Please note the following:</h4>
                             <ul style="list-style-type: disc;">
                                 <li>Frequently visit this page to check your application status.</li>
-                                <li>When admitted, a SMS and/or an email with a <b>code</b> will be sent to your peronal email address and phone number provided during application.</li>
-                                <li>You will need to provide the <b>code</b> in order to fill and submit an acceptance form, which will guarantee your admission.</li>
+                                <li>When admitted, a SMS and/or an email will be sent to your personal email address and/or phone number you provided during application.</li>
+                                <li>You will then need to visit this page again, and fill an acceptance form, which will guarantee your admission.</li>
                                 <li>For any other information, please contact the Regional Maritime University for assistance.</li>
                             </ul>
                         </div>
