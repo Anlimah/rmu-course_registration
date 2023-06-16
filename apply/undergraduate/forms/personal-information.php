@@ -24,7 +24,7 @@ require_once('../../inc/page-data.php');
             </div>
         </div>
         <div class="photo-display mb-1" style="padding: 5px;">
-            <img id="app-photo" src="../photos/<?= !empty($photo[0]["photo"]) ? $photo[0]["photo"] : "icons8-test-account-96.png" ?>" alt="">
+            <img id="app-photo" src="../photos/<?= !empty($photo[0]["photo"]) ? $photo[0]["photo"] : "icons8-test-account-48.png" ?>" alt="">
         </div>
         <label for="photo-upload" class="upload-photo-label btn btn-primary" style="width: 150px"><b>Upload photo</b></label>
         <div class="text-danger"></div>
