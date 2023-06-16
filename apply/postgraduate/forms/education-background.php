@@ -23,7 +23,7 @@ require_once('../../inc/page-data.php');
             <p>
                 Please list all colleges, universities, or other secondary institutions in which you attended classes. If you went to multiple institutions, please enter each separately. </br>
             </p>
-            <?php if ($app_type[0]["form_type"] == 1) { ?>
+            <?php if ($app_type[0]["form_id"] == 1) { ?>
                 <p>
                     </br>Many schools issue transcripts electronically, either through their own web services or through vendors. If this option is available through the institutions you attended, please specify that your transcript(s) be sent to the address below as this will expedite the delivery of your transcript(s) and the completion of your application: <a href="mailto:transcripts@rmu.edu.gh">transcripts@rmu.edu.gh</a>.
                 </p>
@@ -114,6 +114,7 @@ $courses = $user->fetchCourses();
                                 <option value="NECO">NECO</option>
                                 <option value="DIPLOMA">DIPLOMA</option>
                                 <option value="DEGREE">DEGREE</option>
+                                <option value="MASTERS">MASTERS</option>
                                 <option value="BACCALAUREATE">BACCALAUREATE</option>
                                 <option value="O LEVEL">O LEVEL</option>
                                 <option value="A LEVEL">A LEVEL</option>

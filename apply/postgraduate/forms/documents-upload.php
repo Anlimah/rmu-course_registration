@@ -67,7 +67,7 @@ $appStatus = $user->getApplicationStatus($user_id);
 
 <fieldset class="fieldset row">
     <div class="col-md-4 col-sm-12">
-        <legend>Curriculum Vitae</legend>
+        <legend>Curriculum Vitae (CV)</legend>
     </div>
     <div class="col-md-8 col-sm-12">
         <div class="mb-4">
@@ -78,7 +78,7 @@ $appStatus = $user->getApplicationStatus($user_id);
 
             <h5 style="font-size: 16px;" class="form-label mb-4"><b>List of documents <span class="input-required">*</b></span></h5>
 
-            <div class="certificates mb-4">
+            <div class="curriculum-vitae mb-4">
                 <?php
                 if (!empty($uploads)) {
                 ?>
@@ -132,7 +132,7 @@ $appStatus = $user->getApplicationStatus($user_id);
 
             <h5 style="font-size: 16px;" class="form-label mb-4"><b>List of documents <span class="input-required">*</b></span></h5>
 
-            <div class="certificates">
+            <div class="recommendations">
                 <?php
                 if (!empty($uploads)) {
                 ?>
