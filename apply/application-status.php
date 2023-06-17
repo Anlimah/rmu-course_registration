@@ -18,7 +18,7 @@ if (isset($_GET['logout'])) {
     header('Location: ./index.php');
 }
 
-$user_id = $_SESSION['ghApplicant'];
+$user_id = isset($_SESSION['ghApplicant']) && !empty($_SESSION["ghApplicant"]) ? $_SESSION["ghApplicant"] : "";
 
 $page = array("id" => 0, "name" => "Application Status");
 ?>
