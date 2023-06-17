@@ -251,7 +251,7 @@ $page = array("id" => 0, "name" => "Application Status");
                                                     <li class="active" id="step1">
                                                         <strong> <span class="bi bi-send-check"></span> Submitted </strong>
                                                     </li>
-                                                    <li class="active" id="step2">
+                                                    <li id="step2">
                                                         <strong> <span class="bi bi-yelp"></span> Reviewed </strong>
                                                     </li>
                                                     <li id="step3">
