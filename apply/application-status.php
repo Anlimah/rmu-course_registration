@@ -11,8 +11,9 @@ if (isset($_SESSION['ghAppLogin']) && $_SESSION['ghAppLogin'] == true) {
 if (!$_SESSION["submitted"]) header("Location: {$_SESSION['loginType']}");
 
 if (isset($_GET['logout'])) {
-    unset($_SESSION['ghAppLogin']);
-    unset($_SESSION['ghApplicant']);
+    /*unset($_SESSION['ghAppLogin']);
+    unset($_SESSION['ghApplicant']);*/
+    session_unset();
     session_destroy();
     header('Location: ./index.php');
 }
