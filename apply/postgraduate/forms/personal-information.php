@@ -95,7 +95,7 @@ require_once('../../inc/page-data.php');
     <div class="col-md-8 col-sm-12">
         <div class="form-fields" style="flex-grow: 8;">
             <div class="mb-4">
-                <label class="form-label" for="gender">Gender <span class="input-required">*</span></label>
+                <label class="form-label" for="gender">Sex <span class="input-required">*</span></label>
                 <select required class="transform-text form-select form-select-sm mb-3" name="gender" id="gender">
                     <option value="" hidden>Select</option>
                     <option value="Male" <?= $personal[0]["gender"] == strtoupper("Male") ? "selected" : "" ?>>Male</option>
