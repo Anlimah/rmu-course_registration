@@ -615,13 +615,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
                 $type = $user->validateInputTextOnly($_POST["doc-type"]);
                 //$edu_code = $user->validatePhone($_POST["20eh29v1Tf"]);
 
-                $allowedFileType = [
-                    "application/pdf",
-                    "application/doc",
-                    "application/docx",
-                    "application/msword",
-                    "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                ];
+                $allowedFileType = ["application/pdf"];
 
                 $check = filesize($_FILES["upload-file"]["tmp_name"]);
 

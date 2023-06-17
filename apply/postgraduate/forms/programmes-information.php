@@ -19,7 +19,7 @@ $about_us = $user->fetchHowYouKnowUs($user_id);
     </div>
     <div class="col-md-8 col-sm-12">
         <div class="mb-4">
-            <label class="form-label" for="app-term">To what term are you applying?</label>
+            <label class="form-label" for="app-term">To what term are you applying? <span class="input-required">*</span></label>
             <select required name="app-term" id="app-term" class="transform-text form-select-option form-select form-select-sm mb-3">
                 <option value="" hidden>Select</option>
                 <option value="AUGUST" <?= $personal_AB[0]["application_term"] == strtoupper("AUGUST") ? "selected" : "" ?>>August Intake</option>
@@ -27,7 +27,7 @@ $about_us = $user->fetchHowYouKnowUs($user_id);
             </select>
         </div>
         <div class="mb-4">
-            <label class="form-label" for="study-stream">Choose a study streams</label>
+            <label class="form-label" for="study-stream">Choose a study stream <span class="input-required">*</span></label>
             <select required name="study-stream" id="study-stream" class="transform-text form-select-option form-select form-select-sm mb-3">
                 <option value="" hidden>Select</option>
                 <option value="REGULAR" <?= $personal_AB[0]["study_stream"] == strtoupper("REGULAR") ? "selected" : "" ?>>Regular</option>
@@ -64,7 +64,7 @@ $about_us = $user->fetchHowYouKnowUs($user_id);
             </div>
         </div>
         <div class="mb-4">
-            <label class="form-label" for="app-prog-first">First (1<sup>st</sup>) Choice <span class="input-required">*</span></label>
+            <label class="form-label" for="app-prog-first">Choose a programme <span class="input-required">*</span></label>
             <select required name="app-prog-first" id="app-prog-first" class="transform-text form-select-option form-select form-select-sm mb-3">
                 <option hidden value="">Choose </option>
                 <?php
@@ -77,7 +77,7 @@ $about_us = $user->fetchHowYouKnowUs($user_id);
                 ?>
             </select>
         </div>
-        <div class="mb-4">
+        <!--<div class="mb-4">
             <label class="form-label" for="app-prog-second"> Second (2<sup>nd</sup>) Choice <span class="input-required">*</span></label>
             <select required name="app-prog-second" id="app-prog-second" class="transform-text form-select-option form-select form-select-sm mb-3">
                 <option hidden value="">Choose </option>
@@ -90,6 +90,6 @@ $about_us = $user->fetchHowYouKnowUs($user_id);
                 }
                 ?>
             </select>
-        </div>
+        </div>-->
     </div>
 </fieldset>

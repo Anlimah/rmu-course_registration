@@ -561,6 +561,12 @@ class UsersController
         return $this->dm->getData($query, array(':a' => $user_id));
     }
 
+    public function fetchUploadedDocsByType($user_id, $type)
+    {
+        $query = "SELECT * FROM `applicant_uploads` WHERE `app_login` = :a AND `type`=:t";
+        return $this->dm->getData($query, array(':a' => $user_id, ':t' => $type));
+    }
+
     public function deleteUploadedFile($serial_number, $user_id)
     {
         $data = [];

@@ -52,10 +52,10 @@ $page = array("id" => 4, "name" => "Uploads");
                         </div>
 
                         <!-- Page form -->
-                        <form class="needs-validation" id="appForm" name="4" method="POST" novalidate>
-                            <?php require_once("forms/documents-upload.php") ?>
+                        <?php require_once("forms/documents-upload.php") ?>
 
-                            <!-- Bottom page navigation -->
+                        <!-- Bottom page navigation -->
+                        <form class="needs-validation" id="appForm" name="4" method="POST" novalidate>
                             <?php require_once("../../inc/bottom-page-section.php"); ?>
                         </form>
                         <?php require_once("../../inc/document-upload.php") ?>
@@ -121,6 +121,7 @@ $page = array("id" => 4, "name" => "Uploads");
                 $("#fileUploadSuccess").text("");
                 $("#20eh29v1Tf").val("");
             });
+
             $("#attach-tscript-btn").click(function() {
                 $("#reset-upload").click();
                 $(".mb-4").removeClass("has-error");
@@ -133,6 +134,7 @@ $page = array("id" => 4, "name" => "Uploads");
                 $("#fileUploadSuccess").text("");
                 $("#20eh29v1Tf").val("");
             });
+
             $("#add-education-btn").click(function() {});
 
             $("#doc-type").change("blur", function(e) {
@@ -157,7 +159,7 @@ $page = array("id" => 4, "name" => "Uploads");
                 $("#fileUploadSuccess").text("Uploading File: " + document.getElementById('upload-file').files[0].name);
             });
 
-            $("#doc-upload-form").on("submit", function(e) {
+            $("#doc-upload-form, #cv-upload-form, #recommend-upload-form").on("submit", function(e) {
                 e.preventDefault();
                 $.ajax({
                     type: "POST",

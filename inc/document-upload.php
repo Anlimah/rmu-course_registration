@@ -23,7 +23,7 @@
                         <p id="fileUploadSuccess"></p>
                         <div style="display:flex !important; flex-direction:row !important; justify-content:baseline !important;">
                             <label for="upload-file" class="form-label upload-photo-label btn btn-warning">Choose file <span class="bi bi-upload" style="margin-left: 5px"></span></label>
-                            <input type="file" name="upload-file" id="upload-file" class="hide" accept=".pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+                            <input type="file" name="upload-file" id="upload-file" class="hide" accept=".pdf">
                             <p class="feedback" style="text-align: center; margin-left: 10px"></p>
                         </div>
                     </div>
