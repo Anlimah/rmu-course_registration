@@ -61,6 +61,6 @@ $appStatus = $user->getApplicationStatus($user_id);
                 ?>
             </div>
         </div>
-        <p><b><span style=" color: brown">Allowed file types:</span></b> .pdf, .docx, .doc</p>
+        <p><b><span style=" color: brown">Allowed file types:</span></b> PDF</p>
     </div>
 </fieldset>
