@@ -12,7 +12,7 @@
             </div>
             <div class="board-items">
                 <span class="bi bi-envelope-fill"></span>
-                <a class="info" href="mailto:admissions@rmu.edu.gh">admissions@rmu.edu.gh</a>
+                <a class="info" href="mailto:admissions@rmu.edu.gh">admission@rmu.edu.gh</a>
             </div>
         </div>
     </div>

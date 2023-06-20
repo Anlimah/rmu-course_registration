@@ -2,7 +2,6 @@
 
 namespace Src\Controller;
 
-use Twilio\Rest\Client;
 use Src\System\DatabaseMethods;
 
 class ExposeDataController
@@ -56,28 +55,5 @@ class ExposeDataController
             return mail($recipient_email, $subject, $message, $headers);
         }
         return 0;
-    }
-
-    public function sendSMS($recipient_number, $otp_code, $message, $ISD = '+233')
-    {
-
-        $sid = getenv('TWILIO_SID');
-        $token = getenv('TWILIO_TKN');
-        $client = new Client($sid, $token);
-
-        //prepare SMS message
-        $to = $ISD . $recipient_number;
-        $account_phone = getenv('TWILIO_PNM');
-        $from = array('from' => $account_phone, 'body' => $message . ' ' . $otp_code);
-
-        //send SMS
-        $response = $client->messages->create($to, $from);
-        if ($response->sid) {
-            $_SESSION['sms_code'] = $otp_code;
-            $_SESSION['sms_sid'] = $response->sid;
-            if (isset($_SESSION['sms_code']) && !empty($_SESSION['sms_code']) && isset($_SESSION['sms_sid']) && !empty($_SESSION['sms_sid'])) return 1;
-        } else {
-            return 0;
-        }
     }
 }

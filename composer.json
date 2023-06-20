@@ -1,7 +1,6 @@
 {
     "require": {
-        "vlucas/phpdotenv": "^2.4",
-        "twilio/sdk": "^6.37"
+        "vlucas/phpdotenv": "^2.4"
     },
     "autoload": {
         "psr-4": {
