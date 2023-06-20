@@ -188,7 +188,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
         if ($_POST["cert_type"] == "OTHER" && empty($_POST["other_cert_type"])) {
             $errors['cert_type'] = 'Specify the name of certificate earned!';
-        } else if ($_POST["cert_type"] == "OTHER" && !empty($_POST["other_cert_type"])) {
+        } else if (($_POST["cert_type"] == "OTHER" || $_POST["cert_type"] == "MASTERS" || $_POST["cert_type"] == "DEGREE" || $_POST["cert_type"] == "DIPLOMA") && !empty($_POST["other_cert_type"])) {
             $cert_type = $user->validateInputTextOnly($_POST["cert_type"]);
             $other_cert_type = $user->validateInputTextOnly($_POST["other_cert_type"]);
             if ($cert_type['status'] == "error") {
@@ -236,9 +236,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $other_course_studied = [];
         $other_course_studied["message"] = "";
 
-        if ($_POST["cert_type"] == "OTHER" && empty($_POST["other_course_studied"])) {
+        if (($_POST["cert_type"] == "OTHER" || $_POST["cert_type"] == "MASTERS" || $_POST["cert_type"] == "DEGREE" || $_POST["cert_type"] == "DIPLOMA") && empty($_POST["other_course_studied"])) {
             $errors['course_studied'] = 'Course or programme of study required!';
-        } else if ($_POST["cert_type"] == "OTHER" && !empty($_POST["other_course_studied"])) {
+        } else if (($_POST["cert_type"] == "OTHER" || $_POST["cert_type"] == "MASTERS" || $_POST["cert_type"] == "DEGREE" || $_POST["cert_type"] == "DIPLOMA") && !empty($_POST["other_course_studied"])) {
             $course_studied = $user->validateInputTextOnly($_POST["course_studied"]);
             $other_course_studied = $user->validateInputTextOnly($_POST["other_course_studied"]);
             if ($course_studied['status'] == "error") {
@@ -252,7 +252,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         }
 
         //$awaiting_result = ($_POST["cert_type"] == "OTHER") ? 1 : $_POST["awaiting_result"];
-        if ($_POST["cert_type"] == "OTHER") $awaiting_result = 1;
+        if ($_POST["cert_type"] == "OTHER" || $_POST["cert_type"] == "MASTERS" || $_POST["cert_type"] == "DEGREE" || $_POST["cert_type"] == "DIPLOMA") $awaiting_result = 1;
         else $awaiting_result = $_POST["awaiting_result"];
 
         if ($awaiting_result == 0) {
@@ -486,7 +486,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
             }
         }
 
-        if ($_POST["cert_type"] == "OTHER") $awaiting_result = 1;
+        if ($_POST["cert_type"] == "OTHER" || $_POST["cert_type"] == "MASTERS" || $_POST["cert_type"] == "DEGREE" || $_POST["cert_type"] == "DIPLOMA") $awaiting_result = 1;
         else $awaiting_result = (int) $_POST["edit-awaiting-result"];
 
         if ($awaiting_result == 0) {

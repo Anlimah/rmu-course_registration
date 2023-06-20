@@ -545,7 +545,7 @@ $(document).ready(function () {
                 $(".edit-other-course-studied").slideDown();
                 $(".edit-waec-course-content").slideUp();
 
-                if (data["aca"][0]["cert_type"] == "OTHER") $(".edit-sepcific-cert").slideDown();
+                if (data["aca"][0]["cert_type"] == "OTHER" || data["aca"][0]["cert_type"] == "DIPLOMA" || data["aca"][0]["cert_type"] == "DEGREE" || data["aca"][0]["cert_type"] == "MASTERS") $(".edit-sepcific-cert").slideDown();
 
                 /*$("#edit-awaiting-result-yes").prop("checked", "checked");
                 $("#edit-awaiting-result-no").prop("checked", "");*/

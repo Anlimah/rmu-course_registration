@@ -108,9 +108,9 @@ $courses = $user->fetchCourses();
                             <label class="form-label" for="cert-type">Certificate or degree Earned <span class="input-required">*</span></label>
                             <select class="edu-mod-select form-select form-select-sm" name="cert-type" id="cert-type">
                                 <option value="Select" hidden>Select</option>
+                                <option value="DIPLOMA">DIPLOMA</option>
                                 <option value="DEGREE">DEGREE</option>
                                 <option value="MASTERS">MASTERS</option>
-                                <option value="OTHER">OTHER</option>
                             </select>
                             <div class="div-container mt-4 sepcific-cert" style="display: none">
                                 <label class="form-label" for="other-cert-type"> Specify the certificate name <span class="input-required">*</span></label>
@@ -141,6 +141,7 @@ $courses = $user->fetchCourses();
                                 </select>
                                 <select class="edu-mod-date-y form-select form-select-sm" name="year-started" id="year-started">
                                     <option value="Year" hidden>Year</option>
+                                    <option value="2023">2023</option>
                                     <option value="2022">2022</option>
                                     <option value="2021">2021</option>
                                     <option value="2020">2020</option>
@@ -197,7 +198,7 @@ $courses = $user->fetchCourses();
                                 </select>
                                 <select class="edu-mod-date-y form-select form-select-sm" name="year-completed" id="year-completed">
                                     <option value="Year" hidden>Year</option>
-                                    <option value="2022">2022</option>
+                                    <option value="2023">2023</option>
                                     <option value="2021">2021</option>
                                     <option value="2020">2020</option>
                                     <option value="2019">2019</option>
@@ -251,6 +252,192 @@ $courses = $user->fetchCourses();
                 <button type="button" class="btn btn-primary" id="nextStep">Next Step</button>
                 <p>Step <span class="step-count">1</span> of 3</p>
                 <button type="button" class="btn btn-secondary hide" id="prevStep">Prev. Step</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End of Modal-->
+
+<!-- Edit education history Modal -->
+<div class="modal fade" id="editSchoolModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-2" aria-labelledby="editStaticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class=" modal-header">
+                <h5 class="modal-title" id="editStaticBackdropLabel">Edit Education History</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="edit-education-form" name="edit-education-form">
+                    <div id="edit-step-1" class="steps">
+                        <div class="mb-4" id="edit-sch-name-group">
+                            <label class="form-label" for="edit-sch-name">School Name <span class="input-required">*</span></label>
+                            <input placeholder="School" class="transform-text edu-mod-text form-control" type="text" name="edit-sch-name" id="edit-sch-name">
+                        </div>
+                        <div class="mb-4" id="edit-sch-country-group">
+                            <label class="form-label" for="edit-sch-country">School Country <span class="input-required">*</span></label>
+                            <input placeholder="Country" class="transform-text edu-mod-text form-control" type="text" name="edit-sch-country" id="edit-sch-country">
+                        </div>
+                        <div class="mb-4" id="edit-sch-region-group">
+                            <label class="form-label" for="edit-sch-region">School Province/Region <span class="input-required">*</span></label>
+                            <input placeholder="Province/Region" class="transform-text edu-mod-text form-control" type="text" name="edit-sch-region" id="edit-sch-region">
+                        </div>
+                        <div class="mb-4" id="edit-sch-city-group">
+                            <label class="form-label" for="edit-sch-city">School City <span class="input-required">*</span></label>
+                            <input placeholder="City" class="transform-text edu-mod-text form-control" type="text" name="edit-sch-city" id="edit-sch-city">
+                        </div>
+                    </div>
+                    <div id="edit-step-2" class="steps hide">
+                        <div class="mb-4" id="edit-cert-type-group">
+                            <label class="form-label" for="edit-cert-type">Certificate or degree earned <span class="input-required">*</span></label>
+                            <select class="transform-text edu-mod-select form-select form-select-sm" name="edit-cert-type" id="edit-cert-type" style="background-color: red;">
+                                <option value="Select" hidden>Select</option>
+                                <option value="DIPLOMA">DIPLOMA</option>
+                                <option value="DEGREE">DEGREE</option>
+                                <option value="MASTERS">MASTERS</option>
+                            </select>
+                            <div class="div-container mt-4 edit-sepcific-cert" style="display: none">
+                                <label class="form-label" for="edit-other-cert-type"> Specify the certificate name <span class="input-required">*</span></label>
+                                <input type="text" id="edit-other-cert-type" name="edit-other-cert-type" class="transform-text edu-mod-text form-control" placeholder="Input certificate">
+                            </div>
+                        </div>
+                        <div class="mb-4" id="edit-index-number-group">
+                            <label class="form-label" for="edit-index-number">Index Number <span class="input-required">*</span></label>
+                            <input placeholder="Index Number" class="transform-text edu-mod-text form-control" type="text" name="edit-index-number" id="edit-index-number" placeholder="Index Number">
+                        </div>
+                        <div class="mb-4" id="edit-date-started-group">
+                            <label class="form-label" for="completion-date">Date Started <span class="input-required">*</span></label>
+                            <div style="max-width: 280px !important; display:flex; flex-direction:row; justify-content: space-between">
+                                <select name="edit-month-started" id="edit-month-started" class="transform-text edu-mod-date-m form-select form-select-sm" style="margin-right: 10px;">
+                                    <option value="Month" hidden>Month</option>
+                                    <option value="Jan">Jan</option>
+                                    <option value="Feb">Feb</option>
+                                    <option value="Mar">Mar</option>
+                                    <option value="Apr">Apr</option>
+                                    <option value="May">May</option>
+                                    <option value="Jun">Jun</option>
+                                    <option value="Jul">Jul</option>
+                                    <option value="Aug">Aug</option>
+                                    <option value="Sep">Sep</option>
+                                    <option value="Oct">Oct</option>
+                                    <option value="Nov">Nov</option>
+                                    <option value="Dec">Dec</option>
+                                </select>
+                                <select name="edit-year-started" id="edit-year-started" class="transform-text edu-mod-date-y form-select form-select-sm">
+                                    <option value="Year" hidden>Year</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2022">2022</option>
+                                    <option value="2021">2021</option>
+                                    <option value="2020">2020</option>
+                                    <option value="2019">2019</option>
+                                    <option value="2018">2018</option>
+                                    <option value="2017">2017</option>
+                                    <option value="2016">2016</option>
+                                    <option value="2015">2015</option>
+                                    <option value="2014">2014</option>
+                                    <option value="2013">2013</option>
+                                    <option value="2012">2012</option>
+                                    <option value="2011">2011</option>
+                                    <option value="2010">2010</option>
+                                    <option value="2009">2009</option>
+                                    <option value="2008">2008</option>
+                                    <option value="2007">2007</option>
+                                    <option value="2006">2006</option>
+                                    <option value="2005">2005</option>
+                                    <option value="2004">2004</option>
+                                    <option value="2003">2003</option>
+                                    <option value="2002">2002</option>
+                                    <option value="2001">2001</option>
+                                    <option value="2000">2000</option>
+                                    <option value="1999">1999</option>
+                                    <option value="1998">1998</option>
+                                    <option value="1997">1997</option>
+                                    <option value="1996">1996</option>
+                                    <option value="1995">1995</option>
+                                    <option value="1994">1994</option>
+                                    <option value="1993">1993</option>
+                                    <option value="1992">1992</option>
+                                    <option value="1991">1991</option>
+                                    <option value="1990">1990</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-4" id="edit-date-completed-group">
+                            <label class="form-label" for="completion-date">Date Completed <span class="input-required">*</span></label>
+                            <div style="max-width: 280px !important; display:flex; flex-direction:row; justify-content: space-between">
+                                <select name="edit-month-completed" id="edit-month-completed" class="transform-text edu-mod-date-m form-select form-select-sm" style="margin-right: 10px;">
+                                    <option value="Month" hidden>Month</option>
+                                    <option value="Jan">Jan</option>
+                                    <option value="Feb">Feb</option>
+                                    <option value="Mar">Mar</option>
+                                    <option value="Apr">Apr</option>
+                                    <option value="May">May</option>
+                                    <option value="Jun">Jun</option>
+                                    <option value="Jul">Jul</option>
+                                    <option value="Aug">Aug</option>
+                                    <option value="Sep">Sep</option>
+                                    <option value="Oct">Oct</option>
+                                    <option value="Nov">Nov</option>
+                                    <option value="Dec">Dec</option>
+                                </select>
+                                <select name="edit-year-completed" id="edit-year-completed" class="transform-text edu-mod-date-y form-select form-select-sm">
+                                    <option value="Year" hidden>Year</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2022">2022</option>
+                                    <option value="2021">2021</option>
+                                    <option value="2020">2020</option>
+                                    <option value="2019">2019</option>
+                                    <option value="2018">2018</option>
+                                    <option value="2017">2017</option>
+                                    <option value="2016">2016</option>
+                                    <option value="2015">2015</option>
+                                    <option value="2014">2014</option>
+                                    <option value="2013">2013</option>
+                                    <option value="2012">2012</option>
+                                    <option value="2011">2011</option>
+                                    <option value="2010">2010</option>
+                                    <option value="2009">2009</option>
+                                    <option value="2008">2008</option>
+                                    <option value="2007">2007</option>
+                                    <option value="2006">2006</option>
+                                    <option value="2005">2005</option>
+                                    <option value="2004">2004</option>
+                                    <option value="2003">2003</option>
+                                    <option value="2002">2002</option>
+                                    <option value="2001">2001</option>
+                                    <option value="2000">2000</option>
+                                    <option value="1999">1999</option>
+                                    <option value="1998">1998</option>
+                                    <option value="1997">1997</option>
+                                    <option value="1996">1996</option>
+                                    <option value="1995">1995</option>
+                                    <option value="1994">1994</option>
+                                    <option value="1993">1993</option>
+                                    <option value="1992">1992</option>
+                                    <option value="1991">1991</option>
+                                    <option value="1990">1990</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="edit-step-3" class="steps hide">
+                        <div class="mb-4" id="edit-course-studied-group">
+                            <label class="form-label" for="course-studied">Course/Program of Study <span class="input-required">*</span></label>
+                            <div class="edit-other-course-studied" style="display: none">
+                                <input type="text" name="edit-other-course-studied" id="edit-other-course-studied" class="transform-text edu-mod-text form-control" placeholder="Enter course studied">
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" name="edit-20eh29v1Tf" id="edit-20eh29v1Tf" value="1">
+                    <input type="reset" name="edit-reset" id="edit-reset" style="display: none;">
+                    <input type="hidden" name="edit-awaiting_result_value" id="edit-awaiting_result_value" value="0">
+                    <input type="submit" id="submit-edit-education-form" style="display: none">
+                </form>
+            </div>
+            <div class="modal-footer" style="display: flex !important; flex-direction: row-reverse !important; justify-content: space-between !important;">
+                <label for="submit-edit-education-form" class="btn btn-primary hide" id="edit-save-education-btn" style="width: 120px;">Save and Close</label>
+                <button type="button" class="btn btn-primary" id="edit-nextStep">Next Step</button>
+                <p>Step 1 of 4</p>
+                <button type="button" class="btn btn-secondary hide" id="edit-prevStep">Prev. Step</button>
             </div>
         </div>
     </div>

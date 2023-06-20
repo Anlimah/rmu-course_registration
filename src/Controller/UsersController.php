@@ -157,7 +157,7 @@ class UsersController
             return array("status" => "error", "message" => "required");
         }
 
-        if ($input < 1990 || $input > 2022) {
+        if ($input < 1990 || $input > 2023) {
             return array("status" => "error", "message" => "invalid");
         }
 

@@ -139,6 +139,7 @@ $courses = $user->fetchCourses();
                                 <div class="col-6">
                                     <select class="edu-mod-date-y form-select form-select-sm" name="year-completed" id="year-completed">
                                         <option value="Year" hidden>Year</option>
+                                        <option value="2023">2023</option>
                                         <option value="2022">2022</option>
                                         <option value="2021">2021</option>
                                         <option value="2020">2020</option>

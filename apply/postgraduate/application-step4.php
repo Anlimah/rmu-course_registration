@@ -89,9 +89,9 @@ $page = array("id" => 4, "name" => "Uploads");
                 // Loop over them and prevent submission
                 Array.from(forms).forEach(form => {
                     form.addEventListener('submit', event => {
-                        event.preventDefault()
+                        event.preventDefault();
                         if (!form.checkValidity()) {
-                            event.stopPropagation()
+                            event.stopPropagation();
                             incompleteForm = true;
                             $("#page_info_text").removeClass("hide");
                             $("#page_info_text").addClass("display");
@@ -159,8 +159,18 @@ $page = array("id" => 4, "name" => "Uploads");
                 $("#fileUploadSuccess").text("Uploading File: " + document.getElementById('upload-file').files[0].name);
             });
 
-            $("#doc-upload-form, #cv-upload-form, #recommend-upload-form").on("submit", function(e) {
+            $("#doc-upload-form, #cv-upload-form, #sop-upload-form, #nid-upload-form, #recommend-upload-form").on("submit", function(e) {
                 e.preventDefault();
+
+                // Get the file input element
+                var fileInput = $(this).find("input[type='file']");
+
+                // Check if a file is selected
+                if (fileInput.get(0).files.length === 0) {
+                    alert("Please select a file.");
+                    return;
+                }
+
                 $.ajax({
                     type: "POST",
                     url: "../../api/certificates",
@@ -178,21 +188,24 @@ $page = array("id" => 4, "name" => "Uploads");
             });
 
             $(".delete-file").click(function() {
-                $.ajax({
-                    type: "DELETE",
-                    url: "../../api/upload-file",
-                    data: {
-                        what: this.id
-                    },
-                    dataType: "json",
-                    encode: true,
-                }).done(function(data) {
-                    console.log(data);
-                    if (data.success) {
-                        alert(data.message);
-                        window.location.reload();
-                    }
-                });
+                var c = confirm("Are you sure you want to delete this file?");
+                if (c) {
+                    $.ajax({
+                        type: "DELETE",
+                        url: "../../api/upload-file",
+                        data: {
+                            what: this.id
+                        },
+                        dataType: "json",
+                        encode: true,
+                    }).done(function(data) {
+                        console.log(data);
+                        if (data.success) {
+                            alert(data.message);
+                            window.location.reload();
+                        }
+                    });
+                }
             });
 
             $("#appForm").on("submit", function() {

@@ -10,6 +10,8 @@ $user = new UsersController();
 $academic_BG = $user->fetchApplicantAcaB($user_id);
 $uploads = $user->fetchUploadedDocs($user_id);
 $cv = $user->fetchUploadedDocsByType($user_id, 'cv');
+$sop = $user->fetchUploadedDocsByType($user_id, 'personal_stmt');
+$nid = $user->fetchUploadedDocsByType($user_id, 'national_id');
 $recommendations = $user->fetchUploadedDocsByType($user_id, 'recommendation');
 $appStatus = $user->getApplicationStatus($user_id);
 
@@ -21,7 +23,8 @@ $appStatus = $user->getApplicationStatus($user_id);
     </div>
     <div class="col-md-8 col-sm-12">
         <div class="mb-4">
-            <p>Upload scanned copies of certificates and transcripts related to the education information you provide in the education background section.</p>
+            <p>Upload <b>certified true copies</b> of certificates and transcripts related to the education information you provide in the education background section.</p>
+            <p>For <b>Upgraders</b>, you are required to submit <b>Statement of Results</b> (SOR) from GMA as your transcript(s).</p>
         </div>
         <div class="mb-4">
             <button type="button" id="attach-cert-btn" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#addDocumentModal">Upload</button>
@@ -83,7 +86,7 @@ $appStatus = $user->getApplicationStatus($user_id);
                         <input type="file" name="upload-file" id="cv-file" accept=".pdf" class="form-control">
                     </div>
                     <div>
-                        <button type="submit" class="btn btn-primary" class="hide">Save CV</button>
+                        <button type="submit" class="btn btn-primary" class="hide">Save</button>
                     </div>
                     <input type="hidden" class="edu-mod-select form-select form-select-sm" name="doc-type" value="cv">
                 </form>
@@ -121,8 +124,9 @@ $appStatus = $user->getApplicationStatus($user_id);
     <div class="col-md-8 col-sm-12">
         <div class="mb-4">
             <p>
-                This application process requires two letters of recommendation. We strongly prefer a letter from your current direct supervisor.
-                If you have very little to no professional work experience, you can use a recommender that you've worked with in a professional capacity, such as a thesis advisor.</p>
+                This application process requires <b>two letters</b> of recommendation. We strongly prefer a letter from your current direct supervisor.
+                If you have very little to no professional work experience, you can use a recommender that you've worked with in a professional capacity, such as a thesis advisor.
+            </p>
         </div>
         <div class="mb-4">
 
@@ -132,7 +136,7 @@ $appStatus = $user->getApplicationStatus($user_id);
                         <input type="file" name="upload-file" id="recommend-file" accept=".pdf" class="form-control">
                     </div>
                     <div>
-                        <button type="submit" class="btn btn-primary">Save recommendations</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                     <input type="hidden" class="edu-mod-select form-select form-select-sm" name="doc-type" value="recommendation">
                 </form>
@@ -166,6 +170,100 @@ $appStatus = $user->getApplicationStatus($user_id);
                                 $ind += 1;
                             }
                             ?>
+                        </tbody>
+                    </table>
+                </div>
+            <?php } ?>
+        </div>
+        <p><b><span style=" color: brown">Allowed file types:</span></b> PDF</p>
+    </div>
+</fieldset>
+
+<fieldset class="fieldset row">
+    <div class="col-md-4 col-sm-12">
+        <legend>Personal Statement</legend>
+    </div>
+    <div class="col-md-8 col-sm-12">
+        <div class="mb-4">
+            <p>Upload a copy of your Personal Statement (PS) or Statement of Purpose (SOP).</p>
+        </div>
+        <div class="mb-4">
+
+            <?php if (empty($sop)) { ?>
+                <form id="sop-upload-form" name="sop-upload-form" method="POST" action="" enctype="multipart/form-data">
+                    <div class="mb-4">
+                        <input type="file" name="upload-file" id="sop-file" accept=".pdf" class="form-control">
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary" class="hide">Save</button>
+                    </div>
+                    <input type="hidden" class="edu-mod-select form-select form-select-sm" name="doc-type" value="sop">
+                </form>
+            <?php } ?>
+
+            <?php if (!empty($sop)) { ?>
+                <div class="curriculum-vitae mb-4">
+                    <table class="table table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th scope="col">DOCUMENT TYPE</th>
+                                <th scope="col">DATE UPLOADED</th>
+                                <th scope="col"> </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><?= ucwords(strtoupper($sop[0]["type"])) ?></td>
+                                <td><?= ucwords(strtolower($sop[0]["updated_at"])) ?></td>
+                                <td> <button type="button" style="cursor: pointer;" class="btn btn-danger btn-sm delete-file" id="tran-delete-<?= $sop[0]["id"] ?>" title="Delete"><span class="bi bi-trash"></span></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            <?php } ?>
+        </div>
+        <p><b><span style=" color: brown">Allowed file types:</span></b> PDF</p>
+    </div>
+</fieldset>
+
+<fieldset class="fieldset row">
+    <div class="col-md-4 col-sm-12">
+        <legend>National ID</legend>
+    </div>
+    <div class="col-md-8 col-sm-12">
+        <div class="mb-4">
+            <p>Upload a scanned copy of any National ID of yours.</p>
+        </div>
+        <div class="mb-4">
+
+            <?php if (empty($nid)) { ?>
+                <form id="nid-upload-form" name="nid-upload-form" method="POST" action="" enctype="multipart/form-data">
+                    <div class="mb-4">
+                        <input type="file" name="upload-file" id="nid-file" accept=".pdf" class="form-control">
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary" class="hide">Save</button>
+                    </div>
+                    <input type="hidden" class="edu-mod-select form-select form-select-sm" name="doc-type" value="nid">
+                </form>
+            <?php } ?>
+
+            <?php if (!empty($nid)) { ?>
+                <div class="national-id mb-4">
+                    <table class="table table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th scope="col">DOCUMENT TYPE</th>
+                                <th scope="col">DATE UPLOADED</th>
+                                <th scope="col"> </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><?= ucwords(strtoupper($nid[0]["type"])) ?></td>
+                                <td><?= ucwords(strtolower($nid[0]["updated_at"])) ?></td>
+                                <td> <button type="button" style="cursor: pointer;" class="btn btn-danger btn-sm delete-file" id="tran-delete-<?= $nid[0]["id"] ?>" title="Delete"><span class="bi bi-trash"></span></button></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
