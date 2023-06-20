@@ -400,6 +400,7 @@ $courses = $user->fetchCourses();
                                 </select>
                                 <select name="edit-year-completed" id="edit-year-completed" class="transform-text edu-mod-date-y form-select form-select-sm">
                                     <option value="Year" hidden>Year</option>
+                                    <option value="2022">2023</option>
                                     <option value="2022">2022</option>
                                     <option value="2021">2021</option>
                                     <option value="2020">2020</option>
