@@ -603,4 +603,10 @@ class UsersController
         $query = "SELECT `photo` FROM `personal_information` WHERE `app_login` = :a";
         return $this->dm->getData($query, array(':a' => $user_id));
     }
+
+    public function fetchApplicationStatus($appID)
+    {
+        $query = "SELECT `reviewed`, `admitted`, `declined` FROM `form_sections_chek` WHERE `app_login` = :i";
+        return $this->dm->getData($query, array(":i" => $appID));
+    }
 }
