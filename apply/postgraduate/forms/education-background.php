@@ -15,7 +15,7 @@ require_once('../../inc/page-data.php');
 
 <fieldset class="fieldset row" id="graduate">
     <div class="col-md-4 col-sm-12">
-        <legend>Which Secondary/High Schools have you attended?</legend>
+        <legend>Which schools have you attended?</legend>
     </div>
 
     <div class="col-md-8 col-sm-12">

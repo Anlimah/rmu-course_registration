@@ -718,12 +718,17 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
             }
             if ($form == 4) {
                 $column = "uploads";
-                $total_upl = $user->getTotalAppUploads($_SESSION['ghApplicant']);
-                if (!empty($total_upl[0]["total"])) {
+                $acaB = $user->fetchApplicantAcaB($_SESSION['ghApplicant']);
+                if (!empty($acaB) && $acaB[0]["awaiting_result"] == 1) {
                     $go = true;
                 } else {
-                    $go = false;
-                    $data["message"] = "Upload at least one education certificate and/or other relevant documents.";
+                    $total_upl = $user->getTotalAppUploads($_SESSION['ghApplicant']);
+                    if (!empty($total_upl[0]["total"])) {
+                        $go = true;
+                    } else {
+                        $go = false;
+                        $data["message"] = "Upload at least one education certificate and/or other relevant documents.";
+                    }
                 }
             }
             if ($form == 5) {

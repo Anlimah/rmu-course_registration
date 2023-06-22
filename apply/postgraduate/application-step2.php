@@ -51,10 +51,9 @@ $page = array("id" => 2, "name" => "Education Background");
                             </div>
                         </div>
 
+                        <?php require_once("forms/education-background.php") ?>
                         <!-- Page form -->
                         <form class="needs-validation" id="appForm" name="2" method="#" novalidate>
-                            <?php require_once("forms/education-background.php") ?>
-
                             <!-- Bottom page navigation -->
                             <?php require_once("../../inc/bottom-page-section.php"); ?>
                         </form>
