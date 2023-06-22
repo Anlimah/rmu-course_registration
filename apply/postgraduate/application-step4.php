@@ -46,7 +46,7 @@ $page = array("id" => 4, "name" => "Uploads");
                         <div id="page_info" style="margin-bottom: 0px !important;">
                             <h1>Uploads</h1>
                             <div class="alert alert-danger text-danger hide" id="page_info_text" style="width: 100%; border: none !important">
-                                <label class="text-danger">This form has errors:</label>
+                                <label class="text-danger">This form is incomplete:</label>
                                 <p id="data_info">Provide values for all <b>required *</b> fields in the form.</p>
                             </div>
                         </div>
