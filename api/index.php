@@ -719,15 +719,46 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
             if ($form == 4) {
                 $column = "uploads";
                 $acaB = $user->fetchApplicantAcaB($_SESSION['ghApplicant']);
-                if (!empty($acaB) && $acaB[0]["awaiting_result"] == 1) {
+                if (!empty($acaB) && $acaB[0]["awaiting_result"] == 1 && $_SESSION['applicantType'] > 1) {
                     $go = true;
                 } else {
                     $total_upl = $user->getTotalAppUploads($_SESSION['ghApplicant']);
                     if (!empty($total_upl[0]["total"])) {
-                        $go = true;
+                        if ($_SESSION['applicantType'] == 1) {
+                            $files = $user->getApplicantUploads($_SESSION['ghApplicant']);
+                            if (count($files)) {
+                                $fileCount = 0;
+                                foreach ($files as $file) {
+                                    if (isset($file["type"]) && strtolower($file["type"]) == "certificate") {
+                                        $fileCount += 1;
+                                    } else if (isset($file["type"]) && strtolower($file["type"]) == "transcript") {
+                                        $fileCount += 1;
+                                    } else if (isset($file["type"]) && strtolower($file["type"]) == "cv") {
+                                        $fileCount += 1;
+                                    } else if (isset($file["type"]) && strtolower($file["type"]) == "recommendation") {
+                                        $fileCount += 1;
+                                    } else if (isset($file["type"]) && strtolower($file["type"]) == "nid") {
+                                        $fileCount += 1;
+                                    } else if (isset($file["type"]) && strtolower($file["type"]) == "sop") {
+                                        $fileCount += 1;
+                                    }
+                                }
+                                if ($fileCount >= 7) {
+                                    $go = true;
+                                } else {
+                                    $go = false;
+                                    $data["message"] = "Please, make sure to provide all the relevant documents stated below.";
+                                }
+                            } else {
+                                $go = false;
+                                $data["message"] = "Upload your education certificate and all other relevant documents stated below.";
+                            }
+                        } else {
+                            $go = true;
+                        }
                     } else {
                         $go = false;
-                        $data["message"] = "Upload at least one education certificate and/or other relevant documents.";
+                        $data["message"] = "Upload your education certificate and all other relevant documents stated below.";
                     }
                 }
             }
