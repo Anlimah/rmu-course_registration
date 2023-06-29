@@ -330,7 +330,7 @@ require_once('../../inc/page-data.php');
     </div>
 </fieldset>
 
-<!--<fieldset class="fieldset row">
+<fieldset class="fieldset row">
     <div class="col-md-4 col-sm-12">
         <legend>Parent / Guardian Information</legend>
     </div>
@@ -383,4 +383,37 @@ require_once('../../inc/page-data.php');
             <input class="transform-text form-control" type="email" name="gd-email-address" id="gd-email-address" value="<?= $personal[0]["p_email_addr"] ?>">
         </div>
     </div>
-</fieldset>-->
+</fieldset>
+
+<fieldset class="fieldset row">
+    <div class="col-md-4 col-sm-12">
+        <legend>Emergency Contact</legend>
+    </div>
+    <div class="col-md-8 col-sm-12">
+        <div class="mb-4">
+            <label class="form-label" for="e-full-name">Full Name <span class="input-required">*</span></label>
+            <input required class="transform-text form-control" type="text" name="e-full-name" id="e-full-name" value="<?= $personal[0]["e_contact_name"] ?>">
+        </div>
+        <div class="mb-4">
+            <label class="form-label" for="e-phone-number">Phone Number <span class="input-required">*</span></label>
+            <div class="div-container flex-row justify-space-between">
+                <select required class="transform-text form-select form-select-sm country-code" name="e-phone-number-code" id="e-phone-number-code" style="margin-right: 10px; width: 40%">
+                    <option value="" hidden>Select</option>
+                    <?php
+                    foreach (COUNTRIES as $cn) {
+                    ?>
+                        <option value="<?= $cn["code"] ?>" <?= $personal[0]["e_contact_code"] == $cn["code"] ? "selected" : "" ?>><?= $cn["name"] . " " . ($cn["code"]) ?></option>';
+
+                    <?php
+                    }
+                    ?>
+                </select>
+                <input required class="transform-text form-control form-select-sm" style="width: 60%" type="tel" name="e-phone-number" id="e-phone-number" value="<?= $personal[0]["e_contact_phone"] ?>">
+            </div>
+        </div>
+        <div class="mb-4">
+            <label class="form-label" for="e-email-address">Email Address</label>
+            <input class="transform-text form-control" type="email" name="e-email-address" id="e-email-address" value="<?= $personal[0]["e_contact_email"] ?>">
+        </div>
+    </div>
+</fieldset>

@@ -794,7 +794,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
         if (!isset($what) || empty($what)) die(json_encode(array("success" => false, "message" => "Invalid input!")));
 
-        if ($what == "other-number-code" || $what == "phone-number1-code" || $what == "gd-phone-number-code") {
+        if ($what == "other-number-code" || $what == "phone-number1-code" || $what == "gd-phone-number-code" || $what == "e-phone-number-code") {
             $code = str_replace("+", "", $value);
             $value = "+" . strtoupper($user->validatePhone($code));
         } else {
@@ -902,6 +902,20 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         }
         if ($column == "gd_email_address") {
             $column = 'p_email_addr';
+        }
+
+        //Parent/Guardian Legal Name
+        if ($column == "e_full_name") {
+            $column = 'e_contact_name';
+        }
+        if ($column == "e_phone_number_code") {
+            $column = 'e_contact_code';
+        }
+        if ($column == "e_phone_number") {
+            $column = 'e_contact_phone';
+        }
+        if ($column == "e_email_address") {
+            $column = 'e_contact_email';
         }
 
         $result = $user->updateApplicantInfo($column, $value, $_SESSION['ghApplicant']);
