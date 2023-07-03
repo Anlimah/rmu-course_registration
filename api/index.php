@@ -784,6 +784,13 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         }
         die(json_encode($data));
     }
+
+    //
+    else if ($_GET["url"] == "programmes-per-category") {
+        if (!isset($_POST["what"]) || empty($_POST["what"])) die(json_encode(array("success" => false, "message" => "Invalid input!")));
+        if (!isset($_POST["value"]) || empty($_POST["value"])) die(json_encode(array("success" => false, "message" => "Invalid input!")));
+        die(json_encode($user->fetchProgramesByProgramCode($_POST["value"])));
+    }
 } else if ($_SERVER['REQUEST_METHOD'] == "PUT") {
     parse_str(file_get_contents("php://input"), $_PUT);
 

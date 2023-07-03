@@ -618,4 +618,18 @@ class UsersController
         $query = "SELECT `reviewed`, `admitted`, `declined` FROM `form_sections_chek` WHERE `app_login` = :i";
         return $this->dm->getData($query, array(":i" => $appID));
     }
+
+    public function fetchProgramesByProgramCode($data)
+    {
+        $query = "";
+        switch ($data) {
+            case 'MASTERS':
+                $query = "SELECT * FROM programs WHERE program_code IN ('MSC', 'MA')";
+                break;
+            case 'UPGRADE':
+                $query = "SELECT * FROM programs WHERE program_code = 'UPGRADE'";
+                break;
+        }
+        return $this->dm->getData($query);
+    }
 }
