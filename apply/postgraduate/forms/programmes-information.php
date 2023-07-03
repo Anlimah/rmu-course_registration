@@ -86,7 +86,7 @@ $about_us = $user->fetchHowYouKnowUs($user_id);
                 }
                 ?>
             </select>
-            <p>Please choose the program as stated on the <b>Statement of Results</b> from GMA</p>
+            <span class="input-required">Please choose the program as stated on the <b>Statement of Results</b> from GMA</span>
         </div>
     </div>
 </fieldset>

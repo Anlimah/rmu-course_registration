@@ -141,12 +141,10 @@ $page = array("id" => 3, "name" => "Programmes Information");
                         data: data,
                         success: function(result) {
                             console.log(result);
-                            if (data.value == "UPGRADE") {
-
-                            }
                             $("#app-prog-first").html("<option hidden value=''>Choose </option>");
                             $.each(result, function(index, value) {
-                                $("#app-prog-first").append('<option value="' + value.name + '">' + value.name + (data.value == "UPGRADE") ? ' - (REGULATION ' + value.regulation + ')' : '' + '</option>');
+                                if (value.regulation) regulation = ' - ' + value.regulation;
+                                $("#app-prog-first").append('<option value="' + value.name + '">' + value.name + regulation + '</option>');
                             });
                             $(".app-prog-first").show();
                         },
