@@ -25,7 +25,7 @@ require_once('../../inc/page-data.php');
             </p>
 
             <?php
-            if ($app_type[0]["form_id"] == 1) { ?>
+            if (isset($app_type[0]["form_id"]) && $app_type[0]["form_id"] == 1) { ?>
                 <p>
                     </br>Many schools issue transcripts electronically, either through their own web services or through vendors. If this option is available through the institutions you attended, please specify that your transcript(s) be sent to the address below as this will expedite the delivery of your transcript(s) and the completion of your application: <a href="mailto:transcripts@rmu.edu.gh">transcripts@rmu.edu.gh</a>.
                 </p>
