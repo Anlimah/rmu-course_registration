@@ -143,7 +143,8 @@ $page = array("id" => 3, "name" => "Programmes Information");
                             console.log(result);
                             $("#app-prog-first").html("<option hidden value=''>Choose </option>");
                             $.each(result, function(index, value) {
-                                if (value.regulation) regulation = ' - ' + value.regulation;
+                                let regulation;
+                                if (data.value == "UPGRADE") regulation = ' - ' + value.regulation;
                                 $("#app-prog-first").append('<option value="' + value.name + '">' + value.name + regulation + '</option>');
                             });
                             $(".app-prog-first").show();
