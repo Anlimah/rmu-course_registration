@@ -128,22 +128,25 @@ $page = array("id" => 3, "name" => "Programmes Information");
             });
 
             $(".form-select-option").change("blur", function() {
-                var msg = "";
-
+                var msg = "a";
+                let selectedValue = this.value;
+                let data = {
+                    what: this.name,
+                    value: this.value,
+                };
                 if (this.name == "app-prog-category") {
                     $.ajax({
                         type: "POST",
                         url: "../../api/programmes-per-category",
-                        data: {
-                            what: this.name,
-                            value: this.value,
-                        },
+                        data: data,
                         success: function(result) {
                             console.log(result);
+                            if (data.value == "UPGRADE") {
+
+                            }
                             $("#app-prog-first").html("<option hidden value=''>Choose </option>");
                             $.each(result, function(index, value) {
-                                console.log(value.name)
-                                $("#app-prog-first").append('<option value="' + value.name + '">' + value.name + '</option>');
+                                $("#app-prog-first").append('<option value="' + value.name + '">' + value.name + (data.value == "UPGRADE") ? ' - (REGULATION ' + value.regulation + ')' : '' + '</option>');
                             });
                             $(".app-prog-first").show();
                         },
@@ -173,10 +176,7 @@ $page = array("id" => 3, "name" => "Programmes Information");
                     $.ajax({
                         type: "PUT",
                         url: "../../api/programmes",
-                        data: {
-                            what: this.name,
-                            value: this.value,
-                        },
+                        data: data,
                         success: function(result) {
                             console.log(result);
                             if (msg != "") {
