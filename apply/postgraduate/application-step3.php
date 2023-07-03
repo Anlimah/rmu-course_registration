@@ -148,6 +148,8 @@ $page = array("id" => 3, "name" => "Programmes Information");
                                 $("#app-prog-first").append('<option value="' + value.name + '">' + value.name + regulation + '</option>');
                             });
                             $(".app-prog-first").show();
+                            if (data.value == "UPGRADE") $(".upgrader-course-selection-note").show();
+                            else $(".upgrader-course-selection-note").hide();
                         },
                         error: function(error) {
                             console.log(error);

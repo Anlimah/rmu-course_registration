@@ -65,7 +65,7 @@ $about_us = $user->fetchHowYouKnowUs($user_id);
         </div>
         <div class="mb-4">
             <label class="form-label" for="app-prog-category">Programme category<span class="input-required">*</span></label>
-            <select required name="app-prog-category" id="app-prog-category" class="transform-text form-select-option form-select form-select-sm mb-3">
+            <select name="app-prog-category" id="app-prog-category" class="transform-text form-select-option form-select form-select-sm mb-3">
                 <option hidden value="">Choose </option>
                 <option value="MASTERS">MASTERS</option>
                 <option value="UPGRADE">UPGRADERS</option>
@@ -73,6 +73,9 @@ $about_us = $user->fetchHowYouKnowUs($user_id);
         </div>
         <div class="mb-4 app-prog-first" style="<?= isset($personal_AB[0]["first_prog"]) && !empty($personal_AB[0]["first_prog"]) ? '' : 'display: none'; ?>">
             <label class="form-label" for="app-prog-first">Choose a programme <span class="input-required">*</span></label>
+            <div class="input-required upgrader-course-selection-note mb-2" style="display: none; max-width: 320px">
+                Please choose the program as stated on the <b>Statement of Results</b> from GMA
+            </div>
             <select required name="app-prog-first" id="app-prog-first" class="transform-text form-select-option form-select form-select-sm mb-3">
                 <option hidden value="">Choose </option>
                 <?php
@@ -86,7 +89,6 @@ $about_us = $user->fetchHowYouKnowUs($user_id);
                 }
                 ?>
             </select>
-            <span class="input-required">Please choose the program as stated on the <b>Statement of Results</b> from GMA</span>
         </div>
     </div>
 </fieldset>
