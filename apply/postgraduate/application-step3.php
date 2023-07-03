@@ -144,8 +144,10 @@ $page = array("id" => 3, "name" => "Programmes Information");
                             $("#app-prog-first").html("<option hidden value=''>Choose </option>");
                             $.each(result, function(index, value) {
                                 let regulation;
-                                if (data.value == "UPGRADE") regulation = ' - ' + value.regulation;
-                                $("#app-prog-first").append('<option value="' + value.name + '">' + value.name + regulation + '</option>');
+                                if (data.value == "UPGRADE")
+                                    $("#app-prog-first").append('<option value="' + value.name + '">' + value.name + ' - ' + value.regulation + '</option>');
+                                else
+                                    $("#app-prog-first").append('<option value="' + value.name + '">' + value.name + '</option>');
                             });
                             $(".app-prog-first").show();
                             if (data.value == "UPGRADE") $(".upgrader-course-selection-note").show();
