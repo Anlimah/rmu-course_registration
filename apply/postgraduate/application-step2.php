@@ -19,7 +19,7 @@ if (isset($_GET['logout'])) {
     header('Location: ../index.php');
 }
 
-$user_id = $_SESSION['ghApplicant'];
+$user_id = isset($_SESSION['ghApplicant']) && !empty($_SESSION["ghApplicant"]) ? $_SESSION["ghApplicant"] : "";
 
 $page = array("id" => 2, "name" => "Education Background");
 ?>
@@ -46,15 +46,14 @@ $page = array("id" => 2, "name" => "Education Background");
                         <div id="page_info" style="margin-bottom: 0px !important;">
                             <h1>Education Background</h1>
                             <div class="alert alert-danger text-danger hide" id="page_info_text" style="width: 100%; border: none !important">
-                                <label class="text-danger">This form has errors:</label>
+                                <label class="text-danger">This form is incomplete:</label>
                                 <p id="data_info">Provide values for all <b>required *</b> fields in the form.</p>
                             </div>
                         </div>
 
+                        <?php require_once("forms/education-background.php") ?>
                         <!-- Page form -->
                         <form class="needs-validation" id="appForm" name="2" method="#" novalidate>
-                            <?php require_once("forms/education-background.php") ?>
-
                             <!-- Bottom page navigation -->
                             <?php require_once("../../inc/bottom-page-section.php"); ?>
                         </form>

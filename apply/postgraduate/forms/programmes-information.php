@@ -64,32 +64,31 @@ $about_us = $user->fetchHowYouKnowUs($user_id);
             </div>
         </div>
         <div class="mb-4">
+            <label class="form-label" for="app-prog-category">Programme category<span class="input-required">*</span></label>
+            <select name="app-prog-category" id="app-prog-category" class="transform-text form-select-option form-select form-select-sm mb-3">
+                <option hidden value="">Choose </option>
+                <option value="MASTERS">MASTERS</option>
+                <option value="UPGRADE">UPGRADERS</option>
+            </select>
+        </div>
+        <div class="mb-4 app-prog-first" style="<?= isset($personal_AB[0]["first_prog"]) && !empty($personal_AB[0]["first_prog"]) ? '' : 'display: none'; ?>">
             <label class="form-label" for="app-prog-first">Choose a programme <span class="input-required">*</span></label>
+            <div class="input-required upgrader-course-selection-note mb-2" style="display: none; max-width: 320px; font-size: 14px">
+                Please choose the program as stated on the <b>Statement of Results</b> from GMA
+            </div>
             <select required name="app-prog-first" id="app-prog-first" class="transform-text form-select-option form-select form-select-sm mb-3">
                 <option hidden value="">Choose </option>
                 <?php
-                $programs = $data->getPrograms($_SESSION['applicantType']);
-                foreach ($programs as $program) {
+                if (isset($personal_AB[0]["first_prog"]) && !empty($personal_AB[0]["first_prog"])) {
+                    $programs = $data->getPrograms($_SESSION['applicantType']);
+                    foreach ($programs as $program) {
                 ?>
-                    <option value="<?= strtoupper($program['name']) ?>" <?= $personal_AB[0]["first_prog"] == strtoupper($program['name']) ? "selected" : "" ?>><?= strtoupper($program['name']) ?></option>
+                        <option value="<?= strtoupper($program['name']) ?>" <?= $personal_AB[0]["first_prog"] == strtoupper($program['name']) ? "selected" : "" ?>><?= strtoupper($program['name']) ?></option>
                 <?php
+                    }
                 }
                 ?>
             </select>
         </div>
-        <!--<div class="mb-4">
-            <label class="form-label" for="app-prog-second"> Second (2<sup>nd</sup>) Choice <span class="input-required">*</span></label>
-            <select required name="app-prog-second" id="app-prog-second" class="transform-text form-select-option form-select form-select-sm mb-3">
-                <option hidden value="">Choose </option>
-                <?php
-                $programs = $data->getPrograms($_SESSION['applicantType']);
-                foreach ($programs as $program) {
-                ?>
-                    <option value="<?= strtoupper($program['name']) ?>" <?= $personal_AB[0]["second_prog"] == strtoupper($program['name']) ? "selected" : "" ?>><?= strtoupper($program['name']) ?></option>
-                <?php
-                }
-                ?>
-            </select>
-        </div>-->
     </div>
 </fieldset>

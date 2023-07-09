@@ -19,7 +19,7 @@ if (isset($_GET['logout'])) {
     header('Location: ../index.php');
 }
 
-$user_id = $_SESSION['ghApplicant'];
+$user_id = isset($_SESSION['ghApplicant']) && !empty($_SESSION["ghApplicant"]) ? $_SESSION["ghApplicant"] : "";
 
 $page = array("id" => 3, "name" => "Programmes Information");
 ?>
@@ -46,7 +46,7 @@ $page = array("id" => 3, "name" => "Programmes Information");
                         <div id="page_info" style="margin-bottom: 0px !important;">
                             <h1>Programme Information</h1>
                             <div class="alert alert-danger text-danger hide" id="page_info_text" style="width: 100%; border: none !important">
-                                <label class="text-danger">This form has errors:</label>
+                                <label class="text-danger">This form is incomplete:</label>
                                 <p>Provide values for all <b>required *</b> fields in the form.</p>
                             </div>
                         </div>
@@ -128,46 +128,74 @@ $page = array("id" => 3, "name" => "Programmes Information");
             });
 
             $(".form-select-option").change("blur", function() {
-                var msg = "";
-                if (this.name == "medium") {
-                    if (this.value == "Social Media") {
-                        msg = "(e.g. Facebook, LinkedIn, etc)"
-                    }
-                    if (this.value == "Print Media") {
-                        msg = "(e.g. Daily Graphic, Ghanaian Times, etc)"
-                    }
-                    if (this.value == "Electronic Media - TV/Radio") {
-                        msg = "(e.g. GTV, TV3, Peace FM, Joy FM etc)"
-                    }
-                    if (this.value == "Outreach Program / Career Fair") {
-                        msg = "where"
-                    }
-                    if (this.value == "Other") {
-                        msg = " "
-                    }
-                }
-                $.ajax({
-                    type: "PUT",
-                    url: "../../api/programmes",
-                    data: {
-                        what: this.name,
-                        value: this.value,
-                    },
-                    success: function(result) {
-                        console.log(result);
-                        if (msg != "") {
-                            $("#state-where").text(msg);
-                            $("#medium-desc").removeClass("hide");
-                            $("#medium-desc").addClass("display");
-                        } else {
-                            $("#medium-desc").removeClass("display");
-                            $("#medium-desc").addClass("hide");
+                var msg = "a";
+                let selectedValue = this.value;
+                let data = {
+                    what: this.name,
+                    value: this.value,
+                };
+                if (this.name == "app-prog-category") {
+                    $.ajax({
+                        type: "POST",
+                        url: "../../api/programmes-per-category",
+                        data: data,
+                        success: function(result) {
+                            console.log(result);
+                            $("#app-prog-first").html("<option hidden value=''>Choose </option>");
+                            $.each(result, function(index, value) {
+                                let regulation;
+                                if (data.value == "UPGRADE")
+                                    $("#app-prog-first").append('<option value="' + value.name + '">' + value.name + ' - ' + value.regulation + '</option>');
+                                else
+                                    $("#app-prog-first").append('<option value="' + value.name + '">' + value.name + '</option>');
+                            });
+                            $(".app-prog-first").show();
+                            if (data.value == "UPGRADE") $(".upgrader-course-selection-note").show();
+                            else $(".upgrader-course-selection-note").hide();
+                        },
+                        error: function(error) {
+                            console.log(error);
                         }
-                    },
-                    error: function(error) {
-                        console.log(error);
+                    });
+                } else {
+
+                    if (this.name == "medium") {
+                        if (this.value == "Social Media") {
+                            msg = "(e.g. Facebook, LinkedIn, etc)"
+                        }
+                        if (this.value == "Print Media") {
+                            msg = "(e.g. Daily Graphic, Ghanaian Times, etc)"
+                        }
+                        if (this.value == "Electronic Media - TV/Radio") {
+                            msg = "(e.g. GTV, TV3, Peace FM, Joy FM etc)"
+                        }
+                        if (this.value == "Outreach Program / Career Fair") {
+                            msg = "where"
+                        }
+                        if (this.value == "Other") {
+                            msg = " "
+                        }
                     }
-                });
+                    $.ajax({
+                        type: "PUT",
+                        url: "../../api/programmes",
+                        data: data,
+                        success: function(result) {
+                            console.log(result);
+                            if (msg != "") {
+                                $("#state-where").text(msg);
+                                $("#medium-desc").removeClass("hide");
+                                $("#medium-desc").addClass("display");
+                            } else {
+                                $("#medium-desc").removeClass("display");
+                                $("#medium-desc").addClass("hide");
+                            }
+                        },
+                        error: function(error) {
+                            console.log(error);
+                        }
+                    });
+                }
             });
 
             $("#appForm").on("submit", function() {

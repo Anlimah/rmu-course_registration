@@ -291,9 +291,12 @@ class UsersController
                 `gender`, `dob`, `marital_status`, `nationality`, `country_res`, 
                 `disability`, `photo`, `country_birth`, `spr_birth`, `city_birth`, 
                 `english_native`, `other_language`, `postal_addr`, `postal_town`, 
-                `postal_spr`, `postal_country`, `phone_no1_code`, `phone_no1`, `phone_no2_code`, `phone_no2`, `email_addr`, 
-                `p_prefix`, `p_first_name`, `p_last_name`, `p_occupation`, `p_phone_no_code`, `p_phone_no`, 
-                `p_email_addr` FROM `personal_information` WHERE `app_login` = :a";
+                `postal_spr`, `postal_country`, `phone_no1_code`, `phone_no1`, 
+                `phone_no2_code`, `phone_no2`, `email_addr`, 
+                `p_prefix`, `p_first_name`, `p_last_name`, `p_occupation`, 
+                `p_phone_no_code`, `p_phone_no`, `p_email_addr`, 
+                `e_contact_name`, `e_contact_code`, `e_contact_phone`, `e_contact_email` 
+                FROM `personal_information` WHERE `app_login` = :a";
         return $this->dm->getData($sql, array(':a' => $user_id));
     }
 
@@ -380,6 +383,12 @@ class UsersController
     public function getTotalAppUploads($user_id)
     {
         $sql = "SELECT COUNT(`id`) AS total FROM `applicant_uploads` WHERE `app_login` = :a";
+        return $this->dm->getData($sql, array(':a' => $user_id));
+    }
+
+    function getApplicantUploads($user_id)
+    {
+        $sql = "SELECT * FROM `applicant_uploads` WHERE `app_login` = :a";
         return $this->dm->getData($sql, array(':a' => $user_id));
     }
 
@@ -608,5 +617,19 @@ class UsersController
     {
         $query = "SELECT `reviewed`, `admitted`, `declined` FROM `form_sections_chek` WHERE `app_login` = :i";
         return $this->dm->getData($query, array(":i" => $appID));
+    }
+
+    public function fetchProgramesByProgramCode($data)
+    {
+        $query = "";
+        switch ($data) {
+            case 'MASTERS':
+                $query = "SELECT * FROM programs WHERE program_code IN ('MSC', 'MA')";
+                break;
+            case 'UPGRADE':
+                $query = "SELECT * FROM programs WHERE program_code = 'UPGRADE'";
+                break;
+        }
+        return $this->dm->getData($query);
     }
 }

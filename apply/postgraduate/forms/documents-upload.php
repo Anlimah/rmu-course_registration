@@ -10,8 +10,8 @@ $user = new UsersController();
 $academic_BG = $user->fetchApplicantAcaB($user_id);
 $uploads = $user->fetchUploadedDocs($user_id);
 $cv = $user->fetchUploadedDocsByType($user_id, 'cv');
-$sop = $user->fetchUploadedDocsByType($user_id, 'personal_stmt');
-$nid = $user->fetchUploadedDocsByType($user_id, 'national_id');
+$sop = $user->fetchUploadedDocsByType($user_id, 'sop');
+$nid = $user->fetchUploadedDocsByType($user_id, 'nid');
 $recommendations = $user->fetchUploadedDocsByType($user_id, 'recommendation');
 $appStatus = $user->getApplicationStatus($user_id);
 
@@ -48,15 +48,17 @@ $appStatus = $user->getApplicationStatus($user_id);
                             <?php
                             $ind = 1;
                             foreach ($uploads as $cert) {
+                                if (strtolower($cert["type"]) == "certificate" || strtolower($cert["type"]) == "transcript") {
                             ?>
-                                <tr>
-                                    <th scope="row"><?= $ind ?></th>
-                                    <td><?= ucwords(strtoupper($cert["type"])) ?></td>
-                                    <td><?= ucwords(strtolower($cert["updated_at"])) ?></td>
-                                    <td> <button type="button" style="cursor: pointer;" class="btn btn-danger btn-sm delete-file" id="tran-delete-<?= $cert["id"] ?>" title="Delete"><span class="bi bi-trash"></span></button></td>
-                                </tr>
+                                    <tr>
+                                        <th scope="row"><?= $ind ?></th>
+                                        <td><?= ucwords(strtoupper($cert["type"])) ?></td>
+                                        <td><?= ucwords(strtolower($cert["updated_at"])) ?></td>
+                                        <td> <button type="button" style="cursor: pointer;" class="btn btn-danger btn-sm delete-file" id="tran-delete-<?= $cert["id"] ?>" title="Delete"><span class="bi bi-trash"></span></button></td>
+                                    </tr>
                             <?php
-                                $ind += 1;
+                                    $ind += 1;
+                                }
                             }
                             ?>
                         </tbody>

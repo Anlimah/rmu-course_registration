@@ -15,7 +15,7 @@ require_once('../../inc/page-data.php');
 
 <fieldset class="fieldset row" id="graduate">
     <div class="col-md-4 col-sm-12">
-        <legend>Which Secondary/High Schools have you attended?</legend>
+        <legend>Which schools have you attended?</legend>
     </div>
 
     <div class="col-md-8 col-sm-12">
@@ -23,7 +23,7 @@ require_once('../../inc/page-data.php');
             <p>
                 Please list all colleges, universities, or other secondary institutions in which you attended classes. If you went to multiple institutions, please enter each separately. </br>
             </p>
-            <?php if ($app_type[0]["form_id"] == 1) { ?>
+            <?php if (isset($app_type[0]["form_id"]) && $app_type[0]["form_id"] == 1) { ?>
                 <p>
                     </br>Many schools issue transcripts electronically, either through their own web services or through vendors. If this option is available through the institutions you attended, please specify that your transcript(s) be sent to the address below as this will expedite the delivery of your transcript(s) and the completion of your application: <a href="mailto:transcripts@rmu.edu.gh">transcripts@rmu.edu.gh</a>.
                 </p>

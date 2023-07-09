@@ -19,7 +19,7 @@ if (isset($_GET['logout'])) {
     header('Location: ../index.php');
 }
 
-$user_id = $_SESSION['ghApplicant'];
+$user_id = isset($_SESSION['ghApplicant']) && !empty($_SESSION["ghApplicant"]) ? $_SESSION["ghApplicant"] : "";
 
 $page = array("id" => 4, "name" => "Uploads");
 ?>
@@ -46,7 +46,7 @@ $page = array("id" => 4, "name" => "Uploads");
                         <div id="page_info" style="margin-bottom: 0px !important;">
                             <h1>Uploads</h1>
                             <div class="alert alert-danger text-danger hide" id="page_info_text" style="width: 100%; border: none !important">
-                                <label class="text-danger">This form has errors:</label>
+                                <label class="text-danger">This form is incomplete:</label>
                                 <p id="data_info">Provide values for all <b>required *</b> fields in the form.</p>
                             </div>
                         </div>
@@ -159,6 +159,16 @@ $page = array("id" => 4, "name" => "Uploads");
 
             $("#doc-upload-form").on("submit", function(e) {
                 e.preventDefault();
+
+                // Get the file input element
+                var fileInput = $(this).find("input[type='file']");
+
+                // Check if a file is selected
+                if (fileInput.get(0).files.length === 0) {
+                    alert("Please select a file.");
+                    return;
+                }
+
                 $.ajax({
                     type: "POST",
                     url: "../../api/certificates",

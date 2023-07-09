@@ -188,7 +188,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
         if ($_POST["cert_type"] == "OTHER" && empty($_POST["other_cert_type"])) {
             $errors['cert_type'] = 'Specify the name of certificate earned!';
-        } else if (($_POST["cert_type"] == "OTHER" || $_POST["cert_type"] == "MASTERS" || $_POST["cert_type"] == "DEGREE" || $_POST["cert_type"] == "DIPLOMA") && !empty($_POST["other_cert_type"])) {
+        } else if (($_POST["cert_type"] == "OTHER" || $_POST["cert_type"] == "MASTERS" || $_POST["cert_type"] == "DEGREE" || $_POST["cert_type"] == "DIPLOMA" || $_POST["cert_type"] == "BACCALAUREATE" || $_POST["cert_type"] == "O LEVEL" || $_POST["cert_type"] == "A LEVEL") && !empty($_POST["other_cert_type"])) {
             $cert_type = $user->validateInputTextOnly($_POST["cert_type"]);
             $other_cert_type = $user->validateInputTextOnly($_POST["other_cert_type"]);
             if ($cert_type['status'] == "error") {
@@ -236,9 +236,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $other_course_studied = [];
         $other_course_studied["message"] = "";
 
-        if (($_POST["cert_type"] == "OTHER" || $_POST["cert_type"] == "MASTERS" || $_POST["cert_type"] == "DEGREE" || $_POST["cert_type"] == "DIPLOMA") && empty($_POST["other_course_studied"])) {
+        if (($_POST["cert_type"] == "OTHER" || $_POST["cert_type"] == "MASTERS" || $_POST["cert_type"] == "DEGREE" || $_POST["cert_type"] == "DIPLOMA" || $_POST["cert_type"] == "BACCALAUREATE" || $_POST["cert_type"] == "O LEVEL" || $_POST["cert_type"] == "A LEVEL") && empty($_POST["other_course_studied"])) {
             $errors['course_studied'] = 'Course or programme of study required!';
-        } else if (($_POST["cert_type"] == "OTHER" || $_POST["cert_type"] == "MASTERS" || $_POST["cert_type"] == "DEGREE" || $_POST["cert_type"] == "DIPLOMA") && !empty($_POST["other_course_studied"])) {
+        } else if (($_POST["cert_type"] == "OTHER" || $_POST["cert_type"] == "MASTERS" || $_POST["cert_type"] == "DEGREE" || $_POST["cert_type"] == "DIPLOMA" || $_POST["cert_type"] == "BACCALAUREATE" || $_POST["cert_type"] == "O LEVEL" || $_POST["cert_type"] == "A LEVEL") && !empty($_POST["other_course_studied"])) {
             $course_studied = $user->validateInputTextOnly($_POST["course_studied"]);
             $other_course_studied = $user->validateInputTextOnly($_POST["other_course_studied"]);
             if ($course_studied['status'] == "error") {
@@ -252,7 +252,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         }
 
         //$awaiting_result = ($_POST["cert_type"] == "OTHER") ? 1 : $_POST["awaiting_result"];
-        if ($_POST["cert_type"] == "OTHER" || $_POST["cert_type"] == "MASTERS" || $_POST["cert_type"] == "DEGREE" || $_POST["cert_type"] == "DIPLOMA") $awaiting_result = 1;
+        if ($_POST["cert_type"] == "OTHER" || $_POST["cert_type"] == "MASTERS" || $_POST["cert_type"] == "DEGREE" || $_POST["cert_type"] == "DIPLOMA" || $_POST["cert_type"] == "BACCALAUREATE" || $_POST["cert_type"] == "O LEVEL" || $_POST["cert_type"] == "A LEVEL") $awaiting_result = 1;
         else $awaiting_result = $_POST["awaiting_result"];
 
         if ($awaiting_result == 0) {
@@ -428,7 +428,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $cert_type = [];
         $other_cert_type = [];
 
-        if ($_POST["edit-cert-type"] == "OTHER" && empty($_POST["edit-other-cert-type"])) {
+        if (($_POST["edit-cert-type"] == "OTHER" || $_POST["edit-cert-type"] == "MASTERS" || $_POST["edit-cert-type"] == "DEGREE" || $_POST["edit-cert-type"] == "DIPLOMA" || $_POST["edit-cert-type"] == "BACCALAUREATE" || $_POST["edit-cert-type"] == "O LEVEL" || $_POST["edit-cert-type"] == "A LEVEL") && empty($_POST["edit-other-cert-type"])) {
             $errors['edit_cert_type'] = 'Specify the name of certificate earned!';
         } else if ($_POST["edit-cert-type"] == "OTHER" && !empty($_POST["edit-other-cert-type"])) {
             $cert_type = $user->validateInputTextOnly($_POST["cert_type"]);
@@ -471,7 +471,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         //step 3
         $course_studied = [];
 
-        if ($_POST["edit_cert_type"] == "OTHER" && empty($_POST["other-course-studied"])) {
+        if (($_POST["edit_cert_type"] == "OTHER" || $_POST["edit_cert_type"] == "MASTERS" || $_POST["edit_cert_type"] == "DEGREE" || $_POST["edit_cert_type"] == "DIPLOMA" || $_POST["edit_cert_type"] == "BACCALAUREATE" || $_POST["edit_cert_type"] == "O LEVEL" || $_POST["edit_cert_type"] == "A LEVEL") && empty($_POST["other-course-studied"])) {
             $errors['edit_course_studied'] = 'Course or programme of study required!';
         } else if ($_POST["edit_cert_type"] == "OTHER" && !empty($_POST["other-course-studied"])) {
             $course_studied = $user->validateInputTextOnly($_POST["course-studied"]);
@@ -486,7 +486,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
             }
         }
 
-        if ($_POST["cert_type"] == "OTHER" || $_POST["cert_type"] == "MASTERS" || $_POST["cert_type"] == "DEGREE" || $_POST["cert_type"] == "DIPLOMA") $awaiting_result = 1;
+        if ($_POST["cert_type"] == "OTHER" || $_POST["cert_type"] == "MASTERS" || $_POST["cert_type"] == "DEGREE" || $_POST["cert_type"] == "DIPLOMA" || $_POST["cert_type"] == "BACCALAUREATE" || $_POST["cert_type"] == "O LEVEL" || $_POST["cert_type"] == "A LEVEL") $awaiting_result = 1;
         else $awaiting_result = (int) $_POST["edit-awaiting-result"];
 
         if ($awaiting_result == 0) {
@@ -718,12 +718,48 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
             }
             if ($form == 4) {
                 $column = "uploads";
-                $total_upl = $user->getTotalAppUploads($_SESSION['ghApplicant']);
-                if (!empty($total_upl[0]["total"])) {
+                $acaB = $user->fetchApplicantAcaB($_SESSION['ghApplicant']);
+                if (!empty($acaB) && $acaB[0]["awaiting_result"] == 1 && $_SESSION['applicantType'] > 1) {
                     $go = true;
                 } else {
-                    $go = false;
-                    $data["message"] = "Upload at least one education certificate and/or other relevant documents.";
+                    $total_upl = $user->getTotalAppUploads($_SESSION['ghApplicant']);
+                    if (!empty($total_upl[0]["total"])) {
+                        if ($_SESSION['applicantType'] == 1) {
+                            $files = $user->getApplicantUploads($_SESSION['ghApplicant']);
+                            if (count($files)) {
+                                $fileCount = 0;
+                                foreach ($files as $file) {
+                                    if (isset($file["type"]) && strtolower($file["type"]) == "certificate") {
+                                        $fileCount += 1;
+                                    } else if (isset($file["type"]) && strtolower($file["type"]) == "transcript") {
+                                        $fileCount += 1;
+                                    } else if (isset($file["type"]) && strtolower($file["type"]) == "cv") {
+                                        $fileCount += 1;
+                                    } else if (isset($file["type"]) && strtolower($file["type"]) == "recommendation") {
+                                        $fileCount += 1;
+                                    } else if (isset($file["type"]) && strtolower($file["type"]) == "nid") {
+                                        $fileCount += 1;
+                                    } else if (isset($file["type"]) && strtolower($file["type"]) == "sop") {
+                                        $fileCount += 1;
+                                    }
+                                }
+                                if ($fileCount >= 7) {
+                                    $go = true;
+                                } else {
+                                    $go = false;
+                                    $data["message"] = "Please, make sure to provide all the relevant documents stated below.";
+                                }
+                            } else {
+                                $go = false;
+                                $data["message"] = "Upload your education certificate and all other relevant documents stated below.";
+                            }
+                        } else {
+                            $go = true;
+                        }
+                    } else {
+                        $go = false;
+                        $data["message"] = "Upload your education certificate and all other relevant documents stated below.";
+                    }
                 }
             }
             if ($form == 5) {
@@ -748,6 +784,13 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         }
         die(json_encode($data));
     }
+
+    //
+    else if ($_GET["url"] == "programmes-per-category") {
+        if (!isset($_POST["what"]) || empty($_POST["what"])) die(json_encode(array("success" => false, "message" => "Invalid input!")));
+        if (!isset($_POST["value"]) || empty($_POST["value"])) die(json_encode(array("success" => false, "message" => "Invalid input!")));
+        die(json_encode($user->fetchProgramesByProgramCode($_POST["value"])));
+    }
 } else if ($_SERVER['REQUEST_METHOD'] == "PUT") {
     parse_str(file_get_contents("php://input"), $_PUT);
 
@@ -758,7 +801,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
         if (!isset($what) || empty($what)) die(json_encode(array("success" => false, "message" => "Invalid input!")));
 
-        if ($what == "other-number-code" || $what == "phone-number1-code" || $what == "gd-phone-number-code") {
+        if ($what == "other-number-code" || $what == "phone-number1-code" || $what == "gd-phone-number-code" || $what == "e-phone-number-code") {
             $code = str_replace("+", "", $value);
             $value = "+" . strtoupper($user->validatePhone($code));
         } else {
@@ -866,6 +909,20 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         }
         if ($column == "gd_email_address") {
             $column = 'p_email_addr';
+        }
+
+        //Parent/Guardian Legal Name
+        if ($column == "e_full_name") {
+            $column = 'e_contact_name';
+        }
+        if ($column == "e_phone_number_code") {
+            $column = 'e_contact_code';
+        }
+        if ($column == "e_phone_number") {
+            $column = 'e_contact_phone';
+        }
+        if ($column == "e_email_address") {
+            $column = 'e_contact_email';
         }
 
         $result = $user->updateApplicantInfo($column, $value, $_SESSION['ghApplicant']);
