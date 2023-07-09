@@ -580,3 +580,53 @@ CREATE TABLE `section_questions` (
     `section` INT NOT NULL,
     CONSTRAINT `fk_section_question` FOREIGN KEY (`section`) REFERENCES `page_sections`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
 );
+
+
+SELECT 
+al.`id`, 
+pin.`prefix`, `first_name`, `middle_name`, `last_name`, `suffix`, `gender`, `dob`, `marital_status`, 
+pin.`nationality`, pin.`country_res`, pin.`disability`, pin.`disability_descript`, pin.`photo`, 
+pin.`country_birth`, pin.`spr_birth`, pin.`city_birth`, pin.`english_native`, pin.`speaks_english`, 
+pin.`other_language`, pin.`postal_addr`, pin.`postal_town`, pin.`postal_spr`, pin.`postal_country`, 
+pin.`phone_no1_code`, pin.`phone_no1`, pin.`phone_no2_code`, pin.`phone_no2`, pin.`email_addr`, 
+pin.`p_prefix`, pin.`p_first_name`, pin.`p_last_name`, pin.`p_occupation`, pin.`p_phone_no_code`, 
+pin.`p_phone_no`, pin.`p_email_addr`, pin.`updated_at`,
+ab.`s_number`, ab.`school_name`, ab.`country`, ab.`region`, ab.`city`, ab.`cert_type`, ab.`other_cert_type`, 
+ab.`index_number`, ab.`month_started`, ab.`year_started`, ab.`month_completed`, ab.`year_completed`, 
+ab.`course_of_study`, ab.`other_course_studied`, ab.`awaiting_result`, 
+pi.`first_prog`, `second_prog`, pi.`application_term`, pi.`study_stream`,
+hsr.`type`, hsr.`subject`, hsr.`grade`, 
+hau.`medium`, hau.`description` 
+FROM  
+`applicants_login` AS al, `personal_information` AS pin, `academic_background` AS ab, `program_info` AS pi, 
+`high_school_results` AS hsr, `heard_about_us` AS hau 
+WHERE 
+al.id = pin.app_login AND al.id = ab.app_login AND al.id = pi.app_login AND 
+al.id = hsr.app_login AND al.id = hau.app_login
+
+SELECT 
+al.`id`, 
+pin.`prefix`, `first_name`, `middle_name`, `last_name`, `suffix`, `gender`, `dob`, `marital_status`, 
+pin.`nationality`, pin.`country_res`, pin.`disability`, pin.`disability_descript`, pin.`photo`, 
+pin.`country_birth`, pin.`spr_birth`, pin.`city_birth`, pin.`english_native`, pin.`speaks_english`, 
+pin.`other_language`, pin.`postal_addr`, pin.`postal_town`, pin.`postal_spr`, pin.`postal_country`, 
+pin.`phone_no1_code`, pin.`phone_no1`, pin.`phone_no2_code`, pin.`phone_no2`, pin.`email_addr`, 
+pin.`p_prefix`, pin.`p_first_name`, pin.`p_last_name`, pin.`p_occupation`, pin.`p_phone_no_code`, 
+pin.`p_phone_no`, pin.`p_email_addr`, pin.`updated_at`,
+pi.`first_prog`, `second_prog`, pi.`application_term`, pi.`study_stream`,
+hau.`medium`, hau.`description` 
+FROM  
+`applicants_login` AS al, `personal_information` AS pin, `program_info` AS pi, 
+`heard_about_us` AS hau, `form_sections_chek` AS fsc 
+WHERE 
+al.id = pin.app_login AND al.id = pi.app_login AND al.id = hau.app_login AND al.id = fsc.app_login 
+AND fsc.declaration = 1;
+
+SELECT , `updated_at`, `app_login` FROM 
+
+SELECT , `updated_at`, `app_login` 
+FROM 
+
+SELECT , `acad_back_id` FROM 
+
+SELECT , `app_login` FROM 
