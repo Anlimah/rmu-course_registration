@@ -1,7 +1,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="Keywords" content="RMU, University, Apply, Forms, School, Institution">
+<meta name="Keywords" content="Regional Maritime University, Regional, Maritime, University in Ghana, RMU, University, Apply, Forms, School, Institution">
 <meta name="Description" content="The Regional Maritime University (RMU), Accra, Ghana, is an international tertiary institution. The overall objective for the establishment of RMU is to promote regional co-operation in the maritime industry focusing on the training to ensure the sustained growth and development of the industry.">
 <meta property="og:image" content="https://rmu.edu.gh/wp-content/uploads/2019/09/rmulogo-exp-3-400x75.png">
 <meta property="og:image:type" content="image/png">
