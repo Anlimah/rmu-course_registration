@@ -32,6 +32,9 @@ $user_id = $_SESSION['ghApplicant'];
     <meta property="og:image:width" content="400">
     <meta property="og:image:height" content="75">
     <meta property="og:description" content="Regional Maritime University (RMU) offers a comprehensive range of diploma and degree programs in Marine Engineering, Nautical Science, Electrical Engineering, Mechanical Engineering, Computer Science, Computer Engineering, Information Technology, Logistics, Port and Shipping Management, and other short courses. Explore our programs and gain expertise in the maritime industry. Join us and unlock your potential in the exciting world of maritime education.">
+    <meta name="author" content="Francis A. Anlimah">
+    <meta name="email" content="francis.ano.anlimah@gmail.com">
+    <meta name="website" content="https://linkedin.com/in/francis-anlimah">
     <link href="../../assets/images/rmu-logo.png" rel="icon">
     <link href="../../assets/images/rmu-logo.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="../../assets/css/main.css">
