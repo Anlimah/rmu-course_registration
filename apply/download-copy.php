@@ -590,6 +590,5 @@ Email: registrar@rmu.edu.gh
 
     <script>
         window.print();
-        window.close();
     </script>
 </body>
