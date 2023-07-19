@@ -73,7 +73,6 @@ $app_number = $user->getApplicantAppNum($_GET["q"]);
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="../assets/vendor/bootstrap-icons/bootstrap-icons.css">
     <style>
         .btn-group-xs>.btn,
         .btn-xs {
