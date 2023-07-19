@@ -11,8 +11,8 @@
 <meta name="author" content="Francis A. Anlimah">
 <meta name="email" content="francis.ano.anlimah@gmail.com">
 <meta name="website" content="https://linkedin.com/in/francis-anlimah">
-<link href="../assets/images/rmu-logo.png" rel="icon">
-<link href="../assets/images/rmu-logo.png" rel="apple-touch-icon">
+<link href="../../assets/images/rmu-logo.png" rel="icon">
+<link href="../../assets/images/rmu-logo.png" rel="apple-touch-icon">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
