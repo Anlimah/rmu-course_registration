@@ -125,12 +125,12 @@ $page = array("id" => 0, "name" => "Application Status");
                         ?>
                     </div>
 
-                    <!--<div class="mt-4">
+                    <div class="mt-4">
                         <label for="">
                             <span class="me-4">You can download a copy of your application form</span>
-                            <a href="./download-copy.php" class="btn btn-primary btn-sm" style="color: #fff !important">Download</a>
+                            <a href="./download-copy.php?q=<?= isset($_SESSION['ghApplicant']) ? $_SESSION['ghApplicant'] : "" ?>" class="btn btn-primary btn-sm" style="color: #fff !important">Download</a>
                         </label>
-                    </div>-->
+                    </div>
 
                     <?php if (empty($appStatuses[0]["admitted"]) && empty($appStatuses[0]["declined"])) { ?>
                         <hr class="mb-4 mt-4">

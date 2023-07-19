@@ -507,6 +507,24 @@ class UsersController
     {
         # code...
     }
+    public function getFormTypeName(int $form_id)
+    {
+        $query = "SELECT * FROM forms WHERE id = :i";
+        return $this->dm->getData($query, array(":i" => $form_id));
+    }
+
+    public function fetchAllFromProgramByName($prog_name)
+    {
+        $query = "SELECT * FROM programs WHERE `name` = :n";
+        return $this->dm->getData($query, array(":n" => $prog_name));
+    }
+
+    public function getApplicantAppNum(int $app_num)
+    {
+        $query = "SELECT pd.`app_number` FROM `purchase_detail` AS pd, `applicants_login` AS al 
+                WHERE pd.`id` = al.`purchase_id` AND al.`id` = :i";
+        return $this->dm->getData($query, array(":i" => $app_num));
+    }
 
     public function checkHighSchResult(int $aca_id)
     {
