@@ -308,9 +308,9 @@ require_once('../../inc/page-data.php');
             </div>
         </div>
         <div class="mb-4">
-            <label class="form-label" for="app-other-number"> Other Phone Number</label>
+            <label class="form-label" for="app-other-number"> Whatsapp Number</label>
             <div class="div-container flex-row justify-space-between">
-                <select class="transform-text form-select form-select-sm country-code" name="other-number-code" id="app-other-number-code" style="margin-right: 10px; width: 40%">
+                <select required class="transform-text form-select form-select-sm country-code" name="other-number-code" id="app-other-number-code" style="margin-right: 10px; width: 40%">
                     <option value="" hidden>Select</option>
                     <?php
                     foreach (COUNTRIES as $cn) {
@@ -320,7 +320,7 @@ require_once('../../inc/page-data.php');
                     }
                     ?>
                 </select>
-                <input class="transform-text form-control form-control-sm" style="width: 60%" type="text" name="other-number" id="app-other-number" value="<?= $personal[0]["phone_no2"] ?>">
+                <input required class="transform-text form-control form-control-sm" style="width: 60%" type="text" name="other-number" id="app-other-number" value="<?= $personal[0]["phone_no2"] ?>">
             </div>
         </div>
         <div class="mb-4">
