@@ -124,6 +124,7 @@ require_once('../../inc/page-data.php');
                         </select>
                         <select class="required-field form-select-option form-select form-select-sm" name="year-enrolled" id="year-enrolled" <?= $pre_uni_rec[0]["pre_uni_rec"] == 1 ? "required" : "" ?>>
                             <option hidden value="">Year</option>
+                            <option value="2023" <?= $pre_uni_rec[0]["year_enrolled"] == "2023" ? "selected" : "" ?>>2023</option>
                             <option value="2022" <?= $pre_uni_rec[0]["year_enrolled"] == "2022" ? "selected" : "" ?>>2022</option>
                             <option value="2021" <?= $pre_uni_rec[0]["year_enrolled"] == "2021" ? "selected" : "" ?>>2021</option>
                             <option value="2020" <?= $pre_uni_rec[0]["year_enrolled"] == "2020" ? "selected" : "" ?>>2020</option>
@@ -189,6 +190,7 @@ require_once('../../inc/page-data.php');
                         </select>
                         <select <?= $pre_uni_rec[0]["completed"] == 1 ? "required" : "" ?> class="completed-uni form-select-option form-select form-select-sm" name="year-completed-uni" id="year-completed-uni">
                             <option hidden value="">Year</option>
+                            <option value="2023" <?= $pre_uni_rec[0]["year_completed"] == "2023" ? "selected" : "" ?>>2023</option>
                             <option value="2022" <?= $pre_uni_rec[0]["year_completed"] == "2022" ? "selected" : "" ?>>2022</option>
                             <option value="2021" <?= $pre_uni_rec[0]["year_completed"] == "2021" ? "selected" : "" ?>>2021</option>
                             <option value="2020" <?= $pre_uni_rec[0]["year_completed"] == "2020" ? "selected" : "" ?>>2020</option>
