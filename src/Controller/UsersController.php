@@ -126,7 +126,7 @@ class UsersController
         }
 
         $user_input = htmlentities(htmlspecialchars($input));
-        $validated_input = (bool) preg_match('/^[A-Za-z ]/', $user_input);
+        $validated_input = (bool) preg_match('/^[A-Za-z]/', $user_input);
 
         if ($validated_input) {
             return array("status" => "success", "message" => $user_input);

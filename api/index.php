@@ -237,17 +237,17 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $other_course_studied["message"] = "";
 
         if (($_POST["cert_type"] == "OTHER" || $_POST["cert_type"] == "MASTERS" || $_POST["cert_type"] == "DEGREE" || $_POST["cert_type"] == "DIPLOMA" || $_POST["cert_type"] == "BACCALAUREATE" || $_POST["cert_type"] == "O LEVEL" || $_POST["cert_type"] == "A LEVEL") && empty($_POST["other_course_studied"])) {
-            $errors['course_studied'] = 'Course or programme of study required!';
+            $errors['course_studied'] = 'Course or program of study required!';
         } else if (($_POST["cert_type"] == "OTHER" || $_POST["cert_type"] == "MASTERS" || $_POST["cert_type"] == "DEGREE" || $_POST["cert_type"] == "DIPLOMA" || $_POST["cert_type"] == "BACCALAUREATE" || $_POST["cert_type"] == "O LEVEL" || $_POST["cert_type"] == "A LEVEL") && !empty($_POST["other_course_studied"])) {
             $course_studied = $user->validateInputTextOnly($_POST["course_studied"]);
             $other_course_studied = $user->validateInputTextOnly($_POST["other_course_studied"]);
             if ($course_studied['status'] == "error") {
-                $errors['course_studied'] = 'Courseor program of study is ' . $course_studied['message'] . '!';
+                $errors['course_studied'] = 'Course or program of study is ' . $course_studied['message'] . '!';
             }
         } else {
             $course_studied = $user->validateInputTextOnly($_POST["course_studied"]);
             if ($course_studied['status'] == "error" || $_POST['course_studied'] == "Select") {
-                $errors['course_studied'] = 'Course/Program of study is ' . $course_studied['message'] . '!';
+                $errors['course_studied'] = 'Course or program of study is ' . $course_studied['message'] . '!';
             }
         }
 
