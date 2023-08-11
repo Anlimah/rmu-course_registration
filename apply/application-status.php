@@ -127,7 +127,7 @@ $page = array("id" => 0, "name" => "Application Status");
 
                     <div class="mt-4">
                         <label for="">
-                            <span class="me-4">You can download a copy of your application form</span>
+                            <span class="me-4">You can download a copy of your application form for your personal keep <b>(Not to be submitted)</b></span>
                             <a href="./download-copy.php?q=<?= isset($_SESSION['ghApplicant']) ? $_SESSION['ghApplicant'] : "" ?>" class="btn btn-primary btn-sm" style="color: #fff !important">Download</a>
                         </label>
                     </div>
