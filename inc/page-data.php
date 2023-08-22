@@ -14,21 +14,22 @@ for ($i = 0; $i < $total; $i++) {
 $shs_courses = array(
     "courses" => array("BUSINESS", "GENERAL ARTS", "GENERAL SCIENCE", "HOME ECONOMICS", "VISUAL ARTS", "TECHNICAL"),
     "subjects" => array(
-        "core" => array("CORE MATHEMATICS", "ENGLISH LANGUAGE", "INTEGRATED SCIENCE", "SOCIAL STUDIES"),
+        "core" => array("CORE MATHEMATICS", "ENGLISH LANGUAGE", "INTEGRATED SCIENCE", "SOCIAL STUDIES", "CIVIL EDUCATION"),
         "electives" => array(
             "BUSINESS MANAGEMENT", "PRINCIPLE OF COSTING",
             "ACCOUNTING", "BUSINESS MANAGEMENT", "PRINCIPLE OF COSTING", "ELECTIVE MATHS",
             "LITERATURE IN ENGLISH", "GEOGRAPHY", "HISTORY", "GOVERNMENT", "RELIGIOUS STUDIES",
-            "PHYSICS", "CHEMISTRY", "BIOLOGY",
+            "PHYSICS", "CHEMISTRY", "BIOLOGY", "DATA PROCESSING",
             "MANAGEMENT IN LIVING", "FOOD AND NUTRITION", "GENERAL KNOWLEDGE IN ARTS", "TEXTILE",
             "GRAPHIC DESIGN", "LITERATURE IN ENGLISH", "FRENCH",
             "ECONOMICS", "BASKETRY", "LEATHER WORK", "PICTURE MAKING", "CERAMICS AND SCULPTURE"
         ),
         "technical" => array(
-            "Building Construction Technology", "Carpentry And Joinery", "Catering",
-            "Electrical Installation Work", "Electronics", "Fashion And Design",
-            "General Textiles", "Industrial Mechanics", "Mechanical Engineering Craft Practice",
-            "Metal Work", "Photography", "Plumbing Craft", "Printing Craft", "Welding And Fabrication", "Wood Work"
+            "Building Construction Technology", "Carpentry And Joinery", "Catering", "ICT", "Graphic Design",
+            "Electrical Installation Work", "Electronics", "Fashion And Design", "Auto Mobile Engineering",
+            "General Textiles", "Industrial Mechanics", "Mechanical Engineering Craft Practice", "Welding Drawing",
+            "Metal Work", "Photography", "Plumbing Craft", "Printing Craft", "Welding And Fabrication", "Wood Work",
+            "Mechanical Drawing"
         )
     ),
 );
