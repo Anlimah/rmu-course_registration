@@ -642,10 +642,6 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
                 $data["success"] = false;
                 $data["error"] = "Invalid or empty file entry";
             }
-            /*} else {
-				$data["success"] = false;
-				$data["error"] = "Trying to upload an invalid file";
-			}*/
         } else {
             $data["success"] = false;
             $data["error"] = "Invalid or empty file";

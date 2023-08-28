@@ -159,7 +159,7 @@ $page = array("id" => 4, "name" => "Uploads");
                 $("#fileUploadSuccess").text("Uploading File: " + document.getElementById('upload-file').files[0].name);
             });
 
-            $("#doc-upload-form, #cv-upload-form, #sop-upload-form, #nid-upload-form, #recommend-upload-form").on("submit", function(e) {
+            $("#transcript-upload-form, #certificate-upload-form, #doc-upload-form, #cv-upload-form, #sop-upload-form, #nid-upload-form, #recommend-upload-form").on("submit", function(e) {
                 e.preventDefault();
 
                 // Get the file input element
