@@ -11,7 +11,6 @@ $user = new UsersController();
 $academic_BG = $user->fetchApplicantAcaB($user_id);
 $uploads = $user->fetchUploadedDocs($user_id);
 $appStatus = $user->getApplicationStatus($user_id);
-$program_cat = 0;
 ?>
 
 <fieldset class="fieldset row">
@@ -28,19 +27,19 @@ $program_cat = 0;
 
             <hr>
 
-            <h5 style="font-size: 16px;" class="form-label mb-4 mt-4"><b>Certificates <span class="input-required">*</b></span></h5>
+            <h5 style="font-size: 16px;" class="form-label mb-4 mt-4"><b>Certificates <span class="input-required">*</span></b></h5>
 
             <form id="certificate-upload-form" name="certificate-upload-form" method="POST" action="" enctype="multipart/form-data" class="mb-4">
                 <div class="mb-4">
                     <input type="file" name="upload-file" id="certificate" accept=".pdf" class="form-control">
                 </div>
                 <div>
-                    <button type="submit" class="btn btn-primary" class="hide">Save</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
                 </div>
                 <input type="hidden" class="edu-mod-select form-select form-select-sm" name="doc-type" value="certificate">
             </form>
 
-            <h5 style="font-size: 16px;" class="form-label mb-4"><b>List of uploaded certificate <span class="input-required">*</b></span></h5>
+            <h5 style="font-size: 16px;" class="form-label mb-4"><b>List of uploaded certificate <span class="input-required">*</span></b></h5>
 
             <div class="certificates mb-4">
                 <?php
@@ -86,19 +85,19 @@ $program_cat = 0;
 
             <hr>
 
-            <h5 style="font-size: 16px;" class="form-label mb-4 mt-4"><b>Transcripts <span class="input-required">*</b></span></h5>
+            <h5 style="font-size: 16px;" class="form-label mb-4 mt-4"><b>Transcripts <span class="input-required">*</span></b></h5>
 
             <form id="transcript-upload-form" name="transcript-upload-form" method="POST" action="" enctype="multipart/form-data" class="mb-4">
                 <div class="mb-4">
                     <input type="file" name="upload-file" id="transcript" accept=".pdf" class="form-control">
                 </div>
                 <div>
-                    <button type="submit" class="btn btn-primary" class="hide">Save</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
                 </div>
                 <input type="hidden" class="edu-mod-select form-select form-select-sm" name="doc-type" value="transcript">
             </form>
 
-            <h5 style="font-size: 16px;" class="form-label mb-4"><b>List of uploaded transcript <span class="input-required">*</b></span></h5>
+            <h5 style="font-size: 16px;" class="form-label mb-4"><b>List of uploaded transcript <span class="input-required">*</span></b></h5>
 
             <div class="certificates mb-4">
                 <?php
@@ -178,7 +177,7 @@ if (!$progName) {
                                 <input type="file" name="upload-file" id="cv-file" accept=".pdf" class="form-control">
                             </div>
                             <div>
-                                <button type="submit" class="btn btn-primary" class="hide">Save</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
                             </div>
                             <input type="hidden" class="edu-mod-select form-select form-select-sm" name="doc-type" value="cv">
                         </form>
@@ -234,7 +233,7 @@ if (!$progName) {
                         </form>
                     <?php } ?>
 
-                    <h5 style="font-size: 16px;" class="form-label mb-4 mt-4"><b>List of document <span class="input-required">*</b></span></h5>
+                    <h5 style="font-size: 16px;" class="form-label mb-4 mt-4"><b>List of document <span class="input-required">*</span></b></h5>
 
                     <?php if (!empty($recommendations)) { ?>
                         <div class="recommendations">
@@ -287,7 +286,7 @@ if (!$progName) {
                                 <input type="file" name="upload-file" id="sop-file" accept=".pdf" class="form-control">
                             </div>
                             <div>
-                                <button type="submit" class="btn btn-primary" class="hide">Save</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
                             </div>
                             <input type="hidden" class="edu-mod-select form-select form-select-sm" name="doc-type" value="sop">
                         </form>
@@ -334,7 +333,7 @@ if (!$progName) {
                                 <input type="file" name="upload-file" id="nid-file" accept=".pdf" class="form-control">
                             </div>
                             <div>
-                                <button type="submit" class="btn btn-primary" class="hide">Save</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
                             </div>
                             <input type="hidden" class="edu-mod-select form-select form-select-sm" name="doc-type" value="nid">
                         </form>

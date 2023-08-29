@@ -739,11 +739,22 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
                                         $fileCount += 1;
                                     }
                                 }
-                                if ($fileCount >= 7) {
-                                    $go = true;
-                                } else {
+
+                                $progName = $user->fetchApplicantProgI($_SESSION['ghApplicant'])[0]["first_prog"];
+                                $proInfo = $user->fetchAllFromProgramByName($progName);
+
+                                if (!$progName) {
                                     $go = false;
-                                    $data["message"] = "Please, make sure to provide all the relevant documents stated below.";
+                                    $data["message"] = "You will have to choose a programme from the <b>Programme Information</b> section in other to validate this page or view additional information below";
+                                } else {
+                                    if (strtolower($proInfo[0]["program_code"]) == "msc" && $fileCount >= 7) {
+                                        $go = true;
+                                    } else if (strtolower($proInfo[0]["program_code"]) == "upgrade" && $fileCount >= 2) {
+                                        $go = true;
+                                    } else {
+                                        $go = false;
+                                        $data["message"] = "Please, make sure to provide all the relevant documents stated below.";
+                                    }
                                 }
                             } else {
                                 $go = false;
