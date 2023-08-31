@@ -103,11 +103,11 @@ if (!isset($_SESSION["_start"])) {
                                     Please enter the application number and pin code in the form below to begin with the application process!
                                 </p>
 
-                                <p class="text-danger" style="margin: 0px 12% !important; margin-bottom:20px !important">
+                                <p class="text-danger" style="margin: 0px 12% !important; margin-bottom: 15px !important">
                                     Please Note: <b>I</b> (upper case i), <b>L</b> (upper case l), <b>0</b> (number zero), <b>O</b> (upper case o)
                                 </p>
 
-                                <form id="appLoginForm" style="margin: 0px 12% !important; margin-top: 15px !important;">
+                                <form id="appLoginForm" style="margin: 0px 12% !important;">
 
                                     <div class="mb-4">
                                         <label class="form-label" for="app_number">Application Number</label>
