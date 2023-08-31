@@ -104,7 +104,7 @@ if (!isset($_SESSION["_start"])) {
                                 </p>
 
                                 <p class="text-danger" style="margin: 0px 12% !important; margin-bottom: 15px !important">
-                                    Please Note: <b>I</b> (upper case i), <b>L</b> (upper case l), <b>0</b> (number zero), <b>O</b> (upper case o)
+                                    <b>Note</b>: <b>I</b> (upper case i), <b>L</b> (upper case l), <b>0</b> (number zero), <b>O</b> (upper case o)
                                 </p>
 
                                 <form id="appLoginForm" style="margin: 0px 12% !important;">
