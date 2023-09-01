@@ -99,12 +99,15 @@ if (!isset($_SESSION["_start"])) {
 
                                 <hr style="width: 100%">
 
-                                <p style="margin: 0px 12% !important; margin-bottom:20px !important">
-                                    Please enter the application and pin number received by SMS and/or Email
-                                    in the form below to begin with the application process!
+                                <p style="margin: 0px 12% !important; margin-bottom:15px !important">
+                                    Please enter the application number and pin code in the form below to begin with the application process!
                                 </p>
 
-                                <form id="appLoginForm" style="margin: 0px 12% !important; margin-top: 15px !important;">
+                                <p class="text-danger" style="margin: 0px 12% !important; margin-bottom: 15px !important">
+                                    <b>Note</b>: <b>I</b> (upper case i), <b>L</b> (upper case l), <b>0</b> (number zero), <b>O</b> (upper case o)
+                                </p>
+
+                                <form id="appLoginForm" style="margin: 0px 12% !important;">
 
                                     <div class="mb-4">
                                         <label class="form-label" for="app_number">Application Number</label>
