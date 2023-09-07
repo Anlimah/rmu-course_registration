@@ -336,7 +336,7 @@ require_once('../../inc/page-data.php');
     </div>
     <div class="col-md-8 col-sm-12">
         <div class="mb-4">
-            <label class="form-label" for="gd-prefix">Prefix <span class="input-required">*</span> <?= $personal[0]["prefix"] ?></label>
+            <label class="form-label" for="gd-prefix">Prefix <span class="input-required">*</span></label>
             <select required class="transform-text form-select form-select-sm mb-3" name="gd-prefix" id="gd-prefix">
                 <option value="" hidden>Select</option>
                 <option value="Mr." <?= $personal[0]["p_prefix"] == strtoupper("Mr.") ? "selected" : "" ?>>Mr.</option>
