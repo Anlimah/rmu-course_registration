@@ -163,7 +163,7 @@ if (!$progName) {
 
         <fieldset class="fieldset row">
             <div class="col-md-4 col-sm-12">
-                <legend>Curriculum Vitae (CV)</legend>git 
+                <legend>Curriculum Vitae (CV)</legend>
             </div>
             <div class="col-md-8 col-sm-12">
                 <div class="mb-4">
