@@ -253,13 +253,13 @@ require_once('../../inc/page-data.php');
     </div>
     <div class="col-md-8 col-sm-12">
         <div class="mb-4">
-            <label class="form-label" for="address-line1">Address Line 1 <span class="input-required">*</span></label>
+            <label class="form-label" for="address-line1">Address Lines<span class="input-required">*</span></label>
             <input required class="transform-text form-control" type="text" name="address-line1" id="address-line1" value="<?= $personal[0]["postal_addr"] ?>">
         </div>
-        <div class="mb-4">
+        <!--<div class="mb-4">
             <label class="form-label" for="address-line2">Address Line 2</label>
             <input class="transform-text form-control" type="text" name="address-line2" id="address-line2" value="<?= $personal[0]["postal_addr"] ?>">
-        </div>
+        </div>-->
         <div class="mb-4">
             <label class="form-label" for="address-country">Country <span class="input-required">*</span></label>
             <select required class="transform-text form-select form-select-sm" name="address-country" id="address-country">
@@ -339,14 +339,14 @@ require_once('../../inc/page-data.php');
             <label class="form-label" for="gd-prefix">Prefix <span class="input-required">*</span></label>
             <select required class="transform-text form-select form-select-sm mb-3" name="gd-prefix" id="gd-prefix">
                 <option value="" hidden>Select</option>
-                <option value="Mr." <?= $personal[0]["prefix"] == strtoupper("Mr.") ? "selected" : "" ?>>Mr.</option>
-                <option value="Mrs." <?= $personal[0]["prefix"] == strtoupper("Mrs.") ? "selected" : "" ?>>Mrs.</option>
-                <option value="Ms." <?= $personal[0]["prefix"] == strtoupper("Ms.") ? "selected" : "" ?>>Ms.</option>
-                <option value="Prof. Dr." <?= $personal[0]["prefix"] == strtoupper("Prof. Dr.") ? "selected" : "" ?>>Prof. Dr.</option>
-                <option value="Prof." <?= $personal[0]["prefix"] == strtoupper("Prof.") ? "selected" : "" ?>>Prof.</option>
-                <option value="Rev." <?= $personal[0]["prefix"] == strtoupper("Rev.") ? "selected" : "" ?>>Rev.</option>
-                <option value="Rev. Dr." <?= $personal[0]["prefix"] == strtoupper("Rev. Dr.") ? "selected" : "" ?>>Rev. Dr.</option>
-                <option value="Rev. Sis." <?= $personal[0]["prefix"] == strtoupper("Rev. Sis.") ? "selected" : "" ?>>Rev. Sis.</option>
+                <option value="Mr." <?= $personal[0]["p_prefix"] == strtoupper("Mr.") ? "selected" : "" ?>>Mr.</option>
+                <option value="Mrs." <?= $personal[0]["p_prefix"] == strtoupper("Mrs.") ? "selected" : "" ?>>Mrs.</option>
+                <option value="Ms." <?= $personal[0]["p_prefix"] == strtoupper("Ms.") ? "selected" : "" ?>>Ms.</option>
+                <option value="Prof. Dr." <?= $personal[0]["p_prefix"] == strtoupper("Prof. Dr.") ? "selected" : "" ?>>Prof. Dr.</option>
+                <option value="Prof." <?= $personal[0]["p_prefix"] == strtoupper("Prof.") ? "selected" : "" ?>>Prof.</option>
+                <option value="Rev." <?= $personal[0]["p_prefix"] == strtoupper("Rev.") ? "selected" : "" ?>>Rev.</option>
+                <option value="Rev. Dr." <?= $personal[0]["p_prefix"] == strtoupper("Rev. Dr.") ? "selected" : "" ?>>Rev. Dr.</option>
+                <option value="Rev. Sis." <?= $personal[0]["p_prefix"] == strtoupper("Rev. Sis.") ? "selected" : "" ?>>Rev. Sis.</option>
             </select>
         </div>
         <div class="mb-4">
