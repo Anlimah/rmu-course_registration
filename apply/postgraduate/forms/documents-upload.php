@@ -153,7 +153,7 @@ if (!$progName) {
     <?php
 } else {
     $proInfo = $user->fetchAllFromProgramByName($progName);
-    if (strtolower($proInfo[0]["program_code"]) == "msc") {
+    if (strtolower($proInfo[0]["program_code"]) == "msc" || strtolower($proInfo[0]["program_code"]) == "ma") {
 
         $cv = $user->fetchUploadedDocsByType($user_id, 'cv');
         $sop = $user->fetchUploadedDocsByType($user_id, 'sop');
@@ -163,7 +163,7 @@ if (!$progName) {
 
         <fieldset class="fieldset row">
             <div class="col-md-4 col-sm-12">
-                <legend>Curriculum Vitae (CV)</legend>
+                <legend>Curriculum Vitae (CV)</legend>git 
             </div>
             <div class="col-md-8 col-sm-12">
                 <div class="mb-4">
