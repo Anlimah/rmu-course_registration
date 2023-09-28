@@ -715,7 +715,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
             if ($form == 4) {
                 $column = "uploads";
                 $acaB = $user->fetchApplicantAcaB($_SESSION['ghApplicant']);
-                if (!empty($acaB) && $acaB[0]["awaiting_result"] == 1 && $_SESSION['applicantType'] > 1) {
+                if (!empty($acaB) && $acaB[0]["awaiting_result"] == 1 && $acaB[0]["cert_type"] == "WASSCE" && $_SESSION['applicantType'] > 1) {
                     $go = true;
                 } else {
                     $total_upl = $user->getTotalAppUploads($_SESSION['ghApplicant']);
