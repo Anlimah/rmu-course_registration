@@ -326,6 +326,8 @@ $(document).ready(function () {
 
     $("#edit-education-form").on("submit", function (e) {
         e.preventDefault();
+        console.log(new FormData(this));
+        return;
 
         $.ajax({
             type: "POST",

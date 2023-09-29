@@ -112,6 +112,7 @@ $courses = $user->fetchCourses();
                                 <option value="DIPLOMA">DIPLOMA</option>
                                 <option value="DEGREE">DEGREE</option>
                                 <option value="MASTERS">MASTERS</option>
+                                <option value="OTHER">OTHER</option>
                             </select>
                             <div class="div-container mt-4 sepcific-cert" style="display: none">
                                 <label class="form-label" for="other-cert-type"> Specify the certificate name <span class="input-required">*</span></label>
@@ -296,6 +297,7 @@ $courses = $user->fetchCourses();
                                 <option value="DIPLOMA">DIPLOMA</option>
                                 <option value="DEGREE">DEGREE</option>
                                 <option value="MASTERS">MASTERS</option>
+                                <option value="OTHER">OTHER</option>
                             </select>
                             <div class="div-container mt-4 edit-sepcific-cert" style="display: none">
                                 <label class="form-label" for="edit-other-cert-type"> Specify the certificate name <span class="input-required">*</span></label>
