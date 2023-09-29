@@ -20,7 +20,7 @@ $appStatus = $user->getApplicationStatus($user_id);
     <div class="col-md-8 col-sm-12">
         <div class="mb-4">
             <p>Upload <b>certified true copies</b> of certificates and transcripts related to the education information you provide in the education background section.</p>
-            <p>For <b>Upgraders</b>, you are required to submit <b>Certificate of Competency</b> (COC) from GMA as your transcript.</p>
+            <p>For <b>Upgraders</b>, you are required to submit <b>Letter of Eligibility</b> from GMA as your transcript.</p>
         </div>
         <div class="mb-4">
             <!--<button type="button" id="attach-cert-btn" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#addDocumentModal">Upload</button>-->
@@ -85,7 +85,7 @@ $appStatus = $user->getApplicationStatus($user_id);
 
             <hr>
 
-            <h5 style="font-size: 16px;" class="form-label mb-4 mt-4"><b>Transcripts/ GMA Certificate of Competency <span class="input-required">*</span></b></h5>
+            <h5 style="font-size: 16px;" class="form-label mb-4 mt-4"><b>Transcripts / Letter of Eligibility from GMA <span class="input-required">*</span></b></h5>
 
             <form id="transcript-upload-form" name="transcript-upload-form" method="POST" action="" enctype="multipart/form-data" class="mb-4">
                 <div class="mb-4">
