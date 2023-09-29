@@ -535,7 +535,7 @@ class UsersController
 
     public function updateAwaitingResultStatus(int $awaitingStatus, int $sNumber, int $appID)
     {
-        $query = "UPDATE `high_school_results` SET `awaiting_result` = :ar WHERE `s_number` = :sn AND `app_login` = :id";
+        $query = "UPDATE `academic_background` SET `awaiting_result` = :ar WHERE `s_number` = :sn AND `app_login` = :id";
         return $this->dm->inputData($query, array(":ar" => $awaitingStatus, ":sn" => $sNumber, ":id" => $appID));
     }
 

@@ -155,6 +155,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     elseif ($_GET["url"] == "education") {
         $errors = [];
         $data = [];
+
         //step 1
         $sch_name = $user->validateInputTextOnly($_POST["sch_name"]);
         if ($sch_name['status'] == "error") {
@@ -173,7 +174,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
         $sch_city = $user->validateInputTextOnly($_POST["sch_city"]);
         if ($sch_city['status'] == "error") {
-            $errors['sch_city'] = 'City school is ' . $sch_city['message'] . '!';
+            $errors['sch_city'] = 'School city is ' . $sch_city['message'] . '!';
         }
 
         //step 2
@@ -385,8 +386,6 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
     // Update education history grades
     elseif ($_GET["url"] == "education-grades") {
-        $errors = [];
-        $data = [];
 
         if (!isset($_POST["edit-20eh29v1Tf"]) || empty($_POST["edit-20eh29v1Tf"])) {
             die(json_encode(array(
@@ -403,6 +402,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
             )));
         }
 
+        $errors = [];
+        $data = [];
+
         //step 1
         $sch_name = $user->validateInputTextOnly($_POST["edit-sch-name"]);
         if ($sch_name['status'] == "error") {
@@ -411,85 +413,98 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
         $sch_country = $user->validateInputTextOnly($_POST["edit-sch-country"]);
         if ($sch_country['status'] == "error") {
-            $errors['edit_sch_country'] = 'School Country is ' . $sch_country['message'] . '!';
+            $errors['edit_sch_country'] = 'Country of school is ' . $sch_country['message'] . '!';
         }
 
         $sch_region = $user->validateInputTextOnly($_POST["edit-sch-region"]);
         if ($sch_region['status'] == "error") {
-            $errors['edit_sch_region'] = 'School Province/Region is ' . $sch_region['message'] . '!';
+            $errors['edit_sch_region'] = 'Province or region of school is ' . $sch_region['message'] . '!';
         }
 
         $sch_city = $user->validateInputTextOnly($_POST["edit-sch-city"]);
         if ($sch_city['status'] == "error") {
-            $errors['edit_sch_city'] = 'School City is ' . $sch_city['message'] . '!';
+            $errors['edit_sch_city'] = 'School city is ' . $sch_city['message'] . '!';
         }
 
         //step 2
-        $cert_type = [];
-        $other_cert_type = [];
+        $edit_cert_type = [];
+        $edit_cert_type = $user->validateInputTextOnly($_POST["edit-cert-type"]);
+        if ($edit_cert_type['status'] == "error" || $_POST['edit-cert-type'] == "Select") {
+            $errors['edit_cert_type'] = '4 Certificate or degree earned is ' . $cert_type['message'] . '!';
+        }
 
-        if (($_POST["edit-cert-type"] == "OTHER" || $_POST["edit-cert-type"] == "MASTERS" || $_POST["edit-cert-type"] == "DEGREE" || $_POST["edit-cert-type"] == "DIPLOMA" || $_POST["edit-cert-type"] == "CERTIFICATE" || $_POST["edit-cert-type"] == "BACCALAUREATE" || $_POST["edit-cert-type"] == "O LEVEL" || $_POST["edit-cert-type"] == "A LEVEL") && empty($_POST["edit-other-cert-type"])) {
+        $edit_other_cert_type = [];
+        $edit_other_cert_type["message"] = "";
+
+        if ($_POST["edit-cert-type"] == "OTHER" && empty($_POST["edit-other-cert-type"])) {
             $errors['edit_cert_type'] = 'Specify the name of certificate earned!';
-        } else if ($_POST["edit-cert-type"] == "OTHER" && !empty($_POST["edit-other-cert-type"])) {
-            $cert_type = $user->validateInputTextOnly($_POST["cert_type"]);
-            $other_cert_type = $user->validateInputTextOnly($_POST["edit-other-cert-type"]);
-            if ($cert_type['status'] == "error") {
-                $errors['edit_cert_type'] = 'Certificate or degree earned is ' . $other_cert_type['message'] . '!';
+        } else if (($_POST["edit-cert-type"] == "OTHER" || $_POST["edit-cert-type"] == "MASTERS" || $_POST["edit-cert-type"] == "DEGREE" || $_POST["edit-cert-type"] == "DIPLOMA" || $_POST["edit-cert-type"] == "CERTIFICATE" || $_POST["edit-cert-type"] == "BACCALAUREATE" || $_POST["edit-cert-type"] == "O LEVEL" || $_POST["edit-cert-type"] == "A LEVEL") && empty($_POST["edit-other-cert-type"])) {
+            $edit_cert_type = $user->validateInputTextOnly($_POST["edit-cert-type"]);
+            $edit_other_cert_type = $user->validateInputTextOnly($_POST["edit-other-cert-type"]);
+            if ($edit_cert_type['status'] == "error") {
+                $errors['edit_cert_type'] = '5 Certificate or degree earned is ' . $edit_other_cert_type['message'] . '!';
             }
         } else {
-            $cert_type = $user->validateInputTextOnly($_POST["edit-cert-type"]);
-            if ($cert_type['status'] == "error" || $_POST['edit-cert-type'] == "Select") {
-                $errors['edit_cert_type'] = 'Certificate or degree earned is ' . $cert_type['message'] . '!';
+            $edit_cert_type = $user->validateInputTextOnly($_POST["edit-cert-type"]);
+            if ($edit_cert_type['status'] == "error" || $_POST['edit-cert-type'] == "Select") {
+                $errors['edit_cert_type'] = '6 Certificate or degree earned is ' . $edit_cert_type['message'] . '!';
             }
         }
 
-        $index_number = $user->validateInputTextNumber($_POST["edit-index-number"]);
-        if ($index_number['status'] == "error") {
-            $errors['edit_index_number'] = 'Index Number is ' . $index_number['message'] . '!';
+        $edit_index_number = $user->validateInputTextNumber($_POST["edit-index-number"]);
+        if ($edit_index_number['status'] == "error") {
+            $errors['edit_index_number'] = 'Index Number is ' . $edit_index_number['message'] . '!';
         }
 
-        $month_started = $user->validateInputTextOnly($_POST["month-started"]);
-        if ($month_started['status'] == "error" || $_POST['month-started'] == "Month") {
+        $edit_month_started = $user->validateInputTextOnly($_POST["edit-month-started"]);
+        if ($edit_month_started['status'] == "error" || $_POST['edit-month-started'] == "Month") {
             $errors['edit_date_started'] = 'Month started is invalid!';
         }
 
-        $year_started = $user->validateYearData($_POST["year-started"]);
-        if ($year_started['status'] == "error" || $_POST['year-started'] == "Year") {
+        $edit_year_started = $user->validateYearData($_POST["edit-year-started"]);
+        if ($edit_year_started['status'] == "error" || $_POST['edit-year-started'] == "Year") {
             $errors['edit_date_started'] = 'Year started is invalid!';
         }
 
-        $month_completed = $user->validateInputTextOnly($_POST["edit-month-completed"]);
-        if ($month_completed['status'] == "error" || $_POST['edit-month-completed'] == "Month") {
+        $edit_month_completed = $user->validateInputTextOnly($_POST["edit-month-completed"]);
+        if ($edit_month_completed['status'] == "error" || $_POST['edit-month-completed'] == "Month") {
             $errors['edit_date_completed'] = 'Month completed is invalid!';
         }
 
-        $year_completed = $user->validateYearData($_POST["edit-year-completed"]);
-        if ($year_completed['status'] == "error" || $_POST['edit-year-completed'] == "Year") {
+        $edit_year_completed = $user->validateYearData($_POST["edit-year-completed"]);
+        if ($edit_year_completed['status'] == "error" || $_POST['edit-year-completed'] == "Year") {
             $errors['edit_date_completed'] = 'Year completed is invalid!';
         }
 
         //step 3
-        $course_studied = [];
+        $edit_course_studied = [];
+        $edit_course_studied = $user->validateInputTextOnly($_POST["edit-course-studied"]);
+        if ($edit_course_studied['status'] == "error" || $_POST['edit-course-studied'] == "Select") {
+            $errors['edit_course_studied'] = 'Course or program of study is ' . $edit_course_studied['message'] . '!';
+        }
 
-        if (($_POST["edit_cert_type"] == "OTHER" || $_POST["edit_cert_type"] == "MASTERS" || $_POST["edit_cert_type"] == "DEGREE" || $_POST["edit_cert_type"] == "DIPLOMA" || $_POST["edit-cert-type"] == "CERTIFICATE" || $_POST["edit_cert_type"] == "BACCALAUREATE" || $_POST["edit_cert_type"] == "O LEVEL" || $_POST["edit_cert_type"] == "A LEVEL") && empty($_POST["other-course-studied"])) {
+        $edit_other_course_studied = [];
+        $edit_other_course_studied["message"] = "";
+
+        if (($_POST["edit-cert-type"] == "OTHER" || $_POST["edit-cert-type"] == "MASTERS" || $_POST["edit-cert-type"] == "DEGREE" || $_POST["edit-cert-type"] == "DIPLOMA" || $_POST["edit-cert-type"] == "CERTIFICATE" || $_POST["edit-cert-type"] == "BACCALAUREATE" || $_POST["edit-cert-type"] == "O LEVEL" || $_POST["edit-cert-type"] == "A LEVEL") && empty($_POST["edit-other-course-studied"])) {
             $errors['edit_course_studied'] = 'Course or programme of study required!';
-        } else if ($_POST["edit_cert_type"] == "OTHER" && !empty($_POST["other-course-studied"])) {
-            $course_studied = $user->validateInputTextOnly($_POST["course-studied"]);
-            $other_course_studied = $user->validateInputTextOnly($_POST["other-course-studied"]);
+        } else if ($_POST["edit-cert-type"] == "OTHER" && !empty($_POST["edit-other-course-studied"])) {
+            $course_studied = $user->validateInputTextOnly($_POST["edit-course-studied"]);
+            $other_course_studied = $user->validateInputTextOnly($_POST["edit-other-course-studied"]);
             if ($course_studied['status'] == "error") {
-                $errors['edit_course_studied'] = 'Courseor program of study is ' . $course_studied['message'] . '!';
+                $errors['edit_course_studied'] = 'Courseor program of study is ' . $edit_course_studied['message'] . '!';
             }
         } else {
-            $course_studied = $user->validateInputTextOnly($_POST["course-studied"]);
-            if ($course_studied['status'] == "error" || $_POST['course-studied'] == "Select") {
-                $errors['edit_course_studied'] = 'Course/Program of study is ' . $course_studied['message'] . '!';
+            $course_studied = $user->validateInputTextOnly($_POST["edit-course-studied"]);
+            if ($course_studied['status'] == "error" || $_POST['edit-course-studied'] == "Select") {
+                $errors['edit_course_studied'] = 'Course/Program of study is ' . $edit_course_studied['message'] . '!';
             }
         }
 
-        if ($_POST["cert_type"] == "OTHER" || $_POST["cert_type"] == "MASTERS" || $_POST["cert_type"] == "DEGREE" || $_POST["cert_type"] == "DIPLOMA" || $_POST["cert_type"] == "BACCALAUREATE" || $_POST["cert_type"] == "O LEVEL" || $_POST["cert_type"] == "A LEVEL") $awaiting_result = 1;
-        else $awaiting_result = (int) $_POST["edit-awaiting-result"];
+        if ($_POST["edit-cert-type"] == "OTHER" || $_POST["edit-cert-type"] == "MASTERS" || $_POST["edit-cert-type"] == "DEGREE" || $_POST["edit-cert-type"] == "DIPLOMA" || $_POST["edit-cert-type"] == "CERTIFICATE" || $_POST["edit-cert-type"] == "BACCALAUREATE" || $_POST["edit-cert-type"] == "O LEVEL" || $_POST["edit-cert-type"] == "A LEVEL") $edit_awaiting_result = 1;
+        else $edit_awaiting_result = (int) $_POST["edit-awaiting-result"];
 
-        if ($awaiting_result == 0) {
+        if ($edit_awaiting_result == 0) {
             //core subjects
             $core_sbj1 = $user->validateInputTextOnly($_POST["edit-core-sbj1"]);
             if ($core_sbj1['status'] == "error" || $_POST['edit-core-sbj1'] == "Select") {
@@ -563,27 +578,22 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
             }
         }
 
-        //die($_POST["cert_type"] . " > 1 >" . $awaiting_result);
-
         if (!empty($errors)) {
             $data['success'] = false;
             $data['errors'] = $errors;
             die(json_encode($data));
         }
-
-        die(json_encode($_POST));
-
         $acaID = $user->fetchApplicantAcaBID($s_number["message"], $_SESSION["ghApplicant"]);
         $checkHighResult = $user->checkHighSchResult($acaID);
 
-        if ($awaiting_result && !empty($checkHighResult)) {
-            if ($user->updateAwaitingResultStatus($awaiting_result, $s_number["message"], $_SESSION["ghApplicant"])) {
+        if ($edit_awaiting_result && !empty($checkHighResult)) {
+            if ($user->updateAwaitingResultStatus($edit_awaiting_result, $s_number["message"], $_SESSION["ghApplicant"])) {
                 $user->deleteHighSchoolResult($acaID);
                 die(json_encode(array("success" => true, "message" => "Data saved successfully!")));
             }
         }
 
-        if (!$awaiting_result && empty($checkHighSchResult)) {
+        if (!$edit_awaiting_result && empty($checkHighSchResult)) {
             $subjects = array(
                 "core" => array(
                     array("subject" => $core_sbj1["message"], "grade" => $core_sbj_grd1["message"]),

@@ -202,10 +202,10 @@ $courses = $user->fetchCourses();
                             <div class="mb4">
                                 <label class="form-label" for="awaiting-cert">Are you waiting for exam result ? <span class="input-required">*</span></label>
                                 <label for="awaiting-result-yes" class="form-label radio-btn">
-                                    <input class="awaiting-result" style="margin: 0 !important; padding: 0 !important;" type="radio" name="awaiting-result" id="awaiting-result-yes" value="Yes"> Yes
+                                    <input class="awaiting-result" style="margin: 0 !important; padding: 0 !important;" type="radio" name="awaiting-result" id="awaiting-result-yes" value="1"> Yes
                                 </label>
                                 <label for="awaiting-result-no" class="form-label radio-btn">
-                                    <input class="awaiting-result" style="margin: 0 !important; padding: 0 !important;" type="radio" name="awaiting-result" id="awaiting-result-no" value="No" checked> No
+                                    <input class="awaiting-result" style="margin: 0 !important; padding: 0 !important;" type="radio" name="awaiting-result" id="awaiting-result-no" value="0" checked> No
                                 </label>
                             </div>
                             <div id="not-waiting" class="">
@@ -473,10 +473,10 @@ $courses = $user->fetchCourses();
                             <div class="mb4">
                                 <label class="form-label" for="awaiting-cert">Are you waiting for exam result? <span class="input-required">*</span></label>
                                 <label for="edit-awaiting-result-yes" class="form-label radio-btn">
-                                    <input class="edit-awaiting-result" style="margin: 0 !important; padding: 0 !important;" type="radio" name="edit-awaiting-result" id="edit-awaiting-result-yes" value="Yes"> Yes
+                                    <input class="edit-awaiting-result" style="margin: 0 !important; padding: 0 !important;" type="radio" name="edit-awaiting-result" id="edit-awaiting-result-yes" value="1"> Yes
                                 </label>
                                 <label for="edit-awaiting-result-no" class="form-label radio-btn">
-                                    <input class="edit-awaiting-result" style="margin: 0 !important; padding: 0 !important;" type="radio" name="edit-awaiting-result" id="edit-awaiting-result-no" value="No" checked> No
+                                    <input class="edit-awaiting-result" style="margin: 0 !important; padding: 0 !important;" type="radio" name="edit-awaiting-result" id="edit-awaiting-result-no" value="0" checked> No
                                 </label>
                             </div>
                             <div id="edit-not-waiting" class="">

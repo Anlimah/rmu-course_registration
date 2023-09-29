@@ -326,8 +326,6 @@ $(document).ready(function () {
 
     $("#edit-education-form").on("submit", function (e) {
         e.preventDefault();
-        console.log(new FormData(this));
-        return;
 
         $.ajax({
             type: "POST",
@@ -338,60 +336,60 @@ $(document).ready(function () {
             processData: false,
         }).done(function (data) {
             console.log(data);
-
+            
             let step_errors = 0;
             if (!data.success) {
                 let step1, step2, step3, step4 = 0;
                 let startPt = 1, endPt = 3;
 
                 //Step 1
-                if (data.errors.sch_name) {
+                if (data.errors.edit_sch_name) {
                     $("#edit-sch-name-group").addClass("has-error");
-                    $("#edit-sch-name-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.sch_name + "</div>");
+                    $("#edit-sch-name-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.edit_sch_name + "</div>");
                     step1 = 1;
                 }
-                if (data.errors.sch_country) {
+                if (data.errors.edit_sch_country) {
                     $("#edit-sch-country-group").addClass("has-error");
-                    $("#edit-sch-country-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.sch_country + "</div>");
+                    $("#edit-sch-country-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.edit_sch_country + "</div>");
                     step1 = 1;
                 }
-                if (data.errors.sch_region) {
+                if (data.errors.edit_sch_region) {
                     $("#edit-sch-region-group").addClass("has-error");
-                    $("#edit-sch-region-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.sch_region + "</div>");
+                    $("#edit-sch-region-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.edit_sch_region + "</div>");
                     step1 = 1;
                 }
-                if (data.errors.sch_city) {
+                if (data.errors.edit_sch_city) {
                     $("#edit-sch-city-group").addClass("has-error");
-                    $("#edit-sch-city-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.sch_city + "</div>");
+                    $("#edit-sch-city-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.edit_sch_city + "</div>");
                     step1 = 1;
                 }
 
                 //Step 2
-                if (data.errors.cert_type) {
+                if (data.errors.edit_cert_type) {
                     $("#edit-cert-type-group").addClass("has-error");
-                    $("#edit-cert-type-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.cert_type + "</div>");
+                    $("#edit-cert-type-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.edit_cert_type + "</div>");
                     step2 = 2;
                 }
-                if (data.errors.index_number) {
+                if (data.errors.edit_index_number) {
                     $("#edit-index-number-group").addClass("has-error");
-                    $("#edit-index-number-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.index_number + "</div>");
+                    $("#edit-index-number-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.edit_index_number + "</div>");
                     step2 = 2;
                 }
-                if (data.errors.date_started) {
+                if (data.errors.edit_date_started) {
                     $("#edit-date-started-group").addClass("has-error");
-                    $("#edit-date-started-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.date_started + "</div>");
+                    $("#edit-date-started-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.edit_date_started + "</div>");
                     step2 = 2;
                 }
-                if (data.errors.date_completed) {
+                if (data.errors.edit_date_completed) {
                     $("#edit-date-completed-group").addClass("has-error");
-                    $("#edit-date-completed-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.date_completed + "</div>");
+                    $("#edit-date-completed-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.edit_date_completed + "</div>");
                     step2 = 2;
                 }
 
                 //Step 3
-                if (data.errors.course_studied) {
+                if (data.errors.edit_course_studied) {
                     $("#edit-course-studied-group").addClass("has-error");
-                    $("#edit-course-studied-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.course_studied + "</div>");
+                    $("#edit-course-studied-group").append('<div class="help-block" style="font-size:14px; color:red">' + data.errors.edit_course_studied + "</div>");
                     step3 = 3;
                 }
 
@@ -515,7 +513,7 @@ $(document).ready(function () {
             $("#edit-sch-region").val(data["aca"][0]["region"]);
             $("#edit-sch-city").val(data["aca"][0]["city"]);
 
-            $("#edit-cert-type").val(data["aca"][0]["cert_type"]).prop("disabled", true);
+            $("#edit-cert-type" + " option[value='" + data["aca"][0]["cert_type"] + "']").attr('selected', 'selected');
             $("#edit-other-cert-type").val(data["aca"][0]["other_cert_type"]);
             $("#edit-index-number").val(data["aca"][0]["index_number"]);
             $("#edit-month-started" + " option[value='" + data["aca"][0]["month_started"] + "']").attr('selected', 'selected');
