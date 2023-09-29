@@ -108,6 +108,7 @@ $courses = $user->fetchCourses();
                             <label class="form-label" for="cert-type">Certificate or degree Earned <span class="input-required">*</span></label>
                             <select class="edu-mod-select form-select form-select-sm" name="cert-type" id="cert-type">
                                 <option value="Select" hidden>Select</option>
+                                <option value="CERTIFICATE">CERTIFICATE</option>
                                 <option value="DIPLOMA">DIPLOMA</option>
                                 <option value="DEGREE">DEGREE</option>
                                 <option value="MASTERS">MASTERS</option>
@@ -291,6 +292,7 @@ $courses = $user->fetchCourses();
                             <label class="form-label" for="edit-cert-type">Certificate or degree earned <span class="input-required">*</span></label>
                             <select class="transform-text edu-mod-select form-select form-select-sm" name="edit-cert-type" id="edit-cert-type" style="background-color: red;">
                                 <option value="Select" hidden>Select</option>
+                                <option value="CERTIFICATE">CERTIFICATE</option>
                                 <option value="DIPLOMA">DIPLOMA</option>
                                 <option value="DEGREE">DEGREE</option>
                                 <option value="MASTERS">MASTERS</option>
