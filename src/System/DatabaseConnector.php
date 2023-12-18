@@ -4,26 +4,27 @@ namespace Src\System;
 
 class DatabaseConnector
 {
-
     private $conn = null;
 
-    public function __construct()
+    public function __construct($host, $port, $db, $user, $pass)
     {
-        $host = getenv('DB_HOST');
-        $port = getenv('DB_PORT');
-        $db   = getenv('DB_DATABASE');
-        $user = getenv('DB_USERNAME');
-        $pass = getenv('DB_PASSWORD');
-
         try {
             $this->conn = new \PDO("mysql:host=$host;port=$port;charset=utf8mb4;dbname=$db", $user, $pass);
         } catch (\PDOException $e) {
-            exit($e->getMessage());
+            throw $e;
         }
     }
 
-    public function getConnection()
+    public function runQuery($str, $params = array()): mixed
     {
-        return $this->conn;
+        try {
+            $stmt = $this->conn->prepare($str);
+            $stmt->execute($params);
+            if (explode(' ', $str)[0] == 'SELECT' || explode(' ', $str)[0] == 'CALL') return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            elseif (explode(' ', $str)[0] == 'INSERT' || explode(' ', $str)[0] == 'UPDATE' || explode(' ', $str)[0] == 'DELETE') return 1;
+            return 0;
+        } catch (\Exception $e) {
+            throw $e;
+        }
     }
 }

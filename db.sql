@@ -1,632 +1,329 @@
-/*
-Tables for system users
-*/
+-- -----------------------------------------------------
+-- Schema rmu_student_mgt_db // youtube.com: wordoftruthministry, brian bolt
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `rmu_student_mgt_db` DEFAULT CHARACTER SET utf8 ;
+USE `rmu_student_mgt_db` ;
 
-DROP TABLE IF EXISTS `sys_users_privileges`;
-DROP TABLE IF EXISTS `sys_users`;
-DROP TABLE IF EXISTS `activity_logs`;
-
-CREATE TABLE `sys_users` (
-    `id` INT AUTO_INCREMENT PRIMARY KEY,
-    `user_name` VARCHAR(100) UNIQUE NOT NULL,
-    `password` VARCHAR(255) NOT NULL,
-    `role` VARCHAR(20) NOT NULL,
-    `added_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP()
+-- -----------------------------------------------------
+-- Table `rmu_student_mgt_db`.`academic_years`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `rmu_student_mgt_db`.`academic_years` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(15) NOT NULL UNIQUE,
+  `start_year` YEAR NOT NULL,
+  `end_year` YEAR NOT NULL,
+  PRIMARY KEY (`id`)
 );
+CREATE INDEX academic_years_idx ON `rmu_student_mgt_db`.`academic_years` (`name`, `start_year`, `end_year`);
+INSERT INTO `rmu_student_mgt_db`.`academic_years` (`name`, `start_year`, `end_year`) VALUES ('2023 - 2024', '2023', '2024');
 
-ALTER TABLE `sys_users` 
-ADD COLUMN `first_name` VARCHAR(30) NOT NULL AFTER `id`, 
-ADD COLUMN `last_name` VARCHAR(30) NOT NULL AFTER `first_name`;
-
-INSERT INTO `sys_users` (`first_name`, `last_name`, `user_name`, `password`, `role`) VALUES 
-('Francis','Anlimah', 'y.m.ratty7@gmail.com', '$2y$10$jmxuunWRqwB2KgT2jIypwufas3dPtqT9f21gdKT9lOOlNGNQCqeMC', 'Developer');
-
-CREATE TABLE `sys_users_privileges` (
-    `id` INT AUTO_INCREMENT PRIMARY KEY,
-    `user_id` INT NOT NULL,
-    CONSTRAINT `fk_sys_users_id` FOREIGN KEY (`user_id`) REFERENCES `sys_users`(`id`) ON UPDATE CASCADE ON DELETE CASCADE,
-    `select` BOOLEAN NOT NULL DEFAULT 0,
-    `insert` BOOLEAN NOT NULL DEFAULT 0,
-    `update` BOOLEAN NOT NULL DEFAULT 0,
-    `delete` BOOLEAN NOT NULL DEFAULT 0,
-    `added_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP()
+-- -----------------------------------------------------
+-- Table `rmu_student_mgt_db`.`semesters`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `rmu_student_mgt_db`.`semesters` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(20) NOT NULL UNIQUE,
+  PRIMARY KEY (`id`)
 );
+CREATE INDEX semesters_idx ON `rmu_student_mgt_db`.`semesters` (`name`);
+INSERT INTO `rmu_student_mgt_db`.`semesters` (`name`) VALUES ('SEMESTER 1', 'SEMESTER 2');
 
-INSERT INTO `sys_users_privileges` (`user_id`, `select`,`insert`,`update`,`delete`) VALUES(1, 1, 1, 1, 1);
+-- -----------------------------------------------------
+-- Table `rmu_student_mgt_db`.`departments`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `rmu_student_mgt_db`.`departments` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(255) NOT NULL UNIQUE,
+  PRIMARY KEY (`id`)
+);
+CREATE INDEX departments_idx1 ON `rmu_student_mgt_db`.`departments` (`name`);
 
-CREATE TABLE `activity_logs` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `user_id` INT UNSIGNED NOT NULL,
-  `operation` ENUM('INSERT', 'UPDATE', 'DELETE') NOT NULL,
-  `description` TEXT NOT NULL,
-  `timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+-- -----------------------------------------------------
+-- Table `rmu_student_mgt_db`.`programs`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `rmu_student_mgt_db`.`programs` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(255) NOT NULL UNIQUE,
+  `code` VARCHAR(25) NOT NULL UNIQUE,
+  `duration` INT DEFAULT 0,
+  `dur_format` VARCHAR(25) DEFAULT 'YEAR',
+  `fk_deptID` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `user_id` (`user_id`),
-  INDEX `operation` (`operation`),
-  INDEX `timestamp` (`timestamp`)
+  CONSTRAINT `fk_programs_departments1` 
+    FOREIGN KEY (`fk_deptID`) REFERENCES `rmu_student_mgt_db`.`departments` (`id`) 
+    ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+CREATE INDEX programs_idx1 ON `rmu_student_mgt_db`.`programs` (`name`, `code`, `duration`, `dur_format`);
+
+-- -----------------------------------------------------
+-- Table `rmu_student_mgt_db`.`courses`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `rmu_student_mgt_db`.`courses` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `code` VARCHAR(10) NOT NULL UNIQUE,
+  `name` VARCHAR(255) NOT NULL UNIQUE,
+  `credit_hours` INT DEFAULT 0,
+  `fk_deptID` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_courses_departments1` 
+    FOREIGN KEY (`fk_deptID`) REFERENCES `rmu_student_mgt_db`.`departments` (`id`) 
+    ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+CREATE INDEX courses_idx1 ON `rmu_student_mgt_db`.`courses` (`code`, `name`, `credit_hours`);
+
+-- -----------------------------------------------------
+-- Table `rmu_student_mgt_db`.`classes`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `rmu_student_mgt_db`.`classes` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(10) NOT NULL UNIQUE,
+  `fk_progID` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_classes_programs1`
+    FOREIGN KEY (`fk_progID`) REFERENCES `rmu_student_mgt_db`.`programs` (`id`) 
+    ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+CREATE INDEX classes_idx1 ON `rmu_student_mgt_db`.`classes` (`name`);
+
+-- -----------------------------------------------------
+-- Table `rmu_student_mgt_db`.`courses_classes`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `rmu_student_mgt_db`.`courses_classes` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `fk_courseID` INT NOT NULL,
+  `fk_classID` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_courses_classes_courses1`
+    FOREIGN KEY (`fk_courseID`) REFERENCES `rmu_student_mgt_db`.`courses` (`id`) 
+    ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_courses_classes_classes1`
+    FOREIGN KEY (`fk_classID`) REFERENCES `rmu_student_mgt_db`.`classes` (`id`) 
+    ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
-CREATE TABLE `ussd_activity_logs` (
-  `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  `session_id` VARCHAR(255),
-  `service_code` VARCHAR(255),
-  `msisdn` VARCHAR(15),
-  `msg_type` INT,
-  `ussd_body` VARCHAR(255),
-  `nw_code` VARCHAR(2),
-  `timestamp` TIMESTAMP DEFAULT CURRENT_TIMESTAMP()
+-- -----------------------------------------------------
+-- Table `rmu_student_mgt_db`.`students`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `rmu_student_mgt_db`.`students` (
+  `index_number` VARCHAR(10) NOT NULL,
+  `email` VARCHAR(255) NOT NULL UNIQUE,
+  `password` VARCHAR(255) NOT NULL,
+  `first_name` VARCHAR(255) NOT NULL,
+  `last_name` VARCHAR(255) NOT NULL,
+  `gender` VARCHAR(1) DEFAULT 'F',
+  `date_admitted` DATE DEFAULT CURRENT_DATE(),
+  `term_admitted` VARCHAR(15) DEFAULT 'AUGUST',
+  `stream_admitted` VARCHAR(15) DEFAULT 'REGULAR',
+  `fk_deptID` INT NOT NULL,
+  `fk_progID` INT NOT NULL,
+  `fk_classID` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`index_number`),
+  CONSTRAINT `fk_students_departments1` 
+    FOREIGN KEY (`fk_deptID`) REFERENCES `rmu_student_mgt_db`.`departments` (`id`) 
+    ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_students_programs1` 
+    FOREIGN KEY (`fk_progID`) REFERENCES `rmu_student_mgt_db`.`programs` (`id`) 
+    ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_students_classes1` 
+    FOREIGN KEY (`fk_classID`) REFERENCES `rmu_student_mgt_db`.`classes` (`name`) 
+    ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+CREATE INDEX students_idx1 ON `rmu_student_mgt_db`.`students` (
+    `email`, `first_name`, `last_name`, `gender`, `date_admitted`, `term_admitted`, `stream_admitted`
 );
 
-/*
-Tables for form purchase
-*/
-DROP TABLE IF EXISTS `admission_period`;
-CREATE TABLE `admission_period` (
-    `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
-    `start_date` DATE NOT NULL,
-    `end_date` DATE NOT NULL,
-    `info` TEXT,
-    `active` TINYINT DEFAULT 0,
-    `deadline` DATE
-);
-INSERT INTO `admission_period`(`start_date`,`end_date`, `active`) VALUES('2022-07-01', '2022-10-01', 1);
-
-DROP TABLE IF EXISTS `form_type`;
-CREATE TABLE `form_type` (
-    `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
-    `name` VARCHAR(50) NOT NULL
-);
-INSERT INTO `form_type`(`name`) VALUES ("POSTGRADUATE"), ("UNDERGRADUATE"), ("OTHER COURSES");
-RENAME TABLE form_type TO form_categories;
-
-DROP TABLE IF EXISTS `form_price`;
-CREATE TABLE `form_price` (
-    `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
-    `form_type` INT NOT NULL,
-    `admin_period` INT NOT NULL,
-    `amount` DECIMAL(6,2) NOT NULL,
-    CONSTRAINT `fk_form_price_type` FOREIGN KEY (`form_type`) REFERENCES `form_categories`(`id`) ON UPDATE CASCADE ON DELETE CASCADE,
-    CONSTRAINT `fk_admin_p_f_price` FOREIGN KEY (`admin_period`) REFERENCES `admission_period`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
-);
-ALTER TABLE `form_price` ADD COLUMN `name` VARCHAR(120) AFTER `form_type`;
--- RUN THIS
-ALTER TABLE form_price DROP CONSTRAINT fk_admin_p_f_price, DROP COLUMN admin_period; 
-RENAME TABLE `form_price` TO `forms`;
-ALTER TABLE forms 
-DROP FOREIGN KEY fk_form_price_type,
-CHANGE COLUMN form_type form_category INT NOT NULL,
-ADD CONSTRAINT `fk_form_category` FOREIGN KEY (`form_category`) REFERENCES `form_categories`(`id`) ON UPDATE CASCADE ON DELETE CASCADE;
-
-DROP TABLE IF EXISTS `vendor_details`;
-CREATE TABLE `vendor_details` (
-    `id` INT(11) PRIMARY KEY,
-    `user_id` INT(11) NOT NULL,
-    `type` VARCHAR(10) NOT NULL,
-    `vendor_name` VARCHAR(50) NOT NULL,
-    `tin` VARCHAR(15) NOT NULL,
-    `email_address` VARCHAR(100),
-    `country_name` VARCHAR(30),
-    `country_code` VARCHAR(30) NOT NULL,
-    `phone_number` VARCHAR(13) NOT NULL,
-    `address` VARCHAR(50),
-    `added_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP()
+-- -----------------------------------------------------
+-- Table `rmu_student_mgt_db`.`students_courses_registered`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `rmu_student_mgt_db`.`students_courses_registered` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `fk_academic_yearID` INT NOT NULL,
+  `fk_semesterID` INT NOT NULL,
+  `fk_courseID` INT NOT NULL,
+  `fk_studentID` VARCHAR(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_students_courses_registered_academic_years1`
+    FOREIGN KEY (`fk_academic_yearID`) REFERENCES `rmu_student_mgt_db`.`academic_years` (`id`) 
+    ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_students_courses_registered_semesters1` 
+    FOREIGN KEY (`fk_semesterID`) REFERENCES `rmu_student_mgt_db`.`semesters` (`id`) 
+    ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_students_courses_registered_courses1` 
+    FOREIGN KEY (`fk_courseID`) REFERENCES `rmu_student_mgt_db`.`courses` (`id`) 
+    ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_students_courses_registered_students1` 
+    FOREIGN KEY (`fk_studentID`) REFERENCES `rmu_student_mgt_db`.`students` (`index_number`) 
+    ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
-ALTER TABLE `vendor_details` 
-DROP COLUMN `vendor_name`,
-DROP COLUMN `country_code`,
-DROP COLUMN `country_name`,
-CHANGE COLUMN `email_address` `company` VARCHAR(30);
-
-INSERT INTO `vendor_details`(`id`, `type`, `tin`, `phone_number`, `company`, `address`, `user_id`) 
-VALUES (1665605087, 'ONLINE', 'RMU', '233555351068', 'RMU', 'Nungua', 1);
-
--- RUN THIS
-ALTER TABLE `vendor_details`
-DROP COLUMN IF EXISTS `tin`, 
-DROP COLUMN IF EXISTS `address`, 
-ADD COLUMN IF NOT EXISTS `branch` VARCHAR(50) AFTER `company`;  
-
-ALTER TABLE `vendor_details` ADD `role` VARCHAR(50) AFTER `branch`;
-
-DROP TABLE IF EXISTS `payment_method`; 
-CREATE TABLE `payment_method` (
-    `id` INT AUTO_INCREMENT UNIQUE,
-    `name` VARCHAR(15) PRIMARY KEY
+-- -----------------------------------------------------
+-- Table `rmu_student_mgt_db`.`staff`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `rmu_student_mgt_db`.`staff` (
+  `staff_number` VARCHAR(20) NOT NULL,
+  `email` VARCHAR(255) NOT NULL UNIQUE,
+  `password` VARCHAR(255) NOT NULL,
+  `fname` VARCHAR(255) NOT NULL,
+  `lname` VARCHAR(255) NOT NULL,
+  `gender` VARCHAR(1) DEFAULT 'F',
+  `role` VARCHAR(15) NOT NULL,
+  `fk_deptID` INT NOT NULL,
+  PRIMARY KEY (`staff_number`),
+  CONSTRAINT `fk_staff_departments1`
+    FOREIGN KEY (`fk_deptID`) REFERENCES `rmu_student_mgt_db`.`departments` (`id`) 
+    ON DELETE NO ACTION ON UPDATE NO ACTION
 );
-INSERT INTO payment_method (`name`) VALUES('MOMO'), ('CARD'), ('CASH'), ('USSD');
+CREATE INDEX staff_idx1 ON `rmu_student_mgt_db`.`staff` (`staff_number`, `email`, `fname`, `lname`, `role`);
 
-
-DROP TABLE IF EXISTS `purchase_detail`; 
-CREATE TABLE `purchase_detail` (
-    `id` INT(11) PRIMARY KEY,
-    `first_name` VARCHAR(50) NOT NULL,
-    `last_name` VARCHAR(50) NOT NULL,
-    `email_address` VARCHAR(100),
-    `country_name` VARCHAR(30) NOT NULL,
-    `country_code` VARCHAR(30) NOT NULL,
-    `phone_number` VARCHAR(15) NOT NULL,
-    `amount` DECIMAL(6,2) NOT NULL,
-
-    `app_number` VARCHAR(10) NOT NULL,
-    `pin_number` VARCHAR(10) NOT NULL,
-
-    `status` VARCHAR(10) DEFAULT 'PENDING', -- added
-    `device_info` VARCHAR(200), -- added
-    `ip_address` VARCHAR(15), -- added
-    `added_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
-    
-    `vendor` INT(11) NOT NULL, -- added
-    `form_type` INT NOT NULL,
-    `admission_period` INT(11) NOT NULL, -- added
-    `payment_method` VARCHAR(20),
-
-    CONSTRAINT `fk_purchase_vendor_details` FOREIGN KEY (`vendor`) REFERENCES `vendor_details`(`id`) ON UPDATE CASCADE ON DELETE CASCADE,
-    CONSTRAINT `fk_purchase_admission_period` FOREIGN KEY (`admission_period`) REFERENCES `admission_period`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
+-- -----------------------------------------------------
+-- Table `rmu_student_mgt_db`.`lecturers_courses`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `rmu_student_mgt_db`.`lecturers_courses` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `fk_staffID` VARCHAR(20) NOT NULL,
+  `fk_courseID` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_lecturers_courses_staff1`
+    FOREIGN KEY (`fk_staffID`) REFERENCES `rmu_student_mgt_db`.`staff` (`id`) 
+    ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_lecturers_courses_courses1`
+    FOREIGN KEY (`fk_courseID`) REFERENCES `rmu_student_mgt_db`.`courses` (`id`) 
+    ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
-ALTER TABLE `purchase_detail` 
-DROP COLUMN IF EXISTS `device_info`,
-DROP COLUMN IF EXISTS `ip_address`,
-ADD COLUMN IF NOT EXISTS `service_rate` DECIMAL(6,2) DEFAULT 0.0 AFTER `amount`,
-ADD COLUMN IF NOT EXISTS `service_charge` DECIMAL(6,2) GENERATED ALWAYS AS (`amount` * `service_rate`) AFTER `service_rate`;
-
--- RUN THIS
-ALTER TABLE `purchase_detail` 
-ADD COLUMN IF NOT EXISTS `deleted` TINYINT(1) DEFAULT 0,
-CHANGE COLUMN form_type form_id INT NOT NULL,
-ADD CONSTRAINT `fk_purchase_form_id` FOREIGN KEY (`form_id`) REFERENCES `forms`(`id`) ON UPDATE CASCADE,
-ADD CONSTRAINT `fk_purchase_payment_method` FOREIGN KEY (`payment_method`) REFERENCES payment_method (`name`) ON UPDATE CASCADE;
-
-DROP TABLE IF EXISTS `applicants_login`;
-CREATE TABLE `applicants_login` (
-    `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
-    `app_number` VARCHAR(255) UNIQUE NOT NULL,
-    `pin` VARCHAR(255) NOT NULL,
-    `added_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
-    
-    `purchase_id` INT NOT NULL,
-    CONSTRAINT `fk_purchase_id` FOREIGN KEY (`purchase_id`) REFERENCES `purchase_detail`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
+-- -----------------------------------------------------
+-- Table `rmu_student_mgt_db`.`quizzes`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `rmu_student_mgt_db`.`quizzes` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(255) NOT NULL,
+  `total_mark` DECIMAL(4,1) NOT NULL,
+  `pass_mark` DECIMAL(4,1) NOT NULL,
+  `start_datetime` DATETIME NOT NULL,
+  `duration` INT NOT NULL,
+  `fk_courseID` INT NOT NULL,
+  `fk_staffID` VARCHAR(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_quizzes_courses1`
+    FOREIGN KEY (`fk_courseID`) REFERENCES `rmu_student_mgt_db`.`courses` (`id`) 
+    ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_quizzes_staff1`
+    FOREIGN KEY (`fk_staffID`) REFERENCES `rmu_student_mgt_db`.`staff` (`id`) 
+    ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+CREATE INDEX quizzes_idx1 ON `rmu_student_mgt_db`.`quizzes` (
+    `title`, `total_mark`, `pass_mark`, `start_datetime`, `end_datetime`, `duration`
 );
 
-ALTER TABLE `applicants_login` 
-ADD COLUMN `deleted` TINYINT(1) DEFAULT 1 AFTER `pin`;
-ALTER TABLE applicants_login CHANGE COLUMN IF EXISTS `deleted` `deleted` TINYINT(1) DEFAULT 0;
-/*
-Tables for applicants form registration
-*/
-
-DROP TABLE IF EXISTS `programs`;
-CREATE TABLE `programs` (
-    `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
-    `name` VARCHAR(255) NOT NULL,
-    `type` INT NOT NULL,
-    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
-    CONSTRAINT `fk_prog_form_type` FOREIGN KEY (`type`) REFERENCES `forms`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
+-- -----------------------------------------------------
+-- Table `rmu_student_mgt_db`.`questions`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `rmu_student_mgt_db`.`questions` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `question` LONGTEXT NOT NULL,
+  `marks` INT NOT NULL,
+  `type` VARCHAR(25) NOT NULL,
+  `fk_courseID` INT NOT NULL,
+  `fk_staffID` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_questions_courses1`
+    FOREIGN KEY (`fk_courseID`) REFERENCES `rmu_student_mgt_db`.`courses` (`id`) 
+    ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_questions_staff1`
+    FOREIGN KEY (`fk_staffID`) REFERENCES `rmu_student_mgt_db`.`staff` (`id`) 
+    ON DELETE NO ACTION ON UPDATE NO ACTION
 );
-ALTER TABLE `programs` 
-ADD COLUMN `weekend` TINYINT DEFAULT 0 AFTER `type`,
-ADD COLUMN `group` CHAR(1) AFTER `weekend`;
+CREATE INDEX questions_idx1 ON `rmu_student_mgt_db`.`questions` (`question`, `marks`, `type`);
 
-INSERT INTO `programs`(`type`, `name`, `weekend`, `group`) VALUES 
--- NB: M -> Masters, A -> Eng programs, B -> Non-eng programs
-(1, 'M.SC. RENEWABLE ENERGY (NEW PROGRAMME)', 1, 'M'),
-(1, 'M.SC. BIO-PROCESSING', 1, 'M'),
-(1, 'M.SC. ENVIRONMENTAL ENGINEERING', 1, 'M'),
-(1, 'M.A. PORTS AND SHIPPING ADMINISTRATION', 1, 'M'),
-
-(2, 'B.SC. NAUTICAL SCIENCE', 0, 'A'),
-(2, 'B.SC. MARINE ENGINEERING', 0, 'A'),
-(2, 'B.SC. MECHANICAL ENGINEERING', 1, 'A'),
-(2, 'B.SC. COMPUTER ENGINEERING', 1, 'A'),
-(2, 'B.SC. COMPUTER SCIENCE', 1, 'A'),
-(2, 'B.SC. ELECTRICAL/ELECTRONIC ENGINEERING', 1, 'A'),
-(2, 'B.SC. ACCOUNTING', 0, 'B'),
-(2, 'B.SC. INFORMATION TECHNOLOGY', 1, 'B'),
-(2, 'B.SC. PORT AND SHIPPING ADMINISTRATION', 1, 'B'),
-(2, 'B.SC. LOGISTICS MANAGEMENT', 1, 'B'),
-
-(3, 'DIPLOMA IN BANKING TECHNOLOGY AND ACCOUNTING', 0, 'B'),
-(3, 'DIPLOMA IN COMPUTERIZED ACCOUNTING', 0, 'B'),
-(3, 'DIPLOMA IN INFORMATION TECHNOLOGY', 0, 'B');
-
-DROP TABLE IF EXISTS `halls`;
-CREATE TABLE `halls` (
-    `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
-    `name` VARCHAR(255) NOT NULL,
-    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP()
+-- -----------------------------------------------------
+-- Table `rmu_student_mgt_db`.`answers`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `rmu_student_mgt_db`.`answers` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `option` TEXT(500) NOT NULL,
+  `right_answer` VARCHAR(255) NULL,
+  `fk_questID` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_answers_questions1`
+    FOREIGN KEY (`fk_questID`) REFERENCES `rmu_student_mgt_db`.`questions` (`id`) 
+    ON DELETE NO ACTION ON UPDATE NO ACTION
 );
-INSERT INTO `halls`(`name`) VALUES ('Cadet Hostel'), ('Non-cadet Hostel');
+CREATE INDEX answers_idx1 ON `rmu_student_mgt_db`.`answers` (`option`, `right_answer`);
 
-DROP TABLE IF EXISTS `grades`;
-CREATE TABLE `grades` (
-    `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
-    `grade` VARCHAR(2) NOT NULL,
-    `type` VARCHAR(15)
-);
-INSERT INTO `grades`(`grade`, `type`) VALUES 
-('A1', 'WASSCE'), ('B2', 'WASSCE'), ('B3', 'WASSCE'), ('C4', 'WASSCE'), ('C5', 'WASSCE'), 
-('C6', 'WASSCE'), ('D7', 'WASSCE'), ('E8', 'WASSCE'), ('F9', 'WASSCE'),
-('A1', 'NECO'), ('B2', 'NECO'), ('B3', 'NECO'), ('C4', 'NECO'), ('C5', 'NECO'), 
-('C6', 'NECO'), ('D7', 'NECO'), ('E8', 'NECO'), ('F9', 'NECO'),
-('A', 'SSSCE'), ('B', 'SSSCE'), ('C', 'SSSCE'), ('D', 'SSSCE'), ('E', 'SSSCE'), ('F', 'SSSCE'),
-('A', 'GBCE'), ('B', 'GBCE'), ('C', 'GBCE'), ('D', 'GBCE'), ('E', 'GBCE'), ('F', 'GBCE');
-
-DROP TABLE IF EXISTS `high_shcool_courses`;
-CREATE TABLE `high_shcool_courses` (
-    `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
-    `type` VARCHAR(10),
-    `course` VARCHAR(25) NOT NULL
+-- -----------------------------------------------------
+-- Table `rmu_student_mgt_db`.`quizzes_questions`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `rmu_student_mgt_db`.`quizzes_questions` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `fk_quizID` INT NOT NULL,
+  `fk_questID` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_quizzes_questions_quizzes1`
+    FOREIGN KEY (`fk_quizID`) REFERENCES `rmu_student_mgt_db`.`quizzes` (`id`) 
+    ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_quizzes_questions_questions1`
+    FOREIGN KEY (`fk_questID`) REFERENCES `rmu_student_mgt_db`.`questions` (`id`) 
+    ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
-INSERT INTO `high_shcool_courses`(`type`, `course`) VALUES 
-("secondary", "BUSINESS"), 
-("secondary", "GENERAL ARTS"), 
-("secondary", "GENERAL SCIENCE"), 
-("secondary", "HOME ECONOMICS"), 
-("secondary", "VISUAL ARTS"), 
-("technical", "TECHNICAL");
-
-DROP TABLE IF EXISTS `high_sch_subjects`;
-CREATE TABLE `high_sch_subjects` (
-    `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
-    `type` VARCHAR(10) NOT NULL,
-    `subject` VARCHAR(25) NOT NULL
+-- -----------------------------------------------------
+-- Table `rmu_student_mgt_db`.`students_quizzes_responses`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `rmu_student_mgt_db`.`students_quizzes_responses` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `fk_quizID` INT NOT NULL,
+  `fk_questID` INT NOT NULL,
+  `fk_ansID` INT NOT NULL,
+  `fk_studentID` VARCHAR(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_students_quizzes_responses_quizzes1`
+    FOREIGN KEY (`fk_quizID`) REFERENCES `rmu_student_mgt_db`.`quizzes` (`id`) 
+    ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_students_quizzes_responses_questions1`
+    FOREIGN KEY (`fk_questID`) REFERENCES `rmu_student_mgt_db`.`questions` (`id`) 
+    ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_students_quizzes_responses_answers1`
+    FOREIGN KEY (`fk_ansID`) REFERENCES `rmu_student_mgt_db`.`answers` (`id`) 
+    ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_students_quizzes_responses_students1`
+    FOREIGN KEY (`fk_studentID`) REFERENCES `rmu_student_mgt_db`.`students` (`index_number`) 
+    ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
-INSERT INTO `high_sch_subjects`(`type`, `subject`) VALUES 
-("core", "CORE MATHEMATICS"), 
-("core", "ENGLISH LANGUAGE"), 
-("core", "INTEGRATED SCIENCE"), 
-("core", "SOCIAL STUDIES"), 
-("secondary", "PRINCIPLE OF COSTING"),
-("secondary", "ACCOUNTING"), 
-("secondary", "BUSINESS MANAGEMENT"), 
-("secondary", "PRINCIPLE OF COSTING"), 
-("secondary", "ELECTIVE MATHS"),
-("secondary", "LITERATURE IN ENGLISH"), 
-("secondary", "GEOGRAPHY"), 
-("secondary", "HISTORY"), 
-("secondary", "GOVERNMENT"), 
-("secondary", "RELIGIOUS STUDIES"),
-("secondary", "PHYSICS"), 
-("secondary", "CHEMISTRY"), 
-("secondary", "BIOLOGY"),
-("secondary", "MANAGEMENT IN LIVING"), 
-("secondary", "FOOD AND NUTRITION"), 
-("secondary", "GENERAL KNOWLEDGE IN ARTS"), 
-("secondary", "TEXTILE"),
-("secondary","GRAPHIC DESIGN"), 
-("secondary", "LITERATURE IN ENGLISH"), 
-("secondary", "FRENCH"),
-("secondary", "ECONOMICS"), 
-("secondary", "BASKETRY"), 
-("secondary", "LEATHER WORK"), 
-("secondary", "PICTURE MAKING"), 
-("secondary", "CERAMICS AND SCULPTURE"),
-("technical", 'Building Construction Technology'), 
-("technical", 'Carpentry And Joinery'), 
-("technical", 'Catering'), 
-("technical", 'Electrical Installation Work'), 
-("technical", 'Electronics'), 
-("technical", 'Fashion And Design'), 
-("technical", 'General Textiles'), 
-("technical", 'Industrial Mechanics'), 
-("technical", 'Mechanical Engineering Craft Practice'), 
-("technical", 'Metal Work'), 
-("technical", 'Photography'), 
-("technical", 'Plumbing Craft'), 
-("technical", 'Printing Craft'), 
-("technical", 'Welding And Fabrication'), 
-("technical", 'Wood Work');
-
-/*Application Data*/
-
-DROP TABLE IF EXISTS `applicant_uploads`;
-CREATE TABLE `applicant_uploads` (
-    `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
-    `type` VARCHAR(25), -- photo, certificate, transcript
-    `file_name` VARCHAR(50),
-    `app_login` INT NOT NULL,
-    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
-    CONSTRAINT `fk_uploaded_files` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
+-- -----------------------------------------------------
+-- Table `rmu_student_mgt_db`.`students_quizzes_stats`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `rmu_student_mgt_db`.`students_quizzes_stats` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `total_mark` DECIMAL(4,1) NOT NULL,
+  `pass_mark` DECIMAL(4,1) NOT NULL,
+  `score_obtained` INT NOT NULL DEFAULT 0,
+  `score_percent` DECIMAL(4,1) GENERATED ALWAYS AS ((`score_obtained` / `total_mark`) * 100) VIRTUAL,
+  `grade` VARCHAR(2)  GENERATED ALWAYS AS (
+    CASE
+      WHEN `score_percent` >= 80 THEN 'A+'
+      WHEN `score_percent` >= 76 THEN 'A-'
+      WHEN `score_percent` >= 70 THEN 'B+'
+      WHEN `score_percent` >= 66 THEN 'B'
+      WHEN `score_percent` >= 60 THEN 'C'
+      WHEN `score_percent` >= 50 THEN 'D'
+      WHEN `score_percent` >= 46 THEN 'E'
+      WHEN `score_percent` <= 45 THEN 'F'
+    END
+  ) VIRTUAL,
+  `passed` TINYINT(1) GENERATED ALWAYS AS (
+    CASE
+      WHEN `score_obtained` >= `pass_mark` THEN 1
+      WHEN `score_obtained` < `pass_mark` THEN 0
+    END
+  ) VIRTUAL,
+  `fk_quizID` INT NOT NULL,
+  `fk_studentID` VARCHAR(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_students_quizzes_stats_quizzes1`
+    FOREIGN KEY (`fk_quizID`) REFERENCES `rmu_student_mgt_db`.`quizzes` (`id`) 
+    ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_students_quizzes_stats_students1`
+    FOREIGN KEY (`fk_studentID`) REFERENCES `rmu_student_mgt_db`.`students` (`index_number`) 
+    ON DELETE NO ACTION ON UPDATE NO ACTION
 );
-
-ALTER TABLE `applicant_uploads` 
-ADD COLUMN `edu_code` INT(11) AFTER `type`,
-ADD COLUMN `linked_to` INT(11) AFTER `file_name`;
-
-DROP TABLE IF EXISTS `personal_information`;
-CREATE TABLE `personal_information` (
-    `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
-
-    -- Legal Name
-    `prefix` VARCHAR(10),
-    `first_name` VARCHAR(100),
-    `middle_name` VARCHAR(100),
-    `last_name` VARCHAR(100),
-    `suffix` VARCHAR(10),
-
-    -- Personal Details
-    `gender` VARCHAR(7),
-    `dob` DATE,
-    `marital_status` VARCHAR(25),
-    `nationality` VARCHAR(25),
-    `country_res` VARCHAR(25),
-    `disability` TINYINT,
-    `disability_descript` VARCHAR(25),
-    `photo` VARCHAR(25),
-
-    -- Place of birth
-    `country_birth` VARCHAR(25),
-    `spr_birth` VARCHAR(25),
-    `city_birth` VARCHAR(25),
-
-    -- Languages Spoken
-    `english_native` TINYINT,
-    `other_language` VARCHAR(25),
-
-    -- Address
-    `postal_addr` VARCHAR(255),
-    `postal_town` VARCHAR(50),
-    `postal_spr` VARCHAR(50),
-    `postal_country` VARCHAR(50),
-
-    -- Contact
-    `phone_no1_code` VARCHAR(5),
-    `phone_no1` VARCHAR(13),
-    `phone_no2_code` VARCHAR(5),
-    `phone_no2` VARCHAR(13),
-    `email_addr` VARCHAR(50),
-    
-    -- Alternate/Parent/Guardian Information
-
-    -- Legal Name
-    `p_prefix` VARCHAR(10),
-    `p_first_name` VARCHAR(100),
-    `p_last_name` VARCHAR(100),
-    `p_occupation` VARCHAR(50),
-    `p_phone_no_code` VARCHAR(5),
-    `p_phone_no` VARCHAR(13),
-    `p_email_addr` VARCHAR(50),
-
-    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
-
-    `app_login` INT NOT NULL,
-    CONSTRAINT `fk_app_pf` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
-);
-
-ALTER TABLE `personal_information` ADD COLUMN `speaks_english` TINYINT AFTER `english_native`;
-
-DROP TABLE IF EXISTS `academic_background`;
-CREATE TABLE `academic_background` (
-    `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
-    `s_number` INT(11) UNIQUE NOT NULL,
-
-    -- Certificate info
-    `school_name` VARCHAR(100),
-    `country` VARCHAR(100),
-    `region` VARCHAR(100),
-    `city` VARCHAR(100),
-    
-    `cert_type` VARCHAR(20),
-    `index_number` VARCHAR(20),
-    `month_started` VARCHAR(3),
-    `year_started` VARCHAR(4),
-    `month_completed` VARCHAR(3),
-    `year_completed` VARCHAR(4),
-    
-    `course_of_study` VARCHAR(100),
-    `awaiting_result` TINYINT DEFAULT 0,
-
-    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
-
-    `app_login` INT NOT NULL,
-    CONSTRAINT `fk_app_aca_bac` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
-);
-
-ALTER TABLE `academic_background` 
-ADD COLUMN `other_cert_type` VARCHAR(100) AFTER `cert_type`,
-ADD COLUMN `other_course_studied` VARCHAR(100) AFTER `course_of_study`;
-
-DROP TABLE IF EXISTS `high_school_results`;
-CREATE TABLE `high_school_results` (
-    `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
-    `type` VARCHAR(10) DEFAULT 'core',
-    `subject` VARCHAR(100) NOT NULL,
-    `grade` VARCHAR(2) NOT NULL,
-    `acad_back_id` INT NOT NULL, -- Referencing academic background
-    CONSTRAINT `fk_grades_aca_bac` FOREIGN KEY (`acad_back_id`) REFERENCES `academic_background`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
-);
-
-DROP TABLE IF EXISTS `program_info`;
-CREATE TABLE `program_info` (
-    `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
-
-    -- programs
-    `first_prog` VARCHAR(200),
-    `second_prog` VARCHAR(200),
-
-    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
-
-    `app_login` INT NOT NULL,   
-    CONSTRAINT `fk_app_prog_info` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
-);
-
-ALTER TABLE `program_info` 
-ADD COLUMN `application_term` VARCHAR(15) AFTER `second_prog`, 
-ADD COLUMN `study_stream` VARCHAR(15) AFTER `application_term`; 
-
-DROP TABLE IF EXISTS `previous_uni_records`;
-CREATE TABLE `previous_uni_records` (
-    `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
-    `pre_uni_rec` TINYINT DEFAULT 0,   
-    `name_of_uni` VARCHAR(150),   
-    `program` VARCHAR(150),  
-
-    `month_enrolled` VARCHAR(3),
-    `year_enrolled` VARCHAR(4),
-    `completed` TINYINT DEFAULT 0,
-    `month_completed` VARCHAR(3),
-    `year_completed` VARCHAR(4),
-
-    `state` VARCHAR(25),
-    `reasons` TEXT,
-
-    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
-
-    `app_login` INT NOT NULL,   
-    CONSTRAINT `fk_app_prev_uni` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
-);
-
-DROP TABLE IF EXISTS `form_sections_chek`;
-CREATE TABLE `form_sections_chek` (
-    `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
-    `personal` TINYINT DEFAULT 0,
-    `education` TINYINT DEFAULT 0,
-    `programme` TINYINT DEFAULT 0,
-    `uploads` TINYINT DEFAULT 0,
-    `declaration` TINYINT DEFAULT 0,
-    `app_login` INT NOT NULL,   
-    CONSTRAINT `fk_app_form_sec_check` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
-);
-
-ALTER TABLE `form_sections_chek` 
-ADD COLUMN `admitted` TINYINT DEFAULT 0 AFTER `declaration`,
-ADD COLUMN `first_prog_qualified` TINYINT AFTER `admitted`,
-ADD COLUMN `second_prog_qualified` TINYINT AFTER `first_prog_qualified`;
-
-DROP TABLE IF EXISTS `heard_about_us`;
-CREATE TABLE `heard_about_us` (
-    `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
-    `medium` VARCHAR(50) NOT NULL,
-    `description` VARCHAR(50),
-    `app_login` INT NOT NULL,   
-    CONSTRAINT `fk_heard_abt_us` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
-);
-
-DROP TABLE IF EXISTS `broadsheets`;
-CREATE TABLE `broadsheets` (
-    `id` INT AUTO_INCREMENT PRIMARY KEY,
-    `admin_period` INT NOT NULL,
-    CONSTRAINT `fk_admin_broadsheets` FOREIGN KEY (`admin_period`) REFERENCES `admission_period`(`id`) ON UPDATE CASCADE ON DELETE CASCADE,
-    
-    `app_login` INT NOT NULL,
-    CONSTRAINT `fk_app_broadsheets` FOREIGN KEY (`app_login`) REFERENCES `applicants_login`(`id`) ON UPDATE CASCADE ON DELETE CASCADE,
-    
-    `program_id` INT NOT NULL,
-    CONSTRAINT `fk_program_broadsheets` FOREIGN KEY (`program_id`) REFERENCES `programs`(`id`) ON UPDATE CASCADE ON DELETE CASCADE,
-
-    `required_core_passed` INT NOT NULL,
-    `any_one_core_passed` INT NOT NULL,
-    `total_core_score` INT NOT NULL,
-
-    `any_three_elective_passed` INT NOT NULL,
-    `total_elective_score` INT NOT NULL,
-
-    `total_score` INT NOT NULL,
-
-    `program_choice` VARCHAR(15) NOT NULL
-);
-
-/*
-    Restructuring DB according to sections in and questions
-*/
-
-/* Website Pages */
-DROP TABLE IF EXISTS `web_pages`;
-CREATE TABLE `web_pages` (
-    `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
-    -- `upgid` VARCHAR(255) UNIQUE NOT NULL,
-    `page_name` VARCHAR(150) NOT NULL UNIQUE
-);
-INSERT INTO `web_pages`(`page_name`) VALUES
-('Use of Information'),('Personal Information'),('Education Background'),
-('Programme Information'),('Uploads'),('Declaration');
-
-/*Page Sections*/
-DROP TABLE IF EXISTS `page_sections`;
-CREATE TABLE `page_sections` (
-    `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
-    -- `ustid` VARCHAR(255) UNIQUE NOT NULL,
-    `name` VARCHAR(150) NOT NULL UNIQUE,
-    `description` VARCHAR(255),
-    `page` INT NOT NULL,   
-    CONSTRAINT `fk_page_section` FOREIGN KEY (`page`) REFERENCES `web_pages`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
-);
-INSERT INTO `page_sections`(`name`, `page`) VALUES   
-('Legal Name', 1),
-('Personal Details', 1),
-('Place of Birth', 1),
-('Language', 1),
-('Address', 1),
-('Contact', 1),
-('Parent/Guardian', 1),
-('Education', 2),
-('Programmes', 3),
-('Passport Picture', 4),
-('Certificates', 4),
-('Transcripts', 4);
-
-/*Section Questions*/
-DROP TABLE IF EXISTS `section_questions`;
-CREATE TABLE `section_questions` (
-    `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
-    -- `uqtid` VARCHAR(255) UNIQUE NOT NULL,
-    `question` VARCHAR(255) NOT NULL,
-    `type` VARCHAR(25) NOT NULL DEFAULT 'text', -- text, dropdown, radio, checkbox, date, etc.
-    `place_holder` VARCHAR(25),
-    `required` TINYINT DEFAULT 1,
-    `section` INT NOT NULL,
-    CONSTRAINT `fk_section_question` FOREIGN KEY (`section`) REFERENCES `page_sections`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
-);
-
-
-SELECT 
-al.`id`, 
-pin.`prefix`, `first_name`, `middle_name`, `last_name`, `suffix`, `gender`, `dob`, `marital_status`, 
-pin.`nationality`, pin.`country_res`, pin.`disability`, pin.`disability_descript`, pin.`photo`, 
-pin.`country_birth`, pin.`spr_birth`, pin.`city_birth`, pin.`english_native`, pin.`speaks_english`, 
-pin.`other_language`, pin.`postal_addr`, pin.`postal_town`, pin.`postal_spr`, pin.`postal_country`, 
-pin.`phone_no1_code`, pin.`phone_no1`, pin.`phone_no2_code`, pin.`phone_no2`, pin.`email_addr`, 
-pin.`p_prefix`, pin.`p_first_name`, pin.`p_last_name`, pin.`p_occupation`, pin.`p_phone_no_code`, 
-pin.`p_phone_no`, pin.`p_email_addr`, pin.`updated_at`,
-ab.`s_number`, ab.`school_name`, ab.`country`, ab.`region`, ab.`city`, ab.`cert_type`, ab.`other_cert_type`, 
-ab.`index_number`, ab.`month_started`, ab.`year_started`, ab.`month_completed`, ab.`year_completed`, 
-ab.`course_of_study`, ab.`other_course_studied`, ab.`awaiting_result`, 
-pi.`first_prog`, `second_prog`, pi.`application_term`, pi.`study_stream`,
-hsr.`type`, hsr.`subject`, hsr.`grade`, 
-hau.`medium`, hau.`description` 
-FROM  
-`applicants_login` AS al, `personal_information` AS pin, `academic_background` AS ab, `program_info` AS pi, 
-`high_school_results` AS hsr, `heard_about_us` AS hau 
-WHERE 
-al.id = pin.app_login AND al.id = ab.app_login AND al.id = pi.app_login AND 
-al.id = hsr.app_login AND al.id = hau.app_login
-
-SELECT 
-al.`id`, 
-pin.`prefix`, `first_name`, `middle_name`, `last_name`, `suffix`, `gender`, `dob`, `marital_status`, 
-pin.`nationality`, pin.`country_res`, pin.`disability`, pin.`disability_descript`, pin.`photo`, 
-pin.`country_birth`, pin.`spr_birth`, pin.`city_birth`, pin.`english_native`, pin.`speaks_english`, 
-pin.`other_language`, pin.`postal_addr`, pin.`postal_town`, pin.`postal_spr`, pin.`postal_country`, 
-pin.`phone_no1_code`, pin.`phone_no1`, pin.`phone_no2_code`, pin.`phone_no2`, pin.`email_addr`, 
-pin.`p_prefix`, pin.`p_first_name`, pin.`p_last_name`, pin.`p_occupation`, pin.`p_phone_no_code`, 
-pin.`p_phone_no`, pin.`p_email_addr`, pin.`updated_at`,
-pi.`first_prog`, `second_prog`, pi.`application_term`, pi.`study_stream`,
-hau.`medium`, hau.`description` 
-FROM  
-`applicants_login` AS al, `personal_information` AS pin, `program_info` AS pi, 
-`heard_about_us` AS hau, `form_sections_chek` AS fsc 
-WHERE 
-al.id = pin.app_login AND al.id = pi.app_login AND al.id = hau.app_login AND al.id = fsc.app_login 
-AND fsc.declaration = 1;
-
-SELECT , `updated_at`, `app_login` FROM 
-
-SELECT , `updated_at`, `app_login` 
-FROM 
-
-SELECT , `acad_back_id` FROM 
-
-SELECT , `app_login` FROM 

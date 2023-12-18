@@ -2,58 +2,97 @@
 
 namespace Src\Controller;
 
-use Src\System\DatabaseMethods;
-
 class ExposeDataController
 {
-    private $dm;
-
-    public function __construct()
-    {
-        $this->dm = new DatabaseMethods();
-    }
-
-    public function getFormTypes()
-    {
-        return $this->dm->getData("SELECT * FROM `form_type`");
-    }
-
-    public function getPaymentMethods()
-    {
-        return $this->dm->getData("SELECT * FROM `payment_method`");
-    }
-
-    public function getPrograms($type)
-    {
-        $sql = "SELECT * FROM `programs` WHERE `type` = :t";
-        $param = array(":t" => $type);
-        return $this->dm->getData($sql, $param);
-    }
-
-    public function getHalls()
-    {
-        return $this->dm->getData("SELECT * FROM `halls`");
-    }
-
     public function genCode($length = 6)
     {
         $digits = $length;
         return rand(pow(10, $digits - 1), pow(10, $digits) - 1);
     }
 
-    public function sendEmail($recipient_email, $user_id)
+    public function validateEmail($input): mixed
     {
-        //generate code and store hash version of code
-        $v_code = $this->genCode($user_id);
-        if ($v_code) {
-            //prepare mail info
-            $headers = 'From: ' . 'y.m.ratty7@gmail.com';
-            $subject = 'RMU Admmisions Form Purchase: Code Verification';
-            $message = 'Hi, <br> your verification code is <b>' . $v_code . '</b>';
+        if (empty($input)) return array("success" => false, "message" => "Input required!");
+        $user_email = htmlentities(htmlspecialchars($input));
+        $sanitized_email = filter_var($user_email, FILTER_SANITIZE_EMAIL);
+        if (!filter_var($sanitized_email, FILTER_VALIDATE_EMAIL))
+            return array("success" => false, "message" => "Invalid email address!");
+        return array("success" => true, "message" => $user_email);
+    }
 
-            //send mail
-            return mail($recipient_email, $subject, $message, $headers);
+    public function validatePassword($input)
+    {
+        if (empty($input)) return array("success" => false, "message" => "Input required!");
+        $user_input = htmlentities(htmlspecialchars($input));
+        $validated_input = (bool) preg_match('/^[A-Za-z0-9()+@#.-_=$&!`]/', $user_input);
+        if ($validated_input) return $user_input;
+        return array("success" => false, "message" => "Invalid input!");
+    }
+
+    public function validateInputTextNumber($input)
+    {
+        if (empty($input)) return array("success" => false, "message" => "Input required");
+        $user_input = htmlentities(htmlspecialchars($input));
+        $validated_input = (bool) preg_match('/^[A-Za-z0-9]/', $user_input);
+        if ($validated_input) return array("success" => true, "message" => $user_input);
+        return array("success" => false, "message" => "invalid");
+    }
+
+    public function validateInputTextOnly($input)
+    {
+        if (empty($input)) return array("success" => false, "message" => "Input required");
+        $user_input = htmlentities(htmlspecialchars($input));
+        $validated_input = (bool) preg_match('/^[A-Za-z]/', $user_input);
+        if ($validated_input) return array("success" => true, "message" => $user_input);
+        return array("success" => false, "message" => "invalid");
+    }
+
+    public function validateNumberOnly($input)
+    {
+        if (empty($input)) return array("success" => false, "message" => "Input required!");
+        $user_input = htmlentities(htmlspecialchars($input));
+        $validated_input = (bool) preg_match('/^[0-9]/', $user_input);
+        if ($validated_input) return  array("success" => true, "message" => $user_input);
+        die(json_encode(array("success" => false, "message" => "Invalid input!")));
+    }
+
+    public function validateDate($date)
+    {
+        if (strtotime($date) === false) return array("success" => false, "message" => "Invalid date!");
+        list($year, $month, $day) = explode('-', $date);
+        if (checkdate($month, $day, $year)) return array("success" => true, "message" => $date);
+    }
+
+    public function validateImage($files)
+    {
+        if (!isset($files['file']['error']) || !empty($files["pics"]["name"])) {
+            $allowedFileType = ['image/jpeg', 'image/png', 'image/jpg'];
+            for ($i = 0; $i < count($files["pics"]["name"]); $i++) {
+                $check = getimagesize($files["pics"]["tmp_name"][$i]);
+                if ($check !== false && in_array($files["pics"]["type"][$i], $allowedFileType))
+                    return array("success" => true, "message" => $files);
+            }
         }
-        return 0;
+        return array("success" => false, "message" => "Invalid file uploaded!");
+    }
+
+    public function validateYearData($input)
+    {
+        if (empty($input)) return array("success" => false, "message" => "Input required");
+        //if ($input < 1990 || $input > 2022) return array("success" => false, "message" => "invalid");
+        $user_input = htmlentities(htmlspecialchars($input));
+        $validated_input = (bool) preg_match('/^[0-9]/', $user_input);
+        if ($validated_input) return array("success" => true, "message" => $user_input);
+        return array("success" => false, "message" => "Input invalid");
+    }
+
+    public function validateGrade($input)
+    {
+        if (empty($input) || strtoupper($input) == "GRADE") return array("success" => false, "message" => "Input required");
+        if (strlen($input) < 1 || strlen($input) > 2) return array("success" => false, "message" => "Input invalid");
+        $user_input = htmlentities(htmlspecialchars($input));
+        $validated_input = (bool) preg_match('/^[A-Za-z]/', $user_input);
+        if ($validated_input) return array("success" => true, "message" => $user_input);
+        return array("success" => true, "message" => $user_input);
     }
 }
