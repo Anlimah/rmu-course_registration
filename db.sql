@@ -9,13 +9,16 @@ USE `rmu_student_mgt_db` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `rmu_student_mgt_db`.`academic_years` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(15) NOT NULL UNIQUE,
-  `start_year` YEAR NOT NULL,
+  `start_year` YEAR NOT NULL, 
   `end_year` YEAR NOT NULL,
+  `name` VARCHAR(15) GENERATED ALWAYS AS (CONCAT(`start_year`, '-', `end_year`)) VIRTUAL,
   PRIMARY KEY (`id`)
 );
-CREATE INDEX academic_years_idx ON `rmu_student_mgt_db`.`academic_years` (`name`, `start_year`, `end_year`);
-INSERT INTO `rmu_student_mgt_db`.`academic_years` (`name`, `start_year`, `end_year`) VALUES ('2023 - 2024', '2023', '2024');
+CREATE INDEX academic_years_name_idx ON `rmu_student_mgt_db`.`academic_years` (`name`);
+CREATE INDEX academic_years_start_year_idx ON `rmu_student_mgt_db`.`academic_years` (`start_year`);
+CREATE INDEX academic_years_end_year_idx ON `rmu_student_mgt_db`.`academic_years` (`end_year`);
+
+INSERT INTO `rmu_student_mgt_db`.`academic_years` (`start_year`, `end_year`) VALUES ('2023', '2024');
 
 -- -----------------------------------------------------
 -- Table `rmu_student_mgt_db`.`semesters`
@@ -25,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `rmu_student_mgt_db`.`semesters` (
   `name` VARCHAR(20) NOT NULL UNIQUE,
   PRIMARY KEY (`id`)
 );
-CREATE INDEX semesters_idx ON `rmu_student_mgt_db`.`semesters` (`name`);
+CREATE INDEX semesters_name_idx ON `rmu_student_mgt_db`.`semesters` (`name`);
 INSERT INTO `rmu_student_mgt_db`.`semesters` (`name`) VALUES ('SEMESTER 1', 'SEMESTER 2');
 
 -- -----------------------------------------------------
@@ -36,15 +39,15 @@ CREATE TABLE IF NOT EXISTS `rmu_student_mgt_db`.`departments` (
   `name` VARCHAR(255) NOT NULL UNIQUE,
   PRIMARY KEY (`id`)
 );
-CREATE INDEX departments_idx1 ON `rmu_student_mgt_db`.`departments` (`name`);
+CREATE INDEX departments_name_idx1 ON `rmu_student_mgt_db`.`departments` (`name`);
 
 -- -----------------------------------------------------
 -- Table `rmu_student_mgt_db`.`programs`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `rmu_student_mgt_db`.`programs` (
+  `code` VARCHAR(25) NOT NULL UNIQUE,
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL UNIQUE,
-  `code` VARCHAR(25) NOT NULL UNIQUE,
   `duration` INT DEFAULT 0,
   `dur_format` VARCHAR(25) DEFAULT 'YEAR',
   `fk_deptID` INT NOT NULL,
@@ -53,23 +56,26 @@ CREATE TABLE IF NOT EXISTS `rmu_student_mgt_db`.`programs` (
     FOREIGN KEY (`fk_deptID`) REFERENCES `rmu_student_mgt_db`.`departments` (`id`) 
     ON DELETE NO ACTION ON UPDATE NO ACTION
 );
-CREATE INDEX programs_idx1 ON `rmu_student_mgt_db`.`programs` (`name`, `code`, `duration`, `dur_format`);
+CREATE INDEX programs_name_idx1 ON `rmu_student_mgt_db`.`programs` (`name`);
+CREATE INDEX programs_code_idx1 ON `rmu_student_mgt_db`.`programs` (`code`);
+CREATE INDEX programs_duration_idx1 ON `rmu_student_mgt_db`.`programs` (`duration`);
+CREATE INDEX programs_dur_format_idx1 ON `rmu_student_mgt_db`.`programs` (`dur_format`);
 
 -- -----------------------------------------------------
 -- Table `rmu_student_mgt_db`.`courses`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `rmu_student_mgt_db`.`courses` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `code` VARCHAR(10) NOT NULL UNIQUE,
-  `name` VARCHAR(255) NOT NULL UNIQUE,
+  `code` VARCHAR(10) NOT NULL,
+  `name` VARCHAR(255) NOT NULL,
   `credit_hours` INT DEFAULT 0,
   `fk_deptID` INT NOT NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`code`),
   CONSTRAINT `fk_courses_departments1` 
     FOREIGN KEY (`fk_deptID`) REFERENCES `rmu_student_mgt_db`.`departments` (`id`) 
     ON DELETE NO ACTION ON UPDATE NO ACTION
 );
-CREATE INDEX courses_idx1 ON `rmu_student_mgt_db`.`courses` (`code`, `name`, `credit_hours`);
+CREATE INDEX courses_name_idx1 ON `rmu_student_mgt_db`.`courses` (`name`);
+CREATE INDEX courses_credit_hours_idx1 ON `rmu_student_mgt_db`.`courses` (`credit_hours`);
 
 -- -----------------------------------------------------
 -- Table `rmu_student_mgt_db`.`classes`
@@ -83,18 +89,18 @@ CREATE TABLE IF NOT EXISTS `rmu_student_mgt_db`.`classes` (
     FOREIGN KEY (`fk_progID`) REFERENCES `rmu_student_mgt_db`.`programs` (`id`) 
     ON DELETE NO ACTION ON UPDATE NO ACTION
 );
-CREATE INDEX classes_idx1 ON `rmu_student_mgt_db`.`classes` (`name`);
+CREATE INDEX classes_name_idx1 ON `rmu_student_mgt_db`.`classes` (`name`);
 
 -- -----------------------------------------------------
 -- Table `rmu_student_mgt_db`.`courses_classes`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `rmu_student_mgt_db`.`courses_classes` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `fk_courseID` INT NOT NULL,
+  `fk_courseID` VARCHAR(10) NOT NULL,
   `fk_classID` INT NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_courses_classes_courses1`
-    FOREIGN KEY (`fk_courseID`) REFERENCES `rmu_student_mgt_db`.`courses` (`id`) 
+    FOREIGN KEY (`fk_courseID`) REFERENCES `rmu_student_mgt_db`.`courses` (`code`) 
     ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_courses_classes_classes1`
     FOREIGN KEY (`fk_classID`) REFERENCES `rmu_student_mgt_db`.`classes` (`id`) 
@@ -106,9 +112,11 @@ CREATE TABLE IF NOT EXISTS `rmu_student_mgt_db`.`courses_classes` (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `rmu_student_mgt_db`.`students` (
   `index_number` VARCHAR(10) NOT NULL,
-  `email` VARCHAR(255) NOT NULL UNIQUE,
   `password` VARCHAR(255) NOT NULL,
+  `email` VARCHAR(255) NOT NULL UNIQUE,
+  `phone_number` VARCHAR(15) NOT NULL UNIQUE,
   `first_name` VARCHAR(255) NOT NULL,
+  `middle_name` VARCHAR(255),
   `last_name` VARCHAR(255) NOT NULL,
   `gender` VARCHAR(1) DEFAULT 'F',
   `date_admitted` DATE DEFAULT CURRENT_DATE(),
@@ -128,9 +136,14 @@ CREATE TABLE IF NOT EXISTS `rmu_student_mgt_db`.`students` (
     FOREIGN KEY (`fk_classID`) REFERENCES `rmu_student_mgt_db`.`classes` (`name`) 
     ON DELETE NO ACTION ON UPDATE NO ACTION
 );
-CREATE INDEX students_idx1 ON `rmu_student_mgt_db`.`students` (
-    `email`, `first_name`, `last_name`, `gender`, `date_admitted`, `term_admitted`, `stream_admitted`
-);
+CREATE INDEX students_email_idx1 ON `rmu_student_mgt_db`.`students` (`email`);
+CREATE INDEX students_phone_number_idx1 ON `rmu_student_mgt_db`.`students` (`phone_number`);
+CREATE INDEX students_fname_idx1 ON `rmu_student_mgt_db`.`students` (`first_name`);
+CREATE INDEX students_lname_idx1 ON `rmu_student_mgt_db`.`students` (`last_name`);
+CREATE INDEX students_gender_idx1 ON `rmu_student_mgt_db`.`students` (`gender`);
+CREATE INDEX students_date_idx1 ON `rmu_student_mgt_db`.`students` (`date_admitted`);
+CREATE INDEX students_term_idx1 ON `rmu_student_mgt_db`.`students` (`term_admitted`);
+CREATE INDEX students_stream_idx1 ON `rmu_student_mgt_db`.`students` (`stream_admitted`);
 
 -- -----------------------------------------------------
 -- Table `rmu_student_mgt_db`.`students_courses_registered`
@@ -139,7 +152,7 @@ CREATE TABLE IF NOT EXISTS `rmu_student_mgt_db`.`students_courses_registered` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `fk_academic_yearID` INT NOT NULL,
   `fk_semesterID` INT NOT NULL,
-  `fk_courseID` INT NOT NULL,
+  `fk_courseID` VARCHAR(10) NOT NULL,
   `fk_studentID` VARCHAR(10) NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_students_courses_registered_academic_years1`
@@ -149,7 +162,7 @@ CREATE TABLE IF NOT EXISTS `rmu_student_mgt_db`.`students_courses_registered` (
     FOREIGN KEY (`fk_semesterID`) REFERENCES `rmu_student_mgt_db`.`semesters` (`id`) 
     ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_students_courses_registered_courses1` 
-    FOREIGN KEY (`fk_courseID`) REFERENCES `rmu_student_mgt_db`.`courses` (`id`) 
+    FOREIGN KEY (`fk_courseID`) REFERENCES `rmu_student_mgt_db`.`courses` (`code`) 
     ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_students_courses_registered_students1` 
     FOREIGN KEY (`fk_studentID`) REFERENCES `rmu_student_mgt_db`.`students` (`index_number`) 
@@ -163,8 +176,8 @@ CREATE TABLE IF NOT EXISTS `rmu_student_mgt_db`.`staff` (
   `staff_number` VARCHAR(20) NOT NULL,
   `email` VARCHAR(255) NOT NULL UNIQUE,
   `password` VARCHAR(255) NOT NULL,
-  `fname` VARCHAR(255) NOT NULL,
-  `lname` VARCHAR(255) NOT NULL,
+  `first_name` VARCHAR(255) NOT NULL,
+  `last_name` VARCHAR(255) NOT NULL,
   `gender` VARCHAR(1) DEFAULT 'F',
   `role` VARCHAR(15) NOT NULL,
   `fk_deptID` INT NOT NULL,
@@ -173,21 +186,33 @@ CREATE TABLE IF NOT EXISTS `rmu_student_mgt_db`.`staff` (
     FOREIGN KEY (`fk_deptID`) REFERENCES `rmu_student_mgt_db`.`departments` (`id`) 
     ON DELETE NO ACTION ON UPDATE NO ACTION
 );
-CREATE INDEX staff_idx1 ON `rmu_student_mgt_db`.`staff` (`staff_number`, `email`, `fname`, `lname`, `role`);
+CREATE INDEX staff_email_idx1 ON `rmu_student_mgt_db`.`staff` (`email`);
+CREATE INDEX staff_fname_idx1 ON `rmu_student_mgt_db`.`staff` (`first_name`);
+CREATE INDEX staff_lname_idx1 ON `rmu_student_mgt_db`.`staff` (`last_name`);
+CREATE INDEX staff_gender_idx1 ON `rmu_student_mgt_db`.`staff` (`gender`);
+CREATE INDEX staff_role_idx1 ON `rmu_student_mgt_db`.`staff` (`role`);
 
 -- -----------------------------------------------------
 -- Table `rmu_student_mgt_db`.`lecturers_courses`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `rmu_student_mgt_db`.`lecturers_courses` (
   `id` INT NOT NULL AUTO_INCREMENT,
+  `fk_academic_yearID` INT NOT NULL,
+  `fk_semesterID` INT NOT NULL,
   `fk_staffID` VARCHAR(20) NOT NULL,
-  `fk_courseID` INT NOT NULL,
-  PRIMARY KEY (`id`),
+  `fk_courseID` VARCHAR(10) NOT NULL,
+  PRIMARY KEY (`id`),,
+  CONSTRAINT `lecturers_courses_academic_years1`
+    FOREIGN KEY (`fk_academic_yearID`) REFERENCES `rmu_student_mgt_db`.`academic_years` (`id`) 
+    ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `lecturers_courses_semesters1` 
+    FOREIGN KEY (`fk_semesterID`) REFERENCES `rmu_student_mgt_db`.`semesters` (`id`) 
+    ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_lecturers_courses_staff1`
     FOREIGN KEY (`fk_staffID`) REFERENCES `rmu_student_mgt_db`.`staff` (`id`) 
     ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_lecturers_courses_courses1`
-    FOREIGN KEY (`fk_courseID`) REFERENCES `rmu_student_mgt_db`.`courses` (`id`) 
+    FOREIGN KEY (`fk_courseID`) REFERENCES `rmu_student_mgt_db`.`courses` (`code`) 
     ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
@@ -201,11 +226,11 @@ CREATE TABLE IF NOT EXISTS `rmu_student_mgt_db`.`quizzes` (
   `pass_mark` DECIMAL(4,1) NOT NULL,
   `start_datetime` DATETIME NOT NULL,
   `duration` INT NOT NULL,
-  `fk_courseID` INT NOT NULL,
+  `fk_courseID` VARCHAR(10) NOT NULL,
   `fk_staffID` VARCHAR(20) NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_quizzes_courses1`
-    FOREIGN KEY (`fk_courseID`) REFERENCES `rmu_student_mgt_db`.`courses` (`id`) 
+    FOREIGN KEY (`fk_courseID`) REFERENCES `rmu_student_mgt_db`.`courses` (`code`) 
     ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_quizzes_staff1`
     FOREIGN KEY (`fk_staffID`) REFERENCES `rmu_student_mgt_db`.`staff` (`id`) 
@@ -223,11 +248,11 @@ CREATE TABLE IF NOT EXISTS `rmu_student_mgt_db`.`questions` (
   `question` LONGTEXT NOT NULL,
   `marks` INT NOT NULL,
   `type` VARCHAR(25) NOT NULL,
-  `fk_courseID` INT NOT NULL,
+  `fk_courseID` VARCHAR(10) NOT NULL,
   `fk_staffID` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_questions_courses1`
-    FOREIGN KEY (`fk_courseID`) REFERENCES `rmu_student_mgt_db`.`courses` (`id`) 
+    FOREIGN KEY (`fk_courseID`) REFERENCES `rmu_student_mgt_db`.`courses` (`code`) 
     ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_questions_staff1`
     FOREIGN KEY (`fk_staffID`) REFERENCES `rmu_student_mgt_db`.`staff` (`id`) 
