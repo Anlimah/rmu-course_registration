@@ -9,7 +9,7 @@
         </div>
         <div class="col-md-2" style="display: flex; align-items: center; justify-content:space-between">
             <div id="sign-out-1" style="text-align:center; display: relative">
-                <a href="?logout=true" style="color: #fff !important">Sign Out</a>
+                <a href="?logout=true" style="color: #fff !important; display: none">Sign Out</a>
             </div>
             <span class="open-sections-menu bi bi-list" style="font-size: 28px; color: #fff"></span>
         </div>
