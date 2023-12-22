@@ -266,7 +266,9 @@ CREATE TABLE IF NOT EXISTS `questions` (
     FOREIGN KEY (`fk_staffID`) REFERENCES `staff` (`id`) 
     ON DELETE NO ACTION ON UPDATE NO ACTION
 );
-CREATE INDEX questions_idx1 ON `questions` (`question`, `marks`, `type`);
+CREATE INDEX question_questions_idx1 ON `questions` (`question`);
+CREATE INDEX marks_questions_idx1 ON `questions` (`marks`);
+CREATE INDEX type_questions_idx1 ON `questions` (`type`);
 
 -- -----------------------------------------------------
 -- Table `answers`
@@ -281,7 +283,8 @@ CREATE TABLE IF NOT EXISTS `answers` (
     FOREIGN KEY (`fk_questID`) REFERENCES `questions` (`id`) 
     ON DELETE NO ACTION ON UPDATE NO ACTION
 );
-CREATE INDEX answers_idx1 ON `answers` (`option`, `right_answer`);
+CREATE INDEX option_answers_idx1 ON `answers` (`option`);
+CREATE INDEX right_answer_answers_idx1 ON `answers` (`right_answer`);
 
 -- -----------------------------------------------------
 -- Table `quizzes_questions`
