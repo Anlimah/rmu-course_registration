@@ -11,7 +11,6 @@ if (!isset($_SESSION["_start"])) {
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="assets/css/main.css">
     <title>RMU Online Applicatioin Portal</title>
     <?php require_once("inc/apply-head-section.php") ?>
 </head>
@@ -34,12 +33,12 @@ if (!isset($_SESSION["_start"])) {
                                 <hr style="width: 100%">
                                 <form id="appLoginForm" style="margin: 0px 12% !important;">
                                     <div class="mb-4">
-                                        <label class="form-label" for="app_number">Index Number</label>
-                                        <input class="form-control form-control-login" type="text" id="app_number" name="app_number" placeholder="Application Number">
+                                        <label class="form-label" for="index_number">Index Number</label>
+                                        <input class="form-control form-control-login" type="text" id="index_number" name="index_number" placeholder="Index Number">
                                     </div>
                                     <div class="mb-4">
-                                        <label class="form-label" for="pin_code">Password</label>
-                                        <input class="form-control form-control-login" type="password" id="pin_code" name="pin_code" placeholder="PIN Code">
+                                        <label class="form-label" for="password">Password</label>
+                                        <input class="form-control form-control-login" type="password" id="password" name="password" placeholder="Password">
                                     </div>
                                     <div class="mb-4">
                                         <button type="submit" class="btn btn-primary form-btn-login">Login</button>
@@ -66,37 +65,21 @@ if (!isset($_SESSION["_start"])) {
                 $("#signout-div").hide();
             }
 
-            $("input").on("click", function() {
-                $(this).select();
-            });
-
             $("#appLoginForm").on("submit", function(e) {
 
-                /**
-                 *  Pregmatch: 
-                 *  1. Only numbers allowed
-                 *  2. Min and Max of 8
-                 */
-                if ($("#app_number").val().length > 12 || $("#app_number").val().length < 8) {
-                    alert("Invalid application number or PIN");
+                if ($("#index_number").val().length !== 10) {
+                    alert("Invalid index number!");
                     return;
                 }
 
-
-                /**
-                 *  Pregmatch: 
-                 *  1. Alpha numeric allowed
-                 *  2. Min and Max of 9
-                 *  3. Case sensitive: only upper cases
-                 */
-                if ($("#pin_code").val().length < 9 || $("#pin_code").val().length > 9) {
-                    alert("Invalid application number or PIN");
+                if ($("#password").val().length < 8 || $("#password").val().length >= 16) {
+                    alert("Invalid password!");
                     return;
                 }
 
                 $.ajax({
                     type: "POST",
-                    url: "api/appLogin",
+                    url: "api/studentLogin",
                     data: new FormData(this),
                     contentType: false,
                     cache: false,

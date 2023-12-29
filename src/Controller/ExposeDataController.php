@@ -10,6 +10,16 @@ class ExposeDataController
         return rand(pow(10, $digits - 1), pow(10, $digits) - 1);
     }
 
+    public function validateIndexNumber($input)
+    {
+        if (empty($input)) die(array("success" => false, "message" => "Index number required!"));
+        if (strlen($input) !== 10) die(array("success" => false, "message" => "Invalid index number!"));
+        $user_input = htmlentities(htmlspecialchars($input));
+        $validated_input = (bool) preg_match('/^[A-Za-z0-9]/', $user_input);
+        if ($validated_input) return $input;
+        die(array("success" => false, "message" => "Invalid index number!"));
+    }
+
     public function validateEmail($input): mixed
     {
         if (empty($input)) return array("success" => false, "message" => "Input required!");
@@ -22,20 +32,21 @@ class ExposeDataController
 
     public function validatePassword($input)
     {
-        if (empty($input)) return array("success" => false, "message" => "Input required!");
+        if (empty($input)) return array("success" => false, "message" => "Password required!");
+        if (strlen($input) < 8 || strlen($input) > 16) die(array("success" => false, "message" => "Invalid password length!"));
         $user_input = htmlentities(htmlspecialchars($input));
         $validated_input = (bool) preg_match('/^[A-Za-z0-9()+@#.-_=$&!`]/', $user_input);
-        if ($validated_input) return $user_input;
-        return array("success" => false, "message" => "Invalid input!");
+        if ($validated_input) return $input;
+        return array("success" => false, "message" => "Invalid password!");
     }
 
     public function validateInputTextNumber($input)
     {
-        if (empty($input)) return array("success" => false, "message" => "Input required");
+        if (empty($input)) die(array("success" => false, "message" => "Input required"));
         $user_input = htmlentities(htmlspecialchars($input));
         $validated_input = (bool) preg_match('/^[A-Za-z0-9]/', $user_input);
-        if ($validated_input) return array("success" => true, "message" => $user_input);
-        return array("success" => false, "message" => "invalid");
+        if ($validated_input) return $user_input;
+        die(array("success" => false, "message" => "invalid"));
     }
 
     public function validateInputTextOnly($input)

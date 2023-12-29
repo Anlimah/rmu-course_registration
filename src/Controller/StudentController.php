@@ -5,7 +5,7 @@ namespace Src\Controller;
 use Src\Controller\ExposeDataController;
 use Src\System\DatabaseConnector;
 
-class UsersController
+class StudentController
 {
     private $dm;
     private $expose;
@@ -16,7 +16,7 @@ class UsersController
         $this->expose = new ExposeDataController();
     }
 
-    public function verifyLoginDetails($app_number, $pin)
+    public function loginUser($app_number, $pin)
     {
         $sql = "SELECT al.`pin`, al.`id`, al.`purchase_id`, fc.`declaration`, pd.`form_id` 
                 FROM `applicants_login` AS al, `form_sections_chek` AS fc, `purchase_detail` AS pd 
@@ -30,6 +30,4 @@ class UsersController
 
         return 0;
     }
-
-    
 }
